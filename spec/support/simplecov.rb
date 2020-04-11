@@ -5,4 +5,3 @@ SimpleCov.start 'rails' do
   add_filter '/spec/' # for rspec
   add_filter '/test/' # for minitest
 end
-
