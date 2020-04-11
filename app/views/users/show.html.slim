@@ -1,0 +1,6 @@
+.row 
+  .col-md-4
+    .user_info
+      h1 = @user.first_name @user.last_name
+  div = link_to 'Edit user profile', user_edit_path |
+  div = link_to "Delete user",  @user, method: :delete, data: { confirm: "You sure?" }

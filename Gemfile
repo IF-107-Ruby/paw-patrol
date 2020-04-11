@@ -15,7 +15,6 @@ gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
 gem 'simple_form'
 gem 'slim'
-gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'will_paginate'

@@ -1,0 +1,6 @@
+= simple_form_for @user do |f| 
+  = f.input :first_name, label: 'First Name', placeholder: 'Your name', input_html: { class: 'form-control' }
+  = f.input :last_name, label: 'Last Name', placeholder: 'Your last name', input_html: { class: 'form-control' }
+  = f.input :email, label: 'Email', placeholder: 'user@domain.com', input_html: { class: 'form-control' }
+  = f.input :is_admin, label: 'Is Admin?', input_html: { class: 'form-control' }
+  = f.submit, yield(:button_text), input_html: { class: 'btn btn-primary' }
