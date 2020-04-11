@@ -4,7 +4,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = Company.find(params[:id])
+    @company = load_company
   end
 
   def new
@@ -22,11 +22,11 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    @company = Company.find(params[:id])
+    @company = load_company
   end
 
   def update
-    @company = Company.find(params[:id])
+    @company = load_company
     if @company.update_attributes(company_params)
       flash[:success] = 'Company profile updated.'
       redirect_to @company
@@ -36,7 +36,7 @@ class CompaniesController < ApplicationController
   end
 
   def destroy
-    Company.find(params[:id]).destroy
+    load_company.destroy
     redirect_to [:companies]
   end
 
@@ -44,5 +44,9 @@ class CompaniesController < ApplicationController
 
   def company_params
     params.require(:company).permit(:name, :description, :email, :phone)
+  end
+
+  def load_company
+    Company.find(params[:id])
   end
 end
