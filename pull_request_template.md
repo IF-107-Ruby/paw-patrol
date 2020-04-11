@@ -2,7 +2,11 @@
 
 ## Changes description
 
-## Tests added:
-- [ ] Integration
+## Screnshots of the added pages
+
+## Check list:
+- [ ] Integration Tests
 - [ ] Functional
 - [ ] Unit
+- [ ] Factories
+- [ ] Updated seed file
