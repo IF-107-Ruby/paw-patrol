@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :company do
-    name { 'My Company' }
-    description { 'About my company' }
-    sequence(:email) { |n| "company#{n}@example.com" }
-    phone { 'My phone' }
+    name { 'Test Company' }
+    description { 'This company is created for test purposes.' }
+    sequence(:email) { |n| "company#{n}@example.com"}
+    sequence(:phone) { |n| "+38091#{n}11111"}
   end
 end

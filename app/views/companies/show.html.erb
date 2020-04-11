@@ -1,9 +1,0 @@
-<h1><%= @company.name %></h1>
-<div>
-  <h3>Contact information:</h3>
-  <div>Email: <%= @company.email%></div>
-  <div>Phone number: <%= @company.phone%></div>
-</div>
-<%= link_to 'Edit company profile', [:edit, @company]  %>
-<%= link_to "Delete company",  @company, method: :delete,
-                                       data: { confirm: "You sure?" } %>
