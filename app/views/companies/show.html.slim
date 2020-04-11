@@ -1,0 +1,13 @@
+h1 = @company.name
+p = @company.description
+
+div 
+  div 
+    | Email:
+    = @company.email
+  div
+    | Phone number:
+    = @company.phone
+
+  div = link_to 'Edit company profile', [:edit, @company]
+  div = link_to "Delete company",  @company, method: :delete, data: { confirm: "You sure?" }
