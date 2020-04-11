@@ -3,4 +3,4 @@ cache: bundler
 language: ruby
 script:
   - bundle exec rake
-  - bundle exec rubocop
+  - bundle exec rubocop --require rubocop-rails
