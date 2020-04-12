@@ -10,4 +10,4 @@ div
     = @company.phone
 
   div = link_to 'Edit company profile', [:edit, @company]
-  div = link_to "Delete company",  @company, method: :delete, data: { confirm: "You sure?" }
+  div = link_to 'Delete company',  @company, method: :delete, data: { confirm: "You sure?" }
