@@ -42,6 +42,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'webdrivers'
+  gem 'rails-controller-testing'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
