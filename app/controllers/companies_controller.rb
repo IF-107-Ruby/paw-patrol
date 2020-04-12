@@ -1,10 +1,11 @@
 class CompaniesController < ApplicationController
+  before_action :load_company, only: [:show, :edit, :update, :destroy]
+
   def index
     @companies = Company.all
   end
 
   def show
-    @company = load_company
   end
 
   def new
@@ -22,11 +23,9 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    @company = load_company
   end
 
   def update
-    @company = load_company
     if @company.update_attributes(company_params)
       flash[:success] = 'Company profile updated.'
       redirect_to @company
@@ -36,7 +35,7 @@ class CompaniesController < ApplicationController
   end
 
   def destroy
-    load_company.destroy
+    @company.destroy
     redirect_to [:companies]
   end
 
@@ -47,6 +46,6 @@ class CompaniesController < ApplicationController
   end
 
   def load_company
-    Company.find(params[:id])
+    @company = Company.find(params[:id])
   end
 end
