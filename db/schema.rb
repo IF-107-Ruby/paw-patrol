@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20_200_411_055_059) do
 
   create_table "units", force: :cascade do |t|
     t.string "name", null: false
-    t.string "qr_link", null: false
+    t.string "qr_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
