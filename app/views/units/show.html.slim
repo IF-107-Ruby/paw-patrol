@@ -1,0 +1,6 @@
+h1
+ = @unit.name
+
+div
+  div = link_to 'Edit unit information', [:edit, @unit]
+  div = link_to "Delete unit",  @unit, method: :delete, data: { confirm: "You sure?" }
