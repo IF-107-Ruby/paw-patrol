@@ -8,11 +8,13 @@ feature "companies" do
     fill_in 'Company name', with: 'Test company'
     fill_in 'Description', with: 'About test company'
     fill_in 'Email', with: 'comp@example.com'
+    fill_in 'Phone', with: '0991122333'
     click_on 'Create Company'
     
     expect(page).to have_text('Company created.')
     expect(page).to have_content('About test company')
     expect(page).to have_content('comp@example.com')
+    expect(page).to have_content('0991122333')
     expect(page).to have_css('h1', text: 'Test company')
   end
 
