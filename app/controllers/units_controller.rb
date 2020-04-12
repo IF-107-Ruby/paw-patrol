@@ -4,7 +4,7 @@ class UnitsController < ApplicationController
   end
 
   def show
-    @unit = Unit.find(params[id])
+    @unit = read_unit_by_id
   end
 
   def new
@@ -23,11 +23,11 @@ class UnitsController < ApplicationController
   end
 
   def edit
-    @unit = Unit.find(params[id])
+    @unit = read_unit_by_id
   end
 
   def update
-    @unit = Unit.find(params[id])
+    @unit = read_unit_by_id
     if @unit.update_attributes(unit_params)
       flash[:success] = 'Unit information updated.'
       redirect_to @unit
@@ -38,11 +38,12 @@ class UnitsController < ApplicationController
   end
 
   def destroy
-    @unit = Unit.find(params[id])
+    @unit = read_unit_by_id
     if @unit.destroy
       flash[:success] = 'Unit deleted successfully.'
       redirect_to units_path
     else
+      flash[:danger] = 'Cannot delete unit.'
       render 'show'
     end
   end
@@ -51,5 +52,9 @@ class UnitsController < ApplicationController
 
   def unit_params
     params.require(:unit).permit(:name)
+  end
+
+  def read_unit_by_id
+    Unit.find(params[:id])
   end
 end
