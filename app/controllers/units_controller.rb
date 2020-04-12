@@ -1,10 +1,11 @@
 class UnitsController < ApplicationController
+  before_action :read_unit_by_id, only: [:show, :edit, :update, :destroy]
+
   def index
     @units = Unit.all
   end
 
   def show
-    @unit = read_unit_by_id
   end
 
   def new
@@ -23,11 +24,9 @@ class UnitsController < ApplicationController
   end
 
   def edit
-    @unit = read_unit_by_id
   end
 
   def update
-    @unit = read_unit_by_id
     if @unit.update_attributes(unit_params)
       flash[:success] = 'Unit information updated.'
       redirect_to @unit
@@ -38,7 +37,6 @@ class UnitsController < ApplicationController
   end
 
   def destroy
-    @unit = read_unit_by_id
     if @unit.destroy
       flash[:success] = 'Unit deleted successfully.'
       redirect_to units_path
@@ -55,6 +53,6 @@ class UnitsController < ApplicationController
   end
 
   def read_unit_by_id
-    Unit.find(params[:id])
+    @unit = Unit.find(params[:id])
   end
 end
