@@ -5,8 +5,7 @@ class UnitsController < ApplicationController
     @units = Unit.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @unit = Unit.new
@@ -23,8 +22,7 @@ class UnitsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @unit.update_attributes(unit_params)
@@ -42,7 +40,7 @@ class UnitsController < ApplicationController
       redirect_to units_path
     else
       flash[:danger] = 'Cannot delete unit.'
-      render 'show'
+      render unit_path(@unit)
     end
   end
 
