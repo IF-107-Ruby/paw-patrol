@@ -1,11 +1,11 @@
 = simple_form_for company do |f| 
   .form-group
-    = f.input :name, input_html: { class: 'form-control' }, label: 'Company name'
+    = f.input :name, input_html: { class: 'form-control' }, label: 'Company name', error: false
   .form-group
-    = f.input :description, input_html: { class: 'form-control' }
+    = f.input :description, input_html: { class: 'form-control' }, error: false
   .form-group
-    = f.input :email, input_html: { class: 'form-control' }
+    = f.input :email, input_html: { class: 'form-control' }, error: false
   .form-group
-    = f.input :phone, input_html: { class: 'form-control' }
+    = f.input :phone, input_html: { class: 'form-control' }, error: false
   .form-group
     = f.submit submit_label, class: 'btn btn-primary'

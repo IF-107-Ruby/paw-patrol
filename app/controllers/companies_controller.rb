@@ -14,9 +14,10 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
     if @company.save
-      flash[:success] = 'Company created.'
+      flash[:success] = 'Company has been created.'
       redirect_to @company
     else
+      flash[:danger] = "Company was not created. #{error_message(@company)}."
       render 'new'
     end
   end
@@ -25,15 +26,17 @@ class CompaniesController < ApplicationController
 
   def update
     if @company.update(company_params)
-      flash[:success] = 'Company profile updated.'
+      flash[:success] = 'Company profile has been updated.'
       redirect_to @company
     else
+      flash[:danger] = "Company update failed. #{error_message(@company)}."
       render 'edit'
     end
   end
 
   def destroy
     @company.destroy
+    flash[:success] = 'Company was deleted.'
     redirect_to [:companies]
   end
 
@@ -45,5 +48,9 @@ class CompaniesController < ApplicationController
 
   def load_company
     @company = Company.find(params[:id])
+  end
+
+  def error_message(company)
+    company.errors.full_messages.join('. ')
   end
 end

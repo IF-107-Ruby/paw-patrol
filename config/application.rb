@@ -16,5 +16,8 @@ module PawPatrol
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.generators.test_framework :rspec
+    config.action_view.field_error_proc = proc do |html_tag|
+      %(<div class="field_with_errors">#{html_tag}</div>).html_safe
+    end
   end
 end
