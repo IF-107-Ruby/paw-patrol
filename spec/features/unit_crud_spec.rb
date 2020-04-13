@@ -5,21 +5,21 @@ feature 'unit crud' do
 
   scenario 'successful creating unit' do
     visit new_unit_path
-    fill_in 'Name', with: 'Unit creation test'
+    fill_in 'Unit name', with: 'Unit creation test'
     click_on 'Create Unit'
 
     expect(page).to have_text('Unit created successfully.')
-    expect(page).to have_css('h1', text: 'Unit creation test')
+    expect(page).to have_css('h2', text: 'Unit creation test')
   end
 
   scenario 'successful updating unit' do
     visit unit_path(unit)
     click_on 'Edit unit information'
-    fill_in 'Name', with: 'Unit updating test'
-    click_on 'Update information'
+    fill_in 'Unit name', with: 'Unit updating test'
+    click_on 'Save changes'
 
     expect(page).to have_text('Unit information updated.')
-    expect(page).to have_css('h1', text: 'Unit updating test')
+    expect(page).to have_css('h2', text: 'Unit updating test')
   end
 
   scenario 'successful deleting unit' do
