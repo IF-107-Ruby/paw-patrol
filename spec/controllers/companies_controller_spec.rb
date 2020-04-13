@@ -80,7 +80,7 @@ describe CompaniesController, type: :controller do
     context 'with invalid params' do
       it 'does not change company' do
         expect { put :update, params: { id: company.id, company: invalid_params } }
-          .not_to change { company.reload.name }
+          .not_to change(company, :name)
       end
     end
   end
