@@ -30,4 +30,12 @@ ActiveRecord::Schema.define(version: 20_200_411_125_438) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
+  
+  create_table 'feedbacks', force: :cascade do |t|
+    t.string 'user_full_name'
+    t.string 'email'
+    t.text 'describe'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
 end
