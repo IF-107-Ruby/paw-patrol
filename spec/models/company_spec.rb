@@ -7,15 +7,8 @@ describe Company, type: :model do
       expect(company).to be_valid
     end
 
-    it 'is not valid without a company name' do
-      company.name = nil
-      expect(company).to_not be_valid
-    end
-
-    it 'is not valid without an email' do
-      company.email = nil
-      expect(company).to_not be_valid
-    end
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:email) }
 
     it 'is not valid with incorrect phone number' do
       company.phone = '12312'
