@@ -1,8 +1,17 @@
 dist: xenial
-cache: bundler
+cache:
+  bundler: true
+  yarn: true
 language: ruby
-script:
+global:
+  - RAILS_ENV=test
+install:
+  - travis_retry nvm install 13.5.0
+  - bundle
+  - yarn
+before_script:
   - RAILS_ENV=test bundle exec rails webpacker:compile
+script:
   - bundle exec rake
   - bundle exec rubocop --require rubocop-rails
 services:
