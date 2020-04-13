@@ -1,12 +1,9 @@
-.simple_form .error {
-  color: red;
+.simple_form {
+  abbr[title] {
+    display: none;
+    text-decoration: none;
+  }
+  label.required::after {
+    content: '*'
+  } 
 }
-
-abbr[title] {
-  display: none;
-  text-decoration: none;
-}
-
-label.required::after {
-  content: '*'
-} 
