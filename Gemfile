@@ -5,17 +5,17 @@ ruby '2.7.1'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4.1'
-gem 'jquery-rails'
-gem 'slim'
-gem 'simple_form'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'sass-rails', '>= 6'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'slim'
+gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-
 gem 'rubocop-rails', require: false
 
 group :development, :test do
