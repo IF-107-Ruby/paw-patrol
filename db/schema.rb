@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_13_070244) do
+ActiveRecord::Schema.define(version: 2020_04_13_072154) do
 
   create_table 'feedbacks', force: :cascade do |t|
     t.string 'user_full_name'
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_04_13_070244) do
     t.text 'describe'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['email'], name: 'index_feedbacks_on_email', unique: true
   end
 
 end
