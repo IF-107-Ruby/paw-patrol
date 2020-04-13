@@ -1,10 +1,3 @@
-h1 Update unit
+h1.font-weight-normal Update unit
 
-= form_for @unit do |f|
-  .form-group.row
-    = f.label :name, class: 'col-sm-2 col-form-label'
-    .col-sm-6
-      = f.text_field :name, class: 'form-control'
-  .form-group.row
-    .col-sm-10
-      = f.submit 'Update information', class: 'btn btn-primary'
+= render 'unit_form', unit: @unit, submit_label: 'Save changes'
