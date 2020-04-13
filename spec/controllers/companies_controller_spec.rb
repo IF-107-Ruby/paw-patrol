@@ -34,9 +34,8 @@ describe CompaniesController, type: :controller do
   describe 'POST#create' do
     context 'with valid params' do
       it 'creates a new company' do
-        expect {
-          post :create, params: { company: valid_params}
-        }.to change(Company, :count).by(1)
+        expect { post :create, params: { company: valid_params } }
+          .to change(Company, :count).by(1)
       end
       it 'redirects to the created company' do
         post :create, params: { company: valid_params }
@@ -46,12 +45,10 @@ describe CompaniesController, type: :controller do
     end
     context 'with invalid params' do
       it 'do not create a new company' do
-        expect {
-          post :create, params: { company: invalid_params }
-        }.not_to change(Company, :count)
+        expect { post :create, params: { company: invalid_params } }
+          .not_to change(Company, :count)
       end
     end
-
   end
 
   describe 'GET#edit' do
@@ -67,8 +64,8 @@ describe CompaniesController, type: :controller do
   describe 'PUT#update' do
     context 'with valid params' do
       before do
-        put :update, params: { id: company.id, 
-          company: valid_params.merge!(name: 'Another company') }
+        put :update, params: { id: company.id,
+                               company: valid_params.merge!(name: 'Another company') }
       end
       it 'assigns the company' do
         expect(assigns(:company)).to eq(company)
@@ -82,9 +79,8 @@ describe CompaniesController, type: :controller do
     end
     context 'with invalid params' do
       it 'does not change company' do
-        expect do
-          put :update, params: { id: company.id, company: invalid_params }
-        end.not_to change { company.reload.name }
+        expect { put :update, params: { id: company.id, company: invalid_params } }
+          .not_to change { company.reload.name }
       end
     end
   end

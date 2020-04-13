@@ -1,12 +1,11 @@
 class CompaniesController < ApplicationController
-  before_action :load_company, only: [:show, :edit, :update, :destroy]
+  before_action :load_company, only: %i[show edit update destroy]
 
   def index
     @companies = Company.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @company = Company.new
@@ -22,11 +21,10 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if @company.update_attributes(company_params)
+    if @company.update(company_params)
       flash[:success] = 'Company profile updated.'
       redirect_to @company
     else
