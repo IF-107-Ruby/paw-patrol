@@ -18,7 +18,7 @@ RSpec.describe FeedbacksController, type: :controller do
     it { is_expected.to have_http_status(:success) }
     it { is_expected.to render_template('show') }
   end
-  
+
   describe 'POST #create' do
     context 'with valid params' do
       before { post :create, params: { feedback: feedback_valid_params } }
