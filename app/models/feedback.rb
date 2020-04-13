@@ -9,6 +9,8 @@ class Feedback < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :describe, presence: true, length: { maximum: 255 }
 
+  default_scope { order(created_at: :desc) }
+
   private
 
   def downcase_email
