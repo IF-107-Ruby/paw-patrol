@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    get_user
+    @user = get_user
   end
   
   def new
