@@ -7,10 +7,6 @@ class FeedbacksController < ApplicationController
 
   def show; end
 
-  def new
-    @feedback = Feedback.new
-  end
-
   def create
     @feedback = Feedback.new(feedback_params)
     if @feedback.save
@@ -18,7 +14,7 @@ class FeedbacksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:warning] = 'Feedback is not sent!'
-      render :new
+      render 'home/index'
     end
   end
 
