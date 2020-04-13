@@ -252,11 +252,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-<<<<<<< HEAD
-=======
     sqlite3 (1.4.2)
     temple (0.8.2)
->>>>>>> Bootstrap reconecting and landing layout perfomance
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
