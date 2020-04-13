@@ -1,4 +1,4 @@
-h2 Contact us
+h3.font-weight-light Contact us
 = form_for feedback do |f|
   = render 'shared/error_messages', object: f.object
   .row.mt-3
@@ -17,4 +17,4 @@ h2 Contact us
       = f.text_area :describe, class: 'form-control'
   .row.mt-3
     .col-12
-      = f.submit class: 'btn btn-light float-right'
+      = f.submit 'Send Feedback', class: 'btn btn-light float-right'
