@@ -2,5 +2,6 @@ dist: xenial
 cache: bundler
 language: ruby
 script:
+  - RAILS_ENV=test bundle exec rails webpacker:compile
   - bundle exec rake
   - bundle exec rubocop --require rubocop-rails
