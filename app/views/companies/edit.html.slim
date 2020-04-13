@@ -1,14 +1,3 @@
 h1 Update company profile
 
-
-= simple_form_for @company do |f| 
-  .form-group
-    = f.input :name, input_html: { class: 'form-control' }, label: 'Company name'
-  .form-group
-    = f.input :description, input_html: { class: 'form-control' }
-  .form-group
-    = f.input :email, input_html: { class: 'form-control' }
-  .form-group
-    = f.input :phone, input_html: { class: 'form-control' }
-  .form-group
-    = f.submit 'Save changes', class: 'btn btn-primary'
+= render 'form', company: @company, submit_label: 'Save changes'
