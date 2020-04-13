@@ -8,4 +8,3 @@ end
   name = "test_unit_#{n}"
   Unit.create(name: name)
 end
-

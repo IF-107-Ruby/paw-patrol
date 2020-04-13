@@ -1,5 +1,5 @@
 class UnitsController < ApplicationController
-  before_action :read_unit_by_id, only: [:show, :edit, :update, :destroy]
+  before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
     @units = Unit.all
@@ -25,7 +25,7 @@ class UnitsController < ApplicationController
   def edit; end
 
   def update
-    if @unit.update_attributes(unit_params)
+    if @unit.update(unit_params)
       flash[:success] = 'Unit information updated.'
       redirect_to @unit
     else

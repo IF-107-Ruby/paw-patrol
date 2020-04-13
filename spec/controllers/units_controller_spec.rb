@@ -34,9 +34,9 @@ RSpec.describe UnitsController, type: :controller do
   describe 'POST#create' do
     context 'with valid params' do
       it 'creates a new unit' do
-        expect {
+        expect do
           post :create, params: { unit: valid_params }
-        }.to change(Unit, :count).by(1)
+        end.to change(Unit, :count).by(1)
       end
 
       it 'redirects to a new unit' do
@@ -48,9 +48,9 @@ RSpec.describe UnitsController, type: :controller do
     end
     context 'with invalid params' do
       it 'do not create new unit' do
-        expect {
+        expect do
           post :create, params: { unit: invalid_params }
-        }.not_to change(Unit, :count)
+        end.not_to change(Unit, :count)
       end
       it 'render new page with flash' do
         post :create, params: { unit: invalid_params }
@@ -91,12 +91,11 @@ RSpec.describe UnitsController, type: :controller do
     end
     context 'with invalid params' do
       it 'do not update unit' do
-        expect do
-          put :update, params: { id: unit.id, unit: invalid_params }
-        end.not_to change { unit.reload.name }
+        expect { put :update, params: { id: unit.id, unit: invalid_params } }
+          .not_to change { unit.reload.name }
       end
       it 'render edit page with flash' do
-        put :update, params: { id: unit.id,  unit: invalid_params }
+        put :update, params: { id: unit.id, unit: invalid_params }
         expect(response).to have_http_status(:success)
         expect(flash[:danger]).to be_present
       end
@@ -105,9 +104,9 @@ RSpec.describe UnitsController, type: :controller do
 
   describe 'DELETE#destroy' do
     it 'should delete unit' do
-      expect {
+      expect do
         delete :destroy, params: { id: unit.id }
-      }.to change(Unit, :count).by(-1)
+      end.to change(Unit, :count).by(-1)
     end
     it 'should redirect to units' do
       delete :destroy, params: { id: unit.id }
