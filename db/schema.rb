@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2020_04_13_130249) do
 
-  create_table "feedbacks", force: :cascade do |t|
-    t.string "user_full_name"
-    t.string "email"
-    t.text "describe"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension 'plpgsql'
+
+  create_table 'feedbacks', force: :cascade do |t|
+    t.string 'user_full_name'
+    t.string 'email'
+    t.text 'describe'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
 end
