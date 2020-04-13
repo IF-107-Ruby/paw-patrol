@@ -7,4 +7,4 @@ script:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database paw_patrol_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
