@@ -14,7 +14,12 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
-    redirect_to @user if @user.save
+    if @user.save
+    flash[:success] = 'User profile created'
+    redirect_to @user 
+    else
+      render 'new'
+    end
   end
 
   def edit

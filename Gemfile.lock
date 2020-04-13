@@ -116,6 +116,7 @@ GEM
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
+    jaro_winkler (1.5.4-java)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jquery-rails (4.3.5)
@@ -280,6 +281,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2019.3)
+      tzinfo (>= 1.0.0)
     unicode-display_width (1.7.0)
     web-console (4.0.1)
       actionview (>= 6.0.0)
@@ -317,7 +320,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.4.1)
   byebug
-  capybara (>= 2.15)
+  capybara (~> 3.32, >= 3.32.1)
   database_cleaner-active_record
   factory_bot_rails
   faker!
