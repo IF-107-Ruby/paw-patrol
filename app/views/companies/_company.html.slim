@@ -1,12 +1,6 @@
-h2 = link_to company.name, company
-p = company.description 
-
-div
-  h4 Contact information:
-  div 
-    | Email: 
-    = company.email
-  div 
-    | Phone number: 
-    = company.phone
-
+tbody
+  tr  
+    th = link_to company.name, company
+    th = company.description
+    th = company.email
+    th = company.phone

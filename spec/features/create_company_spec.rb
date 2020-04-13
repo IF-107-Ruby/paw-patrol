@@ -14,7 +14,7 @@ feature 'companies' do
     expect(page).to have_content('About test company')
     expect(page).to have_content('comp@example.com')
     expect(page).to have_content('0991122333')
-    expect(page).to have_css('h1', text: 'Test company')
+    expect(page).to have_css('h2', text: 'Test company')
   end
 
   scenario 'successfully update a company' do
@@ -23,7 +23,7 @@ feature 'companies' do
     fill_in 'Company name', with: 'Updated company name'
     click_on 'Save changes'
     expect(page).to have_text('Company profile updated.')
-    expect(page).to have_css('h1', text: 'Updated company name')
+    expect(page).to have_css('h2', text: 'Updated company name')
   end
 
   scenario 'successfully delete a company' do

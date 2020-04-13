@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_055059) do
-
-  create_table "companies", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.string "email", null: false
-    t.string "phone"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+ActiveRecord::Schema.define(version: 20_200_411_055_059) do
+  create_table 'companies', force: :cascade do |t|
+    t.string 'name', null: false
+    t.text 'description'
+    t.string 'email', null: false
+    t.string 'phone'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['email'], name: 'index_companies_on_email', unique: true
   end
-
 end

@@ -8,5 +8,7 @@ class CreateCompanies < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index :companies, :email, unique: true
   end
 end
