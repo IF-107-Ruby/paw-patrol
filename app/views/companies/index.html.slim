@@ -1,14 +1,15 @@
 h2 Companies
 
-table class='table table-hover'
-  thead
-    tr
-      th class='col-lg-3' 
-        h4 Company name
-      th.col-lg-5 
-        h4 Description
-      th.col-lg-2
-        h4 Email
-      th.col-lg-2 
-        h4 Phone number
-  = render @companies 
+.table-responsive
+  table class='table table-hover'
+    thead 
+      tr
+        th
+          h4 Company name
+        th 
+          h4 Description
+        th
+          h4 Email
+        th
+          h4 Phone number
+    = render @companies 
