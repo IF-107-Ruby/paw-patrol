@@ -18,14 +18,7 @@ RSpec.describe FeedbacksController, type: :controller do
     it { is_expected.to have_http_status(:success) }
     it { is_expected.to render_template('show') }
   end
-
-  describe 'GET #new' do
-    subject { get :new }
-
-    it { is_expected.to have_http_status(:success) }
-    it { is_expected.to render_template('new') }
-  end
-
+  
   describe 'POST #create' do
     context 'with valid params' do
       before { post :create, params: { feedback: feedback_valid_params } }
@@ -42,7 +35,7 @@ RSpec.describe FeedbacksController, type: :controller do
       it { is_expected.to set_flash.now[:warning] }
       it { is_expected.not_to set_flash[:success] }
 
-      it { is_expected.to render_template('new') }
+      it { is_expected.to render_template('home/index') }
     end
   end
 
