@@ -16,5 +16,5 @@
           span
             =< @company.phone
     .col class='edit-delete-links justify-content-end'
-      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company]
-      div= link_to icon('fas', 'trash-alt', class: 'strong'), @company, method: :delete, data: { confirm: "You sure?" }
+      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company], class: 'edit-link'
+      div = link_to icon('fas', 'trash-alt', class: 'strong'), @company, method: :delete, data: { confirm: "You sure?" }, class: 'delete-link'
