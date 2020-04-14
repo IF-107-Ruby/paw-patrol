@@ -1,6 +1,14 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
-body{
-  margin-top: 80px;
+body {
+  padding-top: 80px;
+}
+
+.table-responsive {
+  tbody {
+    th {
+      font-weight: 400;
+    }
+  }
 }
