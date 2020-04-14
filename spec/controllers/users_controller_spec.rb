@@ -34,9 +34,9 @@ describe UsersController, type: :controller do
   describe 'POST#create' do
     context 'with valid params' do
       it 'creates a new user' do
-        expect {
-          post :create, params: { user: valid_params}
-        }.to change(User, :count).by(1)
+        expect do
+          post :create, params: { user: valid_params }
+        end.to change(User, :count).by(1)
       end
       it 'redirects to the created user' do
         post :create, params: { user: valid_params }
@@ -46,12 +46,11 @@ describe UsersController, type: :controller do
     end
     context 'with invalid params' do
       it 'do not create a new user' do
-        expect {
+        expect do
           post :create, params: { user: invalid_params }
-        }.not_to change(User, :count)
+        end.not_to change(User, :count)
       end
     end
-
   end
 
   describe 'GET#edit' do
@@ -67,8 +66,10 @@ describe UsersController, type: :controller do
   describe 'PUT#update' do
     context 'with valid params' do
       before do
-        put :update, params: { id: user.id, 
-          user: valid_params.merge!(first_name: 'Another', last_name: 'User', is_admin: 1) }
+        put :update, params: { id: user.id,
+                               user: valid_params.merge!(first_name: 'Another',
+                                                         last_name: 'User',
+                                                         is_admin: 1) }
       end
       it 'assigns the user' do
         expect(assigns(:user)).to eq(user)
@@ -101,4 +102,4 @@ describe UsersController, type: :controller do
       expect(response).to redirect_to(users_path)
     end
   end
-end 
+end

@@ -10,18 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20_200_413_072_154) do
+=======
+ActiveRecord::Schema.define(version: 20_200_411_125_438) do
+>>>>>>> commit after cubocop scaning
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "companies", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.string "email", null: false
-    t.string "phone"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_companies_on_email", unique: true
+  create_table 'companies', force: :cascade do |t|
+    t.string 'name', null: false
+    t.text 'description'
+    t.string 'email', null: false
+    t.string 'phone'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 
   create_table 'feedbacks', force: :cascade do |t|
@@ -39,13 +43,12 @@ ActiveRecord::Schema.define(version: 20_200_413_072_154) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.integer "is_admin"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'email'
+    t.integer 'is_admin'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end
