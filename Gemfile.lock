@@ -346,6 +346,10 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
+  shoulda-matchers
+  simple_form
+  simplecov
+  slim
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
