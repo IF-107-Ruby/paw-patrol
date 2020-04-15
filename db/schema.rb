@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20_200_413_072_154) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
-  
+
   create_table 'companies', force: :cascade do |t|
     t.string 'name', null: false
     t.text 'description'
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20_200_413_072_154) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
-  
+
   create_table 'feedbacks', force: :cascade do |t|
     t.string 'user_full_name'
     t.string 'email'
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20_200_413_072_154) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
-  
+
   create_table 'units', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'qr_link'
