@@ -1,6 +1,9 @@
 = @users.each do |user| 
-  p 
-    = user.first_name + ' '
-    = user.last_name
+  p.full-name 
+    span
+      = user.first_name
+    span
+      = user.last_name
   p = user.email
+  = link_to 'Show', user, class: 'btn btn-outline-primary'
   hr

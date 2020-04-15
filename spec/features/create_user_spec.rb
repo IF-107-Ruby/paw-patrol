@@ -12,7 +12,8 @@ feature 'users' do
     expect(page).to have_text('User profile created')
     expect(page).to have_content('Test')
     expect(page).to have_content('User')
-    expect(page).to have_css('h1', text: 'Test User')
+    expect(page).to have_css('h1', text: 'Test')
+    expect(page).to have_css('h1', text: 'User')
   end
 
   scenario 'successfully update a user' do

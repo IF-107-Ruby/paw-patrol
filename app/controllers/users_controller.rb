@@ -46,6 +46,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email, :is_admin)
   end
 
+  def full_name; end
+
   def obtain_user
     @user = User.find(params[:id])
   end

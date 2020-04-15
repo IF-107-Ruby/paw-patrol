@@ -1,9 +1,14 @@
 .row 
   .col-md-4
     .user_info
-      h1 = @user.first_name + ' ' + @user.last_name
+      .full-name
+        h1 = @user.first_name 
+        h1 = @user.last_name
+      p 
+        span Email: 
+        span = @user.email
       nav
         ul.nav.navbar
-          li.nav-item = link_to 'Edit user profile', edit_user_path 
-          li.nav-item = link_to 'Delete user',  @user, method: :delete, data: { confirm: 'You sure?' }
-          li.nav-item = link_to 'Back', users_path
+          li.nav-item = link_to 'Edit user profile', edit_user_path, class: "btn btn-warning"
+          li.nav-item = link_to 'Delete user',  @user, method: :delete, data: { confirm: 'You sure?' }, class: "btn btn-danger"
+          li.nav-item = link_to 'Back', users_path, class: "btn btn-info"
