@@ -2,7 +2,7 @@ class UnitsController < ApplicationController
   before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
-    @units = Unit.all
+    @pagy, @units = pagy(Unit.all, items: 10)
   end
 
   def show; end
