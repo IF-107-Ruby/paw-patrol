@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_411_125_438) do
+ActiveRecord::Schema.define(version: 20_200_415_081_615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -29,5 +29,9 @@ ActiveRecord::Schema.define(version: 20_200_411_125_438) do
     t.string 'qr_link'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'company_id'
+    t.index ['company_id'], name: 'index_units_on_company_id'
   end
+
+  add_foreign_key 'units', 'companies'
 end
