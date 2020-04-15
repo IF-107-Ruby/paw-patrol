@@ -17,5 +17,5 @@ section.feedbacks.mt-4
           td = feedback.describe.truncate(50)
           td = time_ago_in_words(feedback.created_at)
           td = link_to 'Show', feedback
-          td = render 'delete_feedback_link', feedback: feedback
+          td = delete_feedback_link(feedback)
   = will_paginate
