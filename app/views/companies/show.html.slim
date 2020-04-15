@@ -5,16 +5,16 @@
     .col
       h4 About company:
       p = @company.description
-      div 
+      .contact-info
         h4 Contact information:
         div 
           strong Email:
           span
-            =< @company.email
+            = @company.email
         div
           strong Phone number:
           span
-            =< @company.phone
+            = @company.phone
     .col class='edit-delete-links justify-content-end'
       div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company], class: 'edit-link'
       div = link_to icon('fas', 'trash-alt', class: 'strong'), @company, method: :delete, data: { confirm: "You sure?" }, class: 'delete-link'
