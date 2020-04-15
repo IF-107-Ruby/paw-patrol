@@ -16,8 +16,6 @@ describe Company, type: :model do
       company.email = nil
       expect(company).to_not be_valid
     end
-    # it { is_expected.to validate_presence_of(:name) }
-    # it { is_expected.to validate_presence_of(:email) }
 
     it 'is not valid with incorrect phone number' do
       company.phone = '12312'
