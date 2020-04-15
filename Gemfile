@@ -18,6 +18,8 @@ gem 'slim'
 gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap4'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
