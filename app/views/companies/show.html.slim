@@ -18,3 +18,4 @@ h2 = @company.name
   .col-lg-2
     div = link_to 'Edit company profile', [:edit, @company]
     div = link_to 'Delete company',  @company, method: :delete, data: { confirm: "You sure?" }
+    div = link_to 'Company units', company_units_path(@company)

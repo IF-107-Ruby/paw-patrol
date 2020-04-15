@@ -1,8 +1,9 @@
 class UnitsController < ApplicationController
   before_action :read_unit_by_id, only: %i[show edit update destroy]
+  before_action :read_company_by_id, only: %i[index]
 
   def index
-    @units = Unit.all
+    @units = @company.units
   end
 
   def show; end
@@ -52,5 +53,9 @@ class UnitsController < ApplicationController
 
   def read_unit_by_id
     @unit = Unit.find(params[:id])
+  end
+
+  def read_company_by_id
+    @company = Company.find(params[:company_id])
   end
 end
