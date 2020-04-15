@@ -24,8 +24,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
           button.btn.btn-primary[type="submit"]
             | Sign in
         li.nav-item
-          button.btn.btn-secondary[type="submit"] 
-            = link_to new_user_path
-              | Sign up 
-            
+          = link_to new_user_path, class: 'btn btn-secondary'
+            | Sign up
 
