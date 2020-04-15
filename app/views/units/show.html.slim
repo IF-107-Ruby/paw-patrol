@@ -1,5 +1,8 @@
-h2.font-weight-bold = @unit.name
-.row
-  .col-lg-2
-    div = link_to 'Edit unit information', [:edit, @unit]
-    div = link_to "Delete unit",  @unit, method: :delete, data: { confirm: "You sure?" }
+.page-title
+  h2 = @unit.name
+
+.page-content
+  .row class='justify-content-between'
+    .col class='edit-delete-links justify-content-end'
+      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @unit], class: 'edit-link'
+      div= link_to icon('fas', 'trash-alt', class: 'strong'), @unit, method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
