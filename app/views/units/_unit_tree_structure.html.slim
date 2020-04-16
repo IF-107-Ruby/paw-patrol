@@ -1,0 +1,4 @@
+- units.each do |unit, sub_unit|
+  = render(unit) 
+  .nested_units
+    = render('unit_tree_structure', units: sub_unit)
