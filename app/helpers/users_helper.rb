@@ -3,6 +3,10 @@ module UsersHelper
     user.first_name + ' ' + user.last_name
   end
 
+  def user_role_string(user)
+    user.users_companies_relationship.role.capitalize.gsub('_', ' ')
+  end
+
   def user_company_content(user)
     company_role_and_link(user) if user.company.present?
   end
@@ -14,8 +18,7 @@ module UsersHelper
   end
 
   def company_role_at(user)
-    content_tag(:span,
-                "#{user.users_companies_relationship.role.capitalize} at")
+    content_tag(:span, "#{user_role_string(user)} at")
   end
 
   def company_role_and_link(user)

@@ -21,6 +21,8 @@ feature 'User looks Information About Company Other User' do
     expect(page).to have_selector('td',
                                   text: full_user_name)
     expect(page).to have_selector('td',
-                                  text: users_companies_relationship.role.capitalize)
+                                  text: users_companies_relationship.role
+                                                                    .capitalize
+                                                                    .gsub('_', ' '))
   end
 end

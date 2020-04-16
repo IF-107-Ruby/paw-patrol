@@ -11,8 +11,8 @@ h3.mb-4 Members:
             th scope="col" Role
             th scope="col"
         tbody
-        - @members_relation.each do |relation|
+        - @members.each do |member|
           tr
-            td.pl-5 = full_user_name(relation.user)
-            td = relation.role.capitalize
-            td = link_to 'Show', relation.user
+            td.pl-5 = full_user_name(member)
+            td = user_role_string(member)
+            td = link_to 'Show', member
