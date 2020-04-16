@@ -1,4 +1,4 @@
-= simple_form_for unit do |f|
+= simple_form_for([@company,unit], url: company_unit_path(@company)) do |f|
   .form-group
     = f.input :name, input_html: { class: 'form-control' }, label: 'Unit name'
   .form-group

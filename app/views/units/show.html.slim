@@ -1,5 +1,5 @@
 h2.font-weight-bold = @unit.name
 .row
   .col-lg-2
-    div = link_to 'Edit unit information', [:edit, @unit]
-    div = link_to "Delete unit",  @unit, method: :delete, data: { confirm: "You sure?" }
+    div = link_to 'Edit unit information', [:edit, @company, @unit]
+    div = link_to "Delete unit", company_unit_path(@company, @unit), method: :delete, data: { confirm: "You sure?" }
