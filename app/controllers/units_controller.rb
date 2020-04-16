@@ -1,6 +1,6 @@
 class UnitsController < ApplicationController
-  before_action :read_unit_by_id, only: %i[show edit update destroy]
   before_action :read_company_by_id
+  before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
     @units = @company.units
@@ -16,7 +16,7 @@ class UnitsController < ApplicationController
     @unit = @company.units.build(unit_params)
     if @unit.save
       flash[:success] = 'Unit created successfully.'
-      redirect_to company_unit_path(@company)
+      redirect_to company_unit_path(@company, @unit)
     else
       flash[:danger] = 'Unit creation failed.'
       render 'new'
@@ -26,7 +26,6 @@ class UnitsController < ApplicationController
   def edit; end
 
   def update
-    puts unit_params
     if @unit.update(unit_params)
       flash[:success] = 'Unit information updated.'
       redirect_to company_unit_path(@company)
@@ -49,7 +48,7 @@ class UnitsController < ApplicationController
   end
 
   def read_unit_by_id
-    @unit = Unit.find(params[:id])
+    @unit = @company.units.find(params[:id])
   end
 
   def read_company_by_id
