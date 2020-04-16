@@ -4,6 +4,8 @@ require 'factory_bot_rails'
   FactoryBot.create :company
 end
 
-10.times do
-  FactoryBot.create :unit
+Company.all.each do |company|
+  5.times do
+    FactoryBot.create(:unit, company: company)
+  end
 end
