@@ -18,7 +18,8 @@ Metrics/BlockLength:
     - "db/schema.rb"
 
 Metrics/MethodLength:
-  Max: 20
+  Exclude:
+    - "db/migrate/*"
 
 Rails/FilePath:
   Enabled: false
