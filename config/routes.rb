@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  get 'members/index'
   root 'home#index'
 
-  resources :companies
+  resources :companies do
+    resources :members, only: :index
+  end
+
   resources :units
   resources :feedbacks, only: %i[index show create destroy]
   resources :users

@@ -4,11 +4,10 @@
       .full-name
         h1 = @user.first_name 
         h1 = @user.last_name
+      = user_company_content(@user)
       p 
         span Email: 
         span = @user.email
-      p
-        = user_company_content(@user)
       nav
         ul.nav.navbar
           li.nav-item = link_to 'Edit user profile', edit_user_path, class: "btn btn-warning"

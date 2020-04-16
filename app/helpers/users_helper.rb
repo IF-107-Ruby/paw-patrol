@@ -1,4 +1,8 @@
 module UsersHelper
+  def full_user_name(user)
+    user.first_name + ' ' + user.last_name
+  end
+
   def user_company_content(user)
     company_role_and_link(user) if user.company.present?
   end
@@ -15,6 +19,8 @@ module UsersHelper
   end
 
   def company_role_and_link(user)
-    company_role_at(user) + link_to_user_company(user)
+    content_tag(:div,
+                company_role_at(user) + link_to_user_company(user),
+                class: 'company-role')
   end
 end

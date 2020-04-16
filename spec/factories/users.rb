@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
-    first_name { Faker::Internet.username(specifier: 3..50) }
-    last_name { Faker::Internet.username(specifier: 3..50) }
+    first_name { 'Test' }
+    last_name { 'User' }
     is_admin { false }
     sequence(:email) { |n| "user#{n}@example.com" }
   end
