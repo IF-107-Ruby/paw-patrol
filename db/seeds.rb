@@ -9,9 +9,13 @@ end
 end
 
 50.times do
-  FactoryBot.create(:feedback)
+  FactoryBot.create :feedback
 end
 
 10.times do
   FactoryBot.create :user
+end
+
+20.times do
+  FactoryBot.create :users_companies_relationship
 end
