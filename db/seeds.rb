@@ -16,6 +16,8 @@ end
   FactoryBot.create :user
 end
 
-20.times do
-  FactoryBot.create :users_companies_relationship
+Company.all.each do |company|
+  5.times do
+    FactoryBot.create(:users_companies_relationship, company: company)
+  end
 end
