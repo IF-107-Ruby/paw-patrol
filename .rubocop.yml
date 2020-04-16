@@ -15,6 +15,7 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
+    - "db/schema.rb"
 
 Rails/FilePath:
   Enabled: false

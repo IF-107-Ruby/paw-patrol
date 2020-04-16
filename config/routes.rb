@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :companies
   resources :units
   resources :feedbacks, only: %i[index show create destroy]
+  resources :users
 end
