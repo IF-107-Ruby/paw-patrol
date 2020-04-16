@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'members/index'
   root 'home#index'
 
   resources :companies do
