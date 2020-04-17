@@ -68,8 +68,7 @@ describe UsersController, type: :controller do
       before do
         put :update, params: { id: user.id,
                                user: valid_params.merge!(first_name: 'Another',
-                                                         last_name: 'User',
-                                                         is_admin: 1) }
+                                                         last_name: 'User') }
       end
       it 'assigns the user' do
         expect(assigns(:user)).to eq(user)
@@ -80,7 +79,6 @@ describe UsersController, type: :controller do
         user.reload
         expect(user.first_name).to eq(valid_params[:first_name])
         expect(user.last_name).to eq(valid_params[:last_name])
-        expect(user.is_admin).to eq(valid_params[:is_admin])
       end
     end
     context 'with invalid params' do

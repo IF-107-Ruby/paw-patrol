@@ -4,6 +4,7 @@
       .full-name
         h1 = @user.first_name 
         h1 = @user.last_name
+      = user_company_content(@user)
       p 
         span Email: 
         span = @user.email

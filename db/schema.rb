@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_413_070_244) do
+ActiveRecord::Schema.define(version: 20_200_416_082_345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -43,8 +43,22 @@ ActiveRecord::Schema.define(version: 20_200_413_070_244) do
     t.string 'first_name'
     t.string 'last_name'
     t.string 'email'
-    t.integer 'is_admin'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.boolean 'is_admin', default: false, null: false
   end
+
+  create_table 'users_companies_relationships', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'company_id', null: false
+    t.integer 'role'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['company_id'], name: 'index_users_companies_relationships_on_company_id'
+    t.index %w[user_id company_id], name: 'relationship_index', unique: true
+    t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
+  end
+
+  add_foreign_key 'users_companies_relationships', 'companies'
+  add_foreign_key 'users_companies_relationships', 'users'
 end
