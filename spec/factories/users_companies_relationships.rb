@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :users_companies_relationship do
     user { create(:user) }
     company { create(:company) }
-    role { rand(1..2) }
+    role { (1..2).to_a.sample }
   end
 
   factory :company_owner, parent: :users_companies_relationship do
