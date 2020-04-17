@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :obtain_user, only: %i[show edit update destroy]
   def index
-    @users = User.all
+    @pagy, @users = pagy(User.all, items: 10)
   end
 
   def show
