@@ -1,0 +1,13 @@
+.container
+  .row
+    .col-md-12
+      .error-template
+        h1
+          |  Oops!
+        h2
+          |  404 Not Found
+        .error-details
+          |  Sorry, an error has occured, Requested page not found! 
+        .error-actions
+          = link_to "Take me Home", root_path, class: "btn btn-primary btn-lg"
+          = link_to "Contact support", "#", class: "btn btn-secondary btn-lg"
