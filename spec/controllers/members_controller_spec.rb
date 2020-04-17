@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe MembersController, type: :controller do
-  let(:company) { create(:company) }
-  let(:users_companies_relationship) do
-    create(:users_companies_relationship, company: company)
-  end
+  let(:users_companies_relationship) { create(:users_companies_relationship) }
 
   describe 'GET #index' do
-    subject { get :index, params: { company_id: company.id } }
+    subject do
+      get :index, params: { company_id: users_companies_relationship.company.id }
+    end
 
     it { is_expected.to have_http_status(:success) }
     it { is_expected.to render_template('index') }
