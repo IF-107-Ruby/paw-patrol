@@ -2,9 +2,9 @@ class FeedbacksController < ApplicationController
   before_action :find_feedback_by_id, only: %i[show destroy]
 
   def index
-    @feedbacks = Feedback.all
-                         .ordered_by_created_at
-                         .paginate(page: params[:page], per_page: 15)
+    @pagy, @feedbacks = pagy(Feedback.all
+                         .ordered_by_created_at,
+                         items: 10)
   end
 
   def show; end
