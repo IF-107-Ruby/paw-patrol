@@ -20,10 +20,16 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
         li.nav-item
           a.nav-link[href="#"]
             | Contact
-        li.nav-item
-          button.btn.btn-primary[type="submit"]
-            | Sign in
-        li.nav-item
-          = link_to new_user_path, class: 'btn btn-secondary'
-            | Sign up
+        - if current_user
+          li.nav-item
+            = link_to destroy_user_session_path, method: :delete, class: 'btn btn-secondary'
+              | Sign out
+        - else
+          li.nav-item
+            = link_to new_user_session_path, class: 'btn btn-primary'
+              | Sign in
+          li.nav-item
+            = link_to new_user_registration_path, class: 'btn btn-secondary'
+              | Sign up
+
 

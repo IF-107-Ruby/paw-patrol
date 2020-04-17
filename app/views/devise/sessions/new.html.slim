@@ -1,0 +1,12 @@
+h1.title Log in
+
+= simple_form_for(@user, url: session_path(@user)) do |f|
+  = render 'shared/error_messages', object: f.object
+  .form-group
+    = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email", class: 'form-control' }
+  .form-group
+    = f.input :password, required: false, input_html: { autocomplete: "current-password", class: 'form-control' }
+  .form-group
+    = f.submit 'Log in', class: 'btn btn-primary'
+
+  = render "devise/shared/links"
