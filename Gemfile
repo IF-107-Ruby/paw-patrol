@@ -5,6 +5,7 @@ ruby '2.7.1'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4.1'
+gem 'font-awesome-sass'
 gem 'jbuilder', '~> 2.7'
 gem 'jquery-rails'
 gem 'pagy'
@@ -15,9 +16,10 @@ gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
 gem 'simple_form'
 gem 'slim'
-gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap4'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -34,7 +36,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
+  gem 'capybara', '~> 3.32', '>= 3.32.1'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'

@@ -14,7 +14,7 @@ feature 'unit crud' do
 
   scenario 'successful updating unit' do
     visit unit_path(unit)
-    click_on 'Edit unit information'
+    find('.edit-link').click
     fill_in 'Unit name', with: 'Unit updating test'
     click_on 'Save changes'
 
@@ -24,7 +24,7 @@ feature 'unit crud' do
 
   scenario 'successful deleting unit' do
     visit unit_path(unit)
-    click_on 'Delete unit'
+    find('.delete-link').click
 
     expect(page).not_to have_content(unit.name)
   end

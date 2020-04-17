@@ -1,0 +1,10 @@
+section.feedback.mt-4
+  h2 = "Message from #{@feedback.user_full_name}"
+  .feedback-email
+    span.font-weight-bold.pr-1 Email:
+    = @feedback.email
+  h4.font-weight-bold.mt-4 Describe:
+  .feedback-describe.mt-2
+    = @feedback.describe
+  .feedback-links.mt-2.float-right
+    = delete_feedback_link @feedback

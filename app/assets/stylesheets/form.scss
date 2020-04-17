@@ -5,5 +5,15 @@
   }
   label.required::after {
     content: '*'
-  } 
+  }
+  ::placeholder {
+    opacity: 0.6;
+    font-size: 14px;
+  }
+}
+
+.contact-info {
+  span {
+    padding-left: 10px;
+  }
 }

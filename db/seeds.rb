@@ -7,3 +7,11 @@ end
 10.times do
   FactoryBot.create :unit
 end
+
+50.times do
+  FactoryBot.create(:feedback)
+end
+
+10.times do
+  FactoryBot.create :user
+end
