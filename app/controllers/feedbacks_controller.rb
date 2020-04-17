@@ -3,8 +3,7 @@ class FeedbacksController < ApplicationController
 
   def index
     @pagy, @feedbacks = pagy(Feedback.all
-                         .ordered_by_created_at,
-                         items: 10)
+                         .ordered_by_created_at, items: 10)
   end
 
   def show; end
