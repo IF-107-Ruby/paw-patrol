@@ -4,7 +4,7 @@ module UsersHelper
   end
 
   def user_role_string(user)
-    user.users_companies_relationship.role.capitalize.gsub('_', ' ')
+    user.role.capitalize.gsub('_', ' ')
   end
 
   def user_company_content(user)

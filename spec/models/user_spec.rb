@@ -19,4 +19,17 @@ RSpec.describe User, type: :model do
 
     it { should validate_presence_of(:email) }
   end
+
+  describe 'Method role' do
+    let(:users_companies_relationship) { create(:users_companies_relationship) }
+
+    it 'Return user role string' do
+      expect(users_companies_relationship.user.role)
+        .to eq(users_companies_relationship.role)
+    end
+
+    it 'User has no role' do
+      expect(user.role).to eq(nil)
+    end
+  end
 end

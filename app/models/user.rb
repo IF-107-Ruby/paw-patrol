@@ -8,4 +8,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true, length: { minimum: 3, maximum: 50 }
   validates :email, presence: true, length: { minimum: 8, maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }
+
+  def role
+    users_companies_relationship.role if company.present?
+  end
 end
