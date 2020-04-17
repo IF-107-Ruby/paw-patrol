@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   resources :units
   resources :feedbacks, only: %i[index show create destroy]
-  resources :users
+  resources :users do
+    resources :companies
+  end
   resources :companies
 
   # Using :match so that error pages work for all types of requests, not just GET.

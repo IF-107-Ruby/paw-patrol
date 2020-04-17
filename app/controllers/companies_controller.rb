@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  before_action :authenticate_user!
   before_action :load_company, only: %i[show edit update destroy]
 
   def index
@@ -13,7 +14,11 @@ class CompaniesController < ApplicationController
 
   def create
     @company = Company.new(company_params)
-    if @company.save
+
+    if @company.transaction do
+      @company.save
+      UsersCompaniesRelationship.create(company: @company, user: current_user, role: 0)
+    end
       flash[:success] = 'Company has been created.'
       redirect_to @company
     else
