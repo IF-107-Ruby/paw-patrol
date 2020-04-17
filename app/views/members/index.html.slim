@@ -13,6 +13,6 @@ h3.mb-4 Members:
         tbody
         - @members.each do |member|
           tr
-            td.pl-5 = full_user_name(member)
+            td.pl-5 = member.full_name
             td = user_role_string(member)
             td = link_to 'Show', member
