@@ -2,6 +2,11 @@ require 'rails_helper'
 
 describe Company, type: :model do
   let(:company) { create(:company) }
+
+  describe 'Associations' do
+    it { is_expected.to have_many(:units).dependent(:destroy) }
+  end
+
   describe 'Validations' do
     it 'is valid with valid attributes' do
       expect(company).to be_valid
