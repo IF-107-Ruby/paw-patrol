@@ -15,10 +15,8 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
 
-    if @company.transaction do
-      @company.save
+    if @company.save
       UsersCompaniesRelationship.create(company: @company, user: current_user, role: 0)
-    end
       flash[:success] = 'Company has been created.'
       redirect_to @company
     else
