@@ -4,7 +4,7 @@
   - @unit.ancestors.each do |a|
     div 
       = link_to a.name, a
-      = link_to icon('fas', 'arrow-circle-right', class: 'strong'), [:edit, @unit], class: 'edit-link'
+      = link_to icon('fas', 'arrow-circle-right', class: 'strong'), a, class: 'edit-link'
 
 .unit-page-header
   .row class='justify-content-between'
