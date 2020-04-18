@@ -22,6 +22,9 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
             | Contact
         - if current_user
           li.nav-item
+            = link_to user_path(current_user), class: 'btn btn-primary'
+              | My page
+          li.nav-item
             = link_to new_company_path, class: 'btn btn-primary'
               | Create company
           li.nav-item
@@ -32,7 +35,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
             = link_to new_user_session_path, class: 'btn btn-primary'
               | Sign in
           li.nav-item
-            = link_to new_user_registration_path, class: 'btn btn-secondary'
+            = link_to new_user_path, class: 'btn btn-secondary'
               | Sign up
 
 
