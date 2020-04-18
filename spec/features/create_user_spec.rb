@@ -8,6 +8,8 @@ feature 'users' do
     fill_in 'First Name', with: 'Test'
     fill_in 'Last Name', with: 'User'
     fill_in 'Email', with: 'user@example.com'
+    fill_in 'user_password', with: 'password'
+    fill_in 'user_password_confirmation', with: 'password'
     click_on 'Create new user'
     expect(page).to have_text('User profile created')
     expect(page).to have_content('Test')

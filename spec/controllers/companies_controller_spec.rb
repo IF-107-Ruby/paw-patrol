@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe CompaniesController, type: :controller do
+  include Devise::TestHelpers
+
+  before :each do
+    @user = FactoryBot.create :user
+    sign_in @user
+  end
+
   let!(:company) { create(:company) }
   let!(:valid_params) { FactoryBot.attributes_for :company }
   let!(:invalid_params) { { name: '' } }
