@@ -8,7 +8,7 @@ class UnitsController < ApplicationController
   def show; end
 
   def new
-    @unit = Unit.new
+    @unit = Unit.new(parent_id: params[:parent_id])
   end
 
   def create
@@ -47,7 +47,7 @@ class UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:name)
+    params.require(:unit).permit(:name, :parent_id)
   end
 
   def read_unit_by_id
