@@ -29,11 +29,11 @@ RSpec.describe Unit, type: :model do
   end
 
   describe 'Unit tree structure' do
-    !let(:unit_child_1) { FactoryBot.create(:unit, :with_parent, name: 'Unit Child 1') }
-    !let(:unit_child_2) { FactoryBot.create(:unit, :with_parent, name: 'Unit Child 2') }
+    let(:unit_child_1) { FactoryBot.create(:unit, :with_parent, name: 'Unit Child 1') }
+    let(:unit_child_2) { FactoryBot.create(:unit, :with_parent, name: 'Unit Child 2') }
 
     it 'should have children' do
-      unit.children.create(name: 'Child 2')
+      unit.children.create(name: 'Child 2', company: unit.company)
       expect(unit.ancestry).to be_nil
       expect(unit.children).to_not be_empty
       expect(unit.children.first.name).to eq('Child 1')
