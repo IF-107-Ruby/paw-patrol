@@ -37,12 +37,14 @@ ActiveRecord::Schema.define(version: 20_200_416_090_847) do
     t.string 'qr_link'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'ancestry'
+    t.index ['ancestry'], name: 'index_units_on_ancestry'
   end
 
   create_table 'users', force: :cascade do |t|
-    t.string 'first_name', null: false
-    t.string 'last_name', null: false
-    t.string 'email', default: '', null: false
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'email'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.boolean 'is_admin', default: false, null: false
