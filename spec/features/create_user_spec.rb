@@ -11,22 +11,18 @@ feature 'users' do
     fill_in 'user_password', with: 'password'
     fill_in 'user_password_confirmation', with: 'password'
     click_on 'Create new user'
-    expect(page).to have_text('User profile created')
-    expect(page).to have_content('Test')
-    expect(page).to have_content('User')
-    expect(page).to have_css('h1', text: 'Test')
-    expect(page).to have_css('h1', text: 'User')
+    expect(page).to have_text('You have signed up successfully')
   end
 
   scenario 'successfully update a user' do
     visit user_path(user)
     click_on 'Edit user profile'
     fill_in 'First Name', with: 'Updated First name'
-    fill_in 'Last Name', with: 'Updated Last name'
+    fill_in 'user_password', with: 'password'
+    fill_in 'user_password_confirmation', with: 'password'
     click_on 'Edit user'
     expect(page).to have_text('User profile updated')
     expect(page).to have_css('h1', text: 'Updated First name')
-    expect(page).to have_css('h1', text: 'Updated Last name')
   end
 
   scenario 'successfully delete a user' do
