@@ -5,6 +5,7 @@ AllCops:
     - "bin/*"
     - "node_modules/**/*"
     - "vendor/**/*"
+    - "config/initializers/simple_form_bootstrap.rb"
 
 Layout/LineLength:
   Max: 90
@@ -14,6 +15,11 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
+    - "db/schema.rb"
+
+Metrics/MethodLength:
+  Exclude:
+    - "db/migrate/*"
 
 Rails/FilePath:
   Enabled: false

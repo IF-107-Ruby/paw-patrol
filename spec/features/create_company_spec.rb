@@ -19,7 +19,7 @@ feature 'companies' do
 
   scenario 'successfully update a company' do
     visit company_path(company)
-    click_on 'Edit company profile'
+    find('.edit-link').click
     fill_in 'Company name', with: 'Updated company name'
     click_on 'Save changes'
     expect(page).to have_text('Company profile has been updated.')
@@ -28,7 +28,7 @@ feature 'companies' do
 
   scenario 'successfully delete a company' do
     visit company_path(company)
-    click_on 'Delete company'
+    find('.delete-link').click
     expect(page).not_to have_content(company.name)
   end
 end

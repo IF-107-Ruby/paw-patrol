@@ -1,18 +1,47 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+$base-color-dark: rgb(88, 89, 92);
+$base-color-light: rgb(137, 139, 145);
 
 body {
   padding-top: 80px;
+  color: $base-color-dark;
 }
 
 .table-responsive {
   tbody {
     th {
-    font-weight: 400;
+      font-weight: 400;
     }
   }
 }
 
 ul {
   margin-bottom: 0;
+}
+
+.edit-delete-links {
+  display: flex;
+  i {
+    font-size: 26px;
+    padding-left: 10px;
+    color: $base-color-dark;
+    cursor: pointer;
+    &:hover {
+      color: $base-color-light;
+    }
+  }
+}
+
+.page-title {
+  border-bottom: 1px solid $base-color-light;
+  margin-bottom: 20px;
+}
+
+.page-content {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

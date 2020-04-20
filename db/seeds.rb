@@ -1,5 +1,19 @@
 require 'factory_bot_rails'
 
 10.times do
-  FactoryBot.create(:company_with_units, units_count: 6).units.length
+  FactoryBot.create(:company_with_units, units_count: 6)
+end
+
+50.times do
+  FactoryBot.create :feedback
+end
+
+10.times do
+  FactoryBot.create :user
+end
+
+Company.all.each do |company|
+  5.times do
+    FactoryBot.create(:users_companies_relationship, company: company)
+  end
 end

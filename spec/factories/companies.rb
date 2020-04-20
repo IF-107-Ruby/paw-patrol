@@ -1,10 +1,4 @@
 FactoryBot.define do
-  factory :unit do
-    sequence(:name) { |n| "unit_#{n}" }
-    qr_link { 'TEST_QR_LINK' }
-    company
-  end
-
   factory :company do
     name { 'Test Company' }
     description { 'This company is created for test purposes.' }

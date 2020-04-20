@@ -1,21 +1,23 @@
-h2 = @company.name
-.row
-  .col-lg-10
-    h4 About company:
-    p = @company.description
-
-    div 
-      h4 Contact information:
-      div 
-        strong Email:
-        span
-          =< @company.email
-      div
-        strong Phone number:
-        span
-          =< @company.phone
-
-  .col-lg-2
-    div = link_to 'Edit company profile', [:edit, @company]
-    div = link_to 'Delete company',  @company, method: :delete, data: { confirm: "You sure?" }
-    div = link_to 'Company units', company_units_path(@company)
+.page-title
+  h2 = @company.name
+.page-content
+  .row class='justify-content-between'
+    .col
+      h4 About company:
+      p = @company.description
+      .contact-info
+        h4 Contact information:
+        div 
+          strong Email:
+          span
+            = @company.email
+        div
+          strong Phone number:
+          span
+            = @company.phone
+        .mt-2
+          div = link_to 'Company members', company_members_path(@company)
+          div = link_to 'Company units', company_units_path(@company)
+    .col class='edit-delete-links justify-content-end'
+      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company], class: 'edit-link'
+      div = link_to icon('fas', 'trash-alt', class: 'strong'), @company, method: :delete, data: { confirm: "You sure?" }, class: 'delete-link'

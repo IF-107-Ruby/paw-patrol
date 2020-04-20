@@ -1,3 +1,7 @@
-tbody
-  tr
-    th.font-weight-normal = link_to unit.name, company_unit_path(@company, unit)
+.unit-link
+  .unit-name
+    = link_to unit.name, company_unit_path(@company, unit)
+  .unit-icons
+    div = link_to icon('fas', 'plus', class: 'strong'), new_company_unit_path(parent_id: unit)
+    div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company, unit], class: 'edit-link'
+    div = link_to icon('fas', 'trash-alt', class: 'strong'), company_unit_path(@company, unit), method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'

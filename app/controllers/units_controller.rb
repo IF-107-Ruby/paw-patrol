@@ -3,13 +3,13 @@ class UnitsController < ApplicationController
   before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
-    @units = @company.units
+    @pagy, @units = pagy(@company.units, items: 10)
   end
 
   def show; end
 
   def new
-    @unit = @company.units.build
+    @unit = @company.units.build(parent_id: params[:parent_id])
   end
 
   def create
@@ -44,7 +44,7 @@ class UnitsController < ApplicationController
   private
 
   def unit_params
-    params.require(:unit).permit(:name)
+    params.require(:unit).permit(:name, :parent_id)
   end
 
   def read_unit_by_id

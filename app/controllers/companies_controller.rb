@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   before_action :load_company, only: %i[show edit update destroy]
 
   def index
-    @companies = Company.all
+    @pagy, @companies = pagy(Company.all, items: 10)
   end
 
   def show; end

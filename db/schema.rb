@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_415_081_615) do
+ActiveRecord::Schema.define(version: 20_200_416_082_345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -24,14 +24,46 @@ ActiveRecord::Schema.define(version: 20_200_415_081_615) do
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 
+  create_table 'feedbacks', force: :cascade do |t|
+    t.string 'user_full_name'
+    t.string 'email'
+    t.text 'describe'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   create_table 'units', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'qr_link'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'company_id'
+    t.string 'ancestry'
+    t.index ['ancestry'], name: 'index_units_on_ancestry'
     t.index ['company_id'], name: 'index_units_on_company_id'
   end
 
+  create_table 'users', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'email'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.boolean 'is_admin', default: false, null: false
+  end
+
+  create_table 'users_companies_relationships', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'company_id', null: false
+    t.integer 'role'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['company_id'], name: 'index_users_companies_relationships_on_company_id'
+    t.index %w[user_id company_id], name: 'relationship_index', unique: true
+    t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
+  end
+
   add_foreign_key 'units', 'companies'
+  add_foreign_key 'users_companies_relationships', 'companies'
+  add_foreign_key 'users_companies_relationships', 'users'
 end
