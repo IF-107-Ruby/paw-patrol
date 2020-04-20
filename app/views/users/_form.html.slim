@@ -1,4 +1,4 @@
-= simple_form_for @user do |f|
+= simple_form_for user do |f|
   = render 'shared/error_messages', object: f.object
   .form-group
     = f.input :first_name, label: 'First Name', placeholder: 'Your name', input_html: { class: 'form-control' }
@@ -7,12 +7,12 @@
   .form-group
     = f.input :email, placeholder: 'user@domain.com', input_html: { class: 'form-control' }
   .form-group
-    = f.input :password, required: true, placeholder: "#{@minimum_password_length} characters minimum", input_html: { autocomplete: "new-password", class: 'form-control' }
+    = f.input :password, required: required_password, placeholder: "#{@minimum_password_length} characters minimum", input_html: { autocomplete: "new-password", class: 'form-control' }
   .form-group
-    = f.input :password_confirmation, required: true, placeholder: "Repeat password", input_html: { autocomplete: "new-password", class: 'form-control' }
+    = f.input :password_confirmation, required: required_password, placeholder: "Repeat password", input_html: { autocomplete: "new-password", class: 'form-control' }
   / .form-group
   /   = f.input :is_admin, as: :radio_buttons, collection: [['0', 'Admin'], ['1', 'Super-Admin'], ['2', 'Mega-Super-Admin']],
   /   label_method: :second, value_method: :first, input_html: { class: 'form-check-input' }
   .form-group
-    = f.submit 'Create new user', class: 'btn btn-primary'
-    = link_to 'Cancel', yield(:path), class: 'btn btn-outline-danger'
+    = f.submit button_text, class: 'btn btn-primary'
+    = link_to cancel_btn_text, yield(:path), class: 'btn btn-outline-danger'

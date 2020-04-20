@@ -10,10 +10,7 @@ Rails.application.routes.draw do
 
   resources :units
   resources :feedbacks, only: %i[index show create destroy]
-  resources :users do
-    resources :companies
-  end
-  resources :companies
+  resources :users
 
   # Using :match so that error pages work for all types of requests, not just GET.
   match '/404', to: 'errors#not_found', via: :all
