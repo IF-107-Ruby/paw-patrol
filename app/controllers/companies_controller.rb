@@ -14,9 +14,9 @@ class CompaniesController < ApplicationController
 
   def create
     @company = Company.new(company_params)
-
+    @company.users_companies_relationships <<
+      UsersCompaniesRelationship.create(user: current_user, role: 0)
     if @company.save
-      UsersCompaniesRelationship.create(company: @company, user: current_user, role: 0)
       flash[:success] = 'Company has been created.'
       redirect_to @company
     else
