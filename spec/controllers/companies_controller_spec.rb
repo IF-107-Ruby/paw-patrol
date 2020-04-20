@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe CompaniesController, type: :controller do
-
   before :each do
     @user = FactoryBot.create :user
     sign_in @user
