@@ -1,21 +1,22 @@
 class UnitsController < ApplicationController
+  before_action :read_company_by_id
   before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
-    @units = Unit.all
+    @pagy, @units = pagy(@company.units, items: 10)
   end
 
   def show; end
 
   def new
-    @unit = Unit.new
+    @unit = @company.units.build(parent_id: params[:parent_id])
   end
 
   def create
-    @unit = Unit.create(unit_params)
+    @unit = @company.units.build(unit_params)
     if @unit.save
       flash[:success] = 'Unit created successfully.'
-      redirect_to @unit
+      redirect_to company_unit_path(@company, @unit)
     else
       flash[:danger] = 'Unit creation failed.'
       render 'new'
@@ -27,7 +28,7 @@ class UnitsController < ApplicationController
   def update
     if @unit.update(unit_params)
       flash[:success] = 'Unit information updated.'
-      redirect_to @unit
+      redirect_to company_unit_path(@company)
     else
       flash[:danger] = 'Unit updating failed.'
       render 'edit'
@@ -35,22 +36,22 @@ class UnitsController < ApplicationController
   end
 
   def destroy
-    if @unit.destroy
-      flash[:success] = 'Unit deleted successfully.'
-      redirect_to units_path
-    else
-      flash[:danger] = 'Cannot delete unit.'
-      render unit_path(@unit)
-    end
+    @unit.destroy
+    flash[:success] = 'Unit deleted successfully.'
+    redirect_to company_units_path(@company)
   end
 
   private
 
   def unit_params
-    params.require(:unit).permit(:name)
+    params.require(:unit).permit(:name, :parent_id)
   end
 
   def read_unit_by_id
-    @unit = Unit.find(params[:id])
+    @unit = @company.units.find(params[:id])
+  end
+
+  def read_company_by_id
+    @company = Company.find(params[:company_id])
   end
 end

@@ -1,6 +1,21 @@
 FactoryBot.define do
   factory :unit do
     sequence(:name) { |n| "unit_#{n}" }
-    qr_link { 'TEST_QR_LINK' }
+    sequence(:qr_link) { |n| "TEST_QR_LINK#{n}" }
+    company
+
+    trait :with_parent do
+      after(:build) do |o|
+        o.parent = create(:unit)
+        o.save
+      end
+    end
+
+    trait :with_children do
+      after(:build) do |o|
+        o.save
+        o.children.create(name: 'Child 1', company: o.company)
+      end
+    end
   end
 end

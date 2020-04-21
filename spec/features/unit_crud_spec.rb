@@ -4,7 +4,7 @@ feature 'unit crud' do
   let!(:unit) { create(:unit) }
 
   scenario 'successful creating unit' do
-    visit new_unit_path
+    visit new_company_unit_path(unit.company)
     fill_in 'Unit name', with: 'Unit creation test'
     click_on 'Create Unit'
 
@@ -13,7 +13,7 @@ feature 'unit crud' do
   end
 
   scenario 'successful updating unit' do
-    visit unit_path(unit)
+    visit company_unit_path(unit.company, unit)
     find('.edit-link').click
     fill_in 'Unit name', with: 'Unit updating test'
     click_on 'Save changes'
@@ -23,7 +23,7 @@ feature 'unit crud' do
   end
 
   scenario 'successful deleting unit' do
-    visit unit_path(unit)
+    visit company_unit_path(unit.company, unit)
     find('.delete-link').click
 
     expect(page).not_to have_content(unit.name)
