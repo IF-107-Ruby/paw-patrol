@@ -6,6 +6,7 @@ ruby '2.7.1'
 gem 'ancestry'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4.1'
+gem 'draper'
 gem 'font-awesome-sass'
 gem 'jbuilder', '~> 2.7'
 gem 'pagy'
