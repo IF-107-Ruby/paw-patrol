@@ -4,6 +4,7 @@ describe Company, type: :model do
   let(:company) { create(:company) }
 
   describe 'Associations' do
+    it { is_expected.to have_many(:units).dependent(:destroy) }
     it { is_expected.to have_many(:users_companies_relationships).dependent(:destroy) }
     it { is_expected.to have_many(:users).through(:users_companies_relationships) }
   end

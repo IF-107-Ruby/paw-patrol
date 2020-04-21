@@ -1,17 +1,17 @@
-= link_to units_path, class: 'btn btn-primary'
+= link_to company_units_path(@company), class: 'btn btn-primary'
   | Show all companies units
 .parent-units 
   - @unit.ancestors.each do |a|
     div 
-      = link_to a.name, a
-      = link_to icon('fas', 'arrow-circle-right', class: 'strong'), a, class: 'edit-link'
+      = link_to a.name, company_unit_path
+      = link_to icon('fas', 'arrow-circle-right', class: 'strong'), company_unit_path, class: 'edit-link'
 
 .unit-page-header
   .row class='justify-content-between'
     .col
       h2 = @unit.name
     .col class='edit-delete-links justify-content-end'
-      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @unit], class: 'edit-link'
-      div = link_to icon('fas', 'trash-alt', class: 'strong'), @unit, method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
+      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company, @unit], class: 'edit-link'
+      div = link_to icon('fas', 'trash-alt', class: 'strong'), company_unit_path(@company, @unit), method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
 
 = render 'unit_tree_structure', units: @unit.children.arrange

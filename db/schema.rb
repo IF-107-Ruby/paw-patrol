@@ -37,8 +37,10 @@ ActiveRecord::Schema.define(version: 20_200_416_082_345) do
     t.string 'qr_link'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'company_id'
     t.string 'ancestry'
     t.index ['ancestry'], name: 'index_units_on_ancestry'
+    t.index ['company_id'], name: 'index_units_on_company_id'
   end
 
   create_table 'users', force: :cascade do |t|
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 20_200_416_082_345) do
     t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
   end
 
+  add_foreign_key 'units', 'companies'
   add_foreign_key 'users_companies_relationships', 'companies'
   add_foreign_key 'users_companies_relationships', 'users'
 end

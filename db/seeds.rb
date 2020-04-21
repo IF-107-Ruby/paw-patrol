@@ -1,11 +1,7 @@
 require 'factory_bot_rails'
 
 10.times do
-  FactoryBot.create :company
-end
-
-10.times do
-  FactoryBot.create :unit
+  FactoryBot.create(:company_with_units, units_count: 6)
 end
 
 50.times do
