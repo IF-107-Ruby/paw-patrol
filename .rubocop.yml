@@ -18,6 +18,7 @@ Metrics/BlockLength:
     - "db/schema.rb"
 
 Metrics/MethodLength:
+  Max: 12
   Exclude:
     - "db/migrate/*"
 
