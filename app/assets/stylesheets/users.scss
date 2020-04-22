@@ -21,11 +21,9 @@ label {
 }
 
 .sign-btn {
+  padding-left: 8px;
   .btn {
     width: 95px;
-  }
-  .nav-sign-in-btn {
-    margin-right: 5px;
   }
 }
 
@@ -35,6 +33,7 @@ label {
 
 @media screen and (max-width: 991px) {
   .sign-btn {
+    padding-left: 0;
     .nav-sign-in-btn {
       margin-bottom: 5px;
     }
