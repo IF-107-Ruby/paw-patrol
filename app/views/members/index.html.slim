@@ -11,9 +11,5 @@ h3.mb-4 Members:
             th scope="col" Role
             th scope="col"
         tbody
-        - @members.each do |member|
-          tr
-            td.pl-5 = member.full_name
-            td = user_role_string(member)
-            td = link_to 'Show', member
+          = render partial: 'member', collection: @members
 = pagy_bootstrap_nav(@pagy).html_safe
