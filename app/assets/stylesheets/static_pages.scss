@@ -2,6 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+// About page
+
+.about-page {
+  padding-top: 30px;
+  .about-text {
+    padding-bottom: 50px;
+    font-size: 18px;
+    text-align: justify;
+    .company-name {
+      font-weight: 600;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+  }
+  img {
+    width: 100%;
+  }
+}
+// Services page
+
 .services-content {
   position: relative;
   .line {
@@ -29,7 +49,7 @@
 .services-page {
   padding-top: 30px;
   .services-title {
-    padding-bottom: 30px;
+    padding-bottom: 50px;
     font-size: 18px;
     text-align: justify;
     .company-name {
