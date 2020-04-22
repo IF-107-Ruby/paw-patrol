@@ -4,8 +4,4 @@ class UserDecorator < Draper::Decorator
   def full_name
     [first_name, last_name].join(' ').strip
   end
-
-  def self.collection_decorator_class
-    PaginatingDecorator
-  end
 end
