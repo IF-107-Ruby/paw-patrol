@@ -1,3 +1,105 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.services-content {
+  position: relative;
+  .line {
+    position: absolute;
+    width: 30%;
+    height: 2px;
+    border-top: 1px solid #007bff;
+  }
+  .line-one {
+    left: 15px;
+  }
+  .line-two {
+    right: 15px;
+  }
+  .icon {
+    color: #007bff;
+    font-size: 28px;
+    position: absolute;
+    right: 50%;
+    margin-right: -13px;
+    top: -19px;
+  }
+}
+
+.services-page {
+  padding-top: 30px;
+  .services-title {
+    padding-bottom: 30px;
+    font-size: 18px;
+    text-align: justify;
+    .company-name {
+      font-weight: 600;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+  }
+  .services-items {
+    padding-top: 40px;
+    padding-bottom: 70px;
+    .item {
+      padding: 20px;
+      border-left: 1px solid #007bff;
+      border-right: 1px solid #007bff;
+      border-bottom: 1px solid #0056b3;
+      min-height: 340px;
+      .item-title {
+        font-size: 15px;
+        padding-top: 20px;
+        padding-bottom: 15px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .item-text {
+        font-size: 14px;
+        letter-spacing: 1px;
+        line-height: 20px;        
+        text-align: center;
+      }
+    }
+  } 
+}
+
+@media screen and (max-width: 990px) {
+  .services-page {
+    .services-items {
+      .row-one {
+        padding-bottom: 30px;
+      }
+      .item {
+        min-height: 305px;
+      }
+    }
+  }
+  
+}
+@media screen and (max-width: 767px) {
+  .services-page {
+    .services-items {
+      .item {
+        min-height: 305px;
+      }
+    }
+  }
+  
+}
+@media screen and (max-width: 575px) {
+  .services-page {
+    .services-items {
+      .item-three {
+        padding-bottom: 30px;
+      }
+      .item {
+        min-height: 200px;
+      }
+    }
+  }
+  
+}
