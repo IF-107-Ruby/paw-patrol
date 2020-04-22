@@ -8,14 +8,15 @@ class CompaniesController < ApplicationController
   def show; end
 
   def new
-    @company = Company.new
+    @company_registration = CompanyRegistrationsForm.new
   end
 
   def create
-    @company = Company.new(company_params)
-    if @company.save
+    @company_registration = CompanyRegistrationsForm.new(company_registration_params)
+
+    if @company_registration.save
       flash[:success] = 'Company has been created.'
-      redirect_to @company
+      redirect_to root_url, notice: 'Company registration successful!'
     else
       render 'new'
     end
@@ -42,6 +43,16 @@ class CompaniesController < ApplicationController
 
   def company_params
     params.require(:company).permit(:name, :description, :email, :phone)
+  end
+
+  def company_registration_params
+    params.require(:company_registrations_form).permit(:name,
+                                                       :description,
+                                                       :company_email,
+                                                       :phone,
+                                                       :first_name,
+                                                       :last_name,
+                                                       :user_email)
   end
 
   def load_company
