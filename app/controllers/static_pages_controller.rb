@@ -3,5 +3,7 @@ class StaticPagesController < ApplicationController
 
   def services; end
 
-  def contact; end
+  def contact
+    @feedback = Feedback.new
+  end
 end

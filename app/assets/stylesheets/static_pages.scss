@@ -3,25 +3,43 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 // About page
-
 .about-page {
   padding-top: 30px;
+  padding-bottom: 40px;
+  .about-first-line {
+    padding-bottom: 30px;
+  }
+  .about-second-line {
+    padding-bottom: 20px;
+  }
   .about-text {
     padding-bottom: 50px;
     font-size: 18px;
     text-align: justify;
-    .company-name {
-      font-weight: 600;
-      font-size: 18px;
-      text-transform: uppercase;
-    }
+  }
+  .about-block {
+    text-align: justify;
+    line-height: 30px;
   }
   img {
     width: 100%;
   }
+  .company-name {
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
 }
-// Services page
 
+@media screen and (max-width: 991px) {
+  .about-page {
+    .about-image-block {
+      padding-bottom: 10px;
+    }
+  }  
+}
+
+// Services page
 .services-content {
   position: relative;
   .line {
@@ -43,11 +61,22 @@
     right: 50%;
     margin-right: -13px;
     top: -19px;
+    transition: all 0.3s;
+    :hover {
+      transform: scale(1.2);
+      transition: all 0.3s;
+    }
   }
 }
 
 .services-page {
   padding-top: 30px;
+  .services-img {
+    padding-bottom: 20px;
+    img {
+      width: 100%;
+    }
+  }
   .services-title {
     padding-bottom: 50px;
     font-size: 18px;
@@ -97,9 +126,9 @@
         min-height: 305px;
       }
     }
-  }
-  
+  }  
 }
+
 @media screen and (max-width: 767px) {
   .services-page {
     .services-items {
@@ -108,8 +137,8 @@
       }
     }
   }
-  
 }
+
 @media screen and (max-width: 575px) {
   .services-page {
     .services-items {
@@ -121,5 +150,13 @@
       }
     }
   }
-  
 }
+
+// Contact page
+.form-group {
+  ::placeholder {
+    opacity: 0.6;
+    font-size: 14px;
+  }
+}
+
