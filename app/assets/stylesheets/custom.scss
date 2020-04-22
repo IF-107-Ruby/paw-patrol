@@ -9,9 +9,22 @@ $base-color-light: rgb(137, 139, 145);
 body {
   padding-top: 80px;
   color: $base-color-dark;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+}
+
+.page-wrapper {
+  flex: 1 0 auto;
 }
 
 .table-responsive {
+  .table {
+    color: $base-color-dark;
+  }
   tbody {
     th {
       font-weight: 400;
@@ -44,4 +57,20 @@ ul {
 .page-content {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.footer {
+  background-color: $base-color-dark;
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  z-index: 99;
+  flex-shrink: 0;
 }

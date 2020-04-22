@@ -19,14 +19,24 @@ label {
 .full-name {
   display: flex;
 }
-  h1, span {
-    margin-right: 10px;
-  }
 
-.nav-item 
-  .btn.btn-secondary {
-    margin-left: 5px;
+.sign-btn {
+  .btn {
+    width: 95px;
   }
-  .btn-outline-danger {
-    margin-left: 5px;
+  .nav-sign-in-btn {
+    margin-right: 5px;
   }
+}
+
+.user-form-cancel-btn {
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 991px) {
+  .sign-btn {
+    .nav-sign-in-btn {
+      margin-bottom: 5px;
+    }
+  }
+}

@@ -3,8 +3,9 @@
 .parent-units 
   - @unit.ancestors.each do |a|
     div 
-      = link_to a.name, company_unit_path
-      = link_to icon('fas', 'arrow-circle-right', class: 'strong'), company_unit_path, class: 'edit-link'
+      = link_to a.name, company_unit_path(@company, a)
+      span
+        i.fa.fa-arrow-circle-right.edit-link
 
 .unit-page-header
   .row class='justify-content-between'

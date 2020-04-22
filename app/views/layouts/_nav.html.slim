@@ -20,10 +20,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
         li.nav-item
           a.nav-link[href="#"]
             | Contact
-        li.nav-item
-          button.btn.btn-primary[type="submit"]
+        li.nav-item.sign-btn
+          = link_to new_user_path, class: 'btn btn-primary nav-sign-in-btn'
             | Sign in
-        li.nav-item
+        li.nav-item.sign-btn
           = link_to new_user_path, class: 'btn btn-secondary'
             | Sign up
 
