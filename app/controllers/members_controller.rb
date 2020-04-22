@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   def index
     @company_name = @company.name
-    @members = @company.users
+    @pagy, @members = pagy_decorated(@company.members, items: 10)
   end
 
   private

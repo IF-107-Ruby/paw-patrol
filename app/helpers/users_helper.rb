@@ -1,8 +1,4 @@
 module UsersHelper
-  def full_user_name(user)
-    user.first_name + ' ' + user.last_name
-  end
-
   def user_role_string(user)
     user.role&.capitalize&.gsub('_', ' ')
   end

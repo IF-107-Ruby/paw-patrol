@@ -6,6 +6,7 @@ ruby '2.7.1'
 gem 'ancestry'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4.1'
+gem 'draper'
 gem 'font-awesome-sass'
 gem 'jbuilder', '~> 2.7'
 gem 'pagy'
@@ -18,8 +19,6 @@ gem 'simple_form'
 gem 'slim'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap4'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

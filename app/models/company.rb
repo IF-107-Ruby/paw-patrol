@@ -14,4 +14,6 @@ class Company < ApplicationRecord
   validates :phone, format: { with: VALID_PHONE_REGEX,
                               message: 'is invalid: must be from 10 to 14 digits long' },
                     allow_blank: true
+
+  alias members users
 end
