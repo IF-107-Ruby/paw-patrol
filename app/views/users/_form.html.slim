@@ -10,5 +10,10 @@
     = f.input :is_admin, as: :radio_buttons, collection: [['0', 'Admin'], ['1', 'Super-Admin'], ['2', 'Mega-Super-Admin']],
     label_method: :second, value_method: :first, input_html: { class: 'form-check-input' }
   .form-group
+    = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+            input_html: {autocomplete: "new-password", class: 'form-control'}
+  .form-group
+    = f.input :password_confirmation, required: true, input_html: {autocomplete: "new-password", class: 'form-control'}
+  .form-group
     = f.submit yield(:button_text), class: 'btn btn-primary'
     = link_to yield(:cancel_btn_text), yield(:path), class: 'btn btn-outline-danger user-form-cancel-btn'

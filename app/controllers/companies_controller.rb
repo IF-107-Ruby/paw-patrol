@@ -52,7 +52,9 @@ class CompaniesController < ApplicationController
                                                        :phone,
                                                        :first_name,
                                                        :last_name,
-                                                       :user_email)
+                                                       :user_email,
+                                                       :password,
+                                                       :password_confirmation)
   end
 
   def load_company
