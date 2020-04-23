@@ -3,10 +3,49 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 .masthead {
-  height: 100vh;
+  height: 70vh;
   min-height: 500px;
   background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  .create-company-btn {
+    font-size: 20px;
+  }
+}
+
+.home-blocks {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  .home-circle {
+    background-color: rgba(185, 216, 241, 0.6);
+    border-radius: 50%;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .home-block-info {
+      text-align: center;
+      text-transform: uppercase;
+      .info-icon {
+        align-self: center;
+        i {
+          font-size: 30px;
+        }
+      }
+      .info-text {
+        font-size: 22px;
+      }  
+    }  
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .home-blocks {
+    .home-circle {
+      margin-bottom: 15px;    
+    }
+  }
 }

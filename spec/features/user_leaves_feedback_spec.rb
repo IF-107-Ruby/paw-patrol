@@ -4,7 +4,7 @@ feature 'User leaves feedback' do
   let(:feedback) { create(:feedback) }
 
   scenario 'successfully sent feedback' do
-    visit root_path
+    visit '/contact'
 
     expect(page).to have_css('h3', text: 'Contact us')
     fill_in 'feedback_user_full_name', with: feedback.user_full_name
@@ -17,7 +17,7 @@ feature 'User leaves feedback' do
   end
 
   scenario 'unsuccessfully sent not valid feedback' do
-    visit root_path
+    visit '/contact'
 
     click_on 'Send Feedback'
 

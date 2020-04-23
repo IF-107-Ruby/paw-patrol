@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe CompaniesController, type: :controller do
+  let!(:company_registrations_form_valid_params) do
+    FactoryBot.attributes_for :company_registrations_form_params
+  end
   let!(:company) { create(:company) }
   let!(:valid_params) { FactoryBot.attributes_for :company }
   let!(:invalid_params) { { name: '' } }
@@ -12,7 +15,6 @@ describe CompaniesController, type: :controller do
       expect(response).to render_template('index')
     end
   end
-
   describe 'GET#show' do
     before do
       get :show, params: { id: company.id }
@@ -22,35 +24,62 @@ describe CompaniesController, type: :controller do
       expect(assigns(:company)).to eq(company)
     end
   end
-
   describe 'GET#new' do
-    it 'returns success and assigns company' do
+    it 'returns success and assigns company registration form' do
       get :new
       expect(response).to have_http_status(:success)
-      expect(assigns(:company)).to be_a_new(Company)
+      expect(assigns(:company_registration)).to be_a(CompanyRegistrationsForm)
     end
   end
-
   describe 'POST#create' do
     context 'with valid params' do
       it 'creates a new company' do
-        expect { post :create, params: { company: valid_params } }
-          .to change(Company, :count).by(1)
+        expect do
+          post :create, params: {
+            company_registrations_form: company_registrations_form_valid_params
+          }
+        end .to change(Company, :count).by(1)
+      end
+      it 'creates company owner' do
+        expect do
+          post :create, params: {
+            company_registrations_form: company_registrations_form_valid_params
+          }
+        end.to change(User, :count).by(1)
+      end
+      it 'crates user_companies association' do
+        expect do
+          post :create, params: {
+            company_registrations_form: company_registrations_form_valid_params
+          }
+        end.to change(UsersCompaniesRelationship, :count).by(1)
       end
       it 'redirects to the created company' do
-        post :create, params: { company: valid_params }
+        post :create, params: {
+          company_registrations_form: company_registrations_form_valid_params
+        }
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(company_path(Company.last))
+        expect(response).to redirect_to root_path
       end
     end
     context 'with invalid params' do
       it 'do not create a new company' do
-        expect { post :create, params: { company: invalid_params } }
-          .not_to change(Company, :count)
+        expect do
+          post :create, params: {
+            company_registrations_form: invalid_params
+          }
+        end.not_to change(Company, :count)
+      end
+      it 'do not create a new user' do
+        expect { post :create, params: { company_registrations_form: invalid_params } }
+          .not_to change(User, :count)
+      end
+      it 'do not create a new user_companies association' do
+        expect { post :create, params: { company_registrations_form: invalid_params } }
+          .not_to change(UsersCompaniesRelationship, :count)
       end
     end
   end
-
   describe 'GET#edit' do
     before do
       get :edit, params: { id: company.id }
