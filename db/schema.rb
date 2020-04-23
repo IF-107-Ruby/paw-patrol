@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_416_082_345) do
+ActiveRecord::Schema.define(version: 20_200_423_170_838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -50,12 +50,20 @@ ActiveRecord::Schema.define(version: 20_200_416_082_345) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.boolean 'is_admin', default: false, null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'],
+            name: 'index_users_on_reset_password_token',
+            unique: true
   end
 
   create_table 'users_companies_relationships', force: :cascade do |t|
     t.bigint 'user_id', null: false
     t.bigint 'company_id', null: false
-    t.integer 'role'
+    t.integer 'role', default: 0, null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['company_id'], name: 'index_users_companies_relationships_on_company_id'

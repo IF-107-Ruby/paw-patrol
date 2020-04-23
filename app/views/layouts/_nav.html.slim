@@ -1,6 +1,6 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
   .container
-    a.navbar-brand[href="#"]
+    a.navbar-brand[href="/"]
       | ROOM PASSPORT
     button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"]
       span.navbar-toggler-icon
@@ -20,10 +20,21 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
         li.nav-item
           a.nav-link[href="#"]
             | Contact
-        li.nav-item.sign-btn
-          = link_to new_user_path, class: 'btn btn-primary nav-sign-in-btn'
-            | Sign in
-        li.nav-item.sign-btn
-          = link_to new_user_path, class: 'btn btn-secondary'
-            | Sign up
 
+        - if current_user
+          li.nav-item.sign-btn
+            = link_to user_path(current_user), class: 'btn btn-primary nav-sign-in-btn'
+              | Profile
+          li.nav-item.sign-btn
+            = link_to destroy_user_session_path, method: :delete, class: 'btn btn-secondary'
+              | Sign out
+        - else
+          li.nav-item.sign-btn
+            = link_to new_user_session_path, class: 'btn btn-primary nav-sign-in-btn'
+              | Sign in
+          / li.nav-item.sign-btn
+          /   = link_to new_user_path, class: 'btn btn-secondary'
+          /     | Sign up
+          li.nav-item
+            = link_to new_company_path, class: 'btn btn-primary'
+              | Create company
