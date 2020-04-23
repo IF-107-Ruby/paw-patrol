@@ -20,6 +20,14 @@
   .about-block {
     text-align: justify;
     line-height: 30px;
+    .about-list {
+      .list-icon {
+        padding-right: 10px;
+      }
+      li {
+        list-style: none;
+      }
+    }
   }
   img {
     width: 100%;
@@ -95,7 +103,7 @@
       border-left: 1px solid #007bff;
       border-right: 1px solid #007bff;
       border-bottom: 1px solid #0056b3;
-      min-height: 340px;
+      min-height: 290px;
       .item-title {
         font-size: 15px;
         padding-top: 20px;
@@ -123,7 +131,7 @@
         padding-bottom: 30px;
       }
       .item {
-        min-height: 305px;
+        min-height: 235px;
       }
     }
   }  
@@ -133,7 +141,7 @@
   .services-page {
     .services-items {
       .item {
-        min-height: 305px;
+        min-height: 270px;
       }
     }
   }
