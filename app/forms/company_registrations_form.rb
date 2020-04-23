@@ -6,7 +6,7 @@ class CompanyRegistrationsForm
 
   attr_accessor :name, :description, :company_email, :phone,
                 :first_name, :last_name, :user_email, :password,
-                :password_confirmation, :success
+                :password_confirmation
 
   validates :name, presence: { message: 'can not be blank' }
   validates :company_email, presence: { message: 'can not be blank' }
@@ -27,15 +27,13 @@ class CompanyRegistrationsForm
 
   def save
     ActiveRecord::Base.transaction do
-      if valid?
-        persist!
-        @success = true
-      else
-        @success = false
-      end
+      return false unless valid?
+
+      persist!
+      true
     rescue ActiveRecord::StatementInvalid => e
       errors.add(:base, e.message)
-      @success = false
+      false
     end
   end
 
@@ -46,19 +44,13 @@ class CompanyRegistrationsForm
   private
 
   def persist!
-    company = Company.create!(name: name,
-                              description: description,
-                              email: company_email,
-                              phone: phone)
+    company = Company.create!(name: name, description: description,
+                              email: company_email, phone: phone)
 
-    user = User.create!(first_name: first_name,
-                        last_name: last_name,
-                        email: user_email,
-                        password: password,
+    user = User.create!(first_name: first_name, last_name: last_name,
+                        email: user_email, password: password,
                         password_confirmation: password_confirmation)
 
-    user.create_users_companies_relationship(user: user,
-                                             company: company,
-                                             role: 0)
+    user.create_users_companies_relationship(user: user, company: company, role: 0)
   end
 end
