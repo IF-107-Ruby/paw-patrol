@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
 
     if @company_registration.save
       flash[:success] = 'Company has been created.'
-      redirect_to root_url, notice: 'Company registration successful!'
+      redirect_to root_url
     else
       render 'new'
     end
