@@ -8,6 +8,8 @@ feature 'users' do
     fill_in 'First Name', with: 'Test'
     fill_in 'Last Name', with: 'User'
     fill_in 'Email', with: 'user@example.com'
+    fill_in :user_password, with: 'testpassword'
+    fill_in :user_password_confirmation, with: 'testpassword'
     click_on 'Create new user'
     expect(page).to have_text('User profile created')
     expect(page).to have_content('Test')
@@ -21,6 +23,7 @@ feature 'users' do
     click_on 'Edit user profile'
     fill_in 'First Name', with: 'Updated First name'
     fill_in 'Last Name', with: 'Updated Last name'
+    fill_in 'Password', with: 'testpassword'
     click_on 'Edit user'
     expect(page).to have_text('User profile updated')
     expect(page).to have_css('h1', text: 'Updated First name')
