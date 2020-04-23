@@ -10,7 +10,6 @@ class CompanyRegistrationsForm
 
   validates :name, presence: { message: 'can not be blank' }
   validates :company_email, presence: { message: 'can not be blank' }
-  # uniqueness: { case_sensitive: false }
   validates :company_email, format: { with: VALID_EMAIL_REGEX,
                                       message: 'format is not valid' },
                             if: ->(c) { c.company_email.present? }
@@ -26,9 +25,9 @@ class CompanyRegistrationsForm
   validates :password_confirmation, presence: true
 
   def save
-    ActiveRecord::Base.transaction do
-      return false unless valid?
+    return false unless valid?
 
+    ActiveRecord::Base.transaction do
       persist!
       true
     rescue ActiveRecord::StatementInvalid => e
@@ -37,9 +36,7 @@ class CompanyRegistrationsForm
     end
   end
 
-  def save!
-    save
-  end
+  alias save! save
 
   private
 
