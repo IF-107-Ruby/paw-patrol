@@ -22,6 +22,14 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
             | Contact
 
         - if current_user
+          - if current_user.is_admin?
+            li.nav-item.dropdown
+              a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#"
+                | Admin
+              .dropdown-menu aria-labelledby="navbarDropdownMenuLink"
+                = link_to "Users", users_path, class: "dropdown-item"
+                = link_to "Feedback's", feedbacks_path, class: "dropdown-item"
+
           li.nav-item.sign-btn
             = link_to user_path(current_user), class: 'btn btn-primary nav-sign-in-btn'
               | Profile
