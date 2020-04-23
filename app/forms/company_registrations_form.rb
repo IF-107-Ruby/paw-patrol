@@ -39,6 +39,10 @@ class CompanyRegistrationsForm
     end
   end
 
+  def save!
+    save
+  end
+
   private
 
   def persist!
