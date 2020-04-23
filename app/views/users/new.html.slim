@@ -2,4 +2,4 @@
 = provide(:cancel_btn_text, 'Cancel')
 = provide(:path, users_path)
 h2.title Sign up
-= render 'form', user: @user
+= render 'form', user: @user, password_required: true

@@ -2,4 +2,4 @@
 = provide(:cancel_btn_text, 'Cancel')
 = provide(:path, user_path)
 h2 Update user profile
-= render 'form', object: @user
+= render 'form', object: @user, password_required: false
