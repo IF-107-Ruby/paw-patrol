@@ -1,11 +1,12 @@
 class CompanyRegistrationsForm
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+  VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){10,14}\z/.freeze
+
   include ActiveModel::Model
 
   attr_accessor :name, :description, :company_email, :phone,
-                :first_name, :last_name, :user_email, :success
-
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-  VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){10,14}\z/.freeze
+                :first_name, :last_name, :user_email, :password,
+                :password_confirmation, :success
 
   validates :name, presence: { message: 'can not be blank' }
   validates :company_email, presence: { message: 'can not be blank' }
@@ -30,7 +31,7 @@ class CompanyRegistrationsForm
       else
         @success = false
       end
-    rescue StandardError => e
+    rescue ActiveRecord::StatementInvalid => e
       errors.add(:base, e.message)
       @success = false
     end
@@ -39,10 +40,19 @@ class CompanyRegistrationsForm
   private
 
   def persist!
-    company = Company.create!(name: name, description: description,
-                              email: company_email, phone: phone)
-    user = User.create!(first_name: first_name, last_name: last_name,
-                        email: user_email)
-    user.create_users_companies_relationship(user: user, company: company, role: 0)
+    company = Company.create!(name: name,
+                              description: description,
+                              email: company_email,
+                              phone: phone)
+
+    user = User.create!(first_name: first_name,
+                        last_name: last_name,
+                        email: user_email,
+                        password: password,
+                        password_confirmation: password_confirmation)
+
+    user.create_users_companies_relationship(user: user,
+                                             company: company,
+                                             role: 0)
   end
 end
