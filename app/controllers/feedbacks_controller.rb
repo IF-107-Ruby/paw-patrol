@@ -15,7 +15,7 @@ class FeedbacksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:warning] = 'Feedback is not sent!'
-      render 'home/index'
+      render 'static_pages/contact'
     end
   end
 
