@@ -15,15 +15,6 @@ feature 'escape from 404 page to Home page' do
   end
 end
 
-# Connecting after creating Contact model
-
-# feature "Contact" do
-#  scenario "Move to contact page" do
-#      visit contact_path
-#      page.should have_content("#")
-#  end
-# end
-
 describe '500 page' do
   it 'is customized' do
     visit '/500'
