@@ -2,14 +2,13 @@
   .col-md-4
     .user_info
       .full-name
-        h1 = @user.first_name 
-        h1 = @user.last_name
+        h2 = "#{@user.first_name} #{@user.last_name}"
       = user_company_content(@user)
       p 
         span Email: 
         span = @user.email
       nav
-        ul.nav.navbar
-          li.nav-item = link_to 'Edit user profile', edit_user_path, class: "btn btn-warning"
-          li.nav-item = link_to 'Delete user',  @user, method: :delete, data: { confirm: 'You sure?' }, class: "btn btn-danger"
-          li.nav-item = link_to 'Back', users_path, class: "btn btn-info"
+        ul.nav.navbar.user-buttons
+          li.nav-item = link_to 'Edit user profile', edit_user_path, class: "btn-sm btn-outline-info"
+          li.nav-item = link_to 'Delete user',  @user, method: :delete, data: { confirm: 'You sure?' }, class: "btn-sm btn-outline-danger"
+          li.nav-item = link_to 'Back', users_path, class: "btn-sm btn-outline-secondary"
