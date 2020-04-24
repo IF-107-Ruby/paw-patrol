@@ -12,16 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20_200_504_120_353) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'companies', force: :cascade do |t|
-    t.string 'name', null: false
-    t.text 'description'
-    t.string 'email', null: false
-    t.string 'phone'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['email'], name: 'index_companies_on_email', unique: true
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "email", null: false
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_companies_on_email", unique: true
   end
 
   create_table 'feedbacks', force: :cascade do |t|
@@ -30,18 +30,18 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.text 'message'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+
+  create_table "units", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "qr_link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "company_id"
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_units_on_ancestry"
+    t.index ["company_id"], name: "index_units_on_company_id"
   end
 
-  create_table 'units', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'qr_link'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'company_id'
-    t.string 'ancestry'
-    t.index ['ancestry'], name: 'index_units_on_ancestry'
-    t.index ['company_id'], name: 'index_units_on_company_id'
-  end
 
   create_table 'users', force: :cascade do |t|
     t.string 'first_name'
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token',
                                       unique: true
+  create_table "users_companies_relationships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "company_id", null: false
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_users_companies_relationships_on_company_id"
+    t.index ["user_id", "company_id"], name: "relationship_index", unique: true
+    t.index ["user_id"], name: "index_users_companies_relationships_on_user_id"
   end
 
   create_table 'users_companies_relationships', force: :cascade do |t|
@@ -69,8 +78,20 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.index %w[user_id company_id], name: 'relationship_index', unique: true
     t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
   end
+  
+  create_table "users_units_relationships", force: :cascade do |t|
+    t.bigint "users_companies_relationship_id", null: false
+    t.bigint "unit_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["unit_id"], name: "index_users_units_relationships_on_unit_id"
+    t.index ["users_companies_relationship_id", "unit_id"], name: "user_unit_relation_index", unique: true
+    t.index ["users_companies_relationship_id"], name: "us_co_rel"
+  end
 
-  add_foreign_key 'units', 'companies'
-  add_foreign_key 'users_companies_relationships', 'companies'
-  add_foreign_key 'users_companies_relationships', 'users'
+  add_foreign_key "units", "companies"
+  add_foreign_key "users_companies_relationships", "companies"
+  add_foreign_key "users_companies_relationships", "users"
+  add_foreign_key "users_units_relationships", "units"
+  add_foreign_key "users_units_relationships", "users_companies_relationships"
 end
