@@ -1,5 +1,15 @@
 require 'factory_bot_rails'
 
+FactoryBot.create(:admin,
+                  email: 'patrol.admin@gmail.com',
+                  password: '123456',
+                  password_confirmation: '123456')
+
+FactoryBot.create(:user,
+                  email: 'patrol.user@gmail.com',
+                  password: '123456',
+                  password_confirmation: '123456')
+
 10.times do
   FactoryBot.create(:company_with_units, units_count: 6)
 end
