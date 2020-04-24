@@ -1,6 +1,7 @@
 class UnitsController < ApplicationController
   before_action :read_company_by_id
   before_action :read_unit_by_id, only: %i[show edit update destroy]
+  before_action :check_permission, except: %i[index show]
 
   def index
     @pagy, @units = pagy(@company.units, items: 10)
@@ -53,5 +54,12 @@ class UnitsController < ApplicationController
 
   def read_company_by_id
     @company = Company.find(params[:company_id])
+  end
+
+  def check_permission
+    unless current_user&.company_owner?(@company)
+      flash[:danger] = "Sorry, you don't have permission."
+      redirect_to(request.referer)
+    end
   end
 end

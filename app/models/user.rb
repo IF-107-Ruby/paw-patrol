@@ -17,4 +17,8 @@ class User < ApplicationRecord
   def role
     users_companies_relationship.role if company.present?
   end
+
+  def company_owner?(selected_company)
+    company == selected_company && role == 'company_owner'
+  end
 end
