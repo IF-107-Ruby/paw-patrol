@@ -30,7 +30,6 @@ RSpec.describe FeedbackPolicy, type: :policy do
     it 'grant access' do
       expect(subject).to permit(admin)
       expect(subject).to permit(user)
-      expect(subject).to permit(nil)
     end
   end
 
