@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UnitsController, type: :controller do
-  let!(:owner) { create(:user) }
   let!(:company) { create(:company) }
+  let!(:owner) { create(:user) }
   let!(:company_owner) { create(:company_owner, company: company, user: owner) }
   let!(:unit) { create(:unit, company: company) }
   let!(:valid_params) { FactoryBot.attributes_for :unit }
