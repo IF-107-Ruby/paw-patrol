@@ -31,4 +31,3 @@ Company.all.each do |company|
     FactoryBot.create(:staff_member, company: company)
   end
 end
-
