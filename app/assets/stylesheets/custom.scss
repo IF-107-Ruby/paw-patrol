@@ -7,10 +7,18 @@ $base-color-dark: rgb(88, 89, 92);
 $base-color-light: rgb(137, 139, 145);
 
 body {
-  padding-top: 80px;
+  padding-top: 56px;
   color: $base-color-dark;
   display: flex;
   flex-direction: column;
+}
+
+.page-padding {
+  padding-top: 30px;
+}
+
+* {
+  cursor: pointer;
 }
 
 html, body {

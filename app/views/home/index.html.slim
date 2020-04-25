@@ -1,44 +1,44 @@
-header.masthead
-  .container.h-100
-    .row.h-100.align-items-center
+.home-page
+  .container
+    .row.home-text
       .col-12.text-center
-        h1.font-weight-light
+        h1.home-title
           | Welcome to ROOM PASSPORT!
-        p.lead
+        p.lead.home-description
           | Office managment digital company
-        = link_to 'Create your company', new_company_path, class: 'btn btn-dark create-company-btn'
-.home-blocks
-  .row.justify-content-around.align-items-self
-    .col-xl-4.col-lg-4.col-md-4
-      .home-circle
-        .home-block-info
-          .info-icon
-            i.fas.fa-users
-          .info-text
-            | 836
-          div
-            | Satisfied
-          div
-            | Customers
-    .col-xl-4.col-lg-4.col-md-4
-      .home-circle
-         .home-block-info
-          .info-icon
-            i.far.fa-building
-          .info-text
-            | 230
-          div
-            | Company
-          div
-            | Registered
-    .col-xl-4.col-lg-4.col-md-4
-      .home-circle
-         .home-block-info
-          .info-icon
-            i.fa.fa-tasks
-          .info-text
-            | 12077
-          div
-            | Problems
-          div
-            | Solved
+        = link_to 'Create your company', new_company_path, class: 'btn create-company-btn'
+    .home-blocks
+      .row.justify-content-around.align-items-self
+        .col-xl-4.col-lg-4.col-md-4
+          .home-circle
+            .home-block-info
+              .info-icon
+                i.fas.fa-users
+              .info-text
+                | 836
+              div
+                | Satisfied
+              div
+                | Customers
+        .col-xl-4.col-lg-4.col-md-4
+          .home-circle
+            .home-block-info
+              .info-icon
+                i.far.fa-building
+              .info-text
+                | 67
+              div
+                | Companies
+              div
+                | Registered
+        .col-xl-4.col-lg-4.col-md-4
+          .home-circle
+            .home-block-info
+              .info-icon
+                i.fa.fa-tasks
+              .info-text
+                | 12077
+              div
+                | Problems
+              div
+                | Solved
