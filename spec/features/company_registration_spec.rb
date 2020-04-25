@@ -33,6 +33,5 @@ feature 'company registration' do
     click_on 'Sign out'
     expect(page).to have_text('Signed out successfully.')
     expect(page).to have_text('Sign in')
-    expect(page).to have_text('Create company')
   end
 end
