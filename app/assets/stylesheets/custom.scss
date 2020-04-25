@@ -74,3 +74,11 @@ ul {
   z-index: 99;
   flex-shrink: 0;
 }
+
+.alert-notice {
+  @extend .alert-success;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
