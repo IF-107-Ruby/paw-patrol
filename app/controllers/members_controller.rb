@@ -9,6 +9,7 @@ class MembersController < ApplicationController
   private
 
   def find_company_by_id
-    @company = Company.find(params[:company_id])
+    @company = Company.where(id: params[:company_id]).first
+    render 'errors/not_found' unless @company
   end
 end

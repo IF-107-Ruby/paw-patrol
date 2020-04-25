@@ -54,6 +54,7 @@ class CompaniesController < ApplicationController
   end
 
   def load_company
-    @company = Company.find(params[:id])
+    @company = Company.where(id: params[:id]).first
+    render 'errors/not_found' unless @company
   end
 end
