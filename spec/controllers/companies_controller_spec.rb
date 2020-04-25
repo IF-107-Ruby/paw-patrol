@@ -59,7 +59,7 @@ describe CompaniesController, type: :controller do
           company_registrations_form: company_registrations_form_valid_params
         }
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to company_path(Company.last)
       end
     end
     context 'with invalid params' do

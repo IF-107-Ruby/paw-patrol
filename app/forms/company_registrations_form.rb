@@ -50,8 +50,8 @@ class CompanyRegistrationsForm
     return false unless valid?
 
     ActiveRecord::Base.transaction do
-      persist!
-      true
+      company = persist!
+      company
     rescue ActiveRecord::StatementInvalid => e
       errors.add(:base, e.message)
       false
@@ -71,5 +71,6 @@ class CompanyRegistrationsForm
                          email: user_email,
                          password: password,
                          password_confirmation: password_confirmation)
+    company
   end
 end
