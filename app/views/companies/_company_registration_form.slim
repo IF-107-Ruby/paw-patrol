@@ -10,15 +10,15 @@
     = f.input :phone, input_html: { class: 'form-control', id: 'phone' }, error: false, placeholder: '+380000000000'
   h4 User information
   .form-group
-    = f.input :first_name, label: 'First Name', placeholder: 'Your name', input_html: {class: 'form-control'}
+    = f.input :first_name, label: 'First Name', placeholder: 'Your name', error: false, input_html: {class: 'form-control'}
   .form-group
-    = f.input :last_name, label: 'Last Name', placeholder: 'Your last name', input_html: {class: 'form-control'}
+    = f.input :last_name, label: 'Last Name', placeholder: 'Your last name', error: false, input_html: {class: 'form-control'}
   .form-group
-    = f.input :user_email, placeholder: 'user@domain.com', input_html: {class: 'form-control'}
+    = f.input :user_email, placeholder: 'user@domain.com', error: false, input_html: {class: 'form-control'}
   .form-group
     = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-            input_html: { autocomplete: "new-password", class: 'form-control' }
+            error: false, input_html: { autocomplete: "new-password", class: 'form-control' }
   .form-group
-    = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password", class: 'form-control' }
+    = f.input :password_confirmation, required: true, error: false, input_html: { autocomplete: "new-password", class: 'form-control' }
   .form-group
     = f.submit submit_label, class: 'btn btn-primary'
