@@ -4,9 +4,7 @@ class UsersController < ApplicationController
     @pagy, @users = pagy(User.all, items: 10)
   end
 
-  def show
-    @user = obtain_user
-  end
+  def show; end
 
   def new
     @user = User.new
@@ -22,9 +20,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = obtain_user
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
