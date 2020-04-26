@@ -17,19 +17,40 @@ class CompanyRegistrationsForm
                               message: 'is invalid: must be from 10 to 14 digits long' },
                     allow_blank: true
 
-  validates :first_name, presence: true, length: { minimum: 3, maximum: 50 }
-  validates :last_name, presence: true, length: { minimum: 3, maximum: 50 }
-  validates :user_email, presence: true, length: { minimum: 8, maximum: 255 },
-                         format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true
-  validates :password_confirmation, presence: true
+  validates :first_name, presence: { message: 'can not be blank' }
+  validates :first_name,
+            length: { minimum: 3,
+                      maximum: 50,
+                      too_short: 'must have at least %<count>s characters',
+                      too_long: 'must have at most %<count>s characters' },
+            if: ->(c) { c.first_name.present? }
+
+  validates :last_name, presence: { message: 'can not be blank' }
+  validates :last_name,
+            length: { minimum: 3,
+                      maximum: 50,
+                      too_short: 'must have at least %<count>s characters',
+                      too_long: 'must have at most %<count>s characters' },
+            if: ->(c) { c.last_name.present? }
+
+  validates :user_email, presence: { message: 'can not be blank' }
+  validates :user_email, length: { minimum: 8,
+                                   maximum: 255,
+                                   too_short: 'must have at least %<count>s characters',
+                                   too_long: 'must have at most %<count>s characters' },
+                         if: ->(c) { c.user_email.present? }
+
+  validates :user_email, format: { with: VALID_EMAIL_REGEX, message: 'is invalid' },
+                         if: ->(c) { c.user_email.present? }
+
+  validates :password, presence: { message: 'can not be blank' }
+  validates :password_confirmation, presence: { message: 'can not be blank' }
 
   def save
     return false unless valid?
 
     ActiveRecord::Base.transaction do
       persist!
-      true
     rescue ActiveRecord::StatementInvalid => e
       errors.add(:base, e.message)
       false
@@ -49,5 +70,6 @@ class CompanyRegistrationsForm
                          email: user_email,
                          password: password,
                          password_confirmation: password_confirmation)
+    company
   end
 end
