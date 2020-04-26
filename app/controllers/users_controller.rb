@@ -4,7 +4,9 @@ class UsersController < ApplicationController
     @pagy, @users = pagy(User.all, items: 10)
   end
 
-  def show; end
+  def show
+    @user = obtain_user.decorate
+  end
 
   def new
     @user = User.new
