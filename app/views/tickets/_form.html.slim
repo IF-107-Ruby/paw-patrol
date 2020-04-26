@@ -1,0 +1,8 @@
+= simple_form_for ticket do |f|
+  = render 'shared/error_messages', object: f.object
+  .form-group
+    = f.input :name, error: false
+  .form-group
+    = f.label 'Ticket description:', class: "mb-2"
+    = f.rich_text_area :description
+  = f.button :submit, 'Save ticket', class: "btn btn-primary mt-2"
