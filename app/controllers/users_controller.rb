@@ -50,8 +50,6 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
 
-  def full_name; end
-
   def obtain_user
     @user = User.find(params[:id])
   end
