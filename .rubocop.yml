@@ -12,6 +12,10 @@ Layout/LineLength:
   IgnoredPatterns:
     - '\A(\s)*#'
 
+Metrics/AbcSize:
+  Exclude:
+    - "db/migrate/*"
+
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
