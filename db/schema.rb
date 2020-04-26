@@ -55,9 +55,8 @@ ActiveRecord::Schema.define(version: 20_200_423_170_838) do
     t.datetime 'reset_password_sent_at'
     t.datetime 'remember_created_at'
     t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['reset_password_token'],
-            name: 'index_users_on_reset_password_token',
-            unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token',
+                                      unique: true
   end
 
   create_table 'users_companies_relationships', force: :cascade do |t|
