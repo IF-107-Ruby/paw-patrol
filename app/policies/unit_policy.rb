@@ -8,20 +8,20 @@ class UnitPolicy < ApplicationPolicy
   end
 
   def create?
-    check_company_owner?
+    company_owner?
   end
 
   def update?
-    check_company_owner?
+    company_owner?
   end
 
   def destroy?
-    check_company_owner?
+    company_owner?
   end
 
   private
 
-  def check_company_owner?
+  def company_owner?
     user.company_owner?(record.company)
   end
 

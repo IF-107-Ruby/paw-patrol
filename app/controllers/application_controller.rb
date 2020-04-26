@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  def current_user
+    super || Guest.new
+  end
+
   private
 
   def pagy_decorated(*args)

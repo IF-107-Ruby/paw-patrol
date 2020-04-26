@@ -2,7 +2,7 @@
   .row class='justify-content-between'
     .col
       h4 Units list
-    - if current_user&.company_owner?(@company)
+    - if current_user.company_owner?(@company)
       .col class='edit-delete-links justify-content-end'
         div = link_to icon('fas', 'plus', class: 'strong'), new_company_unit_path(parent_id: @unit)
 

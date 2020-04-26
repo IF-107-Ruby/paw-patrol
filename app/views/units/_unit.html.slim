@@ -1,7 +1,7 @@
 .unit-link
   .unit-name
     = link_to unit.name, company_unit_path(@company, unit)
-  - if current_user&.company_owner?(@company)
+  - if current_user.company_owner?(@company)
     .unit-icons
       div = link_to icon('fas', 'plus', class: 'strong'), new_company_unit_path(parent_id: unit)
       div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company, unit], class: 'edit-link'
