@@ -48,12 +48,10 @@ class UnitsController < ApplicationController
   end
 
   def read_unit_by_id
-    @unit = @company.units.where(id: params[:id]).first
-    render 'errors/not_found' unless @unit
+    @unit = @company.units.find(params[:id])
   end
 
   def read_company_by_id
-    @company = Company.where(id: params[:company_id]).first
-    render 'errors/not_found' unless @company
+    @company = Company.find(params[:company_id])
   end
 end

@@ -28,12 +28,7 @@ class FeedbacksController < ApplicationController
   private
 
   def find_feedback_by_id
-    feedback = Feedback.where(id: params[:id]).first
-    if feedback
-      @feedback = authorize(feedback)
-    else
-      render 'errors/not_found'
-    end
+    @feedback = authorize(Feedback.find(params[:id]))
   end
 
   def feedback_params

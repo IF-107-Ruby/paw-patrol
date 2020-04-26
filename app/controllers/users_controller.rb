@@ -49,7 +49,6 @@ class UsersController < ApplicationController
   def full_name; end
 
   def obtain_user
-    @user = User.where(id: params[:id]).first
-    render 'errors/not_found' unless @user
+    @user = User.find(params[:id])
   end
 end
