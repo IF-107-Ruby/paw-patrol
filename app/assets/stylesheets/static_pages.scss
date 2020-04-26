@@ -4,8 +4,6 @@
 
 // About page
 .about-page {
-  padding-top: 30px;
-  padding-bottom: 40px;
   .about-first-line {
     padding-bottom: 30px;
   }
@@ -47,6 +45,17 @@
   }  
 }
 
+.about-page, .services-page {
+  .create-company-btn {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 60px;
+    a {
+      font-size: 24px;
+    }
+  }
+}
+
 // Services page
 .services-content {
   position: relative;
@@ -78,7 +87,6 @@
 }
 
 .services-page {
-  padding-top: 30px;
   .services-img {
     padding-bottom: 20px;
     img {
@@ -97,7 +105,7 @@
   }
   .services-items {
     padding-top: 40px;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
     .item {
       padding: 20px;
       border-left: 1px solid #007bff;

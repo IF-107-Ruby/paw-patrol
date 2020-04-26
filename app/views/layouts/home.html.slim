@@ -10,7 +10,6 @@ html
   body
     = render 'layouts/meta'
     = render 'layouts/nav'
-    .container.page-wrapper.page-padding
-      = render 'layouts/flash'
+    .page-wrapper
       = yield
     = render 'layouts/footer'
