@@ -14,7 +14,7 @@ module UsersHelper
   end
 
   def company_role_at(user)
-    content_tag(:span, "#{user_role_string(user)} at")
+    content_tag(:span, "#{user_role_string(user)} at ")
   end
 
   def company_role_and_link(user)

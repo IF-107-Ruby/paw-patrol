@@ -28,6 +28,12 @@ label {
     width: 95px;
   }
 }
+nav
+  .user-buttons {
+    padding: 0;
+    justify-content: flex-start;
+  }
+
 
 .user-form-cancel-btn {
   margin-left: 5px;
