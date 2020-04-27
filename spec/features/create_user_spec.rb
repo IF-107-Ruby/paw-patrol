@@ -2,6 +2,10 @@ require 'rails_helper'
 
 feature 'users' do
   let!(:user) { create(:user) }
+  let!(:company) { create(:company) }
+  let!(:company_owner) { create(:company_owner, company: company, user: user) }
+
+  before { login_as user }
 
   before :each do
     login_as user

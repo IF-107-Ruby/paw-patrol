@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe UsersController, type: :controller do
   let!(:user) { create(:user) }
+  let!(:company) { create(:company) }
+  let!(:company_owner) { create(:company_owner, company: company, user: user) }
   let!(:valid_params) { FactoryBot.attributes_for :user }
   let!(:invalid_params) { { first_name: '' } }
 
