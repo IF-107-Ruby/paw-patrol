@@ -4,9 +4,7 @@ class UsersController < ApplicationController
     @pagy, @users = pagy_decorated(User.all, items: 10)
   end
 
-  def show
-    @user = obtain_user.decorate
-  end
+  def show; end
 
   def new
     @user = User.new
@@ -49,6 +47,6 @@ class UsersController < ApplicationController
   end
 
   def obtain_user
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]).decorate
   end
 end
