@@ -5,7 +5,7 @@ section.feedbacks.mt-4
       tr
         th scope="col" User name
         th scope="col" Email
-        th scope="col" Describe
+        th scope="col" Message
         th scope="col" Create at
         th scope="col"
         th scope="col"
@@ -14,7 +14,7 @@ section.feedbacks.mt-4
         tr
           td = feedback.user_full_name
           td = feedback.email
-          td = feedback.describe.truncate(50)
+          td = feedback.message.truncate(50)
           td = time_ago_in_words(feedback.created_at)
           td = link_to 'Show', feedback
           td = delete_feedback_link(feedback)

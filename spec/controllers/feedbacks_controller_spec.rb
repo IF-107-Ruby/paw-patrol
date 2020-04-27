@@ -5,7 +5,7 @@ RSpec.describe FeedbacksController, type: :controller do
   let(:admin) { create(:admin) }
   let(:feedback) { create(:feedback) }
   let(:feedback_valid_params) { FactoryBot.attributes_for :feedback }
-  let(:feedback_invalid_params) { { user_full_name: '', email: '', describe: '' } }
+  let(:feedback_invalid_params) { { user_full_name: '', email: '', message: '' } }
 
   describe 'Authentication and authorization tests' do
     context 'if user is not admin' do
