@@ -74,7 +74,7 @@ RSpec.describe FeedbacksController, type: :controller do
       it { is_expected.to set_flash.now[:warning] }
       it { is_expected.not_to set_flash[:success] }
 
-      it { is_expected.to render_template('static_pages/contact') }
+      it { is_expected.to render_template('new') }
     end
   end
 end

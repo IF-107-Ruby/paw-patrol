@@ -1,0 +1,20 @@
+h3.font-weight-light Contact us
+= form_for @feedback do |f|
+  = render 'shared/error_messages', object: f.object
+  .row.mt-3
+    .col-6
+      .form-group
+        = f.label 'Your full name'
+        = f.text_field :user_full_name, placeholder: 'Enter your name', class: 'form-control'
+    .col-6
+      .form-group
+        = f.label 'Email'
+        = f.email_field :email, placeholder: 'Enter your email address', class: 'form-control'
+  .row
+    .col-12
+      .form-group
+      = f.label 'Your message here..'
+      = f.text_area :message, class: 'form-control'
+  .row.mt-3
+    .col-12
+      = f.submit 'Send Feedback', class: 'btn btn-primary float-right'
