@@ -1,6 +1,4 @@
 .all-users
   h2 All Users:
   = render 'users', user: @user
-  br
-  = link_to 'New User', new_user_path
 = pagy_bootstrap_nav(@pagy).html_safe 
