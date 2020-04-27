@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: units
+#
+#  id         :bigint           not null, primary key
+#  name       :string           not null
+#  qr_link    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  company_id :bigint
+#  ancestry   :string
+#
 FactoryBot.define do
   factory :unit do
     sequence(:name) { |n| "unit_#{n}" }

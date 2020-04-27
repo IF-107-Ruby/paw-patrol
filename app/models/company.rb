@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: companies
+#
+#  id          :bigint           not null, primary key
+#  name        :string           not null
+#  description :text
+#  email       :string           not null
+#  phone       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class Company < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){10,14}\z/.freeze
