@@ -1,16 +1,22 @@
-section.company_members
-  h2.mb-4 = @company_name
-  h3.mb-4 Members:
-  .row
-    .col-11
-      .company_members-table
-        table.table.table-striped
-          thead
-            tr
-              th.pl-5 scope="col" User
-              th scope="col" Role
-              th scope="col"
-          tbody
-            = render partial: 'member', collection: @members
+.row class='justify-content-between'
+  .col
+    h2.mb-4 = @company_name
+.row class='justify-content-between'
+  .col
+    h3.mb-4 Members:
+  - if current_user.company_owner?(@company)
+    .col class='edit-delete-links justify-content-end'
+      div.user-plus-link = link_to icon('fas', 'plus', class: 'strong'), new_company_member_path(@company)
+.row
+  .col
+    .company_members-table
+      table.table.table-striped
+        thead
+          tr
+            th.pl-5 scope="col" User
+            th scope="col" Role
+            th scope="col"
+        tbody
+          = render partial: 'member', collection: @members
 
-  = pagy_bootstrap_nav(@pagy).html_safe
+= pagy_bootstrap_nav(@pagy).html_safe
