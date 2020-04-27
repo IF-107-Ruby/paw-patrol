@@ -3,6 +3,9 @@
   .form-group
     = f.input :name, error: false
   .form-group
+    = f.label 'Choose unit:', class: "mb-2"
+    = select_tag "unit", options_from_collection_for_select(@units, "id", "name"), class: "form-control"
+  .form-group
     = f.label 'Ticket description:', class: "mb-2"
     = f.rich_text_area :description
   = f.button :submit, 'Save ticket', class: "btn btn-primary mt-2"

@@ -3,6 +3,7 @@ class CreateTickets < ActiveRecord::Migration[6.0]
     create_table :tickets do |t|
       t.string :name, null: false
       t.references :user, null: false, foreign_key: true
+      # t.references :unit, null: false, foreign_key: true
 
       t.timestamps
     end

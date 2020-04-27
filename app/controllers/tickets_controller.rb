@@ -7,6 +7,7 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+    @units = Company.last.units
   end
 
   def create
