@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :obtain_user, only: %i[show edit update destroy]
+
   def index
     @pagy, @users = pagy_decorated(User.all, items: 10)
   end

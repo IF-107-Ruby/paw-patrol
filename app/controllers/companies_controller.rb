@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  before_action :authenticate_user!, except: %i[new create]
   before_action :load_company, only: %i[show edit update destroy]
 
   def index
