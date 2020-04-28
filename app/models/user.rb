@@ -27,7 +27,7 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name,
             presence: true,
-            length: { minimum: 3,
+            length: { minimum: 2,
                       maximum: 50,
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
