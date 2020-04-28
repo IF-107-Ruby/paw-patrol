@@ -4,9 +4,12 @@ describe CompaniesController, type: :controller do
   let!(:company_registrations_form_valid_params) do
     FactoryBot.attributes_for :company_registrations_form_params
   end
+  let!(:user) { create(:user) }
   let!(:company) { create(:company) }
   let!(:valid_params) { FactoryBot.attributes_for :company }
   let!(:invalid_params) { { name: '' } }
+
+  before { sign_in user }
 
   describe 'GET#index' do
     it 'assigns companies and renders template' do
