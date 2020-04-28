@@ -51,7 +51,7 @@ class CompanyRegistrationsForm
 
     ActiveRecord::Base.transaction do
       persist!
-    rescue ActiveRecord::StatementInvalid => e
+    rescue ActiveRecord::RecordInvalid => e
       errors.add(:base, e.message)
       false
     end
