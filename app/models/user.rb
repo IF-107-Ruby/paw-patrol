@@ -25,10 +25,12 @@ class User < ApplicationRecord
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
 
-  validates :first_name, presence: true, length: { in: 2..50 }
-  validates :last_name, presence: true, length: { in: 2..50 }
-  validates :email, presence: true, length: { in: 8..255 },
-                    format: { with: VALID_EMAIL_REGEX }
+  validates :first_name, :last_name,
+            presence: true,
+            length: { minimum: 3,
+                      maximum: 50,
+                      too_short: 'must have at least %<count>s characters',
+                      too_long: 'must have at most %<count>s characters' }
 
   def role
     users_companies_relationship.role if company.present?
