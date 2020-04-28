@@ -18,11 +18,12 @@ feature 'users' do
     fill_in 'Email', with: 'user@example.com'
     fill_in :user_password, with: 'testpassword'
     fill_in :user_password_confirmation, with: 'testpassword'
-    click_on 'Create new user'
-    expect(page).to have_text('User profile created')
+    choose('Employee')
+    click_on 'Create new member'
+    expect(page).to have_text('Company member created.')
     expect(page).to have_content('Test')
     expect(page).to have_content('User')
-    expect(page).to have_css('h2', text: 'Test User')
+    expect(page).to have_content('Employee')
   end
 
   scenario 'successfully update a user' do
