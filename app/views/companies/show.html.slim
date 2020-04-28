@@ -17,7 +17,7 @@
             = @company.phone
         .mt-2
           div = link_to 'Company members', company_members_path(@company)
-          div = link_to 'Company units', company_units_path(@company)
+          div = link_to 'Company units', units_path
     .col class='edit-delete-links justify-content-end'
       div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company], class: 'edit-link'
       div = link_to icon('fas', 'trash-alt', class: 'strong'), @company, method: :delete, data: { confirm: "You sure?" }, class: 'delete-link'
