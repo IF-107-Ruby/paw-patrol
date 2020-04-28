@@ -5,6 +5,7 @@ RSpec.describe Unit, type: :model do
 
   describe 'Associations' do
     it { is_expected.to belong_to(:company) }
+    it { is_expected.to have_many(:tickets).dependent(:destroy) }
   end
 
   describe 'Validation tests' do

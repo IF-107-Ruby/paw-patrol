@@ -3,11 +3,13 @@ require 'rails_helper'
 RSpec.describe Ticket, type: :model do
   describe 'Associations' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:unit) }
   end
 
   describe 'validations' do
     context 'presence validation' do
       it { is_expected.to validate_presence_of(:user) }
+      it { is_expected.to validate_presence_of(:unit) }
       it { is_expected.to validate_presence_of(:name) }
     end
 
