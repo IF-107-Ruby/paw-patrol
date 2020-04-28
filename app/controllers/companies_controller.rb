@@ -15,7 +15,7 @@ class CompaniesController < ApplicationController
   def create
     @company_registration = CompanyRegistrationsForm.new(company_registration_params)
 
-    if (company = @company_registration.save)
+    if @company_registration.save
       flash[:success] = 'Company has been created.'
       redirect_to root_path
     else
