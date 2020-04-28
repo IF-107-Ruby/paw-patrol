@@ -7,4 +7,3 @@
         div = link_to icon('fas', 'plus', class: 'strong'), new_company_unit_path(parent_id: @unit)
 
 = render 'unit_tree_structure', units: @units.arrange
-= pagy_bootstrap_nav(@pagy).html_safe

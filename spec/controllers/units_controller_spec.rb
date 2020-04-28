@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe UnitsController, type: :controller do
   let!(:company) { create(:company) }
   let!(:owner) { create(:user) }
+  let!(:user) { create(:user) }
   let!(:company_owner) { create(:company_owner, company: company, user: owner) }
   let!(:unit) { create(:unit, company: company) }
   let!(:valid_params) { FactoryBot.attributes_for :unit }
@@ -10,6 +11,7 @@ RSpec.describe UnitsController, type: :controller do
 
   describe 'GET#index' do
     it 'assigns units and renders template' do
+      sign_in user
       get :index, params: { company_id: unit.company.id }
       expect(assigns(:units)).to eq([unit])
       expect(response).to render_template('index')
@@ -17,10 +19,9 @@ RSpec.describe UnitsController, type: :controller do
   end
 
   describe 'GET#show' do
-    before do
-      get :show, params: { id: unit.id, company_id: unit.company.id }
-    end
     it 'returns http success and assigns unit' do
+      sign_in user
+      get :show, params: { id: unit.id, company_id: unit.company.id }
       expect(response).to have_http_status(:success)
       expect(assigns(:unit)).to eq(unit)
     end

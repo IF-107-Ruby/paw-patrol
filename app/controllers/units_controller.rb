@@ -1,10 +1,10 @@
 class UnitsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!
   before_action :read_company_by_id
   before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
-    @pagy, @units = pagy(@company.units, items: 10)
+    @units = @company.units
   end
 
   def show; end
