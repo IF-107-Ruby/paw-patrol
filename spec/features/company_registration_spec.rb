@@ -5,23 +5,23 @@ feature 'company registration' do
 
   scenario 'successfuly registrate company, log in and log out' do
     visit new_company_path
-    fill_in 'Company name', with: 'Name'
-    fill_in 'Description', with: 'Desc'
+    fill_in 'Company name', with: company_registration.name
+    fill_in 'Description', with: company_registration.description
     fill_in 'Company email', with: 'companyemail@company.com'
-    fill_in 'Phone', with: '+38091934561'
-    fill_in 'First Name', with: 'First Name'
-    fill_in 'Last Name', with: 'Last name'
+    fill_in 'Phone', with: company_registration.phone
+    fill_in 'First Name', with: company_registration.first_name
+    fill_in 'Last Name', with: company_registration.last_name
     fill_in 'User email', with: 'companyuseremail@company.com'
-    fill_in 'company_registrations_form_password', with: 'passwordtext'
+    fill_in 'company_registrations_form_password', with: company_registration.password
     fill_in 'company_registrations_form_password_confirmation',
-            with: 'passwordtext'
+            with: company_registration.password
     click_on 'Create Company'
 
     expect(page).to have_text('Company has been created.')
 
     visit new_user_session_path
     fill_in 'Email', with: 'companyuseremail@company.com'
-    fill_in 'Password', with: 'passwordtext'
+    fill_in 'Password', with: company_registration.password
     find('input', class: 'btn btn btn-primary').click
 
     expect(page).to have_text('Signed in successfully.')
