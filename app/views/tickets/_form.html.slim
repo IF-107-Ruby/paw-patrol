@@ -1,11 +1,13 @@
-= simple_form_for ticket do |f|
-  = render 'shared/error_messages', object: f.object
-  .form-group
-    = f.input :name, error: false
-  .form-group
-    = f.label 'Choose unit:', class: "mb-2"
-    = select_tag "unit", options_from_collection_for_select(@units, "id", "name"), class: "form-control"
-  .form-group
-    = f.label 'Ticket description:', class: "mb-2"
-    = f.rich_text_area :description
-  = f.button :submit, 'Save ticket', class: "btn btn-primary mt-2"
+.ticket-form
+  = form_for ticket do |f|
+    = render 'shared/error_messages', object: f.object
+    .form-group
+      = f.label 'Ticket name:', class: "mb-2"
+      = f.text_field :name, class: "form-control"
+    .form-group
+      = f.label 'Choose unit:', class: "mb-2"
+      = f.select :unit_id, options_from_collection_for_select(@units, "id", "name"), {}, class: "form-control"
+    .form-group
+      = f.label 'Ticket description:', class: "mb-2"
+      = f.rich_text_area :description
+    = f.submit 'Save ticket', class: "btn btn-primary mt-2"

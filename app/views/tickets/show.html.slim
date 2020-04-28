@@ -1,3 +1,13 @@
-h2 = @ticket.name
-.m-3
-  == @ticket.description
+section.ticket_show
+  .ticket_show-title
+    h2
+      span.ticket_show-title__span
+        | Ticket:
+      = @ticket.name
+  .ticket_show-place
+    = @ticket.place_were_opened
+  .ticket_show-description
+    h3.ticket_show-description__title
+      | Ticket description:
+    .ticket_show-description__body
+      == @ticket.description

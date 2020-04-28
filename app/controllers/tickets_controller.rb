@@ -1,13 +1,13 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
+  before_action :read_units, only: %i[new create]
 
   def show
-    @ticket = Ticket.find(params[:id])
+    @ticket = Ticket.find(params[:id]).decorate
   end
 
   def new
     @ticket = Ticket.new
-    @units = Company.last.units
   end
 
   def create
@@ -23,7 +23,13 @@ class TicketsController < ApplicationController
 
   private
 
+  def read_units
+    @units = Company.last.units
+  end
+
   def ticket_params
-    params.require(:ticket).permit(:name, :description).merge!(user_id: current_user.id)
+    params.require(:ticket)
+          .permit(:name, :unit_id, :description)
+          .merge!(user_id: current_user.id)
   end
 end

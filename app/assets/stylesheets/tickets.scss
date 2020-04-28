@@ -1,3 +1,37 @@
-// Place all the styles related to the Tickets controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+$ticket-border-color: #58595C;
+
+.ticket-form {
+  margin-bottom: 15px;
+}
+
+.ticket_show {
+  &-title {
+    &__span {
+      margin-bottom: 5px;
+      padding-right: 2px;
+      font-weight: bolder;
+    }
+  }
+
+  &-place {
+    margin-bottom: 25px;
+    margin-left: 25px;
+    font-size: 16pt;
+  }
+
+  &-description {
+    &__title {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid $ticket-border-color;
+      font-weight: bolder;
+    }
+
+    &__body {
+      margin: {
+        left: 30px;
+        bottom: 15px;
+      }
+    }
+  }
+}
