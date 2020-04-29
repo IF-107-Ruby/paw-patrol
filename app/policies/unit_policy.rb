@@ -22,7 +22,7 @@ class UnitPolicy < ApplicationPolicy
   private
 
   def company_owner?
-    user.company_owner?(record.company)
+    user.company_owner?
   end
 
   class Scope < Scope

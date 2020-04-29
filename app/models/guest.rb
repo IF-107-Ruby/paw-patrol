@@ -1,5 +1,5 @@
 class Guest
-  def company_owner?(_)
+  def company_owner?
     false
   end
 end

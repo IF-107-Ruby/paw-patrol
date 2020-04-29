@@ -1,20 +1,19 @@
 class UnitsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
-  before_action :current_company
+  before_action :authenticate_user!
   before_action :read_unit_by_id, only: %i[show edit update destroy]
 
   def index
-    @pagy, @units = pagy(@current_company.units, items: 10)
+    @pagy, @units = pagy(current_company.units, items: 10)
   end
 
   def show; end
 
   def new
-    @unit = authorize(@current_company.units.build(parent_id: params[:parent_id]))
+    @unit = authorize(current_company.units.build(parent_id: params[:parent_id]))
   end
 
   def create
-    @unit = @current_company.units.build(unit_params)
+    @unit = current_company.units.build(unit_params)
     if @unit.save
       flash[:success] = 'Unit created successfully.'
       redirect_to @unit
@@ -49,6 +48,6 @@ class UnitsController < ApplicationController
   end
 
   def read_unit_by_id
-    @unit = authorize(@current_company.units.find(params[:id]))
+    @unit = authorize(current_company.units.find(params[:id]))
   end
 end

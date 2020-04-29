@@ -11,7 +11,7 @@
   .row class='justify-content-between'
     .col
       h2 = @unit.name
-    - if current_user.company_owner?(@current_company)
+    - if current_user.company_owner?
       .col class='edit-delete-links justify-content-end'
         div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @unit], class: 'edit-link'
         div = link_to icon('fas', 'trash-alt', class: 'strong'), @unit, method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
