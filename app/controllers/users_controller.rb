@@ -10,13 +10,14 @@ class UsersController < ApplicationController
   def show; end
 
   def new
-    @user = authorize(@current_company.members.build)
+    @user = authorize(@current_company.users.build)
   end
 
   def create
     @user = @current_company.users.create(user_params)
-    @user.role = user_role_param[:role].to_i
     if @user.save
+      @user.users_companies_relationship.role = user_role_params[:role].to_i
+      @user.users_companies_relationship.save
       flash[:success] = 'Company member created.'
       redirect_to company_members_path(@current_company)
     else
@@ -50,11 +51,11 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
 
-  def obtain_user
-    @user = authorize(User.find(params[:id]).decorate)
+  def user_role_params
+    params.require(:user).permit(:role)
   end
 
-  def user_role_param
-    params.require(:user).permit(:role)
+  def obtain_user
+    @user = authorize(User.find(params[:id]).decorate)
   end
 end
