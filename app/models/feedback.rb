@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: feedbacks
+#
+#  id             :bigint           not null, primary key
+#  user_full_name :string
+#  email          :string
+#  message        :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 class Feedback < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
 
