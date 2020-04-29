@@ -13,10 +13,6 @@
   }
 }
 
-.nested_units {
-  margin-left: 50px;
-}
-
 .parent-units {
   display: flex;
   padding-top: 20px;
@@ -72,3 +68,33 @@
     }
   }
 }
+
+
+
+ul {
+  list-style-type: none;
+}
+.nested-units {
+  display: none;
+}
+.nested-units.active {
+  display: block;
+}
+.unit-tree {
+  padding-left: 0;
+  .show-arrow {
+    cursor: pointer;
+    user-select: none;
+  }
+  .show-arrow::before {
+    content: "\276F";
+    display: inline-block;
+    margin-right: 7px;
+    transition: 0.3s;
+  }
+  .show-arrow-down::before {
+    transform: rotate(90deg);
+    transition: 0.3s;
+  }
+}
+
