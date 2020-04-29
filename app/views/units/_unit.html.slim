@@ -1,5 +1,7 @@
 .unit-link
   .unit-name
+    - if unit.children? 
+      span class='show-arrow'
     = link_to unit.name, unit
   - if current_user.company_owner?
     .unit-icons

@@ -4,9 +4,12 @@ describe CompaniesController, type: :controller do
   let!(:company_registrations_form_valid_params) do
     FactoryBot.attributes_for :company_registrations_form_params
   end
+  let!(:user) { create(:user) }
   let!(:company) { create(:company) }
   let!(:valid_params) { FactoryBot.attributes_for :company }
   let!(:invalid_params) { { name: '' } }
+
+  before { sign_in user }
 
   describe 'GET#index' do
     it 'assigns companies and renders template' do
@@ -59,7 +62,7 @@ describe CompaniesController, type: :controller do
           company_registrations_form: company_registrations_form_valid_params
         }
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to company_path(Company.last)
+        expect(response).to redirect_to root_path
       end
     end
     context 'with invalid params' do

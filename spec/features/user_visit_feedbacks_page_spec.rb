@@ -15,7 +15,7 @@ feature 'User visit feedback\'s page' do
     expect(page).to have_selector('section.feedback')
     expect(page).to have_selector('h2', text: "Message from #{@feedback.user_full_name}")
     expect(page).to have_selector('div.feedback-email', text: "Email:#{@feedback.email}")
-    expect(page).to have_selector('div.feedback-describe', text: @feedback.describe)
+    expect(page).to have_selector('div.feedback-message', text: @feedback.message)
     expect(page).to have_selector('a', text: 'Delete')
   end
 

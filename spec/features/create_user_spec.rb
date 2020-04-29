@@ -3,6 +3,10 @@ require 'rails_helper'
 feature 'users' do
   let!(:user) { create(:user) }
 
+  before :each do
+    login_as user
+  end
+
   scenario 'successfully create a user' do
     visit new_user_path
     fill_in 'First Name', with: 'Test'
@@ -22,7 +26,6 @@ feature 'users' do
     click_on 'Edit user profile'
     fill_in 'First Name', with: 'Updated First name'
     fill_in 'Last Name', with: 'Updated Last name'
-    fill_in 'Password', with: 'testpassword'
     click_on 'Edit user'
     expect(page).to have_text('User profile updated')
     expect(page).to have_css('h2', text: 'Updated First name Updated Last name')
