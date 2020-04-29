@@ -1,9 +1,9 @@
-= link_to company_units_path(@company), class: 'btn btn-primary'
+= link_to company_units_path(@company), class: 'btn btn-primary', data: { turbolinks: false }
   | Show all companies units
 .parent-units 
   - @unit.ancestors.each do |a|
     div 
-      = link_to a.name, company_unit_path(@company, a)
+      = link_to a.name, company_unit_path(@company, a), data: { turbolinks: false }
       span
         i.fa.fa-arrow-circle-right.edit-link
 
@@ -16,4 +16,4 @@
         div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company, @unit], class: 'edit-link'
         div = link_to icon('fas', 'trash-alt', class: 'strong'), company_unit_path(@company, @unit), method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
 
-= render 'unit_tree_structure', units: @unit.children.arrange
+= render 'unit_tree_structure', units: @unit.descendants.arrange, list_class_name: "unit-tree"

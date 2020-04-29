@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_426_140_219) do
+ActiveRecord::Schema.define(version: 20_200_427_154_143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20_200_426_140_219) do
   create_table 'feedbacks', force: :cascade do |t|
     t.string 'user_full_name'
     t.string 'email'
-    t.text 'describe'
+    t.text 'message'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end

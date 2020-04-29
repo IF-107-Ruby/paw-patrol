@@ -51,7 +51,8 @@ class CompanyRegistrationsForm
 
     ActiveRecord::Base.transaction do
       persist!
-    rescue ActiveRecord::StatementInvalid => e
+      true
+    rescue ActiveRecord::RecordInvalid => e
       errors.add(:base, e.message)
       false
     end
@@ -65,11 +66,10 @@ class CompanyRegistrationsForm
     company = Company.create!(name: name, description: description,
                               email: company_email, phone: phone)
 
-    company.users.create(first_name: first_name,
-                         last_name: last_name,
-                         email: user_email,
-                         password: password,
-                         password_confirmation: password_confirmation)
-    company
+    company.users.create!(first_name: first_name,
+                          last_name: last_name,
+                          email: user_email,
+                          password: password,
+                          password_confirmation: password_confirmation)
   end
 end

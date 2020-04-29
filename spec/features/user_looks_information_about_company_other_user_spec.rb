@@ -3,6 +3,8 @@ require 'rails_helper'
 feature 'User looks Information About Company Other User' do
   let(:users_companies_relationship) { create(:users_companies_relationship) }
 
+  before { login_as users_companies_relationship.user }
+
   scenario 'successfully' do
     visit user_path(users_companies_relationship.user)
 

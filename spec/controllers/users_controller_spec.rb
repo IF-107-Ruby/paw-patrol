@@ -5,6 +5,8 @@ describe UsersController, type: :controller do
   let!(:valid_params) { FactoryBot.attributes_for :user }
   let!(:invalid_params) { { first_name: '' } }
 
+  before { sign_in user }
+
   describe 'GET#index' do
     it 'assigns users and renders template' do
       get :index
