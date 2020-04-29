@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "company_id"
     t.string "ancestry"
+    t.boolean "responsible_user_id"
     t.index ["ancestry"], name: "index_units_on_ancestry"
     t.index ["company_id"], name: "index_units_on_company_id"
+    t.index ["responsible_user_id"], name: "index_units_on_responsible_user_id"
   end
 
 
@@ -80,18 +82,18 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
   end
   
   create_table "users_units_relationships", force: :cascade do |t|
-    t.bigint "users_companies_relationship_id", null: false
+    t.bigint "user_id", null: false
     t.bigint "unit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["unit_id"], name: "index_users_units_relationships_on_unit_id"
-    t.index ["users_companies_relationship_id", "unit_id"], name: "user_unit_relation_index", unique: true
-    t.index ["users_companies_relationship_id"], name: "us_co_rel"
+    t.index ["user_id", "unit_id"], name: "index_users_units_rel", unique: true
+    t.index ["user_id"], name: "index_users_units_relationships_on_user_id"
   end
 
   add_foreign_key "units", "companies"
   add_foreign_key "users_companies_relationships", "companies"
   add_foreign_key "users_companies_relationships", "users"
   add_foreign_key "users_units_relationships", "units"
-  add_foreign_key "users_units_relationships", "users_companies_relationships"
+  add_foreign_key "users_units_relationships", "users"
 end

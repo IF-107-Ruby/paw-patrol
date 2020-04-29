@@ -3,7 +3,7 @@ class RoomEmployeesController < ApplicationController
 
   def index
     @unit_name = @unit.name
-    @room_employees = @unit.users
+    @pagy, @room_employees = pagy_decorated(@unit.users, items: 5)
   end
 
   private
