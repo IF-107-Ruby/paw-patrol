@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: companies
-#
-#  id          :bigint           not null, primary key
-#  name        :string           not null
-#  description :text
-#  email       :string           not null
-#  phone       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
 require 'rails_helper'
 
 describe Company, type: :model do
