@@ -6,10 +6,10 @@
     = f.input :last_name, label: 'Last Name', placeholder: 'Your last name', input_html: { class: 'form-control' }
   .form-group
     = f.input :email, placeholder: 'user@domain.com', input_html: { class: 'form-control' }
-  .form-group
-    = f.input :password, required: password_required, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-            input_html: {autocomplete: "new-password", class: 'form-control'}
     - if current_page? action: :new
+      .form-group
+        = f.input :password, required: password_required, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                input_html: {autocomplete: "new-password", class: 'form-control'}
       .form-group
         = f.input :password_confirmation, required: password_required, input_html: {autocomplete: "new-password", class: 'form-control'}
   /TODO: change fields name

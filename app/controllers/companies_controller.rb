@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  before_action :authenticate_user!, except: %i[new create]
   before_action :load_company, only: %i[show edit update destroy]
 
   def index
@@ -14,9 +15,9 @@ class CompaniesController < ApplicationController
   def create
     @company_registration = CompanyRegistrationsForm.new(company_registration_params)
 
-    if (company = @company_registration.save)
+    if @company_registration.save
       flash[:success] = 'Company has been created.'
-      redirect_to company
+      redirect_to root_path
     else
       render 'new'
     end

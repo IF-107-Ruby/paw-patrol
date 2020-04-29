@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 feature 'companies' do
+  let!(:user) { create(:user) }
   let!(:company) { create(:company) }
+
+  before { login_as user }
 
   scenario 'successfully update a company' do
     visit company_path(company)

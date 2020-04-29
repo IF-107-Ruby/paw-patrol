@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_company_by_id, only: :index
 
   def index
