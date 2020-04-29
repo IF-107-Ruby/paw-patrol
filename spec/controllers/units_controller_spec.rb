@@ -51,8 +51,7 @@ RSpec.describe UnitsController, type: :controller do
             post :create, params: { unit: valid_params,
                                     company_id: unit.company.id }
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(company_unit_path(Unit.last.company,
-                                                              Unit.last))
+            expect(response).to redirect_to(unit_path(Unit.last))
             expect(flash[:success]).to be_present
           end
         end
@@ -93,7 +92,7 @@ RSpec.describe UnitsController, type: :controller do
           it 'assign the unit' do
             expect(assigns(:unit)).to eq(unit)
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(company_unit_path(unit.company, unit))
+            expect(response).to redirect_to(unit_path(unit))
             expect(flash[:success]).to be_present
           end
 
@@ -128,7 +127,7 @@ RSpec.describe UnitsController, type: :controller do
         it 'should redirect to units' do
           delete :destroy, params: { id: unit.id, company_id: unit.company.id }
           expect(response).to have_http_status(:redirect)
-          expect(response).to redirect_to(company_units_path(unit.company))
+          expect(response).to redirect_to(units_path)
           expect(flash[:success]).to be_present
         end
       end

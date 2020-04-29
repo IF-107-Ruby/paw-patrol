@@ -9,7 +9,7 @@ feature 'unit crud' do
   before { login_as owner }
 
   scenario 'successful creating unit' do
-    visit new_company_unit_path(unit.company)
+    visit new_unit_path
     fill_in 'Unit name', with: 'Unit creation test'
     click_on 'Create Unit'
 
@@ -18,7 +18,7 @@ feature 'unit crud' do
   end
 
   scenario 'successful updating unit' do
-    visit company_unit_path(unit.company, unit)
+    visit unit_path(unit)
     find('.edit-link').click
     fill_in 'Unit name', with: 'Unit updating test'
     click_on 'Save changes'
@@ -28,7 +28,7 @@ feature 'unit crud' do
   end
 
   scenario 'successful deleting unit' do
-    visit company_unit_path(unit.company, unit)
+    visit unit_path(unit)
     find('.delete-link').click
 
     expect(page).not_to have_content(unit.name)
