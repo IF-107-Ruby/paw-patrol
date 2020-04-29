@@ -23,7 +23,7 @@ $ticket-border-color: #58595C;
     &__title {
       margin-bottom: 15px;
       padding-bottom: 10px;
-      border-bottom: 2px solid $ticket-border-color;
+      border-bottom: 1px solid $ticket-border-color;
       font-weight: bolder;
     }
 
@@ -32,6 +32,7 @@ $ticket-border-color: #58595C;
         left: 30px;
         bottom: 15px;
       }
+      font-size: 16pt;
     }
   }
 }

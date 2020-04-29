@@ -24,7 +24,8 @@ class TicketsController < ApplicationController
   private
 
   def read_units
-    @units = Company.last.units
+    # TODO
+    @units = Company.first.units
   end
 
   def ticket_params

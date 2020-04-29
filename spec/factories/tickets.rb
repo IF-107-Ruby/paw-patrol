@@ -3,6 +3,6 @@ FactoryBot.define do
     name { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     user { create(:user) }
-    unit { create(:ticket) }
+    unit { create(:unit) }
   end
 end
