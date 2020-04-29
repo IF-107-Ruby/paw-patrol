@@ -1,5 +1,5 @@
 require 'factory_bot_rails'
-if User.count == 0
+if User.count.zero?
   FactoryBot.create(:admin,
                     email: 'patrol.admin@gmail.com',
                     password: '123456',
