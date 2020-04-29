@@ -5,7 +5,7 @@ RSpec.describe FeedbacksController, type: :controller do
   let(:admin) { create(:admin) }
   let(:feedback) { create(:feedback) }
   let(:feedback_valid_params) { FactoryBot.attributes_for :feedback }
-  let(:feedback_invalid_params) { { user_full_name: '', email: '', describe: '' } }
+  let(:feedback_invalid_params) { { user_full_name: '', email: '', message: '' } }
 
   describe 'Authentication and authorization tests' do
     context 'if user is not admin' do
@@ -74,7 +74,7 @@ RSpec.describe FeedbacksController, type: :controller do
       it { is_expected.to set_flash.now[:warning] }
       it { is_expected.not_to set_flash[:success] }
 
-      it { is_expected.to render_template('static_pages/contact') }
+      it { is_expected.to render_template('new') }
     end
   end
 end

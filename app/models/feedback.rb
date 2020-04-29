@@ -5,7 +5,7 @@ class Feedback < ApplicationRecord
   validates :email, length: { maximum: 255 },
                     presence: true,
                     format: { with: VALID_EMAIL_REGEX }
-  validates :describe, presence: true, length: { maximum: 255 }
+  validates :message, presence: true, length: { maximum: 255 }
 
   scope :ordered_by_created_at, -> { order(created_at: :desc) }
 end

@@ -9,7 +9,7 @@ feature 'User leaves feedback' do
     expect(page).to have_css('h3', text: 'Contact us')
     fill_in 'feedback_user_full_name', with: feedback.user_full_name
     fill_in 'feedback_email', with: feedback.email
-    fill_in 'feedback_describe', with: feedback.describe
+    fill_in 'feedback_message', with: feedback.message
 
     click_on 'Send Feedback'
 

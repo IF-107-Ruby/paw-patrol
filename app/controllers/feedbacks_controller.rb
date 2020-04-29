@@ -8,6 +8,10 @@ class FeedbacksController < ApplicationController
 
   def show; end
 
+  def new
+    @feedback = Feedback.new
+  end
+
   def create
     @feedback = Feedback.new(feedback_params)
     if @feedback.save
@@ -15,7 +19,7 @@ class FeedbacksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:warning] = 'Feedback is not sent!'
-      render 'static_pages/contact'
+      render :new
     end
   end
 
@@ -32,6 +36,6 @@ class FeedbacksController < ApplicationController
   end
 
   def feedback_params
-    params.require(:feedback).permit(:user_full_name, :email, :describe)
+    params.require(:feedback).permit(:user_full_name, :email, :message)
   end
 end

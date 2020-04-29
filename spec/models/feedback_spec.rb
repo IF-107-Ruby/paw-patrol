@@ -5,7 +5,7 @@ RSpec.describe Feedback, type: :model do
     context 'presence validation' do
       it { is_expected.to validate_presence_of(:user_full_name) }
       it { is_expected.to validate_presence_of(:email) }
-      it { is_expected.to validate_presence_of(:describe) }
+      it { is_expected.to validate_presence_of(:message) }
     end
 
     context 'length validation' do
@@ -15,7 +15,7 @@ RSpec.describe Feedback, type: :model do
           .is_at_most(50)
       end
       it { is_expected.to validate_length_of(:email).is_at_most(255) }
-      it { is_expected.to validate_length_of(:describe).is_at_most(255) }
+      it { is_expected.to validate_length_of(:message).is_at_most(255) }
     end
 
     context 'Format validation' do
