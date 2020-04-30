@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :obtain_user, only: %i[show edit update destroy]
-  before_action :current_company
 
   def index
     @pagy, @users = pagy_decorated(authorize(User.all), items: 10)
@@ -10,16 +9,16 @@ class UsersController < ApplicationController
   def show; end
 
   def new
-    @user = authorize(@current_company.users.build)
+    @user = authorize(current_company.users.build)
   end
 
   def create
-    @user = @current_company.users.create(user_params)
+    @user = current_company.users.create(user_params)
     if @user.save
       @user.users_companies_relationship.role = user_role_params[:role].to_i
       @user.users_companies_relationship.save
       flash[:success] = 'Company member created.'
-      redirect_to company_members_path(@current_company)
+      redirect_to company_members_path(current_company)
     else
       render 'new'
     end
