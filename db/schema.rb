@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "company_id"
     t.string "ancestry"
-    t.boolean "responsible_user_id"
+    t.bigint "user_id"
     t.index ["ancestry"], name: "index_units_on_ancestry"
     t.index ["company_id"], name: "index_units_on_company_id"
-    t.index ["responsible_user_id"], name: "index_units_on_responsible_user_id"
+    t.index ["user_id"], name: "index_units_on_user_id"
   end
 
 
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
   end
 
   add_foreign_key "units", "companies"
+  add_foreign_key "units", "users"
   add_foreign_key "users_companies_relationships", "companies"
   add_foreign_key "users_companies_relationships", "users"
   add_foreign_key "users_units_relationships", "units"

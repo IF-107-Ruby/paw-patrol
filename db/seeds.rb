@@ -35,3 +35,9 @@ Company.all.each do |company|
     FactoryBot.create(:staff_member, company: company)
   end
 end
+
+Unit.all.each do |unit|
+  10.times do
+    FactoryBot.create(:user, unit: unit)
+  end
+end

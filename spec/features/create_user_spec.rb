@@ -37,5 +37,6 @@ feature 'users' do
     visit user_path(company_owner.user)
     click_on 'Delete user'
     expect(page).not_to have_content(company_owner.user.first_name)
+    expect(page).not_to have_content(user.email)
   end
 end
