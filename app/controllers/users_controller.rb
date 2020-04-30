@@ -15,8 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = current_company.users.create(user_params)
     if @user.save
-      @user.users_companies_relationship.role = user_role_params[:role].to_i
-      @user.users_companies_relationship.save
+      persist_role!
       flash[:success] = 'Company member created.'
       redirect_to company_members_path(current_company)
     else
@@ -56,5 +55,12 @@ class UsersController < ApplicationController
 
   def obtain_user
     @user = authorize(User.find(params[:id]).decorate)
+  end
+
+  def persist_role!
+    ActiveRecord::Base.transaction do
+      @user.users_companies_relationship.role = user_role_params[:role].to_i
+      @user.users_companies_relationship.save
+    end
   end
 end

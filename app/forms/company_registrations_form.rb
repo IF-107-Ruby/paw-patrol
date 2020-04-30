@@ -31,7 +31,6 @@ class CompanyRegistrationsForm
                                    too_short: 'must have at least %<count>s characters',
                                    too_long: 'must have at most %<count>s characters' }
 
-
   def save
     return false unless valid?
 

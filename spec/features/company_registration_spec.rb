@@ -5,7 +5,7 @@ feature 'company registration' do
 
   scenario 'successfuly registrate company, log in and log out' do
     visit new_company_path
-    fill_in 'Company name', with: company_registration.name
+    fill_in 'Company name', with: company_registration.company_name
     fill_in 'Description', with: company_registration.description
     fill_in 'Company email', with: 'companyemail@company.com'
     fill_in 'Phone', with: company_registration.phone

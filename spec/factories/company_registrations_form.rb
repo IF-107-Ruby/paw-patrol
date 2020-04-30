@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :company_registrations_form_params, class: CompanyRegistrationsForm do
-    name { Faker::Company.name }
+    company_name { Faker::Company.name }
     description { 'This company is created for test purposes.' }
     company_email { Faker::Internet.safe_email }
     sequence(:phone) { |n| "+38091#{n}11111" }
