@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   get  '/contact', to: 'feedbacks#new'
 
   resources :companies do
-    resources :units
     resources :members, only: :index
   end
 
+  resources :units
   resources :feedbacks, only: %i[index show create destroy]
   resources :users
 

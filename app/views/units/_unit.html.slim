@@ -2,9 +2,9 @@
   .unit-name
     - if unit.children? 
       span class='show-arrow'
-    = link_to unit.name, company_unit_path(@company, unit)
-  - if current_user.company_owner?(@company)
+    = link_to unit.name, unit
+  - if current_user.company_owner?
     .unit-icons
-      div = link_to icon('fas', 'plus', class: 'strong'), new_company_unit_path(parent_id: unit)
-      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @company, unit], class: 'edit-link'
-      div = link_to icon('fas', 'trash-alt', class: 'strong'), company_unit_path(@company, unit), method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
+      div = link_to icon('fas', 'plus', class: 'strong'), new_unit_path(parent_id: unit)
+      div = link_to icon('fas', 'edit', class: 'strong'), [:edit, unit], class: 'edit-link'
+      div = link_to icon('fas', 'trash-alt', class: 'strong'), unit, method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'

@@ -8,27 +8,27 @@ RSpec.describe UnitsController, type: :controller do
   let!(:valid_params) { FactoryBot.attributes_for :unit }
   let!(:invalid_params) { { name: '' } }
 
-  describe 'GET#index' do
-    it 'assigns units and renders template' do
-      get :index, params: { company_id: unit.company.id }
-      expect(assigns(:units)).to eq([unit])
-      expect(response).to render_template('index')
-    end
-  end
-
-  describe 'GET#show' do
-    before do
-      get :show, params: { id: unit.id, company_id: unit.company.id }
-    end
-    it 'returns http success and assigns unit' do
-      expect(response).to have_http_status(:success)
-      expect(assigns(:unit)).to eq(unit)
-    end
-  end
-
-  describe 'Units controller new, create, edit, update, destroy actions' do
+  describe 'Units controller actions' do
     context 'if user is company owner' do
       before { sign_in owner }
+
+      describe 'GET#index' do
+        it 'assigns units and renders template' do
+          get :index, params: { company_id: unit.company.id }
+          expect(assigns(:units)).to eq([unit])
+          expect(response).to render_template('index')
+        end
+      end
+
+      describe 'GET#show' do
+        before do
+          get :show, params: { id: unit.id, company_id: unit.company.id }
+        end
+        it 'returns http success and assigns unit' do
+          expect(response).to have_http_status(:success)
+          expect(assigns(:unit)).to eq(unit)
+        end
+      end
 
       describe 'GET#new' do
         it 'returns http success and assigns unit' do
@@ -51,8 +51,7 @@ RSpec.describe UnitsController, type: :controller do
             post :create, params: { unit: valid_params,
                                     company_id: unit.company.id }
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(company_unit_path(Unit.last.company,
-                                                              Unit.last))
+            expect(response).to redirect_to(unit_path(Unit.last))
             expect(flash[:success]).to be_present
           end
         end
@@ -93,7 +92,7 @@ RSpec.describe UnitsController, type: :controller do
           it 'assign the unit' do
             expect(assigns(:unit)).to eq(unit)
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(company_unit_path(unit.company, unit))
+            expect(response).to redirect_to(unit_path(unit))
             expect(flash[:success]).to be_present
           end
 
@@ -128,13 +127,29 @@ RSpec.describe UnitsController, type: :controller do
         it 'should redirect to units' do
           delete :destroy, params: { id: unit.id, company_id: unit.company.id }
           expect(response).to have_http_status(:redirect)
-          expect(response).to redirect_to(company_units_path(unit.company))
+          expect(response).to redirect_to(units_path)
           expect(flash[:success]).to be_present
         end
       end
     end
 
     context 'if user is not company owner' do
+      describe 'GET#index' do
+        it 'returns redirect' do
+          get :index, params: { company_id: unit.company.id }
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+
+      describe 'GET#show' do
+        before do
+          get :show, params: { id: unit.id, company_id: unit.company.id }
+        end
+        it 'returns redirect' do
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+
       describe 'GET#new' do
         it 'returns redirect' do
           get :new, params: { company_id: unit.company.id }
