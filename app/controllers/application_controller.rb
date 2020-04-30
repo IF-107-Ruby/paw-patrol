@@ -24,4 +24,8 @@ class ApplicationController < ActionController::Base
   def record_not_found
     render 'errors/not_found'
   end
+
+  def current_company
+    @current_company ||= current_user.company
+  end
 end
