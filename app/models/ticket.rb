@@ -16,6 +16,5 @@ class Ticket < ApplicationRecord
   has_rich_text :description
 
   validates :user, :unit, :description, presence: true
-  validates :name, presence: true
-  validates :name, length: { in: 6..50 }, if: ->(t) { t.name.present? }
+  validates :name, presence: true, length: { in: 6..50 }
 end
