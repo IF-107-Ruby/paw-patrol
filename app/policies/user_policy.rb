@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    true
+    user.is_admin?
   end
 
   def show?
@@ -30,8 +30,7 @@ class UserPolicy < ApplicationPolicy
   private
 
   def company_owner?
-    # byebug
-    user.company_owner?(user.company)
+    user.company_owner?
   end
 
   class Scope < Scope

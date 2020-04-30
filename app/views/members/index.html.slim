@@ -1,10 +1,10 @@
 .row class='justify-content-between'
   .col
-    h2.mb-4 = @company_name
+    h2.mb-4 = current_company.name
 .row class='justify-content-between'
   .col
     h3.mb-4 Members:
-  - if current_user.company_owner?(@current_company)
+  - if current_user.company_owner?
     .col class='edit-delete-links justify-content-end'
       div.user-plus-link = link_to icon('fas', 'plus', class: 'strong'), new_company_member_path(@company)
 .row
