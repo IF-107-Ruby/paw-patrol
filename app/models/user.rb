@@ -32,10 +32,14 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX }
 
   def role
-    users_companies_relationship.role if company.present?
+    users_companies_relationship&.role
   end
 
   def company_owner?
-    role == 'company_owner'
+    users_companies_relationship&.company_owner?
+  end
+
+  def employee?
+    users_companies_relationship&.employee?
   end
 end
