@@ -49,7 +49,7 @@ class CompanyRegistrationsForm
   private
 
   def persist!
-    company = Company.create!(name: name, description: description,
+    company = Company.create!(name: company_name, description: description,
                               email: company_email, phone: phone)
 
     company.users.create!(first_name: first_name,
