@@ -25,10 +25,10 @@ end
 
 Company.all.each do |company|
   5.times do
-    FactoryBot.create(:employee, company: company)
+    FactoryBot.create(:employee_relationship, company: company)
   end
 
   3.times do
-    FactoryBot.create(:staff_member, company: company)
+    FactoryBot.create(:staff_member_relationship, company: company)
   end
 end

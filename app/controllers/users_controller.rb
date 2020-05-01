@@ -13,9 +13,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = current_company.users.create(user_params)
+    @user = authorize(current_company.users.build(user_params))
     if @user.save
-      persist_role!
       flash[:success] = 'Company member created.'
       redirect_to company_members_path(current_company)
     else
@@ -46,21 +45,11 @@ class UsersController < ApplicationController
                                  :last_name,
                                  :email,
                                  :password,
-                                 :password_confirmation)
-  end
-
-  def user_role_params
-    params.require(:user).permit(:role)
+                                 :password_confirmation,
+                                 :role)
   end
 
   def obtain_user
     @user = authorize(User.find(params[:id]).decorate)
-  end
-
-  def persist_role!
-    ActiveRecord::Base.transaction do
-      @user.users_companies_relationship.role = user_role_params[:role].to_i
-      @user.users_companies_relationship.save
-    end
   end
 end
