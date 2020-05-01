@@ -38,6 +38,6 @@ end
 
 Unit.all.each do |unit|
   10.times do
-    FactoryBot.create(:user, unit: unit)
+    FactoryBot.create(:user, units: [unit])
   end
 end
