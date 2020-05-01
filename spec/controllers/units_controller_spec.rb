@@ -2,14 +2,16 @@ require 'rails_helper'
 
 RSpec.describe UnitsController, type: :controller do
   let!(:company) { create(:company) }
-  let!(:company_owner) { create(:company_owner_relationship, company: company) }
+  let!(:company_owner_relationship) do
+    create(:company_owner_relationship, company: company)
+  end
   let!(:unit) { create(:unit, company: company) }
   let!(:valid_params) { FactoryBot.attributes_for :unit }
   let!(:invalid_params) { { name: '' } }
 
   describe 'Units controller actions' do
     context 'if user is company owner' do
-      before { sign_in company_owner.user }
+      before { sign_in company_owner_relationship.user }
 
       describe 'GET#index' do
         it 'assigns units and renders template' do
