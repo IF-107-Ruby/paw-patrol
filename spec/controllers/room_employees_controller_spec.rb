@@ -5,7 +5,7 @@ RSpec.describe RoomEmployeesController, type: :controller do
 
   describe 'GET #index' do
     subject do 
-      get :index, params: { unit_id: users_units_relationship.unit, company_id: users_units_relationship.unit.company }
+      get :index, params: { unit_id: users_units_relationship.unit }
     end 
 
     it { is_expected.to have_http_status(:success) }

@@ -24,12 +24,13 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.index ["email"], name: "index_companies_on_email", unique: true
   end
 
-  create_table 'feedbacks', force: :cascade do |t|
-    t.string 'user_full_name'
-    t.string 'email'
-    t.text 'message'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "feedbacks", force: :cascade do |t|
+    t.string "user_full_name"
+    t.string "email"
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "units", force: :cascade do |t|
     t.string "name", null: false
@@ -44,7 +45,22 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.index ["user_id"], name: "index_units_on_user_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_admin", default: false, null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
 
+<<<<<<< HEAD
   create_table 'users', force: :cascade do |t|
     t.string 'first_name'
     t.string 'last_name'
@@ -60,6 +76,8 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token',
                                       unique: true
+=======
+>>>>>>> solve rebase link bugs
   create_table "users_companies_relationships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "company_id", null: false
