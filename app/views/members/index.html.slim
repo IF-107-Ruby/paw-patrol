@@ -6,7 +6,7 @@
     h3.mb-4 Members:
   - if current_user.company_owner?
     .col class='edit-delete-links justify-content-end'
-      div.user-plus-link = link_to icon('fas', 'plus', class: 'strong'), new_company_member_path(@company)
+      div.user-plus-link = link_to icon('fas', 'plus', class: 'strong'), new_user_path
 .row
   .col
     .company_members-table
