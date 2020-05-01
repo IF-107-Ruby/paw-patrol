@@ -27,4 +27,16 @@ FactoryBot.define do
   factory :admin, parent: :user do
     is_admin { true }
   end
+
+  factory :company_owner, parent: :user do
+    role { 0 }
+  end
+
+  factory :employee, parent: :user do
+    role { 1 }
+  end
+
+  factory :staff_member, parent: :user do
+    role { 2 }
+  end
 end

@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 feature 'users' do
-  let!(:user) { create(:user) }
   let!(:company) { create(:company) }
-  let!(:company_owner) { create(:company_owner, company: company, user: user) }
-
-  before { login_as user }
+  let!(:company_owner) { create(:company_owner_relationship, company: company) }
 
   before :each do
-    login_as user
+    login_as company_owner.user
   end
 
   scenario 'successfully create a user' do
@@ -27,7 +24,7 @@ feature 'users' do
   end
 
   scenario 'successfully update a user' do
-    visit user_path(user)
+    visit user_path(company_owner.user)
     click_on 'Edit user profile'
     fill_in 'First Name', with: 'Updated First name'
     fill_in 'Last Name', with: 'Updated Last name'
@@ -37,8 +34,8 @@ feature 'users' do
   end
 
   scenario 'successfully delete a user' do
-    visit user_path(user)
+    visit user_path(company_owner.user)
     click_on 'Delete user'
-    expect(page).not_to have_content(user.first_name)
+    expect(page).not_to have_content(company_owner.user.first_name)
   end
 end

@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 feature 'unit crud' do
-  let!(:owner) { create(:user) }
   let!(:company) { create(:company) }
-  let!(:company_owner) { create(:company_owner, company: company, user: owner) }
+  let!(:company_owner) { create(:company_owner_relationship, company: company) }
   let!(:unit) { create(:unit, company: company) }
 
-  before { login_as owner }
+  before { login_as company_owner.user }
 
   scenario 'successful creating unit' do
     visit new_unit_path
