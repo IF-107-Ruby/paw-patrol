@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_company
 
   def current_user
-    super || Guest.new
+    super&.decorate || Guest.new
   end
 
   private

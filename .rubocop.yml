@@ -34,3 +34,6 @@ Style/FrozenStringLiteralComment:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
+Naming/PredicateName:
+  Exclude:
+    - "app/models/guest.rb"

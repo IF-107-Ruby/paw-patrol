@@ -5,11 +5,12 @@ html
       | PawPatrol
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body
+    = stylesheet_link_tag 'hireo'
+    = javascript_pack_tag 'application'
+    = javascript_include_tag "hireo"
     = render 'layouts/meta'
-    = render 'layouts/nav'
-    .page-wrapper
+  body
+    #wrapper
+      = render 'header'
       = yield
-    = render 'layouts/footer'
+      = render 'footer'

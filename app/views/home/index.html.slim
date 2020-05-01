@@ -1,47 +1,158 @@
-.home-page
+.intro-banner data-background-image="assets/home_bg.jpg"
   .container
-    .row.home-flash
-      .col-12
-        = render 'layouts/flash'
-    .row.home-text
-      .col-12.text-center
-        h1.home-title
-          | Welcome to ROOM PASSPORT!
-        p.lead.home-description
-          | Office managment digital company
-        = link_to 'Create your company', new_company_path, class: 'btn create-company-btn'
-    .home-blocks
-      .row.justify-content-around.align-items-self
-        .col-xl-4.col-lg-4.col-md-4
-          .home-circle
-            .home-block-info
-              .info-icon
-                i.fas.fa-users
-              .info-text
+    = render 'flash'
+    .row
+      .col-md-12
+        .banner-headline
+          h3
+            strong
+              | Manage your company with joy
+            br
+            span
+              | Thousands of small businesses use 
+              strong.color Room Passport 
+              | to turn their ideas into reality.
+          = link_to 'Create your company', new_company_path, class: 'my-3 button big dark ripple-effect'
+    .row
+      .col-md-12
+        ul.intro-stats.margin-top-45.hide-under-992px
+          li
+            strong.counter
+              | 836
+            span
+              | Customers
+          li
+            strong.counter
+              | 177
+            span
+              | Companies
+          li
+            strong.counter
+              | 12,077
+            span
+              | Solved problems
+.section.padding-top-65.padding-bottom-55
+  .container
+    .about-page
+      .row
+        .col.about-text
+          span.company-name Room Passport     
+          | is the team of young enthusiastic developers, who collaborate to create awesome progressive digital product. 
+          | Our main goal is to provide problems monitoring and reporting system for every office in the world.
+      .row.about-first-line
+        .col-xl-6.col-lg-6.about-image-block
+          = image_tag 'about_img2.jpg'
+        .col-xl-6.col-lg-6.about-block        
+          | Office is a place where people spend an enormous part of their life.  
+          | Every day employees are confronted with office problems. The resolution is sometimes annoying, takes a lot of time and definetly affects productivity. 
+          span.company-name Room Passport
+          | mission is to help both companies and employyes create the most comfortable place to work.
+      .row.justify-content-end.about-second-line.flex-wrap-reverse
+        .col-xl-6.col-lg-6.about-block
+          span.company-name Room Passport     
+          | gives a customer the ability to digitalize all office problems and thus improve their solutions. 
+          | Our services easily help you with:
+          ul.about-list 
+            li 
+              span.list-icon  
+                i.fas.fa-check-square
+              | tasks progress monitoring 
+            li 
+              span.list-icon  
+                i.fas.fa-check-square
+              | quality evaluation 
+            li 
+              span.list-icon  
+                i.fas.fa-check-square
+              | tasks performance control
+            li 
+              span.list-icon 
+                i.fas.fa-check-square
+              | future tasks planning 
+        .col-xl-6.col-lg-6.about-image-block
+          = image_tag 'about_img1.jpg'
+.photo-section data-background-image="assets/services_img.jpg"
+  .text-content.white-font
+    .container
+      .row
+        .col-lg-6.col-md-8.col-sm-12   
+          h2
+            | Eazy management
+          p 
+            strong.color
+              | Room Passport     
+            | team performs a wide range of companies office management services.  
+            | Room Passport allows employees to deal with various types of problems and focus on companies core business. 
+          = link_to new_company_path, class: "button button-sliding-icon ripple-effect big margin-top-21"
+            | Get started
+            i.icon-material-outline-arrow-right-alt
+
+.section.gray.padding-top-70.padding-bottom-75
+  .container.services-page
+    .row.services-items
+      div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 services-content row-one"
+        .line.line-one
+        .icon
+          i.fa.fa-building
+        .line.line-two
+        .item
+          .item-title Quick company registration
+          .item-text 
+            | We appreciate your time and help you to register your company in one step. 
+            | The person who create the company automatically get all company owners rights.              
+      div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 services-content row-one"
+        .line.line-one
+        .icon
+          i.fa.fa-address-card
+        .line.line-two
+        .item
+          .item-title Communication between users
+          .item-text
+            | User communication is a core aspect of our bisness. 
+            | We provide clear task reporting system, which helps company owners and employees to be informed all the time.
+      div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 services-content row-one"
+        .line.line-one
+        .icon
+          i.fa.fa-inbox
+        .line.line-two
+        .item
+          .item-title User-friendly interface
+          .item-text
+            | Our software interface is really easy to understand. We anticipate what users might need to do and ensure 
+              | that interface elements are easy to access, understand, and use.
+      div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 services-content row-one"
+        .line.line-one
+        .icon
+          i.fa.fa-tasks
+        .line.line-two
+        .item
+          .item-title Active office managment
+          .item-text
+            | The comany owner can easily manage all buildinds, create new offices and extend existing. 
+            | Our office managment system is flexible, safe, secure and reliable.
+.section.padding-top-70.padding-bottom-75
+  .container
+    .row
+      .col-xl-12
+        .counters-container
+          .single-counter
+            i.icon-line-awesome-user
+            .counter-inner
+              h3
                 | 836
-              div
-                | Satisfied
-              div
-                | Customers
-        .col-xl-4.col-lg-4.col-md-4
-          .home-circle
-            .home-block-info
-              .info-icon
-                i.far.fa-building
-              .info-text
-                | 67
-              div
-                | Companies
-              div
-                | Registered
-        .col-xl-4.col-lg-4.col-md-4
-          .home-circle
-            .home-block-info
-              .info-icon
-                i.fa.fa-tasks
-              .info-text
-                | 12077
-              div
-                | Problems
-              div
-                | Solved
+              span.counter-title
+                | Satisfied customers
+          .single-counter
+            i.icon-line-awesome-building
+            .counter-inner
+              h3
+                | 177
+              span.counter-title
+                | Companies registered
+          .single-counter
+            i.icon-line-awesome-tasks
+            .counter-inner
+              h3
+                | 12,077
+              span.counter-title
+                | Problems solved

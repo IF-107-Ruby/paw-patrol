@@ -13,7 +13,7 @@ feature 'User leaves feedback' do
 
     click_on 'Send Feedback'
 
-    expect(page).to have_css('.alert.alert-success', text: 'Feedback sent')
+    expect(page).to have_css('.notification.success.closeable', text: 'Feedback sent')
   end
 
   scenario 'unsuccessfully sent not valid feedback' do
@@ -21,7 +21,7 @@ feature 'User leaves feedback' do
 
     click_on 'Send Feedback'
 
-    expect(page).to have_css('.alert.alert-warning', text: 'Feedback is not sent!')
+    expect(page).to have_css('.notification.warning.closeable', text: 'Feedback is not sent!')
     expect(page).to have_css('#error_explanation')
   end
 end
