@@ -15,5 +15,5 @@
       .col class='edit-delete-links justify-content-end'
         div = link_to icon('fas', 'edit', class: 'strong'), [:edit, @unit], class: 'edit-link'
         div = link_to icon('fas', 'trash-alt', class: 'strong'), @unit, method: :delete, data: {confirm: "You sure?"}, class: 'delete-link'
-
+      p = link_to 'Show this unit employees', company_unit_room_employees_path(@company, @unit)
 = render 'unit_tree_structure', units: @unit.descendants.arrange, list_class_name: "unit-tree"
