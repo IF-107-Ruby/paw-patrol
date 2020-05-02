@@ -10,6 +10,15 @@ describe UsersController, type: :controller do
 
   before { sign_in company_owner_relationship.user }
 
+  describe 'GET #index' do
+    subject do
+      get :index
+    end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(subject).to render_template('index') }
+  end
+
   describe 'GET#show' do
     before do
       get :show, params: { id: company_owner_relationship.user.id }
@@ -38,7 +47,7 @@ describe UsersController, type: :controller do
       it 'redirects to the created user' do
         post :create, params: { user: valid_params }
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(company_members_path(company))
+        expect(response).to redirect_to(users_path(company))
       end
     end
     context 'with invalid params' do
