@@ -6,10 +6,10 @@ feature 'User leaves feedback' do
   scenario 'successfully sent feedback' do
     visit '/contact'
 
-    expect(page).to have_css('h3', text: 'Contact us')
-    fill_in 'feedback_user_full_name', with: feedback.user_full_name
-    fill_in 'feedback_email', with: feedback.email
-    fill_in 'feedback_message', with: feedback.message
+    expect(page).to have_css('h2', text: 'Contact')
+    fill_in 'name', with: feedback.user_full_name
+    fill_in 'email', with: feedback.email
+    fill_in 'comments', with: feedback.message
 
     click_on 'Send Feedback'
 
