@@ -1,20 +1,45 @@
-h3.font-weight-light Contact us
-= form_for @feedback do |f|
-  = render 'shared/error_messages', object: f.object
-  .row.mt-3
-    .col-6
-      .form-group
-        = f.label 'Your full name'
-        = f.text_field :user_full_name, placeholder: 'Enter your name', class: 'form-control'
-    .col-6
-      .form-group
-        = f.label 'Email'
-        = f.email_field :email, placeholder: 'Enter your email address', class: 'form-control'
+#titlebar.gradient
+  .container
+    .row
+      .col-md-12
+        h2 Contact
+.container
   .row
-    .col-12
-      .form-group
-      = f.label 'Your message here..'
-      = f.text_area :message, class: 'form-control'
-  .row.mt-3
-    .col-12
-      = f.submit 'Send Feedback', class: 'btn btn-primary float-right'
+    .col-xl-12
+      .contact-location-info.margin-bottom-50
+        .contact-address
+          ul
+            li.contact-address-headline
+              | Our Office
+            li
+              | 23 Akademika Sakharova Street, Ivano-Frankivsk 760000
+            li
+              | Phone +380 342 723 580
+            li[href="#"]
+              | mail@example.com
+        #single-job-map-container
+          #singleListingMap[data-latitude="48.9142856" data-longitude="24.7112850" data-map-icon="im im-icon-Hamburger" data-map-zoom="17"]
+          a#streetView[href="#"]
+            | Street View
+    .col-xl-8.col-lg-8.offset-xl-2.offset-lg-2
+      section#contact.margin-bottom-60
+        h3.headline.margin-top-15.margin-bottom-35
+          | Any questions? Feel free to contact us!
+        = form_for(@feedback, html: {id: "contactform"}) do |f|
+          = render 'shared/error_messages', object: f.object
+          .row
+            .col-md-6
+              .input-with-icon-left
+                = f.text_field :user_full_name, placeholder: 'Your name', class: 'with-border', id: 'name', required: 'required'
+                i.icon-material-outline-account-circle
+            .col-md-6
+              .input-with-icon-left
+                = f.email_field :email, placeholder: 'Email Address', class: 'with-border', required: 'required'
+                i.icon-material-outline-email
+          div
+            = f.text_area :message, class: 'with-border', id: "comments", placeholder: "Message", cols: 40, rows: 5, required: 'required'
+          .row.mt-3
+            .col-12
+              = f.submit 'Send Feedback', class: 'submit button margin-top-15', id: 'submit'
+
+= javascript_include_tag "leaflet"

@@ -1,3 +1,3 @@
 class HomeController < ApplicationController
-  layout 'home'
+  layout 'hireo'
 end
