@@ -52,4 +52,8 @@ class UsersController < ApplicationController
   def obtain_user
     @user = authorize(users_base_relation.find(params[:id]).decorate)
   end
+
+  def users_base_relation
+    current_company.users
+  end
 end
