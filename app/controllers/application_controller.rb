@@ -30,4 +30,9 @@ class ApplicationController < ActionController::Base
   def current_company
     @current_company ||= current_user.company
   end
+
+  def after_sign_in_path_for(resource)
+    dashboard_path = resource.is_admin? ? admin_dashboard_path : root_path
+    stored_location_for(resource) || dashboard_path
+  end
 end

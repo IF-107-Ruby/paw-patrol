@@ -1,0 +1,36 @@
+.dashboard-sidebar
+  .dashboard-sidebar-inner data-simplebar="" 
+    .dashboard-nav-container
+      a.dashboard-responsive-nav-trigger href="#" 
+        span.hamburger.hamburger--collapse
+          span.hamburger-box
+            span.hamburger-inner
+        span.trigger-title Dashboard Navigation
+      .dashboard-nav
+        .dashboard-nav-inner
+          ul data-submenu-title="Start" 
+            li.active
+              = link_to admin_dashboard_path
+                i.icon-material-outline-dashboard
+                | Dashboard
+            li
+              a href="#" 
+                i.icon-material-outline-group
+                | Users
+            li
+              a href="#" 
+                i.icon-material-outline-rate-review
+                | Feedbacks
+          ul data-submenu-title="Account" 
+            li
+              = link_to user_path(current_user)
+                i.icon-feather-user
+                | Profile
+            li
+              a href="#" 
+                i.icon-material-outline-settings
+                | Settings
+            li
+              = link_to destroy_user_session_path, method: :delete
+                i.icon-material-outline-power-settings-new
+                | Logout

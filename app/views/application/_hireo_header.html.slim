@@ -11,18 +11,12 @@ header#header-container.fullwidth.position-fixed
               a.current[href="/"]
                 | Home
             li
-              a.[href="/contact"]
+              a href="/contact"
                 | Contact
             - if current_user.is_admin?
               li
-                a href="#"
+                a href="/admin"
                   | Admin
-                ul.dropdown-nav
-                  li
-                    = link_to "Users", users_path
-                  li
-                    = link_to "Feedback's", feedbacks_path
-
         .clearfix
       .right-side
         .header-widget

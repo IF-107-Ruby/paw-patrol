@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  authenticate :user, ->(user) { user.is_admin? } do
+    namespace :admin do
+      get '/', to: 'dashboards#index', as: :dashboard
+    end
+  end
+
   devise_for :users
   root 'home#index'
   get  '/about', to: 'static_pages#about'
