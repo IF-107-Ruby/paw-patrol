@@ -8,7 +8,7 @@ feature 'User visit feedback\'s page' do
 
   scenario 'successfully' do
     login_as(admin, scope: :user)
-    visit feedbacks_path
+    visit admin_feedbacks_path
     expect(page).to have_selector('section.feedbacks')
 
     click_on 'Show'
@@ -21,13 +21,13 @@ feature 'User visit feedback\'s page' do
 
   scenario 'unsuccessfully' do
     login_as(user, scope: :user)
-    visit feedbacks_path
+    visit admin_feedbacks_path
 
     expect(page).not_to have_selector('section.feedbacks')
     expect(page).to have_css('.notification.warning.closeable',
                              text: 'You are not authorized to perform this action.')
 
-    visit feedback_path(@feedback)
+    visit admin_feedback_path(@feedback)
     expect(page).not_to have_selector('section.feedback')
     expect(page).to have_css('.notification.warning.closeable',
                              text: 'You are not authorized to perform this action.')
