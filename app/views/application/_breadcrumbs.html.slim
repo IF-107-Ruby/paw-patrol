@@ -3,7 +3,7 @@
     li
       a href="/"
         | Home
-    - request.path.split('/')[1..-1].each do |path|
+    - request_path_components.each do |path_component|
       li
-        a href="/#{path}"
-          = path.capitalize
+        a href="/#{path_component}"
+          = path_component.capitalize

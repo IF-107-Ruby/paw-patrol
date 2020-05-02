@@ -8,15 +8,12 @@ header#header-container.fullwidth.position-fixed
         nav#navigation
           ul#responsive
             li
-              a.current[href="/"]
-                | Home
+              = link_to "Home", root_path, class: current_path(root_path)
             li
-              a href="/contact"
-                | Contact
+              = link_to "Contact", contact_path, class: current_path(contact_path)
             - if current_user.is_admin?
               li
-                a href="/admin"
-                  | Admin
+                = link_to "Admin", admin_dashboard_path, class: current_path(admin_dashboard_path)
         .clearfix
       .right-side
         .header-widget
@@ -35,6 +32,11 @@ header#header-container.fullwidth.position-fixed
                       = current_user.full_name
                       span = current_user.display_role
                 ul.user-menu-small-nav
+                  - if current_user.is_admin?
+                    li
+                      = link_to admin_dashboard_path
+                        i.icon-material-outline-dashboard
+                        | Admin dashboard
                   li
                     = link_to user_path(current_user)
                       i.icon-feather-user
