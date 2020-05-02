@@ -28,7 +28,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
                 | Admin
               .dropdown-menu aria-labelledby="navbarDropdownMenuLink"
                 = link_to "Users", users_path, class: "dropdown-item"
-                = link_to "Feedback's", feedbacks_path, class: "dropdown-item"
+                = link_to "Feedback's", admin_feedbacks_path, class: "dropdown-item"
 
           li.nav-item.sign-btn
             = link_to user_path(current_user), class: 'btn btn-primary nav-sign-in-btn'

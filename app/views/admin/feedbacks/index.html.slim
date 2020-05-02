@@ -16,6 +16,6 @@ section.feedbacks.mt-4
           td = feedback.email
           td = feedback.message.truncate(50)
           td = time_ago_in_words(feedback.created_at)
-          td = link_to 'Show', feedback
+          td = link_to 'Show', admin_feedback_path(feedback)
           td = delete_feedback_link(feedback)
 = pagy_bootstrap_nav(@pagy).html_safe
