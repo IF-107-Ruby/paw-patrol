@@ -6701,6 +6701,15 @@ mark.color {
   color: #de5959;
 }
 
+.notification.alert {
+  background-color: #ffe9e9;
+}
+.notification.alert,
+.notification.alert a,
+.notification.alert strong {
+  color: #de5959;
+}
+
 .notification.warning {
   background-color: #fbfadd;
 }
@@ -6742,6 +6751,7 @@ body .notification strong {
 
 .notification.success .close,
 .notification.error .close,
+.notification.alert .close,
 .notification.warning .close,
 .notification.notice .close {
   padding: 0px 9px;
@@ -6770,6 +6780,9 @@ body .notification strong {
   background-color: #dfbe51;
 }
 .notification.error a.button {
+  background-color: #d34c4c;
+}
+.notification.alert a.button {
   background-color: #d34c4c;
 }
 .notification.success a.button {

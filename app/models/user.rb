@@ -15,8 +15,6 @@
 #  remember_created_at    :datetime
 #
 class User < ApplicationRecord
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-
   enum role: { company_owner: 0, employee: 1, staff_member: 2 }
 
   # Include default devise modules. Others available are:
@@ -33,8 +31,4 @@ class User < ApplicationRecord
                       maximum: 50,
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
-
-  def company_owner?
-    role == 'company_owner'
-  end
 end

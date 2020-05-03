@@ -5,11 +5,16 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
+  devise_for :users, path: '', only: :sessions, controllers: {
+    sessions: 'users/sessions'
+  }
+
   root 'home#index'
   get  '/about', to: 'static_pages#about'
   get  '/services', to: 'static_pages#services'
   get  '/contact', to: 'feedbacks#new'
+  get  '/sign_up', to: 'companies#new'
+  post '/sign_up', to: 'companies#create'
 
   resources :companies
   resources :units

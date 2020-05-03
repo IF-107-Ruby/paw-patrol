@@ -1,24 +1,35 @@
-= simple_form_for company_registration, url: companies_path(company_registration) do |f|
+= form_for company_registration, url: sign_up_path(company_registration) do |f|
   = render 'shared/error_messages', object: f.object
-  .form-group
-    = f.input :company_name, input_html: { class: 'form-control' }, label: 'Company name', error: false, placeholder: 'Please enter company name'
-  .form-group
-    = f.input :description, input_html: { class: 'form-control' }, error: false, placeholder: 'Tell us more about your company'
-  .form-group
-    = f.input :company_email, input_html: { class: 'form-control' }, error: false, placeholder: 'example@domain.com'
-  .form-group
-    = f.input :phone, input_html: { class: 'form-control', id: 'phone' }, error: false, placeholder: '+380000000000'
-  h4 User information
-  .form-group
-    = f.input :first_name, label: 'First Name', placeholder: 'Your name', error: false, input_html: {class: 'form-control'}
-  .form-group
-    = f.input :last_name, label: 'Last Name', placeholder: 'Your last name', error: false, input_html: {class: 'form-control'}
-  .form-group
-    = f.input :user_email, placeholder: 'user@domain.com', error: false, input_html: {class: 'form-control'}
-  .form-group
-    = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-            error: false, input_html: { autocomplete: "new-password", class: 'form-control' }
-  .form-group
-    = f.input :password_confirmation, required: true, error: false, input_html: { autocomplete: "new-password", class: 'form-control' }
-  .form-group
-    = f.submit submit_label, class: 'btn btn-primary'
+  
+  h3.mb-2 Company information
+  .input-with-icon-left
+    i.icon-material-outline-info
+    = f.text_field :company_name, class: 'input-text with-border', label: 'Company name', placeholder: 'Please enter company name'
+  .input-with-icon-left
+    i.icon-material-outline-description
+    = f.text_field :description, class: 'input-text with-border' , placeholder: 'Tell us more about your company'
+  .input-with-icon-left
+    i.icon-material-baseline-mail-outline
+    = f.email_field :company_email, class: 'input-text with-border', placeholder: 'example@domain.com'
+  .input-with-icon-left
+    i.icon-feather-phone
+    = f.text_field :phone, class: 'input-text with-border', id: 'phone', placeholder: '+380000000000'
+  h3.mb-2 User information
+  .input-with-icon-left
+    i.icon-material-outline-info
+    = f.text_field :first_name, label: 'First Name', placeholder: 'Your name', class: 'input-text with-border'
+  .input-with-icon-left
+    i.icon-material-outline-info
+    = f.text_field :last_name, label: 'Last Name', placeholder: 'Your last name', class: 'input-text with-border'
+  .input-with-icon-left
+    i.icon-material-baseline-mail-outline
+    = f.email_field :user_email, placeholder: 'user@domain.com', class: 'input-text with-border'
+  .input-with-icon-left
+    i.icon-material-outline-lock
+    = f.password_field :password, placeholder: 'Password', required: true, class: 'input-text with-border'
+  .input-with-icon-left
+    i.icon-material-outline-lock
+    = f.password_field :password_confirmation, placeholder: 'Password confirmation', required: true, class: 'input-text with-border'
+  = button_tag type: "submit", class: 'button full-width button-sliding-icon ripple-effect margin-top-10'
+    = submit_label
+    i.icon-material-outline-arrow-right-alt

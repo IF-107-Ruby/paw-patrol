@@ -1,5 +1,18 @@
-h2 Create company
+#titlebar.gradient
+  .container
+    .row
+      .col-md-12
+        h2 Register
+        = render 'breadcrumbs'
+.container
+  .row
+    .col-xl-5.offset-xl-3
+      .login-register-page
+        .welcome-text
+          h3 Create company
+          span
+            | Already have an account? 
+            = link_to "Log In!", new_user_session_path
 
-= render 'companies/company_registration_form', company_registration: @company_registration, submit_label: 'Create Company'
-
-
+        = render 'companies/company_registration_form', company_registration: @company_registration, submit_label: 'Create Company'
+.margin-top-70

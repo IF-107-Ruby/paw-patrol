@@ -3,7 +3,8 @@
     li
       a href="/"
         | Home
-    - request_path_components.each do |path_component|
+    - request_path_components.inject('') do |prev, current|
       li
-        a href="/#{path_component}"
-          = path_component.capitalize
+        a href="#{join_paths(prev, current)}"
+          = current.humanize.capitalize
+      - join_paths(prev, current)

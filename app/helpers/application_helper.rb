@@ -12,4 +12,8 @@ module ApplicationHelper
   def active_path(path)
     'active' if current_page?(path)
   end
+
+  def join_paths(*paths)
+    paths.join('/')
+  end
 end
