@@ -5,8 +5,8 @@ feature 'company registration' do
 
   scenario 'successfuly registrate company, log in and log out' do
     visit sign_up_path
-    fill_in id: 'company_registrations_form_name',
-            with: company_registration.name
+    fill_in id: 'company_registrations_form_company_name',
+            with: company_registration.company_name
     fill_in id: 'company_registrations_form_description',
             with: company_registration.description
     fill_in id: 'company_registrations_form_company_email',
