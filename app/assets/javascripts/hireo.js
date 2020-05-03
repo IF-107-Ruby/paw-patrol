@@ -1,5 +1,4 @@
 //= require_self
-//= require jquery-3.4.1.min
 //= require jquery-migrate-3.1.0.min
 //= require mmenu.min
 //= require tippy.all.min
