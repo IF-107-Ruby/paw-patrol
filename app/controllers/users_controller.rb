@@ -3,17 +3,17 @@ class UsersController < ApplicationController
   before_action :obtain_user, only: %i[show edit update destroy]
 
   def index
-    @pagy, @company_users = pagy_decorated(authorize(current_company.users), items: 10)
+    @pagy, @company_users = pagy_decorated(authorize(users_base_relation), items: 10)
   end
 
   def show; end
 
   def new
-    @user = authorize(current_company.users.build)
+    @user = authorize(users_base_relation.build)
   end
 
   def create
-    @user = authorize(current_company.users.build(user_params))
+    @user = authorize(users_base_relation.build(user_params))
     if @user.save
       flash[:success] = 'Company member created.'
       redirect_to users_path(current_company)
