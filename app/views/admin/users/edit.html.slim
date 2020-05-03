@@ -1,0 +1,5 @@
+= provide(:button_text, 'Edit user')
+= provide(:cancel_btn_text, 'Cancel')
+= provide(:path, admin_user_path)
+h2 Update user profile
+= render 'form', object: @user, password_required: false

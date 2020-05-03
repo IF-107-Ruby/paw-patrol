@@ -4,7 +4,7 @@ class Admin::FeedbacksController < ApplicationController
   before_action :find_feedback_by_id, only: %i[show destroy]
 
   def index
-    @pagy, @feedbacks = pagy(authorize(Feedback.all.ordered_by_created_at), items: 10)
+    @pagy, @feedbacks = pagy(Feedback.all.ordered_by_created_at, items: 10)
   end
 
   def show; end
@@ -18,7 +18,7 @@ class Admin::FeedbacksController < ApplicationController
   private
 
   def find_feedback_by_id
-    @feedback = authorize(Feedback.find(params[:id]))
+    @feedback = Feedback.find(params[:id])
   end
 
   def feedback_params

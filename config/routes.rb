@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
       get '/', to: 'dashboards#index', as: :dashboard
+      resources :feedbacks, only: %i[index show destroy]
+      resources :users
     end
   end
 
@@ -38,10 +40,6 @@ Rails.application.routes.draw do
   resources :units
   resources :feedbacks, only: :create
   resources :users
-
-  namespace :admin do
-    resources :feedbacks, only: %i[index show destroy]
-  end
 
   # Using :match so that error pages work for all types of requests, not just GET.
   match '/404', to: 'errors#not_found', via: :all
