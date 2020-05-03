@@ -1,5 +1,5 @@
 .row 
-  .col-md-4
+  .col-md-5
     .user_info
       .full-name
         h2 = @user.full_name
@@ -9,6 +9,7 @@
         span = @user.email
       nav
         ul.nav.navbar.user-buttons
+          li.nav-item = link_to 'Sign in as user', impersonate_admin_user_path, method: :post, class: "btn-sm btn-outline-primary"
           li.nav-item = link_to 'Edit user profile', edit_admin_user_path, class: "btn-sm btn-outline-info"
           li.nav-item = link_to 'Delete user',  admin_user_path, method: :delete, data: { confirm: 'You sure?' }, class: "btn-sm btn-outline-danger"
           li.nav-item = link_to 'Back', admin_users_path, class: "btn-sm btn-outline-secondary"

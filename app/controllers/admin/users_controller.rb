@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :obtain_user, only: %i[show edit update destroy]
+  before_action :obtain_user, only: %i[show edit update destroy impersonate]
 
   def index
     @pagy, @users = pagy_decorated(User.all, items: 10)
@@ -36,6 +36,16 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to admin_users_path
+  end
+
+  def impersonate
+    impersonate_user(@user)
+    redirect_to root_path
+  end
+
+  def stop_impersonating
+    stop_impersonating_user
+    redirect_to root_path
   end
 
   private
