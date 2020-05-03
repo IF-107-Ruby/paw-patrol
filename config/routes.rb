@@ -5,10 +5,7 @@ Rails.application.routes.draw do
   get  '/services', to: 'static_pages#services'
   get  '/contact', to: 'feedbacks#new'
 
-  resources :companies do
-    resources :members, only: :index
-  end
-
+  resources :companies
   resources :units
   resources :feedbacks, only: %i[index show create destroy]
   resources :users

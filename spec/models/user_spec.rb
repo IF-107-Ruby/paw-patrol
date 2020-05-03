@@ -20,16 +20,33 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:email) }
   end
 
-  describe 'Method role' do
-    let(:users_companies_relationship) { create(:users_companies_relationship) }
+  it 'User has role' do
+    expect(user.role).to eq(user.role)
+  end
 
-    it 'Return user role string' do
-      expect(users_companies_relationship.user.role)
-        .to eq(users_companies_relationship.role)
+  describe 'roles test\'s' do
+    let(:company_owner) { create(:company_owner) }
+    let(:employee) { create(:employee) }
+    let(:staff_member) { create(:staff_member) }
+
+    it do
+      is_expected.to define_enum_for(:role)
+        .with_values(company_owner: 0, employee: 1, staff_member: 2)
     end
 
-    it 'User has no role' do
-      expect(user.role).to eq(nil)
+    it 'he is company_owner' do
+      expect(company_owner.company_owner?).to be true
+      expect(company_owner.employee?).not_to be true
+    end
+
+    it 'he is employee' do
+      expect(employee.employee?).to be true
+      expect(company_owner.staff_member?).not_to be true
+    end
+
+    it 'he is staff_member' do
+      expect(staff_member.staff_member?).to be true
+      expect(staff_member.company_owner?).not_to be true
     end
   end
 end

@@ -1,7 +1,7 @@
 = simple_form_for company_registration, url: companies_path(company_registration) do |f|
   = render 'shared/error_messages', object: f.object
   .form-group
-    = f.input :name, input_html: { class: 'form-control' }, label: 'Company name', error: false, placeholder: 'Please enter company name'
+    = f.input :company_name, input_html: { class: 'form-control' }, label: 'Company name', error: false, placeholder: 'Please enter company name'
   .form-group
     = f.input :description, input_html: { class: 'form-control' }, error: false, placeholder: 'Tell us more about your company'
   .form-group
