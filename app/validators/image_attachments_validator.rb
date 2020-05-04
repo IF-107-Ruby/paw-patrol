@@ -1,6 +1,6 @@
 class ImageAttachmentsValidator < ActiveModel::Validator
   def validate(record)
-    return unless record.description&.body&.attachments&.any?
+    return unless record.description.body&.attachments
 
     record.description.body.attachments.each do |attach|
       image_type_validation(attach, record)
