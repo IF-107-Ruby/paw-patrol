@@ -15,3 +15,5 @@ html
       = render 'flash'
       = yield
     = render 'footer'
+    = any_login_here if defined?(AnyLogin)
+

@@ -1,4 +1,4 @@
-class Guest
+class Guest < User
   def company_owner?
     false
   end
