@@ -17,6 +17,8 @@
 class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
+  enum role: { company_owner: 0, employee: 1, staff_member: 2 }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :registerable
   devise :database_authenticatable,
@@ -26,20 +28,14 @@ class User < ApplicationRecord
   has_one :company, through: :users_companies_relationship
   has_many :tickets, dependent: :destroy
 
-  validates :first_name, presence: true, length: { in: 2..50 }
-  validates :last_name, presence: true, length: { in: 2..50 }
-  validates :email, presence: true, length: { in: 8..255 },
-                    format: { with: VALID_EMAIL_REGEX }
-
-  def role
-    users_companies_relationship&.role
-  end
+  validates :first_name, :last_name,
+            presence: true,
+            length: { minimum: 2,
+                      maximum: 50,
+                      too_short: 'must have at least %<count>s characters',
+                      too_long: 'must have at most %<count>s characters' }
 
   def company_owner?
-    users_companies_relationship&.company_owner?
-  end
-
-  def employee?
-    users_companies_relationship&.employee?
+    role == 'company_owner'
   end
 end

@@ -3,20 +3,20 @@ class UsersController < ApplicationController
   before_action :obtain_user, only: %i[show edit update destroy]
 
   def index
-    @pagy, @users = pagy_decorated(User.all, items: 10)
+    @pagy, @company_users = pagy_decorated(authorize(users_base_relation), items: 10)
   end
 
   def show; end
 
   def new
-    @user = User.new
+    @user = authorize(users_base_relation.build)
   end
 
   def create
-    @user = User.new(user_params)
+    @user = authorize(users_base_relation.build(user_params))
     if @user.save
-      flash[:success] = 'User profile created'
-      redirect_to @user
+      flash[:success] = 'Company member created.'
+      redirect_to users_path(current_company)
     else
       render 'new'
     end
@@ -45,10 +45,15 @@ class UsersController < ApplicationController
                                  :last_name,
                                  :email,
                                  :password,
-                                 :password_confirmation)
+                                 :password_confirmation,
+                                 :role)
   end
 
   def obtain_user
-    @user = User.find(params[:id]).decorate
+    @user = authorize(users_base_relation.find(params[:id]).decorate)
+  end
+
+  def users_base_relation
+    current_company.users
   end
 end
