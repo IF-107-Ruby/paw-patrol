@@ -31,4 +31,17 @@ class User < ApplicationRecord
                       maximum: 50,
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
+
+  def company_owner?
+    role == 'company_owner'
+  end
+
+  def self.grouped_collection_by_role
+    {
+      'admin' => User.where(admin: true),
+      'company_owner' => User.where(role: 0),
+      'employee' => User.where(role: 1),
+      'staff_member' => User.where(role: 2)
+    }
+  end
 end
