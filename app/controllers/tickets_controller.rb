@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = current_user.tickets.build(ticket_params)
     authorize @ticket
     if @ticket.save
       flash[:success] = 'Ticket saved!'
@@ -31,8 +31,6 @@ class TicketsController < ApplicationController
   end
 
   def ticket_params
-    params.require(:ticket)
-          .permit(:name, :unit_id, :description)
-          .merge!(user_id: current_user.id)
+    params.require(:ticket).permit(:name, :unit_id, :description)
   end
 end
