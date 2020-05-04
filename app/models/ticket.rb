@@ -17,4 +17,6 @@ class Ticket < ApplicationRecord
 
   validates :user, :unit, :description, presence: true
   validates :name, presence: true, length: { in: 6..50 }
+
+  validates_with ImageAttachmentsValidator
 end

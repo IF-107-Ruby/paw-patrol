@@ -1,8 +1,8 @@
-window.addEventListener("trix-file-accept", function(event) {
-    const acceptedTypes = ['image/jpeg', 'image/png']
+window.addEventListener("trix-file-accept", (event) => {
+    const acceptedTypes = ['image/jpeg', 'image/png', 'image/gif']
     if (!acceptedTypes.includes(event.file.type)) {
         event.preventDefault()
-        alert("Only support attachment of jpeg or png files")
+        alert("Only support attachment of jpeg, png and gif files")
     }
 
     const maxFileSize = 1024 * 1024
