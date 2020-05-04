@@ -11,6 +11,10 @@ require("jquery")
 require("popper.js")
 require("bootstrap")
 require("packs/unit-tree.js")
+require("trix")
+require("@rails/actiontext")
+
+import("../trix-editor-overrides")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -19,7 +23,3 @@ require("packs/unit-tree.js")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-require("trix")
-require("@rails/actiontext")
-
-import("../trix-editor-overrides")
