@@ -1,0 +1,57 @@
+header#header-container.fullwidth.position-fixed
+  #header
+    .container
+      .left-side
+        #logo
+          a.navbar-brand[href="/"]
+            | ROOM PASSPORT
+        nav#navigation
+          ul#responsive
+            li
+              = link_to "Home", root_path, class: current_path(root_path)
+            li
+              = link_to "Contact", contact_path, class: current_path(contact_path)
+            - if current_user.admin?
+              li
+                = link_to "Admin", admin_dashboard_path, class: current_path(admin_dashboard_path)
+        .clearfix
+      .right-side
+        .header-widget
+          - if user_signed_in?
+            .header-notifications.user-menu
+              .header-notifications-trigger
+                a href="#"
+                  .user-avatar.status-online
+                    = image_tag "user-avatar-placeholder"
+              .header-notifications-dropdown
+                .user-status
+                  .user-details
+                    .user-avatar.status-online
+                      = image_tag "user-avatar-placeholder"
+                    .user-name
+                      = current_user.full_name
+                      span = current_user.display_role
+                ul.user-menu-small-nav
+                  - if current_user.admin?
+                    li
+                      = link_to admin_dashboard_path
+                        i.icon-material-outline-dashboard
+                        | Admin dashboard
+                  li
+                    = link_to user_path(current_user)
+                      i.icon-feather-user
+                      | Profile
+                  li
+                    = link_to destroy_user_session_path, method: :delete
+                      i.icon-material-outline-power-settings-new
+                      | Sign out
+          - else
+            = link_to new_user_session_path, class: 'log-in-button'
+              i.icon-feather-log-in
+              span 
+                | Sign in
+        span.mmenu-trigger
+          button.hamburger.hamburger--collapse[type="button"]
+            span.hamburger-box
+              span.hamburger-inner
+.clearfix

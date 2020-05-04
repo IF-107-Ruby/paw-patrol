@@ -18,7 +18,7 @@ FactoryBot.define do
 
     trait :with_parent do
       after(:build) do |o|
-        o.parent = create(:unit)
+        o.parent = create(:unit, company: o.company)
         o.save
       end
     end

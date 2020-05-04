@@ -21,8 +21,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.fixed-top
           a.nav-link[href="/contact"]
             | Contact
 
-        - unless current_user.is_a?(Guest)
-          - if current_user.is_admin?
+        - if user_signed_in?
+          - if current_user.admin?
             li.nav-item.dropdown
               a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#"
                 | Admin

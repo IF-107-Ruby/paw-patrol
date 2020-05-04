@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | PawPatrol
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'hireo'
+    = javascript_pack_tag 'hireo'
+    = javascript_include_tag "hireo"
+    = render 'layouts/meta'
+  body
+    #wrapper
+      = render 'hireo_header'
+      = yield
+      = render 'hireo_footer'

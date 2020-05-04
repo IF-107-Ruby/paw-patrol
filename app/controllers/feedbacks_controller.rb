@@ -1,4 +1,5 @@
 class FeedbacksController < ApplicationController
+  layout 'hireo', only: %i[new create]
   before_action :authenticate_user!,  only: %i[index show destroy]
   before_action :find_feedback_by_id, only: %i[show destroy]
 
