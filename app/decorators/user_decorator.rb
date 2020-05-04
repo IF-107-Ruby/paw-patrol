@@ -6,7 +6,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def display_role
-    if is_admin?
+    if admin?
       'Admin'
     else
       role.humanize.capitalize

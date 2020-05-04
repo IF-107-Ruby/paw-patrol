@@ -8,7 +8,7 @@
 #  email                  :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  is_admin               :boolean          default(FALSE), not null
+#  admin                  :boolean          default(FALSE), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime

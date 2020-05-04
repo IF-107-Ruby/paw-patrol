@@ -1,10 +1,10 @@
 class FeedbackPolicy < ApplicationPolicy
   def index?
-    user.is_admin?
+    user.admin?
   end
 
   def show?
-    user.is_admin?
+    user.admin?
   end
 
   def create?
@@ -12,7 +12,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.is_admin?
+    user.admin?
   end
 
   class Scope < Scope

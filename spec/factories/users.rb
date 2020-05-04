@@ -8,7 +8,7 @@
 #  email                  :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  is_admin               :boolean          default(FALSE), not null
+#  admin                  :boolean          default(FALSE), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :user do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    is_admin { false }
+    admin { false }
     email { Faker::Internet.unique.safe_email }
     sequence(:password) { |n| "testpassword#{n}" }
     sequence(:password_confirmation) { |n| "testpassword#{n}" }
@@ -29,7 +29,7 @@ FactoryBot.define do
   end
 
   factory :admin, parent: :user do
-    is_admin { true }
+    admin { true }
   end
 
   factory :company_owner, parent: :user do

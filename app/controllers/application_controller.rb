@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_company
 
   def current_user
-    super&.decorate || Guest.new
+    (super || Guest.new).decorate
+  end
+
+  def user_signed_in?
+    !current_user.is_a?(Guest)
   end
 
   private
@@ -32,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    dashboard_path = resource.is_admin? ? admin_dashboard_path : root_path
+    dashboard_path = resource.admin? ? admin_dashboard_path : root_path
     stored_location_for(resource) || dashboard_path
   end
 end

@@ -52,7 +52,7 @@
           .footer-links
             h3 Account
             ul
-              - if current_user.is_a?(Guest)
+              - unless user_signed_in?
                 li
                   = link_to new_user_session_path 
                     span Sign In

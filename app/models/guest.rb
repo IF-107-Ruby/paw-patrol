@@ -3,7 +3,11 @@ class Guest
     false
   end
 
-  def is_admin?
+  def admin?
     false
+  end
+
+  def decorate
+    self
   end
 end

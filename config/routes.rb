@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  authenticate :user, ->(user) { user.is_admin? } do
+  authenticate :user, ->(user) { user.admin? } do
     namespace :admin do
       get '/', to: 'dashboards#index', as: :dashboard
     end

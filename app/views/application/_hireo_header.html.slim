@@ -11,13 +11,13 @@ header#header-container.fullwidth.position-fixed
               = link_to "Home", root_path, class: current_path(root_path)
             li
               = link_to "Contact", contact_path, class: current_path(contact_path)
-            - if current_user.is_admin?
+            - if current_user.admin?
               li
                 = link_to "Admin", admin_dashboard_path, class: current_path(admin_dashboard_path)
         .clearfix
       .right-side
         .header-widget
-          - unless current_user.is_a?(Guest)
+          - if user_signed_in?
             .header-notifications.user-menu
               .header-notifications-trigger
                 a href="#"
@@ -32,7 +32,7 @@ header#header-container.fullwidth.position-fixed
                       = current_user.full_name
                       span = current_user.display_role
                 ul.user-menu-small-nav
-                  - if current_user.is_admin?
+                  - if current_user.admin?
                     li
                       = link_to admin_dashboard_path
                         i.icon-material-outline-dashboard
