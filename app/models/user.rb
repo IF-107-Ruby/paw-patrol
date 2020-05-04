@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   def self.grouped_collection_by_role
     {
-      'admin' => User.where(is_admin: true),
+      'admin' => User.where(admin: true),
       'company_owner' => User.where(role: 0),
       'employee' => User.where(role: 1),
       'staff_member' => User.where(role: 2)
