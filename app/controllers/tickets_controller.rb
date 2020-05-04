@@ -27,7 +27,7 @@ class TicketsController < ApplicationController
   private
 
   def read_units
-    @units = AvailableUserUnitsFindQuery.new(user: current_user).to_units_array
+    @units = AvailableUserUnitsQuery.new(user: current_user).to_units_array
   end
 
   def ticket_params

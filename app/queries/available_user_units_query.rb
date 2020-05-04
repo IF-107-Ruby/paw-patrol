@@ -1,4 +1,4 @@
-class AvailableUserUnitsFindQuery
+class AvailableUserUnitsQuery
   def initialize(user:)
     @user = user
   end
