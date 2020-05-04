@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 describe TicketsController, type: :controller do
-  before do
-    @company = create(:company_with_units)
-    @ticket = create(:ticket, unit: @company.units.first)
-  end
-
   let(:user) { create(:user) }
-  let(:employee) { create(:employee).user }
+  let(:employee) { create(:employee) }
   let(:company) { create(:company_with_units) }
   let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
   let(:ticket_invalid_params) { { name: '', description: '' } }
+
+  before do
+    @company = create(:company_with_units)
+    @ticket = create(:ticket, unit: @company.units.first, user: user)
+  end
 
   describe 'GET #show' do
     before do

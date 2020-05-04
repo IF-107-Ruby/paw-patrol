@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TicketPolicy, type: :policy do
   let(:user) { create(:user) }
-  let(:employee) { create(:employee).user }
+  let(:employee) { create(:employee) }
 
   subject { described_class }
 
