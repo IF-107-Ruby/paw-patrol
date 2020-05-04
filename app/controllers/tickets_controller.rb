@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
-  before_action :read_units, only: %i[new create]
+  before_action :read_units, only: :new
 
   def show
     @ticket = Ticket.find(params[:id]).decorate
@@ -19,6 +19,7 @@ class TicketsController < ApplicationController
       redirect_to @ticket
     else
       flash.now[:warning] = 'Ticket is not saved!'
+      read_units
       render :new
     end
   end
@@ -26,8 +27,7 @@ class TicketsController < ApplicationController
   private
 
   def read_units
-    # TODO
-    @units = Company.first.units
+    @units = AvailableUserUnitsFindQuery.new(user: current_user).to_units_array
   end
 
   def ticket_params

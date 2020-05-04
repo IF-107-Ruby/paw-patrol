@@ -4,8 +4,8 @@ class AvailableUserUnitsFindQuery
   end
 
   def to_units_array
-    read_user_unit
-    read_unit_ancestors
+    # read_user_unit
+    # read_unit_ancestors
     array_with_units
   end
 
@@ -23,6 +23,7 @@ class AvailableUserUnitsFindQuery
   end
 
   def array_with_units
-    unit_ancestors.to_a.unshift(user_unit)
+    # unit_ancestors.to_a.unshift(user_unit)
+    Company.first.units.to_a
   end
 end
