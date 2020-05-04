@@ -37,4 +37,8 @@ class User < ApplicationRecord
   def company_owner?
     role == 'company_owner'
   end
+
+  before_create do
+    skip_confirmation!
+  end
 end
