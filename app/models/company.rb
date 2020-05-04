@@ -16,7 +16,7 @@ class Company < ApplicationRecord
 
   has_many :units, dependent: :destroy
   has_many :users_companies_relationships, dependent: :destroy
-  has_many :users, through: :users_companies_relationships
+  has_many :members, through: :users_companies_relationships, source: :user
   has_many :staff, -> { where(role: 'staff_member') },
            source: :user, through: :users_companies_relationships
 
@@ -28,6 +28,4 @@ class Company < ApplicationRecord
   validates :phone, format: { with: VALID_PHONE_REGEX,
                               message: 'is invalid: must be from 10 to 14 digits long' },
                     allow_blank: true
-
-  alias members users
 end

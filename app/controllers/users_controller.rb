@@ -56,6 +56,6 @@ class UsersController < ApplicationController
   end
 
   def users_base_relation
-    current_company.users
+    current_company.members
   end
 end

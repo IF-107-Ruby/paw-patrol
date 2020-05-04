@@ -51,10 +51,10 @@ class CompanyRegistrationsForm
     company = Company.create!(name: company_name, description: description,
                               email: company_email, phone: phone)
 
-    company.users.create!(first_name: first_name,
-                          last_name: last_name,
-                          email: user_email,
-                          password: password,
-                          password_confirmation: password_confirmation)
+    company.members.create!(first_name: first_name,
+                            last_name: last_name,
+                            email: user_email,
+                            password: password,
+                            password_confirmation: password_confirmation)
   end
 end
