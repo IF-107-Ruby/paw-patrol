@@ -1,4 +1,4 @@
 module Admin
-  class DashboardsController < Admin::ApplicationController
+  class DashboardsController < Admin::BaseController
   end
 end
