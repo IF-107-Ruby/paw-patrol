@@ -14,7 +14,7 @@ FactoryBot.define do
   factory :company do
     name { Faker::Company.name }
     description { 'This company is created for test purposes.' }
-    email { Faker::Internet.safe_email }
+    email { Faker::Internet.unique.safe_email }
     sequence(:phone) { |n| "+38091#{n}11111" }
 
     factory :company_with_units do

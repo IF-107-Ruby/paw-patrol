@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!, except: %i[new create]
   before_action :load_company, only: %i[show edit update destroy]
+  layout 'hireo', only: %i[new create]
 
   def index
     @pagy, @companies = pagy(Company.all, items: 10)

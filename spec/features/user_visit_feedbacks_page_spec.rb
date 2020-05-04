@@ -24,12 +24,12 @@ feature 'User visit feedback\'s page' do
     visit feedbacks_path
 
     expect(page).not_to have_selector('section.feedbacks')
-    expect(page).to have_css('.alert.alert-warning',
+    expect(page).to have_css('.notification.warning.closeable',
                              text: 'You are not authorized to perform this action.')
 
     visit feedback_path(@feedback)
     expect(page).not_to have_selector('section.feedback')
-    expect(page).to have_css('.alert.alert-warning',
+    expect(page).to have_css('.notification.warning.closeable',
                              text: 'You are not authorized to perform this action.')
   end
 end

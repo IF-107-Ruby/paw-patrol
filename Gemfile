@@ -20,11 +20,9 @@ gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
 gem 'simple_form'
 gem 'slim'
-gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker',       git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
   gem 'rspec-rails', '~> 4.0'

@@ -1,0 +1,9 @@
+.bootstrap-select .dropdown-toggle::after {
+  display: none;
+}
+
+.footer-brand {
+  position: relative;
+  top: 100%;
+  transform: translateY(-50%);
+}
