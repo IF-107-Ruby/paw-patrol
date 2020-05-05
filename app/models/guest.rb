@@ -10,4 +10,8 @@ class Guest < User
   def decorate
     self
   end
+
+  def company
+    nil
+  end
 end

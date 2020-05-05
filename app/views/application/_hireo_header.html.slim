@@ -14,6 +14,9 @@ header#header-container.fullwidth.position-fixed
             - if current_user.admin?
               li
                 = link_to "Admin", admin_dashboard_path, class: current_path(admin_dashboard_path)
+            - if current_company
+              li
+                = link_to "Dashboard", company_dashboard_path, class: current_path(company_dashboard_path)
         .clearfix
       .right-side
         .header-widget
@@ -37,6 +40,11 @@ header#header-container.fullwidth.position-fixed
                       = link_to admin_dashboard_path
                         i.icon-material-outline-dashboard
                         | Admin dashboard
+                  - if current_company
+                    li
+                      = link_to company_dashboard_path
+                        i.icon-material-outline-dashboard
+                        | Dashboard
                   li
                     = link_to user_path(current_user)
                       i.icon-feather-user

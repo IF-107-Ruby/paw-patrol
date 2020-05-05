@@ -5,6 +5,16 @@ Rails.application.routes.draw do
     end
   end
 
+  authenticate :user, ->(user) { user.company.present? } do
+    namespace :company do
+      get '/', to: 'companies#index'
+      get '/edit', to: 'companies#edit'
+      patch '/edit', to: 'companies#update'
+      get '/dashboard', to: 'dashboards#index', as: :dashboard
+      resources :members
+    end
+  end
+
   devise_for :users, path: '', only: :sessions, controllers: {
     sessions: 'users/sessions'
   }
@@ -13,8 +23,11 @@ Rails.application.routes.draw do
   get  '/about', to: 'static_pages#about'
   get  '/services', to: 'static_pages#services'
   get  '/contact', to: 'feedbacks#new'
-  get  '/sign_up', to: 'companies#new'
-  post '/sign_up', to: 'companies#create'
+
+  unauthenticated do
+    get  '/sign_up', to: 'companies#new'
+    post '/sign_up', to: 'companies#create'
+  end
 
   resources :companies
   resources :units do

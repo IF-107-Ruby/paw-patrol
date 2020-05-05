@@ -8,6 +8,8 @@ feature 'User looks Information About Company Other User' do
   before { login_as company_owner }
 
   scenario 'successfully' do
+    pending('something else getting finished')
+
     visit user_path(user)
 
     expect(page).to have_selector('div.company-role')

@@ -1,0 +1,165 @@
+// Place all the styles related to the company/companies controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.company-image {
+  height: 140px;
+  flex: 0 0 140px;
+  margin-right: 35px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  padding: 0 20px;
+}
+
+@media screen and (-ms-high-contrast: active),
+  screen and (-ms-high-contrast: none) {
+  .company-image {
+    max-width: 140px;
+  }
+}
+
+.company-image img {
+  align-self: center;
+  transform: translate3d(0, 0, 0);
+}
+
+@media all and (-ms-high-contrast: none) {
+  .company-image img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1240px) {
+  .company-image {
+    height: 120px;
+    flex: 0 0 120px;
+  }
+}
+
+@media (max-width: 992px) {
+  .company-image {
+    height: 70px;
+    width: auto;
+    padding: 15px 20px;
+    margin: 15px 0;
+    display: inline-block;
+  }
+  .company-image img {
+    height: 100%;
+  }
+}
+
+.company-details {
+  flex: 1;
+
+  & h3 {
+    color: #333;
+    font-size: 26px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 12px;
+    margin-top: 3px;
+    line-height: 36px;
+    position: relative;
+    padding-right: 0;
+    display: block;
+  }
+
+  & h3 span {
+    color: #808080;
+    display: block;
+    font-size: 17px;
+    font-weight: 300;
+    margin-top: -3px;
+  }
+
+  & h5 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  & ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 24px;
+    margin-bottom: -7px;
+  }
+
+  & li {
+    display: block;
+    margin-right: 20px;
+    margin-bottom: 7px;
+  }
+
+  & li a {
+    color: #666;
+  }
+
+  & li a:hover {
+    color: #2a41e8;
+  }
+
+  & li i {
+    font-size: 20px;
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+  }
+
+  & li .verified-badge {
+    transform: scale(0.85);
+    position: relative;
+    top: 2px;
+  }
+
+  & li .verified-txt {
+    color: #299840;
+  }
+
+  & li .star-rating {
+    position: relative;
+    top: 6px;
+  }
+
+  & ul li img.flag {
+    height: 16px;
+    border-radius: 3px;
+    position: relative;
+    top: -1px;
+    display: inline-block;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    margin-right: 5px;
+    cursor: default;
+  }
+}
+
+@media (max-width: 1240px) {
+  .header-details h3 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header-details h3 {
+    font-size: 24px;
+  }
+
+  .header-details h5 {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 25px;
+  }
+
+  .freelancer-header .header-details h3 {
+    margin-left: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .freelancer-header .header-details h3 {
+    margin-left: 90px;
+  }
+}

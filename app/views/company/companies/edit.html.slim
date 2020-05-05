@@ -1,0 +1,47 @@
+.dashboard-headline
+  h3
+    | Edit Company
+
+  = render 'breadcrumbs'
+
+= form_for current_company, url: company_edit_path, action: :post do |f| 
+  .row
+    .col-xl-12
+      = render 'shared/error_messages', object: f.object
+  .row
+    .col-xl-12
+      .dashboard-box.margin-top-0
+        .headline
+          h3
+            i.icon-feather-edit
+            | Company Edit Form
+        .content.with-padding.padding-bottom-10
+          .row
+            .col-auto
+              .avatar-wrapper title=("Change company image") data-tippy-placement="bottom" 
+                = image_tag "user-avatar-placeholder.png", class: "profile-pic", alt: ""
+                .upload-button
+                input.file-upload accept="image/*" type="file"
+            .col
+              .row
+                .col-xl-12
+                  .submit-field
+                    h5 Company name
+                    = f.text_field :name, class: 'with-border', placeholder: 'Company name'
+                .col-xl-6
+                  .submit-field
+                    h5 Company email
+                    = f.email_field :email, class: 'with-border', placeholder: 'example@domain.com'
+                .col-xl-6
+                  .submit-field
+                    h5 Company phone
+                    = f.text_field :phone, class: 'with-border', placeholder: '+380000000000'
+          .row
+            .col-xl-12
+              .submit-field
+                h5 Company description
+                = f.text_area :description, class: 'with-border', placeholder: "Company description", cols: 40, rows: 5, required: 'required'
+    .col-xl-12
+      = button_tag type: "submit", class: 'button ripple-effect big margin-top-30'
+        i.icon-line-awesome-save
+        | Save Changes

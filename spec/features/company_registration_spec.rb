@@ -36,9 +36,8 @@ feature 'company registration' do
     expect(page).to have_text('Profile')
     expect(page).to have_text('Sign out')
 
-    within('#footer') do
-      click_on 'Sign out'
-    end
+    click_on 'Logout'
+
     expect(page).to have_text('Signed out successfully.')
     expect(page).to have_text('Sign in')
   end
