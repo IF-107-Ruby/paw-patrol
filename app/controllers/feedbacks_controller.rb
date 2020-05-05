@@ -1,4 +1,6 @@
 class FeedbacksController < ApplicationController
+  layout 'hireo', only: %i[new create]
+
   def new
     @feedback = Feedback.new
   end

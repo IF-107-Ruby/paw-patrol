@@ -13,12 +13,12 @@
               = link_to admin_dashboard_path
                 i.icon-material-outline-dashboard
                 | Dashboard
-            li class="#{active_path("#")}"
-              a href="#" 
+            li class="#{active_path(admin_users_path)}"
+              = link_to admin_users_path
                 i.icon-material-outline-group
                 | Users
-            li class="#{active_path("#")}"
-              a href="#" 
+            li class="#{active_path(admin_feedbacks_path)}"
+              = link_to admin_feedbacks_path 
                 i.icon-material-outline-rate-review
                 | Feedbacks
           ul data-submenu-title="Account" 
