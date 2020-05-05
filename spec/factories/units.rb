@@ -29,5 +29,20 @@ FactoryBot.define do
         o.children.create(name: 'Child 1', company: o.company)
       end
     end
+
+    trait :with_users do
+      after(:build) do |unit|
+        unit.users = create_list :user, 5
+      end
+    end
+    # factory :unit_with_users do
+    #  transient do
+    #    users_count { 5 }
+    #  end
+    #
+    #  after(:create) do |unit, evaluator|
+    #    create_list(:user, evaluator.users_count, units: [unit])
+    #  end
+    # end
   end
 end
