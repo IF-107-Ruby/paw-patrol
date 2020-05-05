@@ -8,8 +8,7 @@ describe TicketsController, type: :controller do
   let(:ticket_invalid_params) { { name: '', description: '' } }
 
   before do
-    @company = create(:company_with_units)
-    @ticket = create(:ticket, unit: @company.units.first, user: user)
+    @ticket = create(:ticket, unit: company.units.first, user: user)
   end
 
   describe 'GET #show' do

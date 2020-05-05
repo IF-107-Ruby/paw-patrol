@@ -24,4 +24,11 @@ RSpec.describe Ticket, type: :model do
       it { expect(@ticket).to validate_length_of(:name).is_at_least(6).is_at_most(50) }
     end
   end
+
+  describe 'description' do
+    it 'description_attachments' do
+      expected = @ticket.description.body.attachments
+      expect(@ticket.description_attachments).to eq(expected)
+    end
+  end
 end
