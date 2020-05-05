@@ -12,19 +12,11 @@
             li class="#{active_path(company_dashboard_path)}"
               = link_to company_dashboard_path
                 i.icon-material-outline-dashboard
-                | Dashboard
-          ul data-submenu-title="Organize and Manage"
-            li class="#{active_submenu('companies')}"
-              a href="#"
+                | Dashboard            
+            li class="#{active_path(company_path)}"
+              = link_to company_path
                 i.icon-material-outline-business-center
                 | Company
-              ul
-                li class="#{active_path(company_path)}"
-                  = link_to company_path
-                    | View
-                li class="#{active_path(company_edit_path)}"
-                  = link_to company_edit_path
-                    | Edit
           ul data-submenu-title="Account" 
             li class="#{active_path(user_path(current_user))}"
               = link_to current_user

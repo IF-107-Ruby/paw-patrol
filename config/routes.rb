@@ -7,10 +7,10 @@ Rails.application.routes.draw do
 
   authenticate :user, ->(user) { user.company.present? } do
     namespace :company do
-      get '/', to: 'companies#index'
+      get '/', to: 'companies#show'
       get '/edit', to: 'companies#edit'
       patch '/edit', to: 'companies#update'
-      get '/dashboard', to: 'dashboards#index', as: :dashboard
+      get '/dashboard', to: 'dashboards#show'
       resources :members
     end
   end

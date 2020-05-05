@@ -36,6 +36,8 @@ feature 'company registration' do
     expect(page).to have_text('Profile')
     expect(page).to have_text('Sign out')
 
+    expect(page).to have_text("Howdy, #{company_registration.first_name}!")
+
     click_on 'Logout'
 
     expect(page).to have_text('Signed out successfully.')

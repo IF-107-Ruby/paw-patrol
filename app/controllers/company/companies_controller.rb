@@ -1,5 +1,7 @@
 class Company
   class CompaniesController < Company::BaseController
+    before_action -> { authorize(Company) }
+
     def update
       if current_company.update(company_params)
         flash[:success] = 'Company profile has been updated.'
