@@ -1,4 +1,6 @@
 class TicketsController < ApplicationController
+  layout 'hireo_dashboard'
+
   before_action :authenticate_user!
   before_action :read_units, only: :new
 

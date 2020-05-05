@@ -6,8 +6,9 @@ $ticket-border-color: #58595C;
 
 .ticket_show {
   &-title {
+    margin-bottom: 10px;
+
     &__span {
-      margin-bottom: 5px;
       padding-right: 2px;
       font-weight: bolder;
     }
