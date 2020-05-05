@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
+  before do
+    @company = create(:company_with_units)
+  end
+
   describe 'Associations' do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:unit) }
