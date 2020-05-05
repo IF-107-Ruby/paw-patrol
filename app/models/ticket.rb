@@ -19,7 +19,7 @@ class Ticket < ApplicationRecord
   validates :name, presence: true, length: { in: 6..50 }
 
   validates_with ImageAttachmentsValidator,
-                 if: ->(ticket) { ticket.description.body&.attachments }
+                 if: ->(ticket) { ticket.description.body.attachments.any? }
 
   validate :unit_permission
 

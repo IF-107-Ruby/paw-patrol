@@ -12,7 +12,7 @@
 FactoryBot.define do
   factory :ticket do
     name { Faker::Lorem.sentence }
-    description { Faker::Lorem.paragraph }
+    description { ActionText::Content.new(Faker::Lorem.paragraph) }
     user
     unit
   end
