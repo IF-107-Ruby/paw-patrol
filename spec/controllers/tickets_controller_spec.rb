@@ -1,22 +1,19 @@
 require 'rails_helper'
 
 describe TicketsController, type: :controller do
-  let(:user) { create(:user) }
-  let(:employee) { create(:employee) }
-  let(:company) { create(:company_with_units) }
+  let!(:user) { create(:user) }
+  let!(:employee) { create(:employee) }
+  let!(:company) { create(:company_with_units) }
+  let!(:ticket) { create(:ticket, unit: company.units.first, user: user) }
   let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
   let(:ticket_invalid_params) { { name: '', description: '' } }
-
-  before do
-    @ticket = create(:ticket, unit: company.units.first, user: user)
-  end
 
   describe 'GET #show' do
     before do
       sign_in employee
     end
 
-    subject { get :show, params: { id: @ticket.id } }
+    subject { get :show, params: { id: ticket.id } }
 
     it { is_expected.to have_http_status(:success) }
     it { is_expected.to render_template('show') }

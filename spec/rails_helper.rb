@@ -18,7 +18,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
-  config.include(TrixEditorHelper, type: :feature)
+  config.include TrixEditorHelper, type: :feature
 
   config.use_transactional_fixtures = false
 
