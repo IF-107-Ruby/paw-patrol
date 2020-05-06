@@ -1,0 +1,16 @@
+= javascript_pack_tag 'comment'
+.comments-block
+  .row
+    .col-xl-12 class='comments-header dashboard-headline' 
+      h3 Comments
+  .row
+    .col-xl-12
+      button id='add-comment' class='add-comment-btn'
+        span class='add-comment-icon' 
+          i class="fas fa-plus"
+        | Add new comment
+      #new-comment-form
+        = render 'shared/comments/form', commentable: commentable, submit_label: 'Send', parent_id: nil
+  .row 
+    #comments-list class='col-xl-12'
+      = render 'shared/comments/nested_comment', comments: commentable.comments.arrange, commentable: commentable

@@ -1,0 +1,2 @@
+$('#new-comment-form').html('<%= escape_javascript(render('shared/comments/form', commentable: @commentable, submit_label: 'Send', parent_id: nil)) %>');
+$('#comments-list').html('<%= escape_javascript(render('shared/comments/nested_comment', commentable: @commentable, comments: @commentable.comments.arrange )) %>');

@@ -12,7 +12,19 @@
 
 ActiveRecord::Schema.define(version: 20_200_507_135_644) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "commentable_id", null: false
+    t.string "commentable_type", null: false
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.string "ancestry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ancestry"], name: "index_comments_on_ancestry"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table 'action_text_rich_texts', force: :cascade do |t|
     t.string 'name', null: false
@@ -59,12 +71,12 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 
-  create_table 'feedbacks', force: :cascade do |t|
-    t.string 'user_full_name'
-    t.string 'email'
-    t.text 'message'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "feedbacks", force: :cascade do |t|
+    t.string "user_full_name"
+    t.string "email"
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table 'tickets', force: :cascade do |t|
@@ -107,14 +119,14 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
             unique: true
   end
 
-  create_table 'users_companies_relationships', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'company_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['company_id'], name: 'index_users_companies_relationships_on_company_id'
-    t.index %w[user_id company_id], name: 'relationship_index', unique: true
-    t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
+  create_table "users_companies_relationships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_users_companies_relationships_on_company_id"
+    t.index ["user_id", "company_id"], name: "relationship_index", unique: true
+    t.index ["user_id"], name: "index_users_companies_relationships_on_user_id"
   end
 
   create_table 'users_units_relationships', force: :cascade do |t|
@@ -130,6 +142,7 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
+  add_foreign_key 'comments', 'users'
   add_foreign_key 'units', 'companies'
   add_foreign_key 'units', 'users', column: 'responsible_user_id'
   add_foreign_key 'users_companies_relationships', 'companies'
