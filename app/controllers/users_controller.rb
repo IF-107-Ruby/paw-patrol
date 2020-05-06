@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = authorize(users_base_relation.build(user_params))
     if @user.save
+      @user.send_invitation
       flash[:success] = 'Company member created.'
       redirect_to users_path(current_company)
     else

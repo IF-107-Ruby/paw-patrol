@@ -44,4 +44,8 @@ class User < ApplicationRecord
       'staff_member' => User.where(role: 2)
     }
   end
+
+  def send_invitation
+    UserMailer.invitation_email(self).deliver_now
+  end
 end
