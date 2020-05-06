@@ -1,0 +1,5 @@
+- if yield(:headline).present?
+  .dashboard-headline
+    h3 = yield(:headline)
+
+    = render 'breadcrumbs'

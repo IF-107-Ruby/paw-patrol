@@ -1,8 +1,4 @@
-.dashboard-headline
-  h3
-    | Edit Company
-
-  = render 'breadcrumbs'
+= provide(:headline, "Edit Company")
 
 = form_for current_company, url: company_edit_path, action: :post do |f| 
   .row
