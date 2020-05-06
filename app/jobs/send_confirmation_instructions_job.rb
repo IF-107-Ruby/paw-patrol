@@ -2,8 +2,9 @@ class SendConfirmationInstructionsJob < ApplicationJob
   queue_as :default
 
   def perform(user_id)
-    unless user_id.confirmed?
-      user_id.send_confirmation_instructions
+    user = User.find(user_id)
+    unless user.confirmed?
+      send_confirmation_instructions(user)
     end
   end
 end
