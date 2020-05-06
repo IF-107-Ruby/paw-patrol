@@ -19,4 +19,5 @@
  *= require static_pages
  *= require units
  *= require users
+ *=require users_invitation_email
  */

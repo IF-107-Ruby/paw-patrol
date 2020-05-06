@@ -1,0 +1,25 @@
+===============================================================
+                        ROOM PASSPORT
+===============================================================
+
+    Hi <%= @user.first_name%>,
+
+    You have been invited to join <%= @user.company.name %> company 
+    on ROOM PASSPORT as <%= @user.role.humanize %>
+
+    To login to the site, just follow this link: 
+    <%= @url %>
+
+    Here is your credentials for log in:
+    Email: <%= @user.email %>
+    Password: <%= @user.password %>
+
+    If you have been invited by mistake, please contact 
+    a Company Owner.
+
+    Cheers,
+    The team at ROOM PASSPORT
+
+===============================================================
+                    Made by ROOM PASSPORT
+===============================================================
