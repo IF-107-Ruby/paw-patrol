@@ -17,6 +17,11 @@
               = link_to company_path
                 i.icon-material-outline-business-center
                 | Company
+            li class="#{active_path(company_members_path)}"
+              = link_to company_members_path
+                i.icon-material-outline-group
+                | Members
+
           ul data-submenu-title="Account" 
             li class="#{active_path(user_path(current_user))}"
               = link_to current_user

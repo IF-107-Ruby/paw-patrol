@@ -1,0 +1,23 @@
+= provide(:headline, "#{current_company.name} members")
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .headline
+        .d-flex.justify-content-between
+          h3 Members
+          - if current_user.company_owner?
+            .icon-links
+              = link_to new_company_member_path
+                i.icon-feather-plus
+      .content.with-padding.overflow-hidden
+        table.basic-table
+          thead
+            tr
+              th Full name
+              th Role
+              th
+          tbody
+            = render partial: 'member', collection: @members
+
+        = render partial: 'shared/pagination', locals: { pagy: @pagy }
