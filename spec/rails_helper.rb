@@ -18,6 +18,8 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.include(TrixEditorHelper, type: :feature)
+
   config.use_transactional_fixtures = false
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
