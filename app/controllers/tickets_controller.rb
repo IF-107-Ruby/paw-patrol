@@ -17,10 +17,10 @@ class TicketsController < ApplicationController
     @ticket = current_user.tickets.build(ticket_params)
     authorize @ticket
     if @ticket.save
-      flash[:success] = 'Ticket saved!'
+      flash[:success] = 'Ticket posted!'
       redirect_to @ticket
     else
-      flash.now[:warning] = 'Ticket is not saved!'
+      flash.now[:warning] = 'Ticket is not posted!'
       read_units
       render :new
     end
