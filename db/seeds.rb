@@ -22,10 +22,6 @@ end
   FactoryBot.create :feedback
 end
 
-# 5.times do
-#  FactoryBot.create(:unit, :with_users)
-# end
-
 Company.all.each do |company|
   5.times do
     FactoryBot.create(:employee, company: company)

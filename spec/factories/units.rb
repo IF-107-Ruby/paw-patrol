@@ -32,17 +32,9 @@ FactoryBot.define do
 
     trait :with_users do
       after(:build) do |unit|
-        unit.users = create_list :user, 5
+        unit.save
+        unit.users = create_list :employee, 4
       end
     end
-    # factory :unit_with_users do
-    #  transient do
-    #    users_count { 5 }
-    #  end
-    #
-    #  after(:create) do |unit, evaluator|
-    #    create_list(:user, evaluator.users_count, units: [unit])
-    #  end
-    # end
   end
 end
