@@ -19,6 +19,7 @@ gem 'pundit'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
+gem 'sidekiq'
 gem 'simple_form'
 gem 'slim'
 gem 'webpacker', '~> 4.0'
