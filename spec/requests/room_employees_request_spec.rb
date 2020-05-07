@@ -4,7 +4,6 @@ RSpec.describe 'RoomEmployees', type: :request do
   let!(:user) { create(:user, :with_company) }
   let(:unit) { create(:unit, :with_users) }
 
-  
   describe 'GET /index' do
     it 'returns http success' do
       login_as user
