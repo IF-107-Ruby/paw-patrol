@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   impersonates :user,
                method: :current_user,
-               with: ->(id) { (User.find_by(id: id)).decorate }
+               with: ->(id) { User.find_by(id: id).decorate }
 
   private
 

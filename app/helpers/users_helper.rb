@@ -7,6 +7,10 @@ module UsersHelper
     company_role_and_link(user) if user.company.present?
   end
 
+  def user_company_name(user)
+    user.company.name if user.company.present?
+  end
+
   private
 
   def link_to_user_company(user)

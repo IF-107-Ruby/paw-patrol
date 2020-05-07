@@ -1,0 +1,6 @@
+tr
+  td.pl-5 = user.full_name
+  td = user_company_name(user)
+  td = user_role_string(user)
+  td = link_to 'Show', admin_user_path(user)
+

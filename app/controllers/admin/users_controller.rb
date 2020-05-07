@@ -11,10 +11,12 @@ module Admin
 
     def new
       @user = User.new
+      @companies = Company.all
     end
 
     def create
-      @user = User.new(user_params)
+      company = Company.find(params[:user][:company])
+      @user = company.users.build(user_params)
       if @user.save
         flash[:success] = 'User profile created'
         redirect_to admin_user_path(@user)
@@ -58,7 +60,8 @@ module Admin
                                    :last_name,
                                    :email,
                                    :password,
-                                   :password_confirmation)
+                                   :password_confirmation,
+                                   :role)
     end
 
     def obtain_user

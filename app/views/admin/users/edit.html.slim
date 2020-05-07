@@ -1,5 +1,20 @@
-= provide(:button_text, 'Edit user')
-= provide(:cancel_btn_text, 'Cancel')
-= provide(:path, admin_user_path)
 h2 Update user profile
-= render 'form', object: @user, password_required: false
+= simple_form_for @user, url: admin_user_path do |f|
+  = render 'shared/error_messages', object: f.object
+  .form-group
+    = f.input :first_name, label: 'First Name', error: false, placeholder: 'Your name', input_html: {class: 'form-control'}
+  .form-group
+    = f.input :last_name, label: 'Last Name', error: false, placeholder: 'Your last name', input_html: {class: 'form-control'}
+  .form-group
+    = f.input :email, error: false, placeholder: 'user@domain.com', input_html: {class: 'form-control'}
+  .form-group
+    col-xl-12
+      .row
+        .col-auto
+          = button_tag type: "submit", class: 'button ripple-effect button-sliding-icon big margin-top-30'
+            | Edit user 
+            i.icon-feather-check
+        .col-auto
+          = link_to admin_user_path, class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
+            | Cancel  
+            i.icon-feather-x
