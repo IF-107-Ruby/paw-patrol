@@ -8,11 +8,11 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.build(comment_params)
     @comment.user = current_user
-    if @comment.save
-      respond_to do |format|
-        format.js do
-          render template: 'shared/comments/create'
-        end  
+    return unless @comment.save
+
+    respond_to do |format|
+      format.js do
+        render template: 'shared/comments/create'
       end
     end
   end
@@ -38,5 +38,3 @@ class CommentsController < ApplicationController
     @commentable = current_company
   end
 end
-
- 

@@ -29,7 +29,7 @@ class User < ApplicationRecord
   has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
-  has_many :comments
+  has_many :comments, dependent: :nullify
 
   validates :first_name, :last_name,
             presence: true,

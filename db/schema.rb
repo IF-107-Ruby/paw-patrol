@@ -10,22 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20_200_507_135_644) do
+=======
+ActiveRecord::Schema.define(version: 20_200_505_075_916) do
+>>>>>>> Fix rubocop warnings
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "comments", force: :cascade do |t|
-    t.integer "commentable_id", null: false
-    t.string "commentable_type", null: false
-    t.text "body", null: false
-    t.bigint "user_id", null: false
-    t.string "ancestry"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["ancestry"], name: "index_comments_on_ancestry"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+  create_table 'comments', force: :cascade do |t|
+    t.integer 'commentable_id', null: false
+    t.string 'commentable_type', null: false
+    t.text 'body', null: false
+    t.bigint 'user_id', null: false
+    t.string 'ancestry'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['ancestry'], name: 'index_comments_on_ancestry'
+    t.index ['user_id'], name: 'index_comments_on_user_id'
   end
 
+<<<<<<< HEAD
   create_table 'action_text_rich_texts', force: :cascade do |t|
     t.string 'name', null: false
     t.text 'body'
@@ -61,6 +66,8 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
+=======
+>>>>>>> Fix rubocop warnings
   create_table 'companies', force: :cascade do |t|
     t.string 'name', null: false
     t.text 'description'
@@ -71,14 +78,15 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 
-  create_table "feedbacks", force: :cascade do |t|
-    t.string "user_full_name"
-    t.string "email"
-    t.text "message"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'feedbacks', force: :cascade do |t|
+    t.string 'user_full_name'
+    t.string 'email'
+    t.text 'message'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
+<<<<<<< HEAD
   create_table 'tickets', force: :cascade do |t|
     t.string 'name', null: false
     t.bigint 'user_id', null: false
@@ -101,6 +109,19 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
     t.index ['company_id'], name: 'index_units_on_company_id'
   end
 
+=======
+  create_table 'units', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'qr_link'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'company_id'
+    t.string 'ancestry'
+    t.index ['ancestry'], name: 'index_units_on_ancestry'
+    t.index ['company_id'], name: 'index_units_on_company_id'
+  end
+
+>>>>>>> Fix rubocop warnings
   create_table 'users', force: :cascade do |t|
     t.string 'first_name'
     t.string 'last_name'
@@ -119,16 +140,17 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
             unique: true
   end
 
-  create_table "users_companies_relationships", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "company_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["company_id"], name: "index_users_companies_relationships_on_company_id"
-    t.index ["user_id", "company_id"], name: "relationship_index", unique: true
-    t.index ["user_id"], name: "index_users_companies_relationships_on_user_id"
+  create_table 'users_companies_relationships', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'company_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['company_id'], name: 'index_users_companies_relationships_on_company_id'
+    t.index %w[user_id company_id], name: 'relationship_index', unique: true
+    t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
   end
 
+<<<<<<< HEAD
   create_table 'users_units_relationships', force: :cascade do |t|
     t.bigint 'user_id', null: false
     t.bigint 'unit_id', null: false
@@ -149,4 +171,10 @@ ActiveRecord::Schema.define(version: 20_200_507_135_644) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
+=======
+  add_foreign_key 'comments', 'users'
+  add_foreign_key 'units', 'companies'
+  add_foreign_key 'users_companies_relationships', 'companies'
+  add_foreign_key 'users_companies_relationships', 'users'
+>>>>>>> Fix rubocop warnings
 end

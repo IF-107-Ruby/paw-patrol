@@ -6,7 +6,7 @@ class CreateComments < ActiveRecord::Migration[6.0]
       t.text :body, null: false
       t.references :user, null: false, foreign_key: true
       t.string :ancestry
-      
+
       t.timestamps
     end
     add_index :comments, :ancestry
