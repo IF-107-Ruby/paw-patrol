@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Admin::FeedbacksController, type: :controller do
-  let(:user) { create(:user) }
   let(:admin) { create(:admin) }
   let(:feedback) { create(:feedback) }
 
   describe 'Authentication and authorization tests' do
-    context 'if user is not admin' do
-      before { sign_in user }
-
+    context 'if not authenticated' do
       describe 'GET #index' do
         subject { get :index }
 
