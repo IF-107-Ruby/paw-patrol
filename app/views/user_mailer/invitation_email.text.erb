@@ -4,17 +4,17 @@
 
     Hi <%= @user.first_name%>,
 
-    You have been invited to join <%= @user.company.name %> company 
-    on ROOM PASSPORT as <%= @user.role.humanize %>
+    You have been invited to join <%= @user.display_company_name %> company
+    on ROOM PASSPORT as <%= @user.display_role%>
 
-    To login to the site, just follow this link: 
+    To login to the site, just follow this link:
     <%= @url %>
 
     Here is your credentials for log in:
     Email: <%= @user.email %>
     Password: <%= @user.password %>
 
-    If you have been invited by mistake, please contact 
+    If you have been invited by mistake, please contact
     a Company Owner.
 
     Cheers,

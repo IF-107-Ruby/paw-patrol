@@ -12,4 +12,8 @@ class UserDecorator < Draper::Decorator
       role.humanize.capitalize
     end
   end
+
+  def display_company_name
+    company.name
+  end
 end
