@@ -1,6 +1,6 @@
 = provide(:headline, "Update company member")
 
-= form_for @user, url: company_member_path(@user) do |f|
+= form_for @user, url: [:company, @user] do |f|
   .row
     .col-xl-12
       = render 'shared/error_messages', object: f.object
@@ -52,6 +52,6 @@
             | Update member
             i.icon-feather-check
         .col-auto
-          = link_to company_member_path(@user), class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
+          = link_to [:company, @user], class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
             | Cancel  
             i.icon-feather-x

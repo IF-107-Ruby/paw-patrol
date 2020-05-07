@@ -1,7 +1,7 @@
 class CompanyDecorator < Draper::Decorator
   delegate_all
 
-  def members_count
-    h.pluralize(members.count, 'member')
+  def users_count
+    h.pluralize(users.count, 'member')
   end
 end

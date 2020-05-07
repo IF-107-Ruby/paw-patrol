@@ -1,5 +1,5 @@
 class Company
-  class MemberPolicy < ApplicationPolicy
+  class UserPolicy < ApplicationPolicy
     def index?
       true
     end
@@ -13,11 +13,11 @@ class Company
     end
 
     def update?
-      company_owner? || user.id = record.id
+      company_owner? && user.id != record.id
     end
 
     def destroy?
-      company_owner? || user.id = record.id
+      company_owner? && user.id != record.id
     end
 
     private

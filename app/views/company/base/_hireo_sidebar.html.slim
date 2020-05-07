@@ -17,10 +17,10 @@
               = link_to company_path
                 i.icon-material-outline-business-center
                 | Company
-            li class="#{active_path(company_members_path)}"
-              = link_to company_members_path
+            li class="#{active_path(company_users_path)}"
+              = link_to company_users_path
                 i.icon-material-outline-group
-                | Members
+                | Users
 
           ul data-submenu-title="Account" 
             li class="#{active_path(user_path(current_user))}"

@@ -21,7 +21,7 @@
                     = @user.email
       - if current_user.company_owner? && current_user != @user
         .col-auto.icon-links.align-self-start
-          = link_to edit_company_member_path(@user)
+          = link_to [:edit, :company, @user]
             i.icon-feather-edit
-          = link_to company_member_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+          = link_to [:company, @user], method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
             i.icon-feather-trash-2

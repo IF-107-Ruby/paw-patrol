@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get '/edit', to: 'companies#edit'
       patch '/edit', to: 'companies#update'
       get '/dashboard', to: 'dashboards#show'
-      resources :members
+      resources :users
     end
   end
 

@@ -1,6 +1,6 @@
 class Company
   class CompaniesController < Company::BaseController
-    before_action -> { authorize(Company) }
+    before_action -> { authorize([:company, Company]) }
 
     def update
       if current_company.update(company_params)

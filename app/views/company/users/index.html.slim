@@ -8,7 +8,7 @@
           h3 Members
           - if current_user.company_owner?
             .icon-links
-              = link_to new_company_member_path
+              = link_to new_company_user_path
                 i.icon-feather-plus
       .content.with-padding.overflow-hidden
         table.basic-table
@@ -18,6 +18,6 @@
               th Role
               th
           tbody
-            = render partial: 'member', collection: @members
+            = render @users
 
         = render partial: 'shared/pagination', locals: { pagy: @pagy }

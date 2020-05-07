@@ -1,12 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Company::CompanyPolicy, type: :policy do
-  let(:company) { create(:company) }
-
-  let(:company_owner) { create(:company_owner, company: company) }
-  let(:employee) { create(:employee, company: company) }
-  let(:staff_member) { create(:staff_member, company: company) }
-
+  include_context 'company with users'
   subject { described_class }
 
   permissions :show? do

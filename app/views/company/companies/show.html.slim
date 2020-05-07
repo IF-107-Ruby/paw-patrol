@@ -23,9 +23,9 @@
                         i.icon-line-awesome-phone-square
                         = current_company.phone
                     li
-                      = link_to company_members_path
+                      = link_to company_users_path
                         i.icon-material-outline-group
-                        = current_company.members_count
+                        = current_company.users_count
           - if current_user.company_owner?
             .col-auto.icon-links.align-self-start
               = link_to company_edit_path

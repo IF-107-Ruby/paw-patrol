@@ -35,13 +35,6 @@ RSpec.describe 'Company::Companies', type: :request do
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:edit)
     end
-
-    it 'returns http found if not company owner' do
-      login_as employee
-      get '/company/edit'
-      expect(response).to have_http_status(:found)
-      expect(response).not_to render_template(:edit)
-    end
   end
 
   describe 'PATCH /company/edit' do
@@ -57,7 +50,7 @@ RSpec.describe 'Company::Companies', type: :request do
       expect(response).to redirect_to(company_path)
     end
 
-    it 'don\'t update company if data is invalid' do
+    it 'doesn\'t update company if data is invalid' do
       company_attributes[:email] = 'invalid email'
 
       patch '/company/edit', params: { company: company_attributes }
