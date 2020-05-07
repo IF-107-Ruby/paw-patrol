@@ -1,5 +1,6 @@
 tr
-  td = user.full_name
+  td 
+    = link_to user.full_name, [:company, user]
   td = user.display_role
   td
     .d-flex.justify-content-end

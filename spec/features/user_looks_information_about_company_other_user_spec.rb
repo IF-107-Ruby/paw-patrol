@@ -12,10 +12,8 @@ feature 'User looks information about company other user' do
 
     expect(page).to have_text('Members')
 
-    within first('tbody tr') do
-      expect(page).to have_text(company_owner.first_name)
-      click_on 'Show'
-    end
+    expect(page).to have_text(company_owner.first_name)
+    click_on company_owner.first_name
 
     expect(page).to have_selector('h3', text: company_owner.decorate.full_name)
   end
