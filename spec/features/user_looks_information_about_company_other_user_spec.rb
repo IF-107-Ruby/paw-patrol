@@ -1,34 +1,22 @@
 require 'rails_helper'
 
-feature 'User looks Information About Company Other User' do
-  let(:company) { create(:company) }
-  let(:company_owner) { create(:company_owner, company: company) }
-  let(:user) { create(:user, company: company) }
+feature 'User looks information about company other user' do
+  include_context 'company with users'
 
-  before { login_as company_owner }
+  before { login_as employee }
 
   scenario 'successfully' do
-    pending('something else getting finished')
+    visit company_path
 
-    visit user_path(user)
+    click_on company.decorate.users_count
 
-    expect(page).to have_selector('div.company-role')
-    click_on company.name
+    expect(page).to have_text('Members')
 
-    expect(page).to have_selector('h2',
-                                  text: company.name)
-    expect(page).to have_selector('a', text: 'Company members')
-    click_on 'Company members'
+    within first('tbody tr') do
+      expect(page).to have_text(company_owner.first_name)
+      click_on 'Show'
+    end
 
-    expect(page).to have_selector('h3', text: 'Members:')
-
-    full_user_name = user.first_name +
-                     ' ' + user.last_name
-    expect(page).to have_selector('td',
-                                  text: full_user_name)
-    expect(page).to have_selector('td',
-                                  text: user.role
-                                                                    .capitalize
-                                                                    .gsub('_', ' '))
+    expect(page).to have_selector('h3', text: company_owner.decorate.full_name)
   end
 end

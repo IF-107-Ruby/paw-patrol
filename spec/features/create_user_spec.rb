@@ -1,44 +1,56 @@
 require 'rails_helper'
 
 feature 'users' do
+  let(:user_params) { attributes_for(:staff_member) }
   let!(:company) { create(:company) }
   let!(:company_owner) { create(:company_owner, company: company) }
+  let(:employee) { create(:employee, company: company) }
 
-  before :each do
-    login_as company_owner
-  end
+  before { login_as company_owner }
 
   scenario 'successfully create a user' do
-    visit new_user_path
-    fill_in 'First Name', with: 'Test'
-    fill_in 'Last Name', with: 'User'
-    fill_in 'Email', with: 'user@example.com'
-    fill_in :user_password, with: 'testpassword'
-    fill_in :user_password_confirmation, with: 'testpassword'
-    choose('Employee')
-    click_on 'Create new member'
+    visit new_company_user_path
+
+    fill_in id: 'user_first_name', with: user_params[:first_name]
+    fill_in id: 'user_last_name', with: user_params[:last_name]
+    fill_in id: 'user_email', with: user_params[:email]
+    fill_in id: 'user_password', with: user_params[:password]
+    fill_in id: 'user_password_confirmation', with: user_params[:password]
+    choose(id: 'user_role_staff_member')
+
+    find('button', class: 'button ripple-effect button-sliding-icon big').click
+
     expect(page).to have_text('Company member created.')
-    expect(page).to have_content('Test')
-    expect(page).to have_content('User')
-    expect(page).to have_content('Employee')
-    allow(UserMailer).to receive(:invitation_email)
+
+    expect(page).to have_content(user_params[:first_name])
+    expect(page).to have_content('Staff member')
   end
 
   scenario 'successfully update a user' do
-    visit user_path(company_owner)
-    click_on 'Edit user profile'
-    fill_in 'First Name', with: 'Updated First name'
-    fill_in 'Last Name', with: 'Updated Last name'
-    click_on 'Edit user'
+    visit company_user_path(employee)
+
+    find_link(href: edit_company_user_path(employee)).click
+
+    expect(page).to have_text('Update company member')
+
+    fill_in id: 'user_first_name', with: user_params[:first_name]
+    fill_in id: 'user_last_name', with: user_params[:last_name]
+    fill_in id: 'user_email', with: user_params[:email]
+    choose(id: 'user_role_staff_member')
+
+    find('button', class: 'button ripple-effect button-sliding-icon big').click
+
     expect(page).to have_text('User profile updated')
-    expect(page).to have_css('h2', text: 'Updated First name Updated Last name')
+    expect(page).to have_content(user_params[:first_name])
   end
 
   scenario 'successfully delete a user' do
-    visit user_path(company_owner)
-    click_on 'Delete user'
+    visit company_user_path(employee)
 
-    expect(page).not_to have_content(company_owner.first_name)
-    expect(page).not_to have_content(company_owner.email)
+    within('.icon-links') do
+      find('a[data-method="delete"]').click
+    end
+    expect(page).to have_text('Company member was deleted')
+    expect(page).not_to have_content(employee.first_name)
   end
 end

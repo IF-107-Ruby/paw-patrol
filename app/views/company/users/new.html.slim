@@ -1,6 +1,6 @@
 = provide(:headline, "Add company member")
 
-= form_for @user, url: company_members_path do |f|
+= form_for @user, url: company_users_path do |f|
   .row
     .col-xl-12
       = render 'shared/error_messages', object: f.object
@@ -60,6 +60,6 @@
             | Add member  
             i.icon-feather-check
         .col-auto
-          = link_to company_members_path, class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
+          = link_to company_users_path, class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
             | Cancel  
             i.icon-feather-x
