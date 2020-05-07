@@ -1,13 +1,16 @@
 class CommentsController < ApplicationController
-  before_action :find_commentable
+  before_action :set_commentable
+  before_action :authenticate_user!
+  before_action :set_comment, only: [:destroy]
 
   def new
-    @comment = @commentable.comments.build(parent_id: params[:parent_id])
+    @comment = authorize(@commentable.comments.build(parent_id: params[:parent_id]))
   end
 
   def create
-    @comment = @commentable.comments.build(comment_params)
+    @comment = authorize(@commentable.comments.build(comment_params))
     @comment.user = current_user
+    Rails.logger.info("qqqqqqqqqqqqq #{@comment.user.inspect}")
     return unless @comment.save
 
     respond_to do |format|
@@ -18,7 +21,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @commentable.comments.find(params[:id])
+    # @comment = authorize(@commentable.comments.find(params[:id]))
     @comment.destroy
     respond_to do |format|
       format.js do
@@ -33,8 +36,16 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body, :parent_id)
   end
 
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
+  end
+
+  def set_commentable
+    @commentable = find_commentable
+  end
+
   def find_commentable
-    # @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
-    @commentable = current_company
+    # Ticket.find(params[:ticket_id]) if params[:ticket_id]
+    Company.find(params[:company_id]) if params[:company_id]
   end
 end

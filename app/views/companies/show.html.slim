@@ -23,6 +23,7 @@
       div = link_to icon('fas', 'trash-alt', class: 'strong'), @company, method: :delete, data: { confirm: "You sure?" }, class: 'delete-link'
 
 
+/ - if current_user.ticket_author? || current_user.responsible_for_unit?
 = render template: 'shared/comments/index', locals: { commentable: @company }
 
   

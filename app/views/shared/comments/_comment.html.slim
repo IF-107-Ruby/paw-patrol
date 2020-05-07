@@ -1,7 +1,7 @@
 div id="comment_#{comment.id}" 
   .row class='justify-content-between comment-author'  
     div
-      strong = current_user.full_name
+      strong = comment.user.decorate.full_name
     .color class='submitted-time'
       | Submitted 
       span class='time-ago' = time_ago_in_words(comment.created_at) 
@@ -9,9 +9,10 @@ div id="comment_#{comment.id}"
   .row class='justify-content-between comment-text'
     .col-xl-11.col-lg-11.col-md-11
       = comment.body
-    .col-xl-1.col-lg-1.col-md-1.align-items-end
-      .comment-destroy-icon
-        = link_to icon('fas', 'trash', class: 'strong'), [commentable, comment], method: :delete, remote: true
+    - if current_user == comment.user
+      .col-xl-1.col-lg-1.col-md-1.align-items-end
+        .comment-destroy-icon
+          = link_to icon('fas', 'trash', class: 'strong'), [commentable, comment], method: :delete, remote: true
   - if comment.depth == 0
     .reply-button
       i class="far fa-comment"
