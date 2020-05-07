@@ -14,10 +14,11 @@ class UsersController < ApplicationController
 
   def create
     @user = authorize(users_base_relation.build(user_params))
+    @password = @user.password
     if @user.save
-      @user.send_invitation
+      SendInvitationEmailJob.perform_later(@user, @password)
       flash[:success] = 'Company member created.'
-      redirect_to users_path(current_company)
+      redirect_to users_path
     else
       render 'new'
     end
