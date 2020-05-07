@@ -32,8 +32,7 @@ FactoryBot.define do
 
     trait :with_users do
       after(:build) do |unit|
-        unit.save
-        unit.users = create_list :employee, 4
+        unit.users = build_list(:employee, 4, company: unit.company)
       end
     end
   end
