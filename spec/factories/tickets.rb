@@ -11,7 +11,7 @@
 #
 FactoryBot.define do
   factory :ticket do
-    name { Faker::Lorem.sentence }
+    name { Faker::Lorem.sentence(word_count: 3) }
     description { ActionText::Content.new(Faker::Lorem.paragraph) }
     user
     unit
