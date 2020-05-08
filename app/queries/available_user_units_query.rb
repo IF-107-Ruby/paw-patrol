@@ -1,29 +1,25 @@
 class AvailableUserUnitsQuery
   def initialize(user:)
     @user = user
+    @units = []
   end
 
   def to_units_array
-    # read_user_unit
-    # read_unit_ancestors
-    array_with_units
+    user_units = Company.first.units
+    user_units.each do |unit|
+      units << unit
+      read_unit_ancestors(unit)
+    end
+    units
   end
 
   private
 
-  attr_reader :user, :user_unit, :unit_ancestors
+  attr_reader :user, :units
 
-  def read_user_unit
-    # TODO
-    @user_unit = user.unit
-  end
-
-  def read_unit_ancestors
-    @unit_ancestors = Unit.ancestors_of(user_unit).order(id: :desc)
-  end
-
-  def array_with_units
-    # unit_ancestors.to_a.unshift(user_unit)
-    Company.first.units.to_a
+  def read_unit_ancestors(unit)
+    Unit.ancestors_of(unit).order(id: :desc).each do |parent|
+      units << parent
+    end
   end
 end
