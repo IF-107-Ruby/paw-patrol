@@ -15,8 +15,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      
-      SendConfirmationInstructionsJob.perform_later(user_id)
       flash[:success] = 'User profile created'
       redirect_to @user
     else

@@ -4,7 +4,7 @@ class SendConfirmationInstructionsJob < ApplicationJob
   def perform(user_id)
     user = User.find(user_id)
     unless user.confirmed?
-      send_confirmation_instructions(user)
+      user.send_confirmation_instructions
     end
   end
 end
