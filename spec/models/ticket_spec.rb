@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-  let!(:employee) { create(:employee) }
-  let!(:company) { create(:company_with_units) }
-  let!(:ticket) { create(:ticket, user: employee, unit: company.units.first) }
+  let!(:company) { create(:company) }
+  let!(:unit) { create(:unit, :with_employees_and_tickets, company: company) }
+  let!(:ticket) { unit.tickets.first }
 
   describe 'Associations' do
     it { expect(ticket).to belong_to(:user) }

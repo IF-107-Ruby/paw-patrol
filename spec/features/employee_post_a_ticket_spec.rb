@@ -3,11 +3,9 @@ require 'capybara/dsl'
 require 'selenium-webdriver'
 
 feature 'EmployeePostATicket' do
-  let!(:company) { create(:company_with_units) }
-  let!(:employee) { create(:employee) }
-  let!(:users_companies_relationship) do
-    create(:users_companies_relationship, user: employee, company: company)
-  end
+  let!(:company) { create(:company) }
+  let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
+  let!(:employee) { unit.users.first }
   let(:ticket_attributes) { FactoryBot.attributes_for :ticket }
 
   before do
@@ -21,7 +19,7 @@ feature 'EmployeePostATicket' do
 
     fill_in 'ticket_name', with: ticket_attributes[:name]
     find(:select, 'ticket_unit_id')
-      .first(:option, company.units.first.name)
+      .first(:option, unit.name)
       .select_option
     fill_in_trix_editor('ticket_description_trix_input_ticket',
                         ticket_attributes[:description])

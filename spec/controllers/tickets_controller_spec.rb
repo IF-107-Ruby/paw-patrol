@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 describe TicketsController, type: :controller do
+  let!(:company) { create(:company) }
+  let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
   let!(:user) { create(:user) }
-  let!(:employee) { create(:employee) }
-  let!(:company) { create(:company_with_units) }
-  let!(:ticket) { create(:ticket, unit: company.units.first, user: user) }
+  let!(:employee) { unit.users.first }
+  let!(:ticket) { unit.tickets.first }
   let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
   let(:ticket_invalid_params) { { name: '', description: '' } }
 

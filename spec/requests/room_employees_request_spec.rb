@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'RoomEmployees', type: :request do
   let!(:user) { create(:user, :with_company) }
-  let(:unit) { create(:unit, :with_users) }
+  let(:unit) { create(:unit, :with_employees) }
 
   describe 'GET /index' do
     it 'returns http success' do
