@@ -2,6 +2,7 @@ class UnitsController < ApplicationController
   before_action :authenticate_user!
   before_action :read_unit_by_id, only: %i[show edit update destroy]
   before_action :available_responsible_users, only: %i[new create edit update]
+  layout 'hireo', only: %i[new create edit update]
 
   def index
     @pagy, @units = pagy(current_company.units, items: 10)
