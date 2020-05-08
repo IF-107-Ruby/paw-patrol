@@ -50,6 +50,6 @@ class User < ApplicationRecord
   private
 
   def send_invitation
-    SendInvitationEmailJob.perform_later(self.id, self.password)
+    SendInvitationEmailJob.perform_later(id, password)
   end
 end

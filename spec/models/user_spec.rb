@@ -51,7 +51,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'sends an invitation email' do
-    expect { user.send_invitation }
+    expect { UserMailer.invitation_email(user).deliver_now }
       .to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 end
