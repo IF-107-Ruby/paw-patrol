@@ -13,7 +13,7 @@ class UserDecorator < Draper::Decorator
     end
   end
 
-  def display_company_name
+  def company_name
     company.name
   end
 end
