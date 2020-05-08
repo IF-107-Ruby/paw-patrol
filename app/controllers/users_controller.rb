@@ -16,7 +16,6 @@ class UsersController < ApplicationController
     @user = authorize(users_base_relation.build(user_params))
     @password = @user.password
     if @user.save
-      SendInvitationEmailJob.perform_later(@user, @password)
       flash[:success] = 'Company member created.'
       redirect_to users_path
     else

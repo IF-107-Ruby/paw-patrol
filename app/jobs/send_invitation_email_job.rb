@@ -1,8 +1,11 @@
 class SendInvitationEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(user, password)
-    user.password = password
-    user.send_invitation
+  def perform(user_id, password)
+    user = User.find_by(id: user_id)
+    unless user.nil?
+      user.password = password
+      UserMailer.invitation_email(user).deliver_now
+    end
   end
 end
