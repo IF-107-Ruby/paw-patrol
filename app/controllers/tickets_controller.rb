@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   layout 'hireo_dashboard'
 
   before_action :authenticate_user!
-  before_action :read_units, only: :new
+  before_action :read_user_units, only: :new
 
   def show
     @ticket = Ticket.find(params[:id]).decorate
@@ -21,14 +21,14 @@ class TicketsController < ApplicationController
       redirect_to @ticket
     else
       flash.now[:warning] = 'Ticket is not posted!'
-      read_units
+      read_user_units
       render :new
     end
   end
 
   private
 
-  def read_units
+  def read_user_units
     @units = AvailableUserUnitsQuery.new(user: current_user).to_units_array
   end
 
