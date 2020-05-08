@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_504_120_353) do
+ActiveRecord::Schema.define(version: 20_200_507_135_644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'company_id'
     t.string 'ancestry'
+    t.integer 'responsible_user_id'
     t.index ['ancestry'], name: 'index_units_on_ancestry'
     t.index ['company_id'], name: 'index_units_on_company_id'
   end
@@ -70,7 +71,20 @@ ActiveRecord::Schema.define(version: 20_200_504_120_353) do
     t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
   end
 
+  create_table 'users_units_relationships', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'unit_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['unit_id'], name: 'index_users_units_relationships_on_unit_id'
+    t.index %w[user_id unit_id], name: 'index_users_units_rel', unique: true
+    t.index ['user_id'], name: 'index_users_units_relationships_on_user_id'
+  end
+
   add_foreign_key 'units', 'companies'
+  add_foreign_key 'units', 'users', column: 'responsible_user_id'
   add_foreign_key 'users_companies_relationships', 'companies'
   add_foreign_key 'users_companies_relationships', 'users'
+  add_foreign_key 'users_units_relationships', 'units'
+  add_foreign_key 'users_units_relationships', 'users'
 end

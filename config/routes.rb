@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   post '/sign_up', to: 'companies#create'
 
   resources :companies
-  resources :units
+  resources :units do
+    resources :room_employees, only: :index
+  end
   resources :feedbacks, only: %i[index show create destroy]
   resources :users
 
