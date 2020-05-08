@@ -6,6 +6,7 @@ language: ruby
 env:
   global:
     - RAILS_ENV=test
+    - MOZ_HEADLESS=1
 install:
   - travis_retry nvm install 13.5.0
   - bundle
