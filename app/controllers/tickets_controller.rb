@@ -5,7 +5,7 @@ class TicketsController < ApplicationController
   before_action :read_user_units, only: :new
 
   def show
-    @ticket = Ticket.find(params[:id]).decorate
+    @ticket = current_user.tickets.find(params[:id]).decorate
   end
 
   def new

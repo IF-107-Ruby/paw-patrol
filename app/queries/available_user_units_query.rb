@@ -1,20 +1,17 @@
 class AvailableUserUnitsQuery
   def initialize(user:)
     @user = user
-    @units = []
   end
 
   def to_units_array
-    @user.units.each do |unit|
-      @units << unit
-      read_unit_ancestors_to_units(unit)
+    @user.units.flat_map do |unit|
+      family_units(unit).unshift(unit)
     end
-    @units
   end
 
   private
 
-  def read_unit_ancestors_to_units(unit)
-    @units = @units.union(Unit.ancestors_of(unit).order(id: :desc).to_a)
+  def family_units(unit)
+    unit.ancestors + unit.descendants
   end
 end
