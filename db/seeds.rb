@@ -23,12 +23,9 @@ end
 end
 
 Company.all.each do |company|
-  5.times do
-    FactoryBot.create(:employee, company: company)
-  end
-
   10.times do
     FactoryBot.create(:unit,
+                      :with_parent,
                       :with_children,
                       :with_employees_and_tickets,
                       company: company)
