@@ -15,6 +15,9 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - rake db:setup
   - bundle exec rails webpacker:compile
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
 script:
   - xvfb-run -a bundle exec rake
   - bundle exec rubocop --require rubocop-rails
