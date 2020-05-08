@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Company owner update company' do
+feature 'Company owner updates company' do
   let!(:company_owner) { create(:company_owner, :with_company) }
 
   before { login_as company_owner }

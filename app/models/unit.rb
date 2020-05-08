@@ -20,4 +20,6 @@ class Unit < ApplicationRecord
   validates :name, presence: true
   validates :company, presence: true
   has_ancestry
+
+  scope :roots, -> { where(ancestry: nil) }
 end

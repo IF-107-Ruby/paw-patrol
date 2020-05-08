@@ -1,0 +1,29 @@
+- provide(:headline, "Add company unit")
+
+= form_for @unit, url: company_units_path do |f|
+  = f.hidden_field :parent_id
+  .row
+    .col-xl-12
+      = render 'shared/error_messages', object: f.object
+    .col-xl-12
+      .dashboard-box.margin-top-0
+        .headline
+          h3
+            i.icon-material-outline-add
+            = @unit.creation_headline
+        .content.with-padding.padding-bottom-0
+          .row
+            .col-xl-12
+              .submit-field
+                h5 Unit name
+                = f.text_field :name, placeholder: 'Building, floor, room etc.', class: 'with-border'
+    .col-xl-12
+      .row
+        .col-auto
+          = button_tag type: "submit", class: 'button ripple-effect button-sliding-icon big margin-top-30'
+            | Add unit  
+            i.icon-feather-check
+        .col-auto
+          = link_to company_units_path, class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
+            | Cancel  
+            i.icon-feather-x

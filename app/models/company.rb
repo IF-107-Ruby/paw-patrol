@@ -12,7 +12,7 @@
 #
 class Company < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-  VALID_PHONE_REGEX = /\A\+?[1-9]\d{4,15}\z/.freeze
+  VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){4,15}\z/.freeze
 
   has_many :units, dependent: :destroy
   has_many :users_companies_relationships, dependent: :destroy

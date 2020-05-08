@@ -8,10 +8,13 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.company.present? } do
     namespace :company do
       get '/', to: 'companies#show'
-      get '/edit', to: 'companies#edit'
-      patch '/edit', to: 'companies#update'
-      get '/dashboard', to: 'dashboards#show'
+      get 'edit', to: 'companies#edit'
+      patch 'edit', to: 'companies#update'
+      get 'dashboard', to: 'dashboards#show'
       resources :users
+      resources :units do
+        get :children, on: :member
+      end
     end
   end
 

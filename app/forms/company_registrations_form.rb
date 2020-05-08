@@ -1,6 +1,6 @@
 class CompanyRegistrationsForm
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-  VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){10,14}\z/.freeze
+  VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){4,15}\z/.freeze
 
   include ActiveModel::Model
 
@@ -17,7 +17,7 @@ class CompanyRegistrationsForm
                       message: 'format is not valid' }
 
   validates :phone, format: { with: VALID_PHONE_REGEX,
-                              message: 'is invalid: must be from 10 to 14 digits long' },
+                              message: 'is invalid: must be from 4 to 15 digits long' },
                     allow_blank: true
 
   validates :first_name, :last_name,

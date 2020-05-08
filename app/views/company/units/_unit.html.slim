@@ -1,0 +1,22 @@
+li data-unregistered-unit-id="#{unit.id}"
+  .job-listing
+    .job-listing-details
+      .job-listing-description
+        h3.job-listing-title
+          - if unit.children?
+            = link_to [:children, :company, unit], remote: true, id: "#{unit.id}_children_link"
+              i.icon-material-outline-keyboard-arrow-right.show-arrow
+          = link_to unit.name, [:company, unit]
+        .job-listing-footer
+          ul
+            li 9 workers
+    - if current_user.company_owner?
+      .buttons-to-right
+        = link_to new_company_unit_path(parent_id: unit), class: 'button gray ripple-effect ico', title: "Add node", "data-tippy-placement" => "left"
+          i.icon-feather-plus
+        = link_to [:edit, :company, unit], class: 'button dark ripple-effect ico', title: "Edit unit", "data-tippy-placement" => "top"
+          i.icon-feather-edit
+        = link_to [:company, unit], method: :delete, data: {confirm: "You sure?"}, class: 'button red ripple-effect ico', title: "Remove", "data-tippy-placement" => "right"
+          i.icon-feather-trash-2
+  - if unit.children?
+    ul.dashboard-box-list.w-100 id="#{unit.id}_children"

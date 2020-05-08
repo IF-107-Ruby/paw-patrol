@@ -21,6 +21,10 @@
               = link_to company_users_path
                 i.icon-material-outline-group
                 | Users
+            li class="#{active_path(company_units_path)}"
+              = link_to company_units_path
+                i.icon-material-outline-business
+                | Units
 
           ul data-submenu-title="Account" 
             li class="#{active_path(user_path(current_user))}"

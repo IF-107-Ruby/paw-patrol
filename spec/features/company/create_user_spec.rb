@@ -8,7 +8,7 @@ feature 'users' do
 
   before { login_as company_owner }
 
-  scenario 'successfully create a user' do
+  scenario 'successfully creates a user' do
     visit new_company_user_path
 
     fill_in id: 'user_first_name', with: user_params[:first_name]
@@ -26,7 +26,7 @@ feature 'users' do
     expect(page).to have_content('Staff member')
   end
 
-  scenario 'successfully update a user' do
+  scenario 'successfully updates a user' do
     visit company_user_path(employee)
 
     find_link(href: edit_company_user_path(employee)).click
@@ -44,7 +44,7 @@ feature 'users' do
     expect(page).to have_content(user_params[:first_name])
   end
 
-  scenario 'successfully delete a user' do
+  scenario 'successfully deletes a user' do
     visit company_user_path(employee)
 
     within('.icon-links') do

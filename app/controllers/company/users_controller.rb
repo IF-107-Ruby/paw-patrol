@@ -17,7 +17,7 @@ class Company
       _, @user = authorize([:company, users_base_relation.build(user_params)])
       if @user.save
         flash[:success] = 'Company member created.'
-        redirect_to company_users_path
+        redirect_to [:company, @user]
       else
         render 'new'
       end

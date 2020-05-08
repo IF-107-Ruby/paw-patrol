@@ -33,7 +33,7 @@ describe Company, type: :model do
     end
 
     it 'is not valid with incorrect phone number' do
-      company.phone = '1234'
+      company.phone = '123'
       expect(company).to_not be_valid
       expect(company.errors[:phone])
         .to include('is invalid: must be from 4 to 15 digits long')

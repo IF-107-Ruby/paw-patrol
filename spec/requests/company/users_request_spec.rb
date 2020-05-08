@@ -37,7 +37,7 @@ RSpec.describe 'Company::Users', type: :request do
     it 'creates user with valid params' do
       post company_users_path, params: { user: user_params }
 
-      expect(response).to redirect_to(company_users_path)
+      expect(response).to redirect_to(company_user_path(User.last))
     end
 
     it 'doest\'t creates user with invalid params' do

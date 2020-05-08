@@ -1,0 +1,46 @@
+- provide(:headline, @unit.name)
+- unit_ancestors = @unit.ancestors
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .headline
+        h3
+          i.icon-material-outline-business
+          - if unit_ancestors.present?
+            nav.ancestors
+              ul
+                - unit_ancestors.each do |ancestor|
+                  li
+                    = link_to ancestor.name, [:company, ancestor]
+                    i.icon-material-outline-keyboard-arrow-right
+          = @unit.name
+      .content.with-padding
+        .row.justify-content-between
+          .col-auto
+            .row.align-items-start
+              .col-auto
+                .avatar-wrapper#qrcode data-qrcode-url="#{company_unit_url(@unit)}" data-tippy-placement="bottom" title=("Unit QR code")
+              .col-auto
+                .company-details
+                  h3.margin-bottom-0
+                    = @unit.name
+                    span
+                      | 9 Workers
+          - if current_user.company_owner?
+            .col-auto.icon-links.align-self-start
+              = link_to new_company_unit_path(parent_id: @unit)
+                i.icon-feather-plus
+              = link_to [:edit, :company, @unit], class: "ml-2"
+                i.icon-feather-edit
+              = link_to [:company, @unit], method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+                i.icon-feather-trash-2
+        - if @unit_children.present?
+          .headline
+            h3 Sub units
+          ul.dashboard-box-list
+            = render @unit_children
+
+        = render partial: 'shared/pagination', locals: { pagy: @pagy }
+
+= javascript_include_tag "unit-qr-code"
