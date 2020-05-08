@@ -21,6 +21,7 @@ Metrics/BlockLength:
     - "spec/**/*"
     - "db/schema.rb"
     - "lib/tasks/auto_annotate_models.rake"
+    - "config/environments/*.rb"    
 
 Metrics/MethodLength:
   Exclude:

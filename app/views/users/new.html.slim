@@ -15,7 +15,7 @@ h2.title Create company member
   .form-group
     = f.input :password_confirmation, required: true, input_html: {autocomplete: "new-password", class: 'form-control'}, error: false
   .form-group
-    = f.input :role, as: :radio_buttons, collection: [['1', 'Employee', checked: true], ['2', 'Staff member']], required: true,
+    = f.input :role, as: :radio_buttons, collection: [[:employee, 'Employee', checked: true], [:staff_member, 'Staff member']], required: true,
               label_method: :second, value_method: :first, input_html: {class: 'form-check-input'}, error: false
   .form-group
     = f.submit yield(:button_text), class: 'btn btn-primary'

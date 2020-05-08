@@ -17,6 +17,8 @@
 class User < ApplicationRecord
   enum role: { company_owner: 0, employee: 1, staff_member: 2 }
 
+  after_create :send_invitation
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :registerable
   devise :database_authenticatable,
@@ -46,5 +48,11 @@ class User < ApplicationRecord
       'employee' => User.where(role: 1),
       'staff_member' => User.where(role: 2)
     }
+  end
+
+  private
+
+  def send_invitation
+    SendInvitationEmailJob.perform_later(id, password)
   end
 end

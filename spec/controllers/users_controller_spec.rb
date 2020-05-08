@@ -47,7 +47,7 @@ describe UsersController, type: :controller do
       it 'redirects to the created user' do
         post :create, params: { user: valid_params }
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(users_path(company))
+        expect(response).to redirect_to(users_path)
       end
     end
     context 'with invalid params' do
