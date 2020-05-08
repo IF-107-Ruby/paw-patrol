@@ -75,6 +75,8 @@ GEM
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
+    any_login (1.4.3)
+      rails (>= 4.2.7)
     ast (2.4.0)
     autoprefixer-rails (9.7.6)
       execjs
@@ -226,7 +228,7 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
+    rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
@@ -236,8 +238,8 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
-    rspec-core (3.9.1)
-      rspec-support (~> 3.9.1)
+    rspec-core (3.9.2)
+      rspec-support (~> 3.9.3)
     rspec-expectations (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
@@ -252,7 +254,7 @@ GEM
       rspec-expectations (~> 3.9)
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
-    rspec-support (3.9.2)
+    rspec-support (3.9.3)
     rubocop (0.82.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -352,6 +354,7 @@ PLATFORMS
 DEPENDENCIES
   ancestry
   annotate
+  any_login
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.4.1)
   capybara (~> 3.32, >= 3.32.1)

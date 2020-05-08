@@ -1,0 +1,16 @@
+section.unit_room_employees
+  h2.mb-4 = @unit.name
+  h3.mb-4 Room Employees:
+  .row
+    .col-11
+      .unit_room_employees-table
+        table.table.table-striped
+          thead
+            tr
+              th.pl-5 scope="col" User
+              th scope="col" Role
+              th scope="col"
+          tbody
+            = render partial: 'room_employee', collection: @room_employees
+
+  = pagy_bootstrap_nav(@pagy).html_safe

@@ -28,7 +28,7 @@ Company.all.each do |company|
   end
 
   10.times do
-    FactoryBot.create(:unit, :with_children, company: company)
+    FactoryBot.create(:unit, :with_children, :with_users, company: company)
   end
 
   3.times do

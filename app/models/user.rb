@@ -25,6 +25,8 @@ class User < ApplicationRecord
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
   has_many :tickets, dependent: :destroy
+  has_many :users_units_relationships, dependent: :destroy
+  has_many :units, through: :users_units_relationships
 
   validates :first_name, :last_name,
             presence: true,
@@ -32,4 +34,17 @@ class User < ApplicationRecord
                       maximum: 50,
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
+
+  def company_owner?
+    role == 'company_owner'
+  end
+
+  def self.grouped_collection_by_role
+    {
+      'admin' => User.where(admin: true),
+      'company_owner' => User.where(role: 0),
+      'employee' => User.where(role: 1),
+      'staff_member' => User.where(role: 2)
+    }
+  end
 end
