@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'capybara/dsl'
-require 'selenium-webdriver'
 
 feature 'EmployeePostATicket' do
   let!(:company) { create(:company) }
