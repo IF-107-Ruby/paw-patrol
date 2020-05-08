@@ -18,7 +18,7 @@ class Ticket < ApplicationRecord
   validates :user, :unit, :description, presence: true
   validates :name, presence: true, length: { in: 6..50 }
 
-  validate :unit_permission
+  validate :unit_permission, if: ->(ticket) { ticket.user }
 
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
@@ -30,8 +30,8 @@ class Ticket < ApplicationRecord
   private
 
   def unit_permission
-    available_units = AvailableUserUnitsQuery.new(user: :user).to_units_array
-    return unless available_units.include?(:unit)
+    available_units = AvailableUserUnitsQuery.new(user: user).to_units_array
+    return if available_units.include?(unit)
 
     errors.add(:unit, 'user is not allowed to create a ticket for this unit')
   end

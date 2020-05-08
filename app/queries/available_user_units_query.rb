@@ -5,21 +5,16 @@ class AvailableUserUnitsQuery
   end
 
   def to_units_array
-    user_units = Company.first.units
-    user_units.each do |unit|
-      units << unit
-      read_unit_ancestors(unit)
+    @user.units.each do |unit|
+      @units << unit
+      read_unit_ancestors_to_units(unit)
     end
-    units
+    @units
   end
 
   private
 
-  attr_reader :user, :units
-
-  def read_unit_ancestors(unit)
-    Unit.ancestors_of(unit).order(id: :desc).each do |parent|
-      units << parent
-    end
+  def read_unit_ancestors_to_units(unit)
+    @units = @units.union(Unit.ancestors_of(unit).order(id: :desc).to_a)
   end
 end
