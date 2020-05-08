@@ -30,9 +30,33 @@ FactoryBot.define do
       end
     end
 
-    trait :with_users do
+    trait :with_employee do
+      after(:build) do |unit|
+        unit.users << build(:employee, company: unit.company)
+      end
+    end
+
+    trait :with_employee_and_ticket do
+      with_employee
+
+      after(:create) do |unit|
+        create(:ticket, user: unit.users.last, unit: unit)
+      end
+    end
+
+    trait :with_employees do
       after(:build) do |unit|
         unit.users = build_list(:employee, 4, company: unit.company)
+      end
+    end
+
+    trait :with_employees_and_tickets do
+      with_employees
+
+      after(:create) do |unit|
+        unit.users.each do |user|
+          create_list(:ticket, 5, user: user, unit: unit)
+        end
       end
     end
   end
