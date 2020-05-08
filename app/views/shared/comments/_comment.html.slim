@@ -17,7 +17,7 @@ div id="comment_#{comment.id}"
     .reply-button
       i class="far fa-comment"
     .reply-comment-form
-      = render 'shared/comments/form', commentable: commentable, comment: comment, submit_label: 'Reply', parent_id: comment.id
+      = render 'shared/comments/form', commentable: commentable, comment: comment, submit_label: 'Reply', parent_id: comment.id, form_class_name: 'js-reply-comment-form'
 
 
 

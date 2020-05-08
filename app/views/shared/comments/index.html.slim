@@ -10,7 +10,8 @@
           i class="fas fa-plus"
         | Add new comment
       #new-comment-form
-        = render 'shared/comments/form', commentable: commentable, submit_label: 'Send', parent_id: nil
+        #err 
+        = render 'shared/comments/form', commentable: commentable, submit_label: 'Send', parent_id: nil, form_class_name: 'js-form'
   .row 
     #comments-list class='col-xl-12'
       = render 'shared/comments/nested_comment', comments: commentable.comments.arrange, commentable: commentable

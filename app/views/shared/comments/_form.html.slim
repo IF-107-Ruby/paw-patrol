@@ -1,5 +1,5 @@
-= simple_form_for [commentable, Comment.new], remote: true do |f|
-  = render 'shared/error_messages', object: f.object
+= simple_form_for [commentable, Comment.new], remote: true, html: { class: form_class_name } do |f|
+  #comment-status 
   = f.hidden_field :parent_id, value: parent_id
   = f.input :body, label: false, placeholder: "Add a comment" 
   = f.submit submit_label, class: 'ripple-effect big margin-top-30 send-comment-btn'

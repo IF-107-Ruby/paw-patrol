@@ -42,6 +42,7 @@
   padding: 12px 20px;
   color: white;
   border-radius: 4px;
+  margin-bottom: 15px;
   i {
     padding-right: 5px;
   }
@@ -58,4 +59,10 @@
 .comment-destroy-icon {
   display: flex;
   justify-content: flex-end;
+}
+
+#comment-status {
+  position: absolute;
+  letter-spacing: 4px;
+  top: 55px;
 }

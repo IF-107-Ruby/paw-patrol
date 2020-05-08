@@ -1,2 +1,8 @@
-$('#new-comment-form').html('<%= escape_javascript(render('shared/comments/form', commentable: @commentable, submit_label: 'Send', parent_id: nil)) %>');
+$('#new-comment-form').html('<%= escape_javascript(render('shared/comments/form', commentable: @commentable, submit_label: 'Send', parent_id: nil, form_class_name: 'js-new-comment')) %>');
 $('#comments-list').html('<%= escape_javascript(render('shared/comments/nested_comment', commentable: @commentable, comments: @commentable.comments.arrange )) %>');
+
+<% if @comment.save %>
+  $('#comment-status').html("Comment has been saved").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
+<% else %>
+  $('#comment-status').html("Comment failed to save, please try again").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
+<% end %>

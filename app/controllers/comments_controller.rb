@@ -10,9 +10,7 @@ class CommentsController < ApplicationController
   def create
     @comment = authorize(@commentable.comments.build(comment_params))
     @comment.user = current_user
-    Rails.logger.info("qqqqqqqqqqqqq #{@comment.user.inspect}")
-    return unless @comment.save
-
+    @comment.save
     respond_to do |format|
       format.js do
         render template: 'shared/comments/create'
@@ -25,7 +23,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       format.js do
-        render template: 'shared/comments/create'
+        render template: 'shared/comments/destroy'
       end
     end
   end
@@ -37,7 +35,7 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = current_user.comments.find(params[:id])
+    @comment = authorize(current_user.comments.find(params[:id]))
   end
 
   def set_commentable
