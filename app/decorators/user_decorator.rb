@@ -12,4 +12,6 @@ class UserDecorator < Draper::Decorator
       role.humanize.capitalize
     end
   end
+
+  delegate :name, to: :company, prefix: true
 end

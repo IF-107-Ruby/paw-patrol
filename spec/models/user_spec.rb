@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_company) }
 
   describe 'Associations' do
     it { is_expected.to have_one(:users_companies_relationship).dependent(:destroy) }
@@ -50,5 +50,10 @@ RSpec.describe User, type: :model do
       expect(staff_member.staff_member?).to be true
       expect(staff_member.company_owner?).not_to be true
     end
+  end
+
+  it 'sends an invitation email' do
+    expect { UserMailer.invitation_email(user).deliver_now }
+      .to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 end
