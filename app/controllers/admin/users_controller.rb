@@ -9,22 +9,6 @@ module Admin
 
     def show; end
 
-    def new
-      @user = User.new
-      @companies = Company.all
-    end
-
-    def create
-      company = Company.find(params[:user][:company])
-      @user = company.users.build(user_params)
-      if @user.save
-        flash[:success] = 'User profile created'
-        redirect_to admin_user_path(@user)
-      else
-        render 'new'
-      end
-    end
-
     def edit; end
 
     def update
@@ -60,8 +44,7 @@ module Admin
                                    :last_name,
                                    :email,
                                    :password,
-                                   :password_confirmation,
-                                   :role)
+                                   :password_confirmation)
     end
 
     def obtain_user

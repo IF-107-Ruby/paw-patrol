@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :admin do
       get '/', to: 'dashboards#index', as: :dashboard
       resources :feedbacks, only: %i[index show destroy]
-      resources :users do
+      resources :users, only: %i[index show edit update destroy] do
         post :impersonate, on: :member
         post :stop_impersonating, on: :collection
       end
