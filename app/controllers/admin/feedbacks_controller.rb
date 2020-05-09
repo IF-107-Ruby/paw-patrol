@@ -1,9 +1,10 @@
 module Admin
   class FeedbacksController < Admin::BaseController
-    before_action :authenticate_user!,  only: %i[index show destroy]
+    before_action :authenticate_user!
     before_action :find_feedback_by_id, only: %i[show destroy]
 
     def index
+      authorize([:admin, Feedback])
       @pagy, @feedbacks = pagy(Feedback.all.ordered_by_created_at, items: 10)
     end
 
@@ -18,6 +19,7 @@ module Admin
     private
 
     def find_feedback_by_id
+      authorize([:admin, Feedback])
       @feedback = Feedback.find(params[:id])
     end
 

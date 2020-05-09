@@ -46,7 +46,7 @@ header#header-container.fullwidth.position-fixed
                         i.icon-material-outline-dashboard
                         | Dashboard
                   li
-                    = link_to user_path(current_user)
+                    = link_to (current_user.admin ? admin_user_path(current_user) : user_path(current_user))
                       i.icon-feather-user
                       | Profile
                   - if current_user != true_user

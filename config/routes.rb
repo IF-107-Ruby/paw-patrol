@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  authenticate :user, ->(user) { user.admin? } do
-    namespace :admin do
-      get '/', to: 'dashboards#index', as: :dashboard
-      resources :feedbacks, only: %i[index show destroy]
-      resources :users, only: %i[index show edit update destroy] do
-        post :impersonate, on: :member
-        post :stop_impersonating, on: :collection
-      end
+  namespace :admin do
+    get '/', to: 'dashboards#index', as: :dashboard
+    resources :feedbacks, only: %i[index show destroy]
+    resources :users, only: %i[index show edit update destroy] do
+      post :impersonate, on: :member
+      post :stop_impersonating, on: :collection
     end
   end
 
