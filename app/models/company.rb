@@ -14,7 +14,6 @@ class Company < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){10,14}\z/.freeze
 
-  has_many :comments, as: :commentable, dependent: :destroy
   has_many :units, dependent: :destroy
   has_many :users_companies_relationships, dependent: :destroy
   has_many :users, through: :users_companies_relationships

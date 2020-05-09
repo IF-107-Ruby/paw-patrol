@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :users
   resources :tickets,   only: %i[show new create]
 
-  resources :company do
+  resources :tickets do
     resources :comments
   end
 

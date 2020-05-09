@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_commentable
+  before_action :check_permission
   before_action :authenticate_user!
   before_action :set_comment, only: [:destroy]
 
@@ -43,7 +44,10 @@ class CommentsController < ApplicationController
   end
 
   def find_commentable
-    # Ticket.find(params[:ticket_id]) if params[:ticket_id]
-    Company.find(params[:company_id]) if params[:company_id]
+    Ticket.find(params[:ticket_id]) if params[:ticket_id]
+  end
+
+  def check_parmission 
+    @ticket = Ticket.find(params[:ticket_id])
   end
 end

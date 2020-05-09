@@ -10,6 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Ticket < ApplicationRecord
+  has_many :comments, as: :commentable, dependent: :destroy
   belongs_to :user
   belongs_to :unit
 
