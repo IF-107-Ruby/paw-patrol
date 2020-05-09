@@ -1,8 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_commentable
-  before_action :check_permission
   before_action :authenticate_user!
-  before_action :set_comment, only: [:destroy]
 
   def new
     @comment = authorize(@commentable.comments.build(parent_id: params[:parent_id]))
@@ -20,7 +18,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    # @comment = authorize(@commentable.comments.find(params[:id]))
+    @comment = authorize(current_user.comments.find(params[:id]))
     @comment.destroy
     respond_to do |format|
       format.js do
@@ -35,19 +33,11 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body, :parent_id)
   end
 
-  def set_comment
-    @comment = authorize(current_user.comments.find(params[:id]))
-  end
-
   def set_commentable
     @commentable = find_commentable
   end
 
   def find_commentable
     Ticket.find(params[:ticket_id]) if params[:ticket_id]
-  end
-
-  def check_parmission 
-    @ticket = Ticket.find(params[:ticket_id])
   end
 end

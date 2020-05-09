@@ -12,5 +12,7 @@ section.ticket_show
     .ticket_show-description__body
       == @ticket.description
 
-  / - if current_user.ticket_author? || current_user.responsible_for_unit?
-  = render template: 'shared/comments/index', locals: { commentable: @ticket }
+  - if current_user == @ticket.user || current_user == @ticket.unit.responsible
+    .row
+      .col-xl-9.col-lg-9.col-md-9
+        = render template: 'shared/comments/index', locals: { commentable: @ticket }

@@ -1,17 +1,15 @@
 class CommentPolicy < ApplicationPolicy
   def new?
-    true
-    # user.ticket_author? || user.responsible_for_unit?
+    user == record.commentable.user || user == record.commentable.unit.responsible_user
   end
 
   def create?
-    true
-    # user.ticket_author? || user.responsible_for_unit?
+    user == record.commentable.user || user == record.commentable.unit.responsible_user
   end
 
   def destroy?
     true
-    # user.ticket_author? || user.responsible_for_unit?
+    # user == record.user
   end
 
   class Scope < Scope

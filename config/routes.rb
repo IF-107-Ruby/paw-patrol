@@ -22,9 +22,7 @@ Rails.application.routes.draw do
   end
   resources :feedbacks, only: %i[index show create destroy]
   resources :users
-  resources :tickets,   only: %i[show new create]
-
-  resources :tickets do
+  resources :tickets, only: %i[show new create] do
     resources :comments
   end
 
