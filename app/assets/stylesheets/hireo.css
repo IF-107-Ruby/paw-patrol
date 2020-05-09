@@ -9,4 +9,6 @@
   *= require tickets
   *= require company/custom
   *= require company/units
+  *= require users_invitation_email
+  *= require comments
  */

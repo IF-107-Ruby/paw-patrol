@@ -1,6 +1,7 @@
 class Company
   class UnitsController < Company::BaseController
     before_action :obtain_unit, only: %i[show children edit update destroy]
+    decorates_assigned :unit
 
     def index
       authorize([:company, Unit])
@@ -8,7 +9,12 @@ class Company
     end
 
     def show
-      @pagy, @unit_children = pagy(@unit.children, items: 20)
+      @children_pagy, @unit_children = pagy_decorated(@unit.children,
+                                                      items: 5,
+                                                      page_param: :page_children)
+      @tickets_pagy, @unit_tickets = pagy_decorated(@unit.tickets.most_recent,
+                                                    items: 5,
+                                                    page_param: :page_tickets)
     end
 
     def children
@@ -57,7 +63,7 @@ class Company
     end
 
     def obtain_unit
-      @unit = units_base_relation.find(params[:id]).decorate
+      @unit = units_base_relation.find(params[:id])
       authorize([:company, @unit])
     end
 

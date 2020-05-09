@@ -24,6 +24,7 @@ feature 'users' do
 
     expect(page).to have_content(user_params[:first_name])
     expect(page).to have_content('Staff member')
+    allow(UserMailer).to receive(:invitation_email)
   end
 
   scenario 'successfully updates a user' do

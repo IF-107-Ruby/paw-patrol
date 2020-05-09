@@ -10,11 +10,14 @@ class Company
     def show; end
 
     def new
-      _, @user = authorize([:company, users_base_relation.build])
+      @user = users_base_relation.build
+      authorize([:company, @user])
     end
 
     def create
-      _, @user = authorize([:company, users_base_relation.build(user_params)])
+      @user = users_base_relation.build(user_params)
+      authorize([:company, @user])
+
       if @user.save
         flash[:success] = 'Company member created.'
         redirect_to [:company, @user]
@@ -52,7 +55,8 @@ class Company
     end
 
     def obtain_user
-      _, @user = authorize([:company, users_base_relation.find(params[:id]).decorate])
+      @user = users_base_relation.find(params[:id]).decorate
+      authorize([:company, @user])
     end
 
     def users_base_relation

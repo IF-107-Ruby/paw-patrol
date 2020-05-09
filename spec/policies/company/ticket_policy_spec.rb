@@ -1,28 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Company::TicketPolicy, type: :policy do
-  let!(:user) { create(:user) }
-  let!(:employee) { create(:employee) }
+  include_context 'company with users'
 
   subject { described_class }
 
-  permissions :new? do
-    it 'grant access' do
-      expect(subject).to permit(employee)
-    end
-
-    it 'denied access' do
-      expect(subject).not_to permit(user)
-    end
-  end
-
   permissions :create? do
     it 'grant access' do
+      expect(subject).to permit(company_owner)
       expect(subject).to permit(employee)
     end
 
     it 'denied access' do
-      expect(subject).not_to permit(user)
+      expect(subject).not_to permit(staff_member)
     end
   end
 end

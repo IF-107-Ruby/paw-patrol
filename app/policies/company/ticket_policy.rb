@@ -1,12 +1,12 @@
 class Company
   class TicketPolicy < ApplicationPolicy
     def create?
-      user.employee?
+      user.can_create_ticket?
     end
 
     class Scope < Scope
       def resolve
-        scope.all
+        Ticket.where(unit_id: user.company.unit_ids)
       end
     end
   end

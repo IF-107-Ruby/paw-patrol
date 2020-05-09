@@ -4,8 +4,12 @@ class AvailableUserUnitsQuery
   end
 
   def to_units_array
-    @user.units.flat_map do |unit|
-      family_units(unit).unshift(unit)
+    if @user.company_owner?
+      @user.company.units
+    else
+      @user.units.flat_map do |unit|
+        family_units(unit).unshift(unit)
+      end
     end
   end
 

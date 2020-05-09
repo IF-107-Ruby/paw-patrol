@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Company::TicketsController, type: :controller do
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:user) { create(:user) }
+  let!(:user) { create(:staff_member, company: company) }
   let!(:employee) { unit.users.first }
   let!(:ticket) { unit.tickets.first }
 
@@ -19,7 +19,7 @@ describe Company::TicketsController, type: :controller do
   end
 
   describe 'Authentication and authorization tests' do
-    context 'if user is not employee' do
+    context 'if user can\'t create ticket' do
       before do
         sign_in user
       end
@@ -32,7 +32,7 @@ describe Company::TicketsController, type: :controller do
       end
     end
 
-    context 'if user is employee' do
+    context 'if user can create ticket' do
       before do
         sign_in employee
       end

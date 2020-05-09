@@ -21,15 +21,20 @@ feature 'EmployeePostATicket' do
       .select_option
     fill_in_trix_editor('ticket_description_trix_input_ticket',
                         ticket_attributes[:description])
-    click_on 'Post a Ticket'
 
+    within('.dashboard-content-inner') do
+      click_on 'Add ticket'
+    end
     expect(page).to have_selector('.notification.success.closeable',
                                   text: 'Ticket posted!')
   end
 
   scenario 'unsuccessfully' do
     expect(page).to have_selector('.ticket-form')
-    click_on 'Post a Ticket'
+
+    within('.dashboard-content-inner') do
+      click_on 'Add ticket'
+    end
 
     expect(page).to have_selector('.notification.warning.closeable',
                                   text: 'Ticket is not posted!')

@@ -3,7 +3,7 @@ class Company
     before_action :read_user_units, only: :new
 
     def show
-      @ticket = current_user.tickets.find(params[:id]).decorate
+      @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
     end
 
     def new
