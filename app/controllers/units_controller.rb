@@ -51,7 +51,7 @@ class UnitsController < ApplicationController
   end
 
   def read_unit_by_id
-    @unit = authorize(current_company.units.find(params[:id]))
+    @unit = authorize(current_company.units.find(params[:id])).decorate
   end
 
   def available_responsible_users
