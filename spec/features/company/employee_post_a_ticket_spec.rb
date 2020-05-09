@@ -8,11 +8,11 @@ feature 'EmployeePostATicket' do
 
   before do
     login_as employee
-    visit new_ticket_path
+    visit new_company_ticket_path
   end
 
   scenario 'successfully' do
-    expect(page).to have_selector('h2', text: 'Post a Ticket')
+    expect(page).to have_selector('.dashboard-headline h3', text: 'Post a Ticket')
     expect(page).to have_selector('.ticket-form')
 
     fill_in 'ticket_name', with: ticket_attributes[:name]

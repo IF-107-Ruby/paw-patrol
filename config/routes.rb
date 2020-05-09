@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :units do
         get :children, on: :member
       end
+      resources :tickets, only: %i[show new create]
     end
   end
 

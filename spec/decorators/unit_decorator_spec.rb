@@ -9,6 +9,6 @@ RSpec.describe UnitDecorator do
     expect(unit_without_parent.creation_headline)
       .to(eq("Add new unit to #{company.name}"))
     expect(unit_with_parent.creation_headline)
-      .to(eq("Add new unit to #{unit_with_parent.parent.name}"))
+      .to(eq("Add new sub unit to #{unit_with_parent.parent.name}"))
   end
 end

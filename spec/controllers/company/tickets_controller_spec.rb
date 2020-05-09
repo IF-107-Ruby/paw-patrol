@@ -1,13 +1,11 @@
 require 'rails_helper'
 
-describe TicketsController, type: :controller do
+describe Company::TicketsController, type: :controller do
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
   let!(:user) { create(:user) }
   let!(:employee) { unit.users.first }
   let!(:ticket) { unit.tickets.first }
-  let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
-  let(:ticket_invalid_params) { { name: '', description: '' } }
 
   describe 'GET #show' do
     before do
@@ -47,6 +45,9 @@ describe TicketsController, type: :controller do
       end
 
       describe 'POST #create' do
+        let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
+        let(:ticket_invalid_params) { { name: '', description: '' } }
+
         context 'with valid params' do
           before { post :create, params: { ticket: ticket_valid_params } }
 

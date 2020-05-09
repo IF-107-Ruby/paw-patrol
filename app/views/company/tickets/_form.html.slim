@@ -1,5 +1,5 @@
 .ticket-form
-  = form_for ticket do |f|
+  = form_for [:company, ticket] do |f|
     .row
       .col-md-12
         .dashboard-box.mt-0
@@ -31,6 +31,6 @@
                   h5.pb-2 Describe your problem
                   = f.rich_text_area :description
 
-    = f.button(:submit, class: 'button ripple-effect big margin-top-30') do
+    = f.button(:submit, class: 'button ripple-effect big margin-top-30 button-sliding-icon')
+      | Post a Ticket 
       i.icon-feather-plus
-      | Post a Ticket

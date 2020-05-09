@@ -4,7 +4,7 @@ class UnitDecorator < Draper::Decorator
 
   def creation_headline
     if has_parent?
-      "Add new unit to #{parent.name}"
+      "Add new sub unit to #{parent.name}"
     else
       "Add new unit to #{company.name}"
     end

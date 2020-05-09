@@ -1,9 +1,6 @@
+- provide(:headline, @ticket.name)
+
 section.ticket_show
-  .ticket_show-title
-    h2
-      span.ticket_show-title__span
-        | Ticket:
-      = @ticket.name
   .ticket_show-place
     = @ticket.place_were_opened
   .ticket_show-description
