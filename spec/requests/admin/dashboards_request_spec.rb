@@ -14,7 +14,7 @@ RSpec.describe 'Admin::Dashboards', type: :request do
     it 'returns http not found if signed in not as admin' do
       login_as user
       get '/admin'
-      expect(response).to have_http_status(:not_found)
+      expect(response).to have_http_status(:found)
     end
 
     it 'returns http found if not signed in' do
