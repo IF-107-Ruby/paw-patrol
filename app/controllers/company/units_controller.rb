@@ -8,7 +8,7 @@ class Company
     end
 
     def show
-      @pagy, @unit_children = pagy_decorated(@unit.children, items: 20)
+      @pagy, @unit_children = pagy(@unit.children, items: 20)
     end
 
     def children
@@ -18,13 +18,13 @@ class Company
     end
 
     def new
-      unit = units_base_relation.build(parent_id: params[:parent_id])
-      _, @unit = authorize([:company, unit.decorate])
+      @unit = units_base_relation.build(parent_id: params[:parent_id]).decorate
+      authorize([:company, @unit])
     end
 
     def create
-      unit = units_base_relation.build(unit_params)
-      _, @unit = authorize([:company, unit.decorate])
+      @unit = units_base_relation.build(unit_params).decorate
+      authorize([:company, @unit])
       if @unit.save
         flash[:success] = 'Unit created successfully.'
         redirect_to [:company, @unit]
@@ -57,7 +57,8 @@ class Company
     end
 
     def obtain_unit
-      _, @unit = authorize([:company, units_base_relation.find(params[:id]).decorate])
+      @unit = units_base_relation.find(params[:id]).decorate
+      authorize([:company, @unit])
     end
 
     def units_base_relation

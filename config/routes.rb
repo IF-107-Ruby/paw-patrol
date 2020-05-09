@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get 'dashboard', to: 'dashboards#show'
       resources :users
       resources :units do
+        resources :room_employees, only: :index
         get :children, on: :member
       end
       resources :tickets, only: %i[show new create]
@@ -34,9 +35,7 @@ Rails.application.routes.draw do
   end
 
   resources :companies
-  resources :units do
-    resources :room_employees, only: :index
-  end
+  resources :units
   resources :feedbacks, only: %i[index show create destroy]
   resources :users
   resources :tickets, only: %i[show new create] do

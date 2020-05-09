@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RoomEmployeesController, type: :controller do
+RSpec.describe Company::RoomEmployeesController, type: :controller do
   let!(:company) { create(:company) }
   let!(:user) { create(:user, company: company) }
   let!(:unit) { create(:unit, company: company) }
