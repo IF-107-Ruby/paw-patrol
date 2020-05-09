@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   describe 'Associations' do
     it { is_expected.to have_one(:users_companies_relationship).dependent(:destroy) }
     it { is_expected.to have_one(:company).through(:users_companies_relationship) }
+    it { is_expected.to have_many(:tickets).dependent(:destroy) }
     it { is_expected.to have_many(:users_units_relationships).dependent(:destroy) }
     it { is_expected.to have_many(:units).through(:users_units_relationships) }
   end

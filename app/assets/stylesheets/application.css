@@ -11,6 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_self
+ *= require actiontext
  *= require custom
  *= require errors
  *= require feedbacks
@@ -19,5 +20,6 @@
  *= require static_pages
  *= require units
  *= require users
+ *= require tickets
  *=require users_invitation_email
  */

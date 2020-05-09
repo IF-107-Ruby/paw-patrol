@@ -12,8 +12,10 @@
 #
 class Unit < ApplicationRecord
   belongs_to :company
+  has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :users, through: :users_units_relationships
+
   validates :name, presence: true
   validates :company, presence: true
   has_ancestry
