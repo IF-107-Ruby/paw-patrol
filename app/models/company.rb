@@ -17,6 +17,8 @@ class Company < ApplicationRecord
   has_many :units, dependent: :destroy
   has_many :users_companies_relationships, dependent: :destroy
   has_many :users, through: :users_companies_relationships
+  has_many :staff, -> { where(role: 'staff_member') },
+           source: :user, through: :users_companies_relationships
 
   validates :name, presence: { message: 'can not be blank' }
   validates :email, presence: { message: 'can not be blank' },
