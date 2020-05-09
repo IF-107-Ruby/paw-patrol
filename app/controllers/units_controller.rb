@@ -1,8 +1,9 @@
 class UnitsController < ApplicationController
   before_action :authenticate_user!
   before_action :read_unit_by_id, only: %i[show edit update destroy]
-  before_action :available_responsible_users, only: %i[new create edit update]
   layout 'hireo', only: %i[new create edit update]
+
+  helper_method :available_responsible_users
 
   def index
     @pagy, @units = pagy(current_company.units, items: 10)
@@ -54,10 +55,6 @@ class UnitsController < ApplicationController
   end
 
   def available_responsible_users
-    @available_responsible_users ||= current_company.users
-                                                    .where({ role: 'staff_member' })
-                                                    .map do |u|
-      [u.decorate.full_name, u.id]
-    end
+    @available_responsible_users ||= current_company.staff.decorate
   end
 end
