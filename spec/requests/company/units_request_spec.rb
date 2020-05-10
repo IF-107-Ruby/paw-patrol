@@ -24,15 +24,6 @@ RSpec.describe 'Company::Units', type: :request do
     end
   end
 
-  describe 'GET /company/units/:children' do
-    it 'returns http success' do
-      get children_company_unit_path(unit), xhr: true
-
-      expect(response).to have_http_status(:success)
-      expect(response).to render_template(:children)
-    end
-  end
-
   describe 'GET /company/units/new' do
     it 'returns http success' do
       get new_company_unit_path

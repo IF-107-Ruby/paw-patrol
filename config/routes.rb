@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resources :users
       resources :units do
         resources :room_employees, only: :index
-        get :children, on: :member
+        resources :children, controller: :units_children, only: :index
       end
       resources :tickets, only: %i[show new create]
     end

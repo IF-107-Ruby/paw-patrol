@@ -7,6 +7,7 @@ class Company
     end
 
     def new
+      # TODO: Implement unit id auto filling
       @ticket = Ticket.new
       authorize([:company, @ticket])
     end

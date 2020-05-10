@@ -44,7 +44,6 @@
               | Tickets
             - if current_user.can_create_ticket?
               .icon-links
-                / TODO Implement unit id auto filling
                 = link_to new_company_ticket_path(unit_id: unit.id)
                   i.icon-feather-plus
         .content.padding-bottom-20

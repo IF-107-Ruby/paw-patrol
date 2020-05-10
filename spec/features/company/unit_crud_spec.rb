@@ -16,7 +16,7 @@ feature 'unit crud' do
     expect(page).to have_text('Company units')
 
     expect(page).not_to have_text(unit_with_children.children.first.name)
-    find_link(href: children_company_unit_path(unit_with_children.id)).click
+    find_link(href: company_unit_children_path(unit_with_children.id)).click
     wait_for_ajax
     expect(page).to have_text(unit_with_children.children.first.name)
   end

@@ -4,7 +4,7 @@ li data-unregistered-unit-id="#{unit.id}"
       .job-listing-description
         h3.job-listing-title
           - if unit.children?
-            = link_to [:children, :company, unit], remote: true, id: "#{unit.id}_children_link"
+            = link_to [:company, unit, :children], remote: true, id: "#{unit.id}_children_link"
               i.icon-material-outline-keyboard-arrow-right.show-arrow
           = link_to unit.name, [:company, unit]
         .job-listing-footer

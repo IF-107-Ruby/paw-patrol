@@ -11,13 +11,5 @@
               = link_to new_company_user_path
                 i.icon-feather-plus
       .content.with-padding.overflow-hidden
-        table.basic-table
-          thead
-            tr
-              th Full name
-              th Role
-              th
-          tbody
-            = render @users
-
+        = render partial: 'company/shared/users_table', locals: { users: @users }
         = render partial: 'shared/pagination', locals: { pagy: @pagy }

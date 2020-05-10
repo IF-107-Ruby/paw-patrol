@@ -1,6 +1,6 @@
 class Company
   class UnitsController < Company::BaseController
-    before_action :obtain_unit, only: %i[show children edit update destroy]
+    before_action :obtain_unit, only: %i[show edit update destroy]
     helper_method :available_responsible_users
     decorates_assigned :unit
 
@@ -16,12 +16,6 @@ class Company
       @tickets_pagy, @unit_tickets = pagy_decorated(@unit.tickets.most_recent,
                                                     items: 5,
                                                     page_param: :page_tickets)
-    end
-
-    def children
-      respond_to do |format|
-        format.js
-      end
     end
 
     def new

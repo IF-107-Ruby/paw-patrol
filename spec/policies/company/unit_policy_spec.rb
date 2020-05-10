@@ -22,14 +22,6 @@ RSpec.describe Company::UnitPolicy, type: :policy do
     end
   end
 
-  permissions :children? do
-    it 'grant access' do
-      expect(subject).to permit(company_owner, unit)
-      expect(subject).to permit(employee, unit)
-      expect(subject).to permit(staff_member, unit)
-    end
-  end
-
   permissions :create? do
     it 'grant access' do
       expect(subject).to permit(company_owner, unit)

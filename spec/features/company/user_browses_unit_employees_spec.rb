@@ -13,7 +13,7 @@ feature 'user browses unit employees' do
     expect(page).to have_text('Company units')
 
     expect(page).not_to have_text(unit.name)
-    find_link(href: children_company_unit_path(unit.parent.id)).click
+    find_link(href: company_unit_children_path(unit.parent.id)).click
     wait_for_ajax
     expect(page).to have_text(unit.name)
 

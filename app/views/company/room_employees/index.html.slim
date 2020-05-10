@@ -6,13 +6,5 @@
       .headline
           h3 Room Employees
       .content.with-padding.overflow-hidden
-        table.basic-table
-          thead
-            tr
-              th Full name
-              th Role
-              th
-          tbody
-            = render @room_employees
-
+        = render partial: 'company/shared/users_table', locals: { users: @room_employees }
         = render partial: 'shared/pagination', locals: { pagy: @pagy }

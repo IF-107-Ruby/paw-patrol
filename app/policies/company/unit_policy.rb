@@ -10,10 +10,6 @@ class Company
       true
     end
 
-    def children?
-      true
-    end
-
     def create?
       company_owner?
     end
