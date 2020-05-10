@@ -4,6 +4,7 @@ module Admin
     before_action :obtain_user, only: %i[show edit update destroy impersonate]
 
     def index
+      authorize([:admin, User])
       @pagy, @users = pagy_decorated(User.all, items: 10)
     end
 
@@ -48,7 +49,7 @@ module Admin
     end
 
     def obtain_user
-      @user = User.find(params[:id]).decorate
+      _, @user = authorize([:admin, User.find(params[:id]).decorate])
     end
   end
 end
