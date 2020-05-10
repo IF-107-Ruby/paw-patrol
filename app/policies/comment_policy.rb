@@ -8,8 +8,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
-    # user == record.user
+    user == record.user
   end
 
   class Scope < Scope

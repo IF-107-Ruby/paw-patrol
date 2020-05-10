@@ -1,10 +1,14 @@
 .comments-block {
   .comments-header {
+    padding-top: 40px;
     padding-bottom: 20px;
+    h3 {
+      color:#2a41e8;
+    }
   }
   .comment-author {
     margin-top: 10px;
-    border-top: 2px solid #f4f4f4;;
+    border-top: 2px solid #f4f4f4;
     padding-top: 10px;
   }
   #new-comment-form {
@@ -27,6 +31,10 @@
       padding-right: 5px;
     }
   }
+  .comment-destroy-icon {
+    display: flex;
+    justify-content: flex-end;
+  }
   .reply-button {
     width: 100%;
     cursor: pointer;
@@ -36,16 +44,20 @@
 .reply-comment-form {
   display: none;
   margin-bottom: 20px;
+  padding-top: 10px;
 }
 
-.add-comment-btn {
-  background-color: #2a41e8;
-  padding: 12px 20px;
-  color: white;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  i {
-    padding-right: 5px;
+.add-comment-block {
+  padding-top: 50px;
+  .add-comment-btn {
+    background-color: #2a41e8;
+    padding: 12px 20px;
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    i {
+      padding-right: 5px;
+    }
   }
 }
 
@@ -57,13 +69,20 @@
   box-shadow: 0 4px 12px rgba(42,65,232,.15);
 }
 
-.comment-destroy-icon {
-  display: flex;
-  justify-content: flex-end;
-}
-
 #comment-status {
   position: absolute;
   letter-spacing: 4px;
-  top: 50px;
+  margin-top: -33px;
+}
+
+#comment-status.warning {
+  color: red;
+}
+
+#comment-status.success {
+  color: green;
+}
+
+.simple-form {
+  position: relative;
 }

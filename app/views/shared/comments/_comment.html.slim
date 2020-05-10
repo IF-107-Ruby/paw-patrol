@@ -1,12 +1,12 @@
-div id="comment_#{comment.id}" 
-  .row class='justify-content-between comment-author'  
+div
+  .row.justify-content-between.comment-author
     div
       strong = comment.user.decorate.full_name
-    .color class='submitted-time'
+    .submitted-time
       | Submitted 
-      span class='time-ago' = time_ago_in_words(comment.created_at) 
+      span.time-ago = time_ago_in_words(comment.created_at) 
       | ago
-  .row class='justify-content-between comment-text'
+  .row.justify-content-between.comment-text
     .col-xl-11.col-lg-11.col-md-11
       = comment.body
     - if current_user == comment.user
@@ -17,7 +17,7 @@ div id="comment_#{comment.id}"
     .reply-button
       i class="far fa-comment"
     .reply-comment-form
-      = render 'shared/comments/form', commentable: commentable, comment: comment, submit_label: 'Reply', parent_id: comment.id, form_class_name: 'js-reply-comment-form'
+      = render 'shared/comments/form', commentable: commentable, comment: comment, submit_label: 'Reply', parent_id: comment.id, js_form_class: 'js-reply-comment-form', js_form_id: "reply-comment_#{comment.id}"
 
 
 

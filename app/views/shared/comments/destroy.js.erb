@@ -1,3 +1,3 @@
-$('#new-comment-form').html('<%= escape_javascript(render('shared/comments/form', commentable: @commentable, submit_label: 'Send', parent_id: nil, form_class_name: 'js-new-comment')) %>');
+$('#new-comment-form').html('<%= escape_javascript(render('shared/comments/form', commentable: @commentable, submit_label: 'Send', parent_id: nil, js_form_class: 'js-new-comment', js_form_id: 'new-comment')) %>');
 $('#comments-list').html('<%= escape_javascript(render('shared/comments/nested_comment', commentable: @commentable, comments: @commentable.comments.arrange )) %>');
 
