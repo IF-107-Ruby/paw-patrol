@@ -7,7 +7,7 @@ RSpec.describe TicketDecorator do
   let!(:user) { ticket.user.decorate }
 
   it 'place_were_opened' do
-    expect(ticket.place_were_opened).to eq('Ticket open for ' + ticket.unit.name)
+    expect(ticket.place_were_opened).to eq('Ticket opened for ' + ticket.unit.name)
   end
 
   it 'created_by' do

@@ -3,7 +3,7 @@ class TicketDecorator < Draper::Decorator
   decorates_association :user
 
   def place_were_opened
-    "Ticket open for #{unit.name}"
+    "Ticket opened for #{unit.name}"
   end
 
   def created_by
