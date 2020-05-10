@@ -40,6 +40,11 @@ class User < ApplicationRecord
 
   before_create do
     skip_confirmation!
-    SendConfirmationInstructionsJob.perform_later @user
-  end  
+  end
+
+private
+
+  after_create do
+    SendConfirmationInstructionsJob.perform_later(id)
+  end
 end
