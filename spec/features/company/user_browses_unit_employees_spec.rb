@@ -16,6 +16,8 @@ feature 'user browses unit employees' do
     find_link(href: children_company_unit_path(unit.parent.id)).click
     wait_for_ajax
     expect(page).to have_text(unit.name)
+
+    click_on unit.name
     find_link(href: company_unit_room_employees_path(unit.id)).click
     expect(page).to have_text(unit.users.first.first_name)
   end

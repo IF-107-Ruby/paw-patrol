@@ -9,7 +9,13 @@ li data-unregistered-unit-id="#{unit.id}"
           = link_to unit.name, [:company, unit]
         .job-listing-footer
           ul
-            li = link_to unit.employees_count, [:company, unit, :room_employees]
+            - if unit.responsible_user.present?
+              li 
+                i.icon-material-outline-supervisor-account
+                = unit.responsible_user_text
+            li 
+              i.icon-material-outline-group
+              = unit.employees_count
     - if current_user.company_owner?
       .buttons-to-right
         = link_to new_company_unit_path(parent_id: unit), class: 'button gray ripple-effect ico', title: "Add node", "data-tippy-placement" => "left"

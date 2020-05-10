@@ -13,10 +13,19 @@
             = @unit.creation_headline
         .content.with-padding.padding-bottom-0
           .row
-            .col-xl-12
+            .col-xl-6
               .submit-field
                 h5 Unit name
                 = f.text_field :name, placeholder: 'Building, floor, room etc.', class: 'with-border'
+            .col-xl-6
+              .submit-field
+                h5 Responsible user
+                = f.collection_select :responsible_user_id, available_responsible_users,:id, :full_name,
+                  {}, { class: "with-border selectpicker",
+                         "data-size" => "7",
+                         "title" => "Select responsible user",
+                         "data-live-search" => true,
+                          required: 'required' }
     .col-xl-12
       .row
         .col-auto

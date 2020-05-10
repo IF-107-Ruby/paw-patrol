@@ -26,6 +26,7 @@ Company.all.each do |company|
   10.times do
     FactoryBot.create(:unit,
                       :with_parent,
+                      :with_responsible_user,
                       :with_children,
                       :with_employees_and_tickets,
                       company: company)

@@ -25,6 +25,8 @@
                 .company-details
                   h3.margin-bottom-0
                     = unit.name
+                    - if unit.responsible_user.present?
+                      span = link_to unit.responsible_user_text, [:company, unit.responsible_user]
                     span = link_to unit.employees_count, [:company, unit, :room_employees]
           - if current_user.company_owner?
             .col-auto.icon-links.align-self-start

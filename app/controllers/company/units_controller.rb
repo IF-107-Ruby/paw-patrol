@@ -1,6 +1,7 @@
 class Company
   class UnitsController < Company::BaseController
     before_action :obtain_unit, only: %i[show children edit update destroy]
+    helper_method :available_responsible_users
     decorates_assigned :unit
 
     def index
@@ -59,12 +60,16 @@ class Company
     private
 
     def unit_params
-      params.require(:unit).permit(:name, :parent_id)
+      params.require(:unit).permit(:name, :parent_id, :responsible_user_id)
     end
 
     def obtain_unit
       @unit = units_base_relation.find(params[:id])
       authorize([:company, @unit])
+    end
+
+    def available_responsible_users
+      @available_responsible_users ||= current_company.staff.decorate
     end
 
     def units_base_relation

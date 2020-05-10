@@ -11,6 +11,10 @@ class UnitDecorator < Draper::Decorator
     end
   end
 
+  def responsible_user_text
+    "#{responsible_user.full_name} is responsible"
+  end
+
   def employees_count
     h.pluralize(users.count, 'employee')
   end

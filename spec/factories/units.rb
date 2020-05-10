@@ -19,7 +19,12 @@ FactoryBot.define do
     trait :with_parent do
       after(:build) do |o|
         o.parent = create(:unit, company: o.company)
-        o.save
+      end
+    end
+
+    trait :with_responsible_user do
+      after(:build) do |o|
+        o.responsible_user = create(:staff_member, company: o.company, units: [o])
       end
     end
 
