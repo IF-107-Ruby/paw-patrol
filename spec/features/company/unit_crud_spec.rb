@@ -52,7 +52,7 @@ feature 'unit crud' do
 
     expect(page).to have_content(child.name)
 
-    find("li[data-unit-id=\"#{child.id}\"]").hover
+    find("#unit_#{child.id}").hover
     within('.buttons-to-right') do
       accept_confirm do
         find('a[data-method="delete"]').click

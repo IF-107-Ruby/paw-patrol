@@ -6,7 +6,7 @@ class Breadcrumbs
   end
 
   def previous_routes
-    @previous_routes ||= extruct_previous_routes
+    @previous_routes ||= extract_previous_routes
   end
 
   def current_route_name
@@ -21,7 +21,7 @@ class Breadcrumbs
 
   Route = Struct.new(:name, :path)
 
-  def extruct_previous_routes
+  def extract_previous_routes
     previous_routes = []
     path_components[0..-2].inject('') do |prev, current|
       previous_routes << Route.new(humanize_path(current),

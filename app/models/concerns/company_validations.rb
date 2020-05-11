@@ -5,7 +5,7 @@ module CompanyValidations
     validates :name, :email, presence: { message: 'can not be blank' }
 
     validates :phone, length: 6..20,
-                      format: { with: /\A(\+)?[ 0-9]*\z/,
+                      format: { with: /\A(\+)?[0-9]*\z/,
                                 message: 'is invalid: must be from 6 to 20 digits long' },
                       allow_blank: true
 
