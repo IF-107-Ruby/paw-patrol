@@ -16,6 +16,10 @@ before_script:
   - bundle exec rails webpacker:compile
 script:
   - bundle exec rake
+  - xvfb-run -a bundle exec rake
   - bundle exec rubocop --require rubocop-rails
 services:
   - postgresql
+  - xvfb
+addons:
+  firefox: latest

@@ -15,5 +15,11 @@ FactoryBot.define do
     description { ActionText::Content.new(Faker::Lorem.paragraph) }
     user
     unit
+
+    trait :with_comments do
+      after(:build) do |ticket|
+        ticket.comments = build_list(:comment, 5, commentable: ticket)
+      end
+    end
   end
 end

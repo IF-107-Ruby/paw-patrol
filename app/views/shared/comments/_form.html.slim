@@ -1,0 +1,5 @@
+= simple_form_for [commentable, Comment.new], remote: true, html: { class: js_form_class, id: js_form_id } do |f|
+  #comment-status
+  = f.hidden_field :parent_id, value: parent_id
+  = f.input :body, label: false, placeholder: "Add a comment", as: :text, input_html: { rows: 2, cols: 5, class: 'comment-input' }
+  = f.submit submit_label, class: 'margin-top-10 send-comment-btn'

@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
+  has_many :comments, dependent: :nullify
 
   validates :first_name, :last_name,
             presence: true,
@@ -39,6 +40,10 @@ class User < ApplicationRecord
 
   def company_owner?
     role == 'company_owner'
+  end
+
+  def responsible_for?(unit)
+    id == unit.responsible_user_id
   end
 
   def self.grouped_collection_by_role
