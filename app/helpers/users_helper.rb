@@ -1,10 +1,18 @@
 module UsersHelper
   def user_role_string(user)
-    user.role&.capitalize&.gsub('_', ' ')
+    user.admin? ? 'Admin' : user.role&.capitalize&.gsub('_', ' ')
   end
 
   def user_company_content(user)
     company_role_and_link(user) if user.company.present?
+  end
+
+  def user_company_role(user)
+    if user.admin?
+      'Admin'
+    elsif user.company.present?
+      "#{user_role_string(user)} at #{user.company.name}"
+    end
   end
 
   def user_company_name(user)

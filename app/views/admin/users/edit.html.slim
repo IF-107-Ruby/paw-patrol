@@ -1,4 +1,5 @@
-h2 Update user profile
+- provide(:headline, "Update user")
+
 = simple_form_for @user, url: admin_user_path do |f|
   = render 'shared/error_messages', object: f.object
   .form-group
@@ -12,7 +13,7 @@ h2 Update user profile
       .row
         .col-auto
           = button_tag type: "submit", class: 'button ripple-effect button-sliding-icon big margin-top-30'
-            | Edit user 
+            | Update user 
             i.icon-feather-check
         .col-auto
           = link_to admin_user_path, class: 'button dark ripple-effect button-sliding-icon big margin-top-30'

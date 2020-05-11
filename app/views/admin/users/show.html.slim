@@ -1,15 +1,28 @@
-.row 
-  .col-md-5
-    .user_info
-      .full-name
-        h2 = @user.full_name
-      = user_company_content(@user)
-      p 
-        span Email: 
-        span = @user.email
-      nav
-        ul.nav.navbar.user-buttons
-          li.nav-item = link_to 'Sign in as user', impersonate_admin_user_path, method: :post, class: "btn-sm btn-outline-primary"
-          li.nav-item = link_to 'Edit user profile', edit_admin_user_path, class: "btn-sm btn-outline-info"
-          li.nav-item = link_to 'Delete user',  admin_user_path, method: :delete, data: { confirm: 'You sure?' }, class: "btn-sm btn-outline-danger"
-          li.nav-item = link_to 'Back', admin_users_path, class: "btn-sm btn-outline-secondary"
+- provide(:headline, "View user")
+
+.dashboard-box
+  .content.with-padding.padding-bottom-0
+    .row.margin-bottom-60.justify-content-between
+      .col-auto
+        .row.align-items-start
+          .col-auto
+            .avatar-wrapper
+              = image_tag "user-avatar-placeholder.png", class: "profile-pic"
+          .col-auto
+            .user_info
+              .full-name
+                h2 = @user.full_name
+              = user_company_role(@user)
+            p 
+              = mail_to @user.email
+                i.icon-material-outline-email
+                = @user.email
+      .col-auto.icon-links.align-self-start
+        - if current_user != @user
+          = link_to impersonate_admin_user_path, method: :post
+            i.icon-feather-log-in
+        - if current_user == @user
+          = link_to edit_admin_user_path
+            i.icon-feather-edit
+        = link_to admin_user_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+          i.icon-feather-trash-2
