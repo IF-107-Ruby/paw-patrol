@@ -41,9 +41,9 @@ feature 'EmployeeAddComment' do
       find("#reply_comment_#{comment.id}").click
       using_wait_time 2 do
         fill_in id: 'comment_body', with: 'Reply to test comment'
+        click_on 'Reply'
       end
     end
-    click_on 'Reply'
     wait_for_ajax
 
     expect(page).to have_text('Reply to test comment')
