@@ -1,4 +1,4 @@
-li data-unregistered-unit-id="#{unit.id}"
+li data-unregistered-unit-id="#{unit.id}" data-unit-id="#{unit.id}"
   .job-listing
     .job-listing-details
       .job-listing-description
@@ -22,7 +22,7 @@ li data-unregistered-unit-id="#{unit.id}"
           i.icon-feather-plus
         = link_to [:edit, :company, unit], class: 'button dark ripple-effect ico', title: "Edit unit", "data-tippy-placement" => "top"
           i.icon-feather-edit
-        = link_to [:company, unit], method: :delete, data: {confirm: "You sure?"}, class: 'button red ripple-effect ico', title: "Remove", "data-tippy-placement" => "right"
+        = link_to [:company, unit], method: :delete, remote: true, data: {confirm: "You sure?"}, class: 'button red ripple-effect ico', title: "Remove", "data-tippy-placement" => "right"
           i.icon-feather-trash-2
   - if unit.children?
     ul.dashboard-box-list.w-100 id="#{unit.id}_children"

@@ -47,8 +47,13 @@ class Company
 
     def destroy
       @unit.destroy
-      flash[:success] = 'Unit deleted successfully.'
-      redirect_back(fallback_location: company_units_path)
+      respond_to do |format|
+        format.js
+        format.html do
+          redirect_back(fallback_location: company_units_path,
+                        success: 'Unit deleted successfully.')
+        end
+      end
     end
 
     private

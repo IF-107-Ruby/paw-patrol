@@ -1,5 +1,6 @@
-- flash.each do |message_type, message|
-  = content_tag(:div, class: "notification #{message_type} closeable")
-    p
-      = message
-    a.close
+div#flash-messages
+  - flash.each do |message_type, message|
+    div class="notification #{message_type} closeable"
+      p
+        = message
+      a.close

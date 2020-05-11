@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'unit crud' do
   let!(:company) { create(:company) }
   let!(:company_owner) { create(:company_owner, company: company) }
-  let!(:unit) { create(:unit, company: company) }
+  let!(:unit) { create(:unit, :with_children, company: company) }
+  let(:child) { unit.children.first }
   let(:unit_params) { attributes_for(:unit) }
 
   before { login_as company_owner }
@@ -46,13 +47,18 @@ feature 'unit crud' do
     expect(page).to have_content(unit_params[:name])
   end
 
-  scenario 'successfully deletes a unit' do
+  scenario 'successfully deletes a unit', js: true do
     visit company_unit_path(unit)
 
-    within('.icon-links') do
-      find('a[data-method="delete"]').click
+    expect(page).to have_content(child.name)
+
+    find("li[data-unit-id=\"#{child.id}\"]").hover
+    within('.buttons-to-right') do
+      accept_confirm do
+        find('a[data-method="delete"]').click
+      end
     end
-    expect(page).to have_text('Unit deleted successfully.')
-    expect(page).not_to have_content(unit.name)
+    wait_for_ajax
+    expect(page).not_to have_content(child.name)
   end
 end
