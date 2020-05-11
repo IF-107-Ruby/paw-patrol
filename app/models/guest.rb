@@ -7,11 +7,15 @@ class Guest < User
     false
   end
 
+  def company?
+    false
+  end
+
   def decorate
     self
   end
 
   def company
-    nil
+    NullCompany.new
   end
 end

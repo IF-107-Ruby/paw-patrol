@@ -5,19 +5,17 @@ Rails.application.routes.draw do
     end
   end
 
-  authenticate :user, ->(user) { user.company.present? } do
-    namespace :company do
-      get '/', to: 'companies#show'
-      get 'edit', to: 'companies#edit'
-      patch 'edit', to: 'companies#update'
-      get 'dashboard', to: 'dashboards#show'
-      resources :users
-      resources :units do
-        resources :room_employees, only: :index
-        resources :children, controller: :units_children, only: :index
-      end
-      resources :tickets, only: %i[show new create]
+  namespace :company do
+    get '/', to: 'companies#show'
+    get 'edit', to: 'companies#edit'
+    patch 'edit', to: 'companies#update'
+    get 'dashboard', to: 'dashboards#show'
+    resources :users
+    resources :units do
+      resources :room_employees, only: :index
+      resources :children, controller: :units_children, only: :index
     end
+    resources :tickets, only: %i[show new create]
   end
 
   devise_for :users, path: '', only: :sessions, controllers: {

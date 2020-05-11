@@ -2,4 +2,4 @@
   .dashboard-headline
     h3 = yield(:headline)
 
-    = render 'breadcrumbs'
+    = render Breadcrumbs.new(request)

@@ -14,7 +14,7 @@ RSpec.describe 'Company::Companies', type: :request do
     it 'returns http not found if logged in and hasn\'t company' do
       login_as user_without_company
       get '/company'
-      expect(response).to have_http_status(:not_found)
+      expect(response).to redirect_to(root_path)
     end
 
     it 'returns http found if not signed in' do

@@ -23,7 +23,7 @@ feature 'EmployeePostATicket' do
                         ticket_attributes[:description])
 
     within('.dashboard-content-inner') do
-      click_on 'Add ticket'
+      click_on 'Post a Ticket'
     end
     expect(page).to have_selector('.notification.success.closeable',
                                   text: 'Ticket posted!')
@@ -33,7 +33,7 @@ feature 'EmployeePostATicket' do
     expect(page).to have_selector('.ticket-form')
 
     within('.dashboard-content-inner') do
-      click_on 'Add ticket'
+      click_on 'Post a Ticket'
     end
 
     expect(page).to have_selector('.notification.warning.closeable',

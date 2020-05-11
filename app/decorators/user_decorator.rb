@@ -13,5 +13,9 @@ class UserDecorator < Draper::Decorator
     end
   end
 
+  def after_sign_in_path
+    admin? ? h.admin_dashboard_path : h.company_dashboard_path
+  end
+
   delegate :name, to: :company, prefix: true
 end

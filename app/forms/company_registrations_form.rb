@@ -1,24 +1,20 @@
 class CompanyRegistrationsForm
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-  VALID_PHONE_REGEX = /\A(\+)?([ 0-9]){4,15}\z/.freeze
 
   include ActiveModel::Model
+  include CompanyValidations
 
-  attr_accessor :company_name, :description, :company_email, :phone,
+  attr_accessor :name, :description, :email, :phone,
                 :first_name, :last_name, :user_email, :password,
                 :password_confirmation
 
-  validates :company_name, :first_name, :last_name, :user_email,
-            :company_email, :password, :password_confirmation,
+  validates :first_name, :last_name, :user_email,
+            :password, :password_confirmation,
             presence: true
 
-  validates :company_email, :user_email,
+  validates :user_email,
             format: { with: VALID_EMAIL_REGEX,
                       message: 'format is not valid' }
-
-  validates :phone, format: { with: VALID_PHONE_REGEX,
-                              message: 'is invalid: must be from 4 to 15 digits long' },
-                    allow_blank: true
 
   validates :first_name, :last_name,
             length: { minimum: 2,
@@ -26,10 +22,11 @@ class CompanyRegistrationsForm
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
 
-  validates :user_email, length: { minimum: 8,
-                                   maximum: 255,
-                                   too_short: 'must have at least %<count>s characters',
-                                   too_long: 'must have at most %<count>s characters' }
+  validates :user_email,
+            length: { minimum: 8,
+                      maximum: 255,
+                      too_short: 'must have at least %<count>s characters',
+                      too_long: 'must have at most %<count>s characters' }
 
   def save
     return false unless valid?
@@ -48,8 +45,8 @@ class CompanyRegistrationsForm
   private
 
   def persist!
-    company = Company.create!(name: company_name, description: description,
-                              email: company_email, phone: phone)
+    company = Company.create!(name: name, description: description,
+                              email: email, phone: phone)
 
     company.users.create!(first_name: first_name,
                           last_name: last_name,

@@ -6,7 +6,6 @@ feature 'User without company visits company namespace' do
   scenario 'unsuccessfully' do
     login_as user
     visit company_dashboard_path
-    expect(page.status_code).to eq(404)
-    expect(page).to have_content('Routing Error')
+    expect(page).to have_text('Manage your company with joy')
   end
 end

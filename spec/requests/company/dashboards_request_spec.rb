@@ -14,7 +14,7 @@ RSpec.describe 'Company::Dashboards', type: :request do
     it 'returns http not found if signed in as user without company' do
       login_as user
       get '/company'
-      expect(response).to have_http_status(:not_found)
+      expect(response).to redirect_to(root_path)
     end
 
     it 'returns http found if not signed in' do
