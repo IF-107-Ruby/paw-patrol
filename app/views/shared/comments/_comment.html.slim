@@ -9,7 +9,7 @@ div
   .row.justify-content-between.comment-text
     .col-xl-11.col-lg-11.col-md-11
       = comment.body
-    - if current_user == comment.user
+    - if comment.belongs_to?(current_user)
       .col-xl-1.col-lg-1.col-md-1.align-items-end
         .comment-destroy-icon
           = link_to icon('fas', 'trash', class: 'strong'), [commentable, comment], method: :delete, remote: true

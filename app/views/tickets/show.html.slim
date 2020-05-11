@@ -12,7 +12,7 @@ section.ticket_show
     .ticket_show-description__body
       == @ticket.description
 
-  - if current_user == @ticket.user || current_user == @ticket.unit.responsible
+  - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)
     .row
       .col-xl-9.col-lg-9.col-md-9
         = render template: 'shared/comments/index', locals: { commentable: @ticket }

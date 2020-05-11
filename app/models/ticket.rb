@@ -28,6 +28,10 @@ class Ticket < ApplicationRecord
     description.body.attachments
   end
 
+  def belongs_to?(current_user)
+    user == current_user
+  end
+
   private
 
   def unit_permission

@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :comment do
-    commentable_id { 1 }
-    commentable_type { 'Ticket' }
-    user_id { 1 }
-    body { 'MyText' }
+    association :commentable, factory: :ticket
+    body { Faker::Lorem.sentence(word_count: 3) }
+    user
   end
 end

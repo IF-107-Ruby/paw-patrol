@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_commentable
+  before_action :commentable
   before_action :authenticate_user!
 
   def new
@@ -8,7 +8,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = authorize(@commentable.comments.build(comment_params))
-    @comment.user = current_user
     @comment.save
     respond_to do |format|
       format.js do
@@ -30,14 +29,10 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:body, :parent_id)
+    params.require(:comment).permit(:body, :parent_id).merge(user_id: current_user.id)
   end
 
-  def set_commentable
-    @commentable = find_commentable
-  end
-
-  def find_commentable
-    Ticket.find(params[:ticket_id]) if params[:ticket_id]
+  def commentable
+    @commentable ||= Ticket.find(params[:ticket_id])
   end
 end

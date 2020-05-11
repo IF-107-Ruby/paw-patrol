@@ -42,6 +42,10 @@ class User < ApplicationRecord
     role == 'company_owner'
   end
 
+  def responsible_for?(unit)
+    self.id = unit.responsible_user_id
+  end
+
   def self.grouped_collection_by_role
     {
       'admin' => User.where(admin: true),

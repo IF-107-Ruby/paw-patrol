@@ -3,12 +3,12 @@ $('#comments-list').html('<%= escape_javascript(render('shared/comments/nested_c
 
 
 <% if @comment.parent_id %>
-  <% if @comment.save %>  
+  <% if @comment.valid? %>  
     $("#reply-comment-<%= @comment.parent_id %>").find("#new-comment").find('#comment-status').addClass("success");
     $("#reply-comment-<%= @comment.parent_id %>").find("#new-comment").find('#comment-status').html("Comment has been saved").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
   <% end %>
 <% else %>
-   <% if @comment.save %>
+   <% if @comment.valid? %>
     $("#new-comment").find('#comment-status').addClass("success");
     $("#new-comment").find('#comment-status').html("Comment has been saved").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
   <% else %>

@@ -1,14 +1,14 @@
 class CommentPolicy < ApplicationPolicy
   def new?
-    user == record.commentable.user || user == record.commentable.unit.responsible_user
+    record.commentable.belongs_to?(user) || user.responsible_for?(record.commentable.unit)
   end
 
   def create?
-    user == record.commentable.user || user == record.commentable.unit.responsible_user
+    record.commentable.belongs_to?(user) || user.responsible_for?(record.commentable.unit)
   end
 
   def destroy?
-    user == record.user
+    record.belongs_to?(user)
   end
 
   class Scope < Scope
