@@ -43,7 +43,7 @@ class User < ApplicationRecord
   end
 
   def responsible_for?(unit)
-    self.id = unit.responsible_user_id
+    id == unit.responsible_user_id
   end
 
   def self.grouped_collection_by_role

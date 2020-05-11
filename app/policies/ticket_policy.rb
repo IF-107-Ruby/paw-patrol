@@ -9,7 +9,7 @@ class TicketPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.all
+      Ticket.where(unit_id: user.company.unit_ids)
     end
   end
 end
