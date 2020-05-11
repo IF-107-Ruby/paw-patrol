@@ -1,0 +1,24 @@
+section.reviews-index
+  .dashboard-headline
+    h2 Reviews
+    = render 'breadcrumbs'
+  .row
+    .col-md-12
+      .dashboard-box
+        .headline
+          h3
+            i.icon-material-outline-business
+            | Rate Employers
+        .content
+          ul.dashboard-box-list
+            - @tickets.each do |ticket|
+              li
+                .boxed-list-item
+                  .item-content
+                    h4 = ticket.name
+                    span.company-not-rated.margin-bottom-5
+                      | Not Rated
+                a.popup-with-zoom-anim.button.ripple-effect.margin-top-5.margin-bottom-10 href="#small-dialog-2"
+                  i.icon-material-outline-thumb-up
+                  | Leave a Review
+= render 'form'

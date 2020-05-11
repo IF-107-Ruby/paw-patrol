@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :tickets, only: %i[show new create] do
     resources :comments
   end
+  resources :reviews, only: %i[index create]
 
   # Using :match so that error pages work for all types of requests, not just GET.
   match '/404', to: 'errors#not_found', via: :all
