@@ -41,7 +41,7 @@ feature 'EmployeeAddComment' do
       find("#reply_comment_#{comment.id}").click
       using_wait_time 2 do
         fill_in id: 'comment_body', with: 'Reply to test comment'
-        click_on 'Reply'
+        find('input[name="commit"]').click
       end
     end
     wait_for_ajax
