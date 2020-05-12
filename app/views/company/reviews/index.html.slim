@@ -7,7 +7,7 @@ section.reviews-index
           h3
             i.icon-material-outline-business
             | Rate Employers
-        .content
+        .content.with-padding.overflow-hidden
           ul.dashboard-box-list
             - @tickets.each do |ticket|
               li
@@ -16,7 +16,8 @@ section.reviews-index
                     h4 = ticket.name
                     span.company-not-rated.margin-bottom-5
                       | Not Rated
-                a.popup-with-zoom-anim.button.ripple-effect.margin-top-5.margin-bottom-10 href="#small-dialog-2"
+                = link_to new_company_ticket_review_path(ticket.id), class: "button ripple-effect margin-top-5 margin-bottom-10" do
                   i.icon-material-outline-thumb-up
                   | Leave a Review
-= render 'form'
+
+          = render partial: 'shared/pagination', locals: { pagy: @pagy }
