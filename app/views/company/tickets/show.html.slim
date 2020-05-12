@@ -1,9 +1,11 @@
 - provide(:headline, @ticket.name)
 
 .row
-  .col-xl-12
+  .col-xl-9
     .dashboard-box.margin-top-0
       .headline
+      span.status value="#{@ticket.display_status}"
+        = @ticket.display_status
         .d-flex.justify-content-between
           h3
             i.icon-material-outline-description

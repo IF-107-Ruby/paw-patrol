@@ -668,7 +668,7 @@
     userMenuScrollbar();
 
     /*--------------------------------------------------*/
-    /*  Tippy JS 
+    /*  Tippy JS
 	/*--------------------------------------------------*/
     /* global tippy */
     tippy("[data-tippy-placement]", {
@@ -1217,6 +1217,7 @@
     /*----------------------------------------------------*/
     /*  Indicator Bar
     /*----------------------------------------------------*/
+
     $(".indicator-bar").each(function () {
       var indicatorLenght = $(this).attr("data-indicator-percentage");
       $(this)
@@ -1225,6 +1226,14 @@
           width: indicatorLenght + "%",
         });
     });
+
+		/*----------------------------------------------------*/
+		/*  Complete Ticket Button
+		/*----------------------------------------------------*/
+
+		$('.complete-ticket-button').click(() => {
+			$('.ticket-completion-form').toggle();
+		});
 
     /*----------------------------------------------------*/
     /*  Custom Upload Button

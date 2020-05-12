@@ -1,0 +1,34 @@
+// Place all the styles related to the TicketSolutions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+span.status {
+  font-size: 18px;
+  font-family: 'Montserrat',sans-serif;
+
+ &[value~="Open"] {
+  color: #2a41e8;
+  }
+
+ &[value~="Closed"] {
+  color: #40b660;
+  }
+}
+
+.green-ticket-completion-form-icon {
+  color: #40b660 !important;
+}
+
+.ticket-completion-form {
+  display: none;
+}
+
+.complete-ticket-button {
+  background-color: #40b660 !important;
+  font-size: 16px !important;
+  padding: 8px 20px !important;
+  &:hover {
+    background-color: #707070 !important;
+    color: #fff !important;
+    box-shadow: none;
+  }
+}
