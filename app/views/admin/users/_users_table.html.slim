@@ -1,0 +1,9 @@
+table.basic-table
+  thead
+    tr
+      th Full name
+      th Company
+      th Role
+      th
+  tbody
+    = render partial: 'user_row', collection: users, as: :user

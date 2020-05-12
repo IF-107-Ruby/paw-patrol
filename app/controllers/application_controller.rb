@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     !current_user.is_a?(Guest)
   end
 
+  impersonates :user,
+               method: :current_user,
+               with: ->(id) { User.find_by(id: id).decorate }
+
   private
 
   def pagy_decorated(*args)

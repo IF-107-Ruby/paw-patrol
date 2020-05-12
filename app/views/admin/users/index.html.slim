@@ -1,0 +1,8 @@
+- provide(:headline, "Users")
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .content.with-padding.overflow-hidden
+        = render partial: 'users_table', locals: { users: @users }
+        = render partial: 'shared/pagination', locals: { pagy: @pagy }

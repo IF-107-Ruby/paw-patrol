@@ -1,0 +1,8 @@
+- provide(:headline, "Feedbacks")
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .content.with-padding.overflow-hidden
+        = render partial: 'feedbacks_table', locals: { feedbacks: @feedbacks }
+        = render partial: 'shared/pagination', locals: { pagy: @pagy }

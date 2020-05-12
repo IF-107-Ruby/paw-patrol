@@ -1,0 +1,43 @@
+- provide(:headline, "Update user")
+
+= form_for @user, url: admin_user_path do |f|
+  .row
+    .col-xl-12
+      = render 'shared/error_messages', object: f.object
+    .col-xl-12
+      .dashboard-box.margin-top-0
+        .headline
+          h3
+            i.icon-feather-edit
+            = "Update #{@user.full_name} profile"
+        .content.with-padding.padding-bottom-0
+          .row
+            .col-auto
+              .avatar-wrapper data-tippy-placement="bottom" title=("Add Avatar")
+                = image_tag "user-avatar-placeholder.png", class: "profile-pic"
+                .upload-button
+                input.file-upload accept="image/*" type="file" /
+            .col
+              .row
+                .col-xl-8
+                  .submit-field
+                    h5 First Name
+                    = f.text_field :first_name, placeholder: 'First name', class: 'with-border'
+                .col-xl-8
+                  .submit-field
+                    h5 Last Name
+                    = f.text_field :last_name, placeholder: 'Last name', class: 'with-border'
+                .col-xl-8
+                  .submit-field
+                    h5 Email
+                    = f.email_field :email, placeholder: 'user@domain.com', class: 'with-border'
+    .col-xl-12
+      .row
+        .col-auto
+          = button_tag type: "submit", class: 'button ripple-effect button-sliding-icon big margin-top-30'
+            | Update user
+            i.icon-feather-check
+        .col-auto
+          = link_to admin_user_path, class: 'button dark ripple-effect button-sliding-icon big margin-top-30'
+            | Cancel  
+            i.icon-feather-x

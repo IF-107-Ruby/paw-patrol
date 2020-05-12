@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FeedbackPolicy, type: :policy do
+RSpec.describe Admin::FeedbackPolicy, type: :policy do
   let(:user) { create(:user) }
   let(:admin) { create(:admin) }
 
@@ -23,13 +23,6 @@ RSpec.describe FeedbackPolicy, type: :policy do
 
     it 'denied access' do
       expect(subject).not_to permit(user)
-    end
-  end
-
-  permissions :create? do
-    it 'grant access' do
-      expect(subject).to permit(admin)
-      expect(subject).to permit(user)
     end
   end
 

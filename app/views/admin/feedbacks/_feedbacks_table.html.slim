@@ -1,0 +1,10 @@
+table.basic-table
+  thead
+    tr
+      th Author
+      th Email
+      th Message
+      th Created
+      th
+  tbody
+    = render partial: 'feedback_row', collection: feedbacks, as: :feedback
