@@ -14,4 +14,8 @@ class TicketDecorator < Draper::Decorator
   def display_status
     status.humanize
   end
+
+  def ticket_complation_description
+    ticket_completion.description
+  end
 end
