@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Unit, type: :model do
   let(:unit) { FactoryBot.create(:unit, :with_children, name: 'Parent unit') }
-  let(:responsible_user) { create(:staff_member) }
 
   describe 'Associations' do
     it { is_expected.to belong_to(:company) }

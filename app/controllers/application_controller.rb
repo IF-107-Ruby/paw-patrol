@@ -32,11 +32,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_company
-    @current_company ||= current_user.company
+    @current_company ||= (current_user.company || NullCompany.new).decorate
   end
 
   def after_sign_in_path_for(resource)
-    dashboard_path = resource.admin? ? admin_dashboard_path : root_path
-    stored_location_for(resource) || dashboard_path
+    stored_location_for(resource) || resource.decorate.after_sign_in_path
   end
 end

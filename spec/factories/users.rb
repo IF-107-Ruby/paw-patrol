@@ -34,14 +34,14 @@ FactoryBot.define do
   end
 
   factory :company_owner, parent: :user do
-    role { 0 }
+    role { :company_owner }
   end
 
   factory :employee, parent: :user do
-    role { 1 }
+    role { :employee }
   end
 
   factory :staff_member, parent: :user do
-    role { 2 }
+    role { :staff_member }
   end
 end

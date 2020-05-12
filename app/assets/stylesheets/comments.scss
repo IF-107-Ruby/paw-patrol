@@ -3,12 +3,11 @@
     padding-top: 40px;
     padding-bottom: 20px;
     h3 {
-      color:#2a41e8;
+      color: #2a41e8;
     }
   }
   .comment-author {
     margin-top: 10px;
-    border-top: 2px solid #f4f4f4;
     padding-top: 10px;
   }
   #new-comment-form {
@@ -18,7 +17,7 @@
     background-color: white;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    padding: 12px 18px;
+    padding: 12px 0px;
     color: #666;
     a {
       color: #666;
@@ -36,7 +35,7 @@
     justify-content: flex-end;
   }
   .reply-button {
-    width: 100%;
+    display: inline-block;
     cursor: pointer;
   }
 }
@@ -66,7 +65,7 @@
   padding: 7px 20px;
   border-radius: 4px;
   color: white;
-  box-shadow: 0 4px 12px rgba(42,65,232,.15);
+  box-shadow: 0 4px 12px rgba(42, 65, 232, 0.15);
 }
 
 #comment-status {

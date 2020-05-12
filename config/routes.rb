@@ -5,6 +5,21 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :company do
+    get '/', to: 'companies#show'
+    get 'edit', to: 'companies#edit'
+    patch 'edit', to: 'companies#update'
+    get 'dashboard', to: 'dashboards#show'
+    resources :users
+    resources :units do
+      resources :room_employees, only: :index
+      resources :children, controller: :units_children, only: :index
+    end
+    resources :tickets, only: %i[show new create] do
+      resources :comments
+    end
+  end
+
   devise_for :users, path: '', only: :sessions, controllers: {
     sessions: 'users/sessions'
   }
@@ -13,19 +28,16 @@ Rails.application.routes.draw do
   get  '/about', to: 'static_pages#about'
   get  '/services', to: 'static_pages#services'
   get  '/contact', to: 'feedbacks#new'
-  get  '/sign_up', to: 'companies#new'
-  post '/sign_up', to: 'companies#create'
+
+  unauthenticated do
+    get  '/sign_up', to: 'companies#new'
+    post '/sign_up', to: 'companies#create'
+  end
 
   resources :companies
-  resources :units do
-    resources :room_employees, only: :index
-  end
+  resources :units
   resources :feedbacks, only: %i[index show create destroy]
   resources :users
-  resources :tickets, only: %i[show new create] do
-    resources :comments
-  end
-  resources :reviews, only: %i[index create]
 
   # Using :match so that error pages work for all types of requests, not just GET.
   match '/404', to: 'errors#not_found', via: :all

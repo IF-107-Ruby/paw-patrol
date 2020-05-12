@@ -3,7 +3,7 @@
     .row
       .col-md-12
         h2 Contact
-        = render 'breadcrumbs'
+        = render Breadcrumbs.new(request)
 .container
   = render "hireo_flash"
   .row

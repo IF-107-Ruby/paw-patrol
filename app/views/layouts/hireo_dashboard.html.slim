@@ -6,18 +6,18 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'hireo'
-    = javascript_pack_tag 'application'
+    = javascript_pack_tag 'hireo'
     = javascript_include_tag "hireo"
     = render 'layouts/meta'
   body.gray
     #wrapper
       = render 'hireo_header'
       .dashboard-container
-        = render 'admin/base/hireo_sidebar'
-        / = render 'hireo_sidebar'
+        = render 'hireo_sidebar'
         .dashboard-content-container data-simplebar=""
           .dashboard-content-inner
             = render 'hireo_flash'
+            = render 'dashboard_headline'
             = yield
             .dashboard-footer-spacer
             = render 'small_hireo_footer'

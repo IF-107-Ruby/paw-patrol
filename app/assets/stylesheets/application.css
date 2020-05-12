@@ -21,6 +21,4 @@
  *= require units
  *= require users
  *= require tickets
- *=require users_invitation_email
- *= require comments
  */

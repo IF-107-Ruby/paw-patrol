@@ -4,13 +4,13 @@
   h3.mb-2 Company information
   .input-with-icon-left
     i.icon-material-outline-info
-    = f.text_field :company_name, class: 'input-text with-border', label: 'Company name', placeholder: 'Please enter company name'
+    = f.text_field :name, class: 'input-text with-border', label: 'Company name', placeholder: 'Please enter company name'
   .input-with-icon-left
     i.icon-material-outline-description
     = f.text_field :description, class: 'input-text with-border' , placeholder: 'Tell us more about your company'
   .input-with-icon-left
     i.icon-material-baseline-mail-outline
-    = f.email_field :company_email, class: 'input-text with-border', placeholder: 'example@domain.com'
+    = f.email_field :email, class: 'input-text with-border', placeholder: 'example@domain.com'
   .input-with-icon-left
     i.icon-feather-phone
     = f.text_field :phone, class: 'input-text with-border', id: 'phone', placeholder: '+380000000000'

@@ -50,7 +50,7 @@ class CompaniesController < ApplicationController
   def company_registration_params
     params
       .require(:company_registrations_form)
-      .permit(:company_name, :description, :company_email,
+      .permit(:name, :description, :email,
               :phone, :first_name, :last_name,
               :user_email, :password, :password_confirmation)
   end

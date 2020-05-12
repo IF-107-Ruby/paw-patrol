@@ -20,7 +20,12 @@ FactoryBot.define do
     trait :with_parent do
       after(:build) do |o|
         o.parent = create(:unit, company: o.company)
-        o.save
+      end
+    end
+
+    trait :with_responsible_user do
+      after(:build) do |o|
+        o.responsible_user = create(:staff_member, company: o.company, units: [o])
       end
     end
 
@@ -56,7 +61,9 @@ FactoryBot.define do
 
       after(:create) do |unit|
         unit.users.each do |user|
-          create_list(:ticket, 5, user: user, unit: unit)
+          5.times do
+            create(:ticket, :with_comments, user: user, unit: unit)
+          end
         end
       end
     end
