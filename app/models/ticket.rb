@@ -13,12 +13,16 @@
 class Ticket < ApplicationRecord
   enum status: { open: 0, resolved: 1 }
 
+  after_create :send_ticket_notification
+
   belongs_to :user
   belongs_to :unit
   has_one :review, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
+  has_one :ticket_completion, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :user, :unit, :description, presence: true
   validates :name, presence: true, length: { in: 6..50 }
@@ -43,6 +47,10 @@ class Ticket < ApplicationRecord
 
   def reviewed?
     review.present?
+  end
+
+  def resolved?
+    status == 'closed'
   end
 
   private
