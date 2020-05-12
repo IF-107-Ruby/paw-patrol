@@ -3,7 +3,7 @@ class TicketMailer < ApplicationMailer
     @ticket = ticket
     @responsible_user = ticket.unit.responsible_user
     @root_url = root_url
-    @url = ticket_url(@ticket)
+    @url = company_ticket_url(@ticket)
 
     mail(to: @responsible_user.email, subject: 'New ticket')
   end
