@@ -1,7 +1,7 @@
 tr
   td = user.full_name
-  td = user_company_name(user)
-  td = user_role_string(user)
+  td = user.company_name
+  td = user.display_role
   td
     .d-flex.justify-content-end
       = link_to admin_user_path(user)

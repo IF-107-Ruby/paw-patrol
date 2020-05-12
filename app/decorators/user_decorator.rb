@@ -17,5 +17,9 @@ class UserDecorator < Draper::Decorator
     admin? ? h.admin_dashboard_path : h.company_dashboard_path
   end
 
+  def role_at_company
+    "#{display_role} at #{company_name}"
+  end
+
   delegate :name, to: :company, prefix: true
 end

@@ -8,10 +8,6 @@ module Admin
       user.admin?
     end
 
-    def edit?
-      user.admin? && user == record
-    end
-
     def update?
       user.admin? && user == record
     end
