@@ -26,6 +26,10 @@
                 i.icon-material-outline-business
                 | Units
             - if current_user.can_create_ticket?
+              li class="#{active_path(company_reviews_path)}"
+                = link_to company_reviews_path
+                  i.icon-material-outline-rate-review
+                  | Reviews
               li class="#{active_path(new_company_ticket_path)}"
                 = link_to new_company_ticket_path
                   i.icon-material-outline-library-add
