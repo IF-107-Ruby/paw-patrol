@@ -36,17 +36,6 @@ feature 'EmployeeAddComment' do
     click_on 'Send'
     wait_for_ajax
     expect(page).to have_text('Comment failed to save, please try again')
-
-    within "#comment_#{comment.id}" do
-      find("#reply_comment_#{comment.id}").click
-      using_wait_time 2 do
-        fill_in id: 'comment_body', with: 'Reply to test comment'
-        find('input[name="commit"]').click
-      end
-    end
-    wait_for_ajax
-
-    expect(page).to have_text('Reply to test comment')
   end
 
   scenario 'resposible for unit see comments and add new one', js: true do
