@@ -1,0 +1,45 @@
+.dashboard-sidebar
+  .dashboard-sidebar-inner data-simplebar="" 
+    .dashboard-nav-container
+      a.dashboard-responsive-nav-trigger href="#" 
+        span.hamburger.hamburger--collapse
+          span.hamburger-box
+            span.hamburger-inner
+        span.trigger-title Dashboard Navigation
+      .dashboard-nav
+        .dashboard-nav-inner
+          ul data-submenu-title="Start"
+            li class="#{active_path(company_dashboard_path)}"
+              = link_to company_dashboard_path
+                i.icon-material-outline-dashboard
+                | Dashboard            
+            li class="#{active_path(company_path)}"
+              = link_to company_path
+                i.icon-material-outline-business-center
+                | Company
+            li class="#{active_path(company_users_path)}"
+              = link_to company_users_path
+                i.icon-material-outline-group
+                | Users
+            li class="#{active_path(company_units_path)}"
+              = link_to company_units_path
+                i.icon-material-outline-business
+                | Units
+            - if current_user.can_create_ticket?
+              li class="#{active_path(new_company_ticket_path)}"
+                = link_to new_company_ticket_path
+                  i.icon-material-outline-library-add
+                  | Add ticket
+          ul data-submenu-title="Account" 
+            li class="#{active_path(user_path(current_user))}"
+              = link_to current_user
+                i.icon-feather-user
+                | Profile
+            li class="#{active_path("#")}"
+              a href="#" 
+                i.icon-material-outline-settings
+                | Settings
+            li
+              = link_to destroy_user_session_path, method: :delete
+                i.icon-material-outline-power-settings-new
+                | Logout

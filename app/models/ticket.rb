@@ -24,6 +24,8 @@ class Ticket < ApplicationRecord
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
 
+  scope :most_recent, -> { order(created_at: :desc) }
+
   def description_attachments
     description.body.attachments
   end

@@ -38,9 +38,10 @@ class User < ApplicationRecord
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
 
-  def company_owner?
-    role == 'company_owner'
-  end
+  scope :admins, -> { where(admin: true) }
+  scope :company_owners, -> { where(role: :company_owner) }
+  scope :employees, -> { where(role: :employee) }
+  scope :staff_members, -> { where(role: :staff_member) }
 
   def responsible_for?(unit)
     id == unit.responsible_user_id
@@ -48,11 +49,19 @@ class User < ApplicationRecord
 
   def self.grouped_collection_by_role
     {
-      'admin' => User.where(admin: true),
-      'company_owner' => User.where(role: 0),
-      'employee' => User.where(role: 1),
-      'staff_member' => User.where(role: 2)
+      'admin' => User.admins,
+      'company_owner' => User.company_owners,
+      'employee' => User.employees,
+      'staff_member' => User.staff_members
     }
+  end
+
+  def can_create_ticket?
+    company_owner? || employee?
+  end
+
+  def company?
+    company.present?
   end
 
   private

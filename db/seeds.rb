@@ -14,7 +14,7 @@ if User.count.zero?
                                     password_confirmation: '123456')
 end
 
-10.times do
+5.times do
   FactoryBot.create(:company_owner, :with_company)
 end
 
@@ -26,12 +26,9 @@ Company.all.each do |company|
   10.times do
     FactoryBot.create(:unit,
                       :with_parent,
+                      :with_responsible_user,
                       :with_children,
                       :with_employees_and_tickets,
                       company: company)
-  end
-
-  3.times do
-    FactoryBot.create(:staff_member, company: company)
   end
 end

@@ -1,0 +1,40 @@
+- provide(:headline, "View Company")
+
+.dashboard-box
+  .content
+    ul.fields-ul
+      li
+        .row.margin-bottom-60.justify-content-between
+          .col-auto
+            .row.align-items-center
+              .col-auto
+                .avatar-wrapper
+                  = image_tag "placeholder.com-logo1.png", class: "profile-pic"
+              .col-auto
+                .company-details
+                  h3 = current_company.name
+                  ul
+                    li
+                      = mail_to current_company.email
+                        i.icon-material-outline-email
+                        = current_company.email
+                    li
+                      = link_to "tel:#{current_company.phone}"
+                        i.icon-line-awesome-phone-square
+                        = current_company.phone
+                    li
+                      = link_to company_users_path
+                        i.icon-material-outline-group
+                        = current_company.users_count
+          - if current_user.company_owner?
+            .col-auto.icon-links.align-self-start
+              = link_to company_edit_path
+                i.icon-feather-edit
+      li
+        .row
+          .col-md-8
+            .single-page-section
+              h3.margin-bottom-25
+                | About Company
+              p
+                = current_company.description

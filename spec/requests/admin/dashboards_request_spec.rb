@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin::Dashboards', type: :request do
-  describe 'GET /index' do
+  describe 'GET /admin' do
     let(:admin) { create(:admin) }
     let(:user) { create(:user) }
 

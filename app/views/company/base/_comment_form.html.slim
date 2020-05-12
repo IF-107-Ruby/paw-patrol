@@ -1,0 +1,5 @@
+= form_for [:company, commentable, Comment.new], remote: true, class: js_form_class, html: { id: js_form_id } do |f|
+  #comment-status
+  = f.hidden_field :parent_id, value: parent_id
+  = f.text_area :body, label: false, placeholder: "Add a comment", rows: 2, cols: 5, class: 'with-border'
+  = f.submit submit_label, class: 'margin-top-10 button ripple-effect'

@@ -3,8 +3,7 @@
     li
       a href="/"
         | Home
-    - request_path_components.inject('') do |prev, current|
-      li
-        a href="#{join_paths(prev, current)}"
-          = current.humanize.capitalize
-      - join_paths(prev, current)
+    - breadcrumbs.previous_routes.each do |route|
+      li = link_to route.name, route.path
+    li
+      = breadcrumbs.current_route_name

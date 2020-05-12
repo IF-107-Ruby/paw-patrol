@@ -1,0 +1,21 @@
+- link = pagy_link_proc(pagy, 'class="ripple-effect"')
+- current_link = pagy_link_proc(pagy, 'class="ripple-effect current-page"')
+- unless pagy.count <= pagy.items
+  .clearfix
+  .pagination-container.margin-top-20.margin-bottom-20
+    nav.pagination role="navigation" aria-label="pager"
+      ul
+        - if pagy.prev
+          li.pagination-arrow == link.call(pagy.prev, '<i class="icon-material-outline-keyboard-arrow-left"></i>'.html_safe)
+        - pagy.series.each do |item|
+          - if item.is_a?(Integer)
+            li == link.call(item)
+
+          - elsif item.is_a?(String)
+            li == current_link.call(item)
+          - elsif item == :gap
+            li
+              a.ripple-effect href="#" == pagy_t('pagy.nav.gap')
+        - if pagy.next
+          li.pagination-arrow == link.call(pagy.next, '<i class="icon-material-outline-keyboard-arrow-right"></i>'.html_safe)
+  .clearfix

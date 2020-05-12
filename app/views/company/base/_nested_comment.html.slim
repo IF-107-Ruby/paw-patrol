@@ -1,0 +1,5 @@
+ul
+  - comments.each do |comment, sub_comment|
+    li class='reply-comment-wrapper'
+      = render 'comment', comment: comment, commentable: commentable
+    = render 'nested_comment', comments: sub_comment, commentable: commentable

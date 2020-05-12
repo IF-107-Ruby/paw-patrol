@@ -1,0 +1,20 @@
+$('#new-comment-form').html('<%= escape_javascript(render('comment_form', commentable: @commentable, submit_label: 'Send', parent_id: nil, js_form_class: 'js-new-comment', js_form_id: 'new-comment')) %>');
+$('#comments-list').html('<%= escape_javascript(render('nested_comment', commentable: @commentable, comments: @commentable.comments.arrange )) %>');
+
+
+<% if @comment.parent_id %>
+  <% if @comment.valid? %>  
+    var $replyCommentStatus = $("#reply-comment-<%= @comment.parent_id %>").find("#new-comment").find('#comment-status')
+    $replyCommentStatus.addClass("success");
+    $replyCommentStatus.html("Comment has been saved").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
+  <% end %>
+<% else %>
+  var $commentStatus = $("#new-comment").find('#comment-status')
+   <% if @comment.valid? %>
+    $commentStatus.addClass("success");
+    $commentStatus.html("Comment has been saved").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
+  <% else %>
+    $commentStatus.addClass("warning");
+    $commentStatus.html("Comment failed to save, please try again").delay(1000).fadeIn('slow').delay(2000).fadeOut('slow');
+  <% end %>
+<% end %>

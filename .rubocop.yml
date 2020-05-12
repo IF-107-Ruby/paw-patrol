@@ -22,6 +22,7 @@ Metrics/BlockLength:
     - "db/schema.rb"
     - "lib/tasks/auto_annotate_models.rake"
     - "config/environments/*.rb"    
+    - "config/routes.rb"
 
 Metrics/MethodLength:
   Exclude:
