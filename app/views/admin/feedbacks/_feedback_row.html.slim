@@ -2,7 +2,7 @@ tr
   td = feedback.user_full_name
   td = feedback.email
   td = feedback.message.truncate(50)
-  td = created_time_ago(feedback)
+  td = feedback.created_time_ago
   td
     .d-flex.justify-content-end
       = link_to admin_feedback_path(feedback)

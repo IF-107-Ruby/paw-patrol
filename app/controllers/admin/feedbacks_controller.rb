@@ -5,7 +5,7 @@ module Admin
 
     def index
       authorize([:admin, Feedback])
-      @pagy, @feedbacks = pagy(Feedback.all.ordered_by_created_at, items: 10)
+      @pagy, @feedbacks = pagy_decorated(Feedback.all.ordered_by_created_at, items: 10)
     end
 
     def show; end
@@ -20,7 +20,7 @@ module Admin
 
     def find_feedback_by_id
       authorize([:admin, Feedback])
-      @feedback = Feedback.find(params[:id])
+      @feedback = Feedback.find(params[:id]).decorate
     end
 
     def feedback_params
