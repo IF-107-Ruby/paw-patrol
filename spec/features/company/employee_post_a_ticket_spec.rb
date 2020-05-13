@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 feature 'EmployeePostATicket' do
-  let!(:company) { create(:company) }
-  let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:employee) { unit.users.first }
+  include_context 'employee with ticket'
   let(:ticket_attributes) { FactoryBot.attributes_for :ticket }
 
   before do

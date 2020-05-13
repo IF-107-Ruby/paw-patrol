@@ -1,11 +1,8 @@
 require 'rails_helper'
 
 describe Company::TicketsController, type: :controller do
-  let!(:company) { create(:company) }
-  let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
+  include_context 'employee with ticket'
   let!(:user) { create(:staff_member, company: company) }
-  let!(:employee) { unit.users.first }
-  let!(:ticket) { unit.tickets.first }
 
   describe 'GET #show' do
     before do

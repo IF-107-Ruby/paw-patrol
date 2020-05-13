@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-  let!(:company) { create(:company) }
-  let!(:unit) { create(:unit, :with_employees_and_tickets, company: company) }
-  let!(:ticket) { unit.tickets.first }
+  include_context 'employee with ticket'
 
   describe 'Associations' do
     it { expect(ticket).to belong_to(:user) }
