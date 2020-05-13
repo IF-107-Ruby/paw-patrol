@@ -1,5 +1,3 @@
-require 'factory_bot_rails'
-
 if User.count.zero?
   FactoryBot.create(:admin,
                     email: 'patrol.admin@gmail.com',
@@ -14,21 +12,16 @@ if User.count.zero?
                                     password_confirmation: '123456')
 end
 
-5.times do
-  FactoryBot.create(:company_owner, :with_company)
-end
-
-50.times do
-  FactoryBot.create :feedback
-end
+FactoryBot.create_list(:company_owner, 5, :with_company)
 
 Company.all.each do |company|
-  10.times do
-    FactoryBot.create(:unit,
-                      :with_parent,
-                      :with_responsible_user,
-                      :with_children,
-                      :with_employees_and_tickets,
-                      company: company)
-  end
+  FactoryBot.create_list(:unit,
+                         10,
+                         :with_parent,
+                         :with_responsible_user,
+                         :with_children,
+                         :with_employees_and_tickets,
+                         company: company)
 end
+
+FactoryBot.create_list(:feedback, 50)
