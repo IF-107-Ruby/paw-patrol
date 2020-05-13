@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Ticket < ApplicationRecord
-  after_create :inform_responsible_user
+  after_create :send_ticket_notification
 
   has_many :comments, as: :commentable, dependent: :destroy
   belongs_to :user
@@ -45,7 +45,7 @@ class Ticket < ApplicationRecord
     errors.add(:unit, 'user is not allowed to create a ticket for this unit')
   end
 
-  def inform_responsible_user
-    SendNewTicketJob.perform_later(id) if unit.responsible_user
+  def send_ticket_notification
+    SendNewTicketEmailJob.perform_later(id, unit.responsible_user.present?)
   end
 end

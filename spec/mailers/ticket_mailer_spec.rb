@@ -1,23 +1,51 @@
 require 'rails_helper'
 
 RSpec.describe TicketMailer, type: :mailer do
-  describe 'ivivation email' do
-    let!(:company) { create(:company) }
-    let!(:responsible_user) { create(:staff_member, :with_company, company: company) }
-    let!(:unit) do
-      create(:unit, :with_employee_and_ticket, company: company,
-                                               responsible_user_id: responsible_user.id)
+  let!(:company) { create(:company) }
+
+  describe 'inform responsible user about new ticket' do
+    let(:unit_with_responsible_user) do
+      create(:unit, :with_responsible_user, :with_employee_and_ticket, company: company)
     end
-    let!(:employee) { unit.users.first }
-    let!(:ticket) { create(:ticket, unit: unit, user: employee) }
+    let(:responsible_user) { unit_with_responsible_user.responsible_user }
+    let!(:employee) { unit_with_responsible_user.users.last }
+    let!(:ticket) { create(:ticket, unit: unit_with_responsible_user, user: employee) }
     let!(:mail) { described_class.new_ticket_email(ticket) }
 
     it 'renders the subject' do
-      expect(mail.subject).to eql('New ticket')
+      expect(mail.subject).to eql('New ticket created')
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([unit.responsible_user.email])
+      expect(mail.to).to eql([unit_with_responsible_user.responsible_user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['roompassport@example.com'])
+    end
+
+    it 'assigns ticket name' do
+      expect(mail.body.encoded).to match(ticket.name)
+    end
+
+    it 'assigns unit name' do
+      expect(mail.body.encoded).to match(ticket.unit.name)
+    end
+  end
+
+  describe 'inform company owner about new ticket' do
+    let!(:company_owner) { create(:company_owner, company: company) }
+    let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
+    let!(:employee) { unit.users.last }
+    let!(:ticket) { create(:ticket, unit: unit, user: employee) }
+    let!(:mail) { described_class.assign_responsible_user_email(ticket) }
+
+    it 'renders the subject' do
+      expect(mail.subject).to eql('Assign responsible user')
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([company_owner.email])
     end
 
     it 'renders the sender email' do
