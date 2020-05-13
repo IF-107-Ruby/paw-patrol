@@ -33,7 +33,7 @@ html
               h4.mail-text 
                 | Click 
                 '
-                a href="#{@url}" here
+                = link_to 'here', company_ticket_url(@ticket)
                 '
                 | to find more about the ticket.
             br
@@ -46,5 +46,6 @@ html
             h6.padding-bottom-30.padding-top-30
               | Made by
               '
-              a href="#{@root_url}" ROOM PASSPORT
+              = link_to 'ROOM PASSPORT', root_url
+
 
