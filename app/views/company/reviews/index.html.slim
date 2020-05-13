@@ -14,8 +14,7 @@ section.reviews-index
                 .boxed-list-item
                   .item-content
                     h4 = ticket.name
-                    span.company-not-rated.margin-bottom-5
-                      | Not Rated
+                    = ticket_reviewable_status
                 = review_action_link(ticket)
 
           = render partial: 'shared/pagination', locals: { pagy: @pagy }
