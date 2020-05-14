@@ -20,15 +20,14 @@
             i.icon-material-outline-location-on.mr-1
             = @event.place
           - if @event.ticket.present?
-            .attachet-ticket
-              li
-                i.icon-feather-paperclip.mr-1
-                = link_to @event.ticket_name, [:company, @event.ticket]
+            li
+              i.icon-feather-paperclip.mr-1
+              = @event.attachment
           li 
             i.icon-feather-clock.mr-1
             = @event.timespan
           li
             i.icon-feather-user.mr-1
-            = @event.planed_by
+            = @event.planned_by
       #register.popup-tab-content
         = render 'form', event: @event

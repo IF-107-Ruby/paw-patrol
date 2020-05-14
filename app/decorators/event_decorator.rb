@@ -12,7 +12,11 @@ class EventDecorator < Draper::Decorator
     "From #{starts_at.to_formatted_s(:short)} to #{ends_at.to_formatted_s(:short)}"
   end
 
-  def planed_by
-    h.link_to(user.full_name, [:company, user])
+  def attachment
+    'Attached: '.html_safe + h.link_to(ticket_name, [:company, ticket])
+  end
+
+  def planned_by
+    'Planned by '.html_safe + h.link_to(user.full_name, [:company, user])
   end
 end

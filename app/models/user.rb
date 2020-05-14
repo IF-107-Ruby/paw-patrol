@@ -60,6 +60,14 @@ class User < ApplicationRecord
     }
   end
 
+  def can_create_ticket?
+    company_owner? || employee?
+  end
+
+  def can_manage_unit_events?(unit)
+    company_owner? || self == unit.responsible_user
+  end
+
   def company?
     company.present?
   end

@@ -10,4 +10,3 @@ json.allDay event.all_day_event? ? true : false
 
 json.show_url company_unit_event_url(event.unit, event)
 json.update_url company_unit_event_url(event.unit, event, method: :patch)
-json.edit_url edit_company_unit_event_path(event.unit, event)

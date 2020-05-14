@@ -6,6 +6,7 @@ class Company
 
     def index
       @events = selected_events
+      authorize([:company, @events])
       respond_to do |format|
         format.json
       end
@@ -19,6 +20,7 @@ class Company
 
     def new
       @event = @unit.events.build
+      authorize([:company, @event])
       respond_to do |format|
         format.js
       end
@@ -26,6 +28,7 @@ class Company
 
     def create
       @event = @unit.events.build(event_params)
+      authorize([:company, @event])
       @event.save
       respond_to do |format|
         format.js { formats << :json }
@@ -33,7 +36,6 @@ class Company
     end
 
     def update
-      @event = @unit.events.find(params[:id])
       @event.update(event_params)
       respond_to do |format|
         format.js
@@ -61,11 +63,12 @@ class Company
 
     def obtain_unit
       @unit = units_base_relation.find(params[:unit_id])
-      authorize([:company, @unit])
+      authorize([:company, @unit], :show?)
     end
 
     def obtain_event
       @event = @unit.events.find(params[:id]).decorate
+      authorize([:company, @event])
     end
 
     def units_base_relation
