@@ -1,5 +1,9 @@
 - if yield(:headline).present?
   .dashboard-headline
-    h3 = yield(:headline)
+    h3.ticket-name
+      = yield(:headline)
+    - if yield(:status).present?
+      span.status value="#{yield(:status)}"
+       = yield(:status)
 
     = render Breadcrumbs.new(request)

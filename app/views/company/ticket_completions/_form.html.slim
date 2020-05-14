@@ -1,0 +1,18 @@
+= form_for @ticket_completion, method: :post, url: company_ticket_completion_index_path(@ticket, @ticket_completion) do |f|
+  .row
+    .col-md-12
+      .dashboard-box.mt-0
+        #ticket-completion--status
+        .headline
+          h3
+            i.icon-feather-folder-plus.green-ticket-completion-form-icon
+            | Ticket Completion
+        .content.with-padding
+          .col-12
+            = render 'shared/error_messages', object: f.object
+            .submit-field
+              h5.pb-2 Describe ticket completion
+              = f.rich_text_area :description
+
+  = f.button(:submit, class: 'button margin-top-30 complete-ticket-button') do
+    | Resolve ticket

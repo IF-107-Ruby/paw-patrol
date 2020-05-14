@@ -1,20 +1,25 @@
 - provide(:headline, @ticket.name)
-
+- provide(:status, @ticket.display_status)
 .row
-  .col-xl-9
+  .col-xl-12
     .dashboard-box.margin-top-0
       .headline
-      span.status value="#{@ticket.display_status}"
-        = @ticket.display_status
         .d-flex.justify-content-between
           h3
             i.icon-material-outline-description
             | Description
+          - unless @ticket.resolved?
+            a href='#{new_company_ticket_completion_url(@ticket)}'
+              i.icon-material-outline-check-circle.complete-ticket-icon
           span
             = @ticket.place_were_opened
       .content.with-padding
         == @ticket.description
         - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)
           .row
-            .col-xl-9.col-lg-9.col-md-12
+            .col-xl-9.mx-auto.col-lg-9.col-md-12
               = render template: 'company/comments/index', locals: { commentable: @ticket }
+
+    - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)
+      - if @ticket.resolved?
+        = render 'company/tickets/show_ticket_completion', ticket: @ticket
