@@ -17,4 +17,5 @@
   *= require fullcalendar/core/main
   *= require fullcalendar/daygrid/main
   *= require daterangepicker
+  *= require pickr/nano
  */

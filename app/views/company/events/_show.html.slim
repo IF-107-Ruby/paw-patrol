@@ -10,7 +10,7 @@
         .d-flex.justify-content-between
           h3
             = @event.title
-          - if current_user.company_owner?
+          - if current_user.can_manage_unit_events?(@unit)
              = link_to [:company, @unit, @event], method: :delete, data: { confirm: 'Are you sure?' }, remote: true
               i.icon-feather-trash-2
         hr

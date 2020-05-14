@@ -3,9 +3,23 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :ticket, optional: true
 
-  validates :title, :starts_at, :ends_at, presence: true
+  validates :unit, :user, :title, :starts_at, :ends_at, :color,
+            presence: true
+  validates :color, format: {
+    with: /\A#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})\z/,
+    message: 'must be valid hexa color'
+  }
+  validate :end_date_after_start_date
 
   def all_day_event?
     starts_at == starts_at.midnight && ends_at == ends_at.midnight
+  end
+
+  private
+
+  def end_date_after_start_date
+    return if ends_at.blank? || starts_at.blank?
+
+    errors.add(:ends_at, 'must be after the start date') if ends_at < starts_at
   end
 end

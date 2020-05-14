@@ -31,7 +31,7 @@ class Company
       authorize([:company, @event])
       @event.save
       respond_to do |format|
-        format.js { formats << :json }
+        format.js
       end
     end
 

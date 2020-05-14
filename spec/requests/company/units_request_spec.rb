@@ -42,7 +42,7 @@ RSpec.describe 'Company::Units', type: :request do
       expect(response).to redirect_to(company_unit_path(Unit.last))
     end
 
-    it 'doest\'t creates unit with invalid params' do
+    it 'does not create unit with invalid params' do
       unit_params[:name] = ''
       post company_units_path, params: { unit: unit_params }
 
@@ -68,7 +68,7 @@ RSpec.describe 'Company::Units', type: :request do
       expect(response).to redirect_to(company_unit_path(unit))
     end
 
-    it 'doest\'t updates unit if data is invalid' do
+    it 'does not update unit with invalid params' do
       unit_params[:name] = ''
       patch company_unit_path(unit), params: { unit: unit_params }
 
