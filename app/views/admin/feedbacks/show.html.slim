@@ -1,16 +1,19 @@
 - provide(:headline, "View feedback")
 
-section.feedback.mt-4
-  .row.margin-bottom-20.justify-content-between
-    .col-auto
-      h2 = "Author: #{@feedback.user_full_name}"
-      .feedback-email
-        = mail_to @feedback.email
-          i.icon-material-outline-email
-          = @feedback.email
-      h2.mt-3 Message:
-      .feedback-message.mt-2
+.dashboard-box
+  .content.with-padding.padding-bottom-30.padding-left-10
+    ul
+      li
+        .row.margin-bottom-10.justify-content-between
+          .col-auto
+            .user_info
+              .full-name
+                h2 = @feedback.user_full_name
+              = mail_to @feedback.email
+                i.icon-material-outline-email
+                = @feedback.email
+          .col-auto.icon-links.align-self-start
+            = link_to admin_feedback_path(@feedback), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+              i.icon-feather-trash-2
+      li
         = @feedback.message
-    .col-auto.icon-links.align-self-start
-      = link_to admin_feedback_path(@feedback), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
-          i.icon-feather-trash-2

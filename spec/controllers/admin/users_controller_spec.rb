@@ -94,7 +94,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
     it 'returns success and assigns user' do
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(company_dashboard_path)
     end
   end
 
@@ -104,7 +104,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
     it 'returns success and assigns user' do
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(admin_dashboard_path)
     end
   end
 end

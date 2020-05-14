@@ -18,8 +18,14 @@ class UserDecorator < Draper::Decorator
   end
 
   def role_at_company
-    "#{display_role} at #{company_name}"
+    if admin?
+      'Admin'
+    else
+      "#{display_role} at #{company_name}"
+    end
   end
 
-  delegate :name, to: :company, prefix: true
+  def company_name
+    company.name if company.present?
+  end
 end
