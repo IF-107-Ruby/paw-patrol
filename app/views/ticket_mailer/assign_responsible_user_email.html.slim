@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
+    = stylesheet_link_tag "hireo", :media => "all"
+  body
+    .container
+      .row
+        .col-xl-6
+          .section-headline.centered.margin-bottom-30.margin-top-15.email-header-background
+            h1.email-main-color.padding-bottom-30.padding-top-30
+              | ROOM PASSPORT
+          .col-xl-10
+            h2.email-black-color.bold.margin-bottom-10
+              | Hi
+              '
+              = @company_owner.first_name
+              | ,
+            br
+            div
+              h4.mail-text 
+                | The new ticket
+                '
+                strong.email-main-color 
+                  = link_to @ticket.name, company_ticket_url(@ticket)
+                '
+                | has been created at 
+                '
+                strong.email-main-color = @ticket.unit.name
+                |.
+            br
+            div
+              h4.mail-text 
+                | Please assign responsible user for 
+                '
+                = link_to @ticket.unit.name, company_unit_url(@ticket.unit)
+                |.
+            br
+            br
+            h4.mail-text 
+              | Cheers,
+            h4.mail-text 
+              | The team at ROOM PASSPORT
+          .section-headline.gray.centered.margin-bottom-15.margin-top-30.email-footer-background
+            h6.padding-bottom-30.padding-top-30
+              | Made by
+              '
+              = link_to 'ROOM PASSPORT', root_url
+
+

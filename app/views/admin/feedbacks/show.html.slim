@@ -1,0 +1,19 @@
+- provide(:headline, "View feedback")
+
+.dashboard-box
+  .content.with-padding.padding-bottom-30.padding-left-10
+    ul
+      li
+        .row.margin-bottom-10.justify-content-between
+          .col-auto
+            .user_info
+              .full-name
+                h2 = @feedback.user_full_name
+              = mail_to @feedback.email
+                i.icon-material-outline-email
+                = @feedback.email
+          .col-auto.icon-links.align-self-start
+            = link_to admin_feedback_path(@feedback), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+              i.icon-feather-trash-2
+      li
+        = @feedback.message
