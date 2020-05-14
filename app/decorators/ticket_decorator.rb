@@ -12,7 +12,7 @@ class TicketDecorator < Draper::Decorator
   end
 
   def display_status
-    status.humanize
+    status
   end
 
   def ticket_complation_description
