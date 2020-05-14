@@ -6,6 +6,6 @@ tr
   td
     .d-flex.justify-content-end
       = link_to admin_feedback_path(feedback)
-        | Show
+        i.icon-feather-eye
       = link_to admin_feedback_path(feedback), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
-        | Delete
+        i.icon-feather-trash-2

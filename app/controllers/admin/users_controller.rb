@@ -29,13 +29,13 @@ module Admin
     def impersonate
       impersonate_user(@user)
       flash[:success] = "You are signed in as #{current_user.full_name}"
-      redirect_to root_path
+      redirect_to current_user.after_sign_in_path
     end
 
     def stop_impersonating
       stop_impersonating_user
       flash[:success] = 'You returned to your admin profile'
-      redirect_to root_path
+      redirect_to current_user.after_sign_in_path
     end
 
     private
