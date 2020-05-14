@@ -1,0 +1,10 @@
+if($.magnificPopup.instance.content) {
+  window.calendar.getEventSources()[0].refetch();
+  $.magnificPopup.close()
+}
+Snackbar.show({
+  pos: 'top-center',
+  text: "Event updated successfully",
+  backgroundColor: '#ebf6e0',
+  textColor: '#5f9025'
+})

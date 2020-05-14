@@ -1,0 +1,17 @@
+$.magnificPopup.close()
+<% if @event.valid? %>
+window.calendar.getEventSources()[0].refetch();
+Snackbar.show({
+  pos: 'top-center',
+  text: "Event added successfully",
+  backgroundColor: '#ebf6e0',
+  textColor: '#5f9025'
+})
+<% else %>
+Snackbar.show({
+  pos: 'top-center',
+  text: "Event not saved",
+  backgroundColor: '#ffe9e9',
+  textColor: '#de5959'
+})
+<% end %>

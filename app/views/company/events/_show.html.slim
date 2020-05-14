@@ -1,0 +1,34 @@
+#small-dialog.zoom-anim-dialog.dialog-with-tabs
+  .sign-in-form
+    ul.popup-tabs-nav
+      li
+        a href="#login" Show
+      li
+        a href="#register" Update
+    .popup-tabs-container
+      #login.popup-tab-content
+        .d-flex.justify-content-between
+          h3
+            = @event.title
+          - if current_user.company_owner?
+             = link_to [:company, @unit, @event], method: :delete, data: { confirm: 'Are you sure?' }, remote: true
+              i.icon-feather-trash-2
+        hr
+        .margin-top-50
+        ul.p-0
+          li
+            i.icon-material-outline-location-on.mr-1
+            = @event.place
+          - if @event.ticket.present?
+            .attachet-ticket
+              li
+                i.icon-feather-paperclip.mr-1
+                = link_to @event.ticket_name, [:company, @event.ticket]
+          li 
+            i.icon-feather-clock.mr-1
+            = @event.timespan
+          li
+            i.icon-feather-user.mr-1
+            = @event.planed_by
+      #register.popup-tab-content
+        = render 'form', event: @event

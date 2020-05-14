@@ -1,0 +1,24 @@
+$.magnificPopup.open({
+  items: {
+      src: '<%= j render "new" %>',
+  },
+  removalDelay: 300,
+  mainClass: 'my-mfp-zoom-in',
+  zoom: {
+    enabled: true,
+    duration: 300,
+    easing: 'ease-in-out',
+  },
+  callbacks: {
+    afterClose: function() {
+      $(".daterangepicker").remove();
+      window.pickr.destroyAndRemove();
+    },
+  }
+});
+
+$(document).ready(function() {
+  registerPopupTubs();
+  $('#event_ticket_id').selectpicker();
+  pickrInit();
+})

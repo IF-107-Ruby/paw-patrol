@@ -1,0 +1,29 @@
+= form_for @event, url: [:company, @unit, @event], remote: true do |f|
+  .row
+    .col
+      = f.label :title
+      = f.text_field :title, class: 'with-border'
+      = f.label "Timespan"
+      = text_field_tag :daterangepicker, "", "data-behavior" => 'daterangepicker', class: 'with-border'
+      = f.hidden_field :starts_at
+      = f.hidden_field :ends_at
+      = f.hidden_field :color
+      = f.label :ticket_id
+      = f.collection_select :ticket_id, avaible_tickets, :id, :name, {include_blank: true}, \
+          { class: 'selectpicker with-border',
+          'data-size' => '3',
+          'tabindex' => '-98',
+          'title' => 'Select ticket',
+          'data-live-search' => true,
+          }
+      .margin-top-30
+      .d-flex
+        = f.label :color, class: "mr-2"
+        .color-picker
+  .row
+    .col-xl-12
+      = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
+        = @event.new_record? ? "Add event" : "Update event"
+        i.icon-feather-check
+
+link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"
