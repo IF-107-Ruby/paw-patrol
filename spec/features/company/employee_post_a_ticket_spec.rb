@@ -34,6 +34,7 @@ feature 'EmployeePostATicket' do
 
     expect(page).to have_selector('.dashboard-headline h3', text: 'Post a Ticket')
     expect(page).to have_selector('.ticket-form')
+
     fill_in 'ticket_name', with: ticket_attributes[:name]
     fill_in_trix_editor('ticket_description_trix_input_ticket',
                         ticket_attributes[:description])
