@@ -22,6 +22,9 @@
     a {
       color: #666;
     }
+    i:hover {
+      color: #2a41e8;
+    }
   }
   .submitted-time {
     font-size: 14px;
@@ -43,11 +46,12 @@
 .reply-comment-form {
   display: none;
   margin-bottom: 20px;
-  padding-top: 10px;
+  padding-top: 40px;
+  width: 100%;
 }
 
 .add-comment-block {
-  padding-top: 50px;
+  padding-top: 30px;
   .add-comment-btn {
     background-color: #2a41e8;
     padding: 12px 20px;
