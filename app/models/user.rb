@@ -49,13 +49,6 @@ class User < ApplicationRecord
     id == unit.responsible_user_id
   end
 
-  def create_ticket_completion(params)
-    ticket_completions.create(params).then do |ticket_completion|
-      ticket_completion.ticket.status = 'closed'
-      ticket_completion.ticket.save
-    end
-  end
-
   def company_owner?
     role == 'company_owner'
   end
