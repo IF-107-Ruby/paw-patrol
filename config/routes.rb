@@ -20,9 +20,8 @@ Rails.application.routes.draw do
     end
     resources :tickets, only: %i[show new create] do
       resources :comments
-      resources :reviews, only: %i[new edit create update]
     end
-    resources :reviews, only: :index
+    resources :reviews, only: %i[index new edit create update]
   end
 
   devise_for :users, path: '', only: :sessions, controllers: {

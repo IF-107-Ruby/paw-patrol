@@ -6,7 +6,7 @@ class Company
     end
 
     def review_action_link(ticket)
-      link_to(new_company_ticket_review_path(ticket.id),
+      link_to(new_company_review_path(ticket_id: ticket.id),
               class: 'button ripple-effect margin-top-5 margin-bottom-10') do
         content_tag(:i, ' ',
                     class: 'icon-material-outline-thumb-up') + ' Leave a Review'
