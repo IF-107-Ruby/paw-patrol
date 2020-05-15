@@ -19,6 +19,7 @@ Company.all.each do |company|
                          :with_responsible_user,
                          :with_children,
                          :with_employees_and_tickets,
+                         :with_employee_ticket_and_completion,
                          company: company)
 end
 

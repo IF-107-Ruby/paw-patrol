@@ -36,5 +36,11 @@ FactoryBot.define do
                                        ticket: resolved_ticket)
       end
     end
+
+    trait :with_completion do
+      after(:build) do |ticket|
+        ticket.ticket_completion = create(:ticket_completion, user: create(:staff_member))
+      end
+    end
   end
 end
