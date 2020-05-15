@@ -15,7 +15,7 @@ class TicketDecorator < Draper::Decorator
     status
   end
 
-  def ticket_complation_description
+  def completion_description
     ticket_completion.description
   end
 end

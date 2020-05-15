@@ -2,11 +2,6 @@ class Company
   class TicketCompletionsController < Company::BaseController
     before_action :read_ticket
 
-    def new
-      @ticket_completion = @ticket.build_ticket_completion
-      authorize([:company, @ticket_completion])
-    end
-
     def create
       @ticket_completion = @ticket.build_ticket_completion(ticket_completion_params)
       authorize([:company, @ticket_completion])
@@ -17,7 +12,7 @@ class Company
         redirect_to [:company, @ticket]
       else
         flash.now[:warning] = 'Ticket is not resolved!'
-        render :new
+        render template: 'company/tickets/show'
       end
     end
 
