@@ -3,8 +3,9 @@
     ul.popup-tabs-nav
       li
         a href="#login" Show
-      li
-        a href="#register" Update
+      - if current_user.can_manage_unit_events?(@unit)
+        li
+          a href="#register" Update
     .popup-tabs-container
       #login.popup-tab-content
         .d-flex.justify-content-between
@@ -29,5 +30,6 @@
           li
             i.icon-feather-user.mr-1
             = @event.planned_by
-      #register.popup-tab-content
-        = render 'form', event: @event
+      - if current_user.can_manage_unit_events?(@unit)
+        #register.popup-tab-content
+          = render 'form', unit: @unit, event: @event

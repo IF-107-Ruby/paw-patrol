@@ -1,4 +1,4 @@
-= form_for @event, url: [:company, @unit, @event], remote: true do |f|
+= form_for event, url: [:company, unit, event], remote: true do |f|
   .row
     .col
       = f.label :title
@@ -21,7 +21,7 @@
         = f.label :color, class: "mr-2"
         .color-picker
   .row
-    .col-xl-12
+    .col-xl-6
       = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
-        = @event.new_record? ? "Add event" : "Update event"
+        = event.new_record? ? "Add event" : "Update event"
         i.icon-feather-check
