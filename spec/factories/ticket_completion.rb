@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :ticket_completion do
-    user { nil }
-    ticket { nil }
+    description { ActionText::Content.new(Faker::Lorem.paragraph) }
+    user
+    ticket
   end
 end

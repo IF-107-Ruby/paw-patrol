@@ -1,6 +1,6 @@
 - if yield(:headline).present?
   .dashboard-headline
-    h3.ticket-name
+    h3
       = yield(:headline)
     - if yield(:status).present?
       span.status value="#{yield(:status)}"
