@@ -29,12 +29,7 @@
         = f.label :color, class: "mr-2"
         .color-picker
   .row
-    .col-xl-6
+    .col-xl-12
       = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
         = recurring_event.new_record? ? "Add recurring event" : "Update recurring event"
         i.icon-feather-check
-    - if recurring_event.new_record?
-      .col-xl-6
-        = link_to new_company_unit_event_path(unit), remote: true, class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
-          | Add event
-          i.icon-feather-plus

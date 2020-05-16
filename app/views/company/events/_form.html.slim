@@ -21,12 +21,17 @@
         = f.label :color, class: "mr-2"
         .color-picker
   .row
-    .col-xl-6
-      = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
-        = event.new_record? ? "Add event" : "Update event"
-        i.icon-feather-check
     - if event.new_record?
       .col-xl-6
-        a#addRecurringEvent.button.full-width.margin-top-35.button-sliding-icon.ripple-effect href='#' 
+        = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
+          | Add event
+          i.icon-feather-check
+      .col-xl-6
+        a#addRecurringEvent.button.gray.full-width.margin-top-35.button-sliding-icon.ripple-effect href='#' 
           | Add recurring event
           i.icon-feather-plus
+    - else
+      .col-xl-12
+        = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
+          | Update event
+          i.icon-feather-check

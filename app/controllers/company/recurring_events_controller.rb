@@ -52,7 +52,7 @@ class Company
     private
 
     def recurring_event_params
-      params.require(:recurring_event)
+      params.fetch(:recurring_event, {})
             .permit(:title, :anchor, :duration, :frequency, :ticket_id, :color)
             .merge(user: current_user)
     end

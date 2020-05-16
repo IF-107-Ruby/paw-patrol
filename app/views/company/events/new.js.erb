@@ -21,7 +21,7 @@ $.magnificPopup.open({
             url: "<%= new_company_unit_recurring_event_path(@unit) %>",
             data: {
               recurring_event: {
-                anchor: moment(start).format("MM/DD/YYYY HH:mm"),
+                anchor: moment(start).format("YYYY-MM-DD HH:mm"),
                 duration: moment(end).diff(moment(start), 'minutes'),
               },
             },
