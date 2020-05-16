@@ -10,38 +10,42 @@ $.magnificPopup.open({
     easing: 'ease-in-out',
   },
   callbacks: {
-    open: function () {
+    open: function() {
+      let start = moment("<%= @recurring_event.anchor %>")
+      let end = moment("<%= @recurring_event.anchor + @recurring_event.duration.minutes %>")
+
       $('#daterangepicker').daterangepicker(
         {
           timePicker: true,
-          startDate: moment("<%= @event.starts_at %>").startOf("hour"),
-          endDate: moment("<%= @event.ends_at %>").startOf("hour"),
+          startDate: start,
+          endDate: end,
           opens: "left",
           locale: {
             format: "MM/DD/YYYY HH:mm",
           },
         },
         function (start, end, label) {
-          $("#event_starts_at").val(start.format("YYYY-MM-DD HH:mm"));
-          $("#event_ends_at").val(end.format("YYYY-MM-DD HH:mm"));
+          $("#recurring_event_anchor").val(start.format("YYYY-MM-DD HH:mm"));
+          $("#recurring_event_duration").val(end.diff(start, 'minutes'));
         }
       );
 
       $("#daterangepicker").val(
-        moment("<%= @event.starts_at %>").format("MM/DD/YYYY HH:mm") +
+        start.format("MM/DD/YYYY HH:mm") +
           " - " +
-          moment("<%= @event.ends_at %>").format("MM/DD/YYYY HH:mm")
+        end.format("MM/DD/YYYY HH:mm")
       );
     },
-    afterClose: function () {
+    afterClose: function() {
       $(".daterangepicker").remove();
       window.pickr.destroyAndRemove();
-    }
+    },
   }
 });
 
 $(document).ready(function() {
   registerPopupTubs();
-  $('#event_ticket_id').selectpicker();
+  $('#recurring_event_ticket_id').selectpicker();
+  $('#recurring_event_frequency').selectpicker();
   pickrInit();
 })

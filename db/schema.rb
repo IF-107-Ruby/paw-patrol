@@ -101,6 +101,18 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['user_id'], name: 'index_notifications_on_user_id'
+
+    create_table 'recurring_events', force: :cascade do |t|
+    t.string 'title', null: false
+    t.datetime 'anchor', null: false
+    t.integer 'duration', default: 1440, null: false
+    t.integer 'frequency', default: 0, null: false
+    t.string 'color', limit: 9, default: '#0000ff', null: false
+    t.integer 'ticket_id'
+    t.integer 'user_id'
+    t.integer 'unit_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'reviews', force: :cascade do |t|
@@ -192,6 +204,9 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
   add_foreign_key 'notifications', 'users'
   add_foreign_key 'notifications', 'users', column: 'notified_by_id'
   add_foreign_key 'reviews', 'tickets'
+  add_foreign_key 'recurring_events', 'tickets'
+  add_foreign_key 'recurring_events', 'units'
+  add_foreign_key 'recurring_events', 'users'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
   add_foreign_key 'units', 'companies'

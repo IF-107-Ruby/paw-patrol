@@ -1,0 +1,35 @@
+#small-dialog.zoom-anim-dialog.dialog-with-tabs
+  .sign-in-form
+    ul.popup-tabs-nav
+      li
+        a href="#login" Show
+      - if current_user.can_manage_unit_events?(@unit)
+        li
+          a href="#register" Update
+    .popup-tabs-container
+      #login.popup-tab-content
+        .d-flex.justify-content-between
+          h3
+            = @recurring_event.title
+          - if current_user.can_manage_unit_events?(@unit)
+             = link_to [:company, @unit, @recurring_event], method: :delete, data: { confirm: 'Are you sure?' }, remote: true
+              i.icon-feather-trash-2
+        hr
+        .margin-top-50
+        ul.p-0
+          li
+            i.icon-material-outline-location-on.mr-1
+            = @recurring_event.place
+          - if @recurring_event.ticket.present?
+            li
+              i.icon-feather-paperclip.mr-1
+              = @recurring_event.attachment
+          li 
+            i.icon-feather-clock.mr-1
+            = @recurring_event.duration_in_words
+          li
+            i.icon-feather-user.mr-1
+            = @recurring_event.planned_by
+      - if current_user.can_manage_unit_events?(@unit)
+        #register.popup-tab-content
+          = render 'form', unit: @unit, recurring_event: @recurring_event

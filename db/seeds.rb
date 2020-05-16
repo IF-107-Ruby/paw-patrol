@@ -3,14 +3,10 @@ FactoryBot.create(:admin,
                   password: '123456',
                   password_confirmation: '123456')
 
-user_company = FactoryBot.create(:company)
-
-FactoryBot.create(:company_owner, company: user_company,
-                                  email: 'patrol.user@gmail.com',
-                                  password: '123456',
-                                  password_confirmation: '123456')
-
-FactoryBot.create_list(:company_owner, 5, :with_company)
+FactoryBot.create(:company_owner, :with_company,
+                  email: 'patrol.user@gmail.com',
+                  password: '123456',
+                  password_confirmation: '123456')
 
 Company.all.each do |company|
   FactoryBot.create_list(:unit,

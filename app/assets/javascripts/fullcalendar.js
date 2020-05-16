@@ -18,19 +18,26 @@ document.addEventListener("DOMContentLoaded", function () {
         center: "title",
         right: "dayGridMonth,dayGridWeek,dayGridDay",
       },
+      firstDay: 1,
       selectable: true,
       selectHelper: true,
       eventTextColor: "#ffffff",
-      events: `/company/units/${unitId}/events.json`,
-      select: function ({ start, end }) {
+      eventSources: [
+        `/company/units/${unitId}/events.json`,
+        `/company/units/${unitId}/recurring_events.json`,
+      ],
+      select: function (event) {
+        let start = moment(event.start);
+        let end = moment(event.end);
+
         $.ajax({
           url: `/company/units/${unitId}/events/new`,
           success: function () {
             $('input[data-behavior="daterangepicker"]').daterangepicker(
               {
                 timePicker: true,
-                startDate: moment(start).startOf("hour"),
-                endDate: moment(end).startOf("hour"),
+                startDate: start.startOf("hour"),
+                endDate: end.startOf("hour"),
                 opens: "left",
                 locale: {
                   format: "MM/DD/YYYY HH:mm",
@@ -43,12 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             $("#daterangepicker").val(
-              moment(start).format("MM/DD/YYYY HH:mm") +
+              start.format("MM/DD/YYYY HH:mm") +
                 " - " +
-                moment(end).format("MM/DD/YYYY HH:mm")
+                end.format("MM/DD/YYYY HH:mm")
             );
-            $("#event_starts_at").val(moment(start).format("YYYY-MM-DD HH:mm"));
-            $("#event_ends_at").val(moment(end).format("YYYY-MM-DD HH:mm"));
+            $("#event_starts_at").val(start.format("YYYY-MM-DD HH:mm"));
+            $("#event_ends_at").val(end.format("YYYY-MM-DD HH:mm"));
           },
         });
       },
@@ -67,6 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
             starts_at: start.format("YYYY-MM-DD HH:mm"),
             ends_at: end.format("YYYY-MM-DD HH:mm"),
           },
+          recurring_event: {
+            anchor: start.format("YYYY-MM-DD HH:mm"),
+          },
         };
 
         $.ajax({
@@ -84,31 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
       eventClick: function ({ event }) {
         $.ajax({
           url: event.extendedProps.show_url,
-          success: function () {
-            let { start, end } = event;
-
-            $('input[data-behavior="daterangepicker"]').daterangepicker(
-              {
-                timePicker: true,
-                startDate: moment(start).startOf("hour"),
-                endDate: moment(end).startOf("hour"),
-                opens: "left",
-                locale: {
-                  format: "MM/DD/YYYY HH:mm",
-                },
-              },
-              function (start, end, label) {
-                $("#event_starts_at").val(start.format("YYYY-MM-DD HH:mm"));
-                $("#event_ends_at").val(end.format("YYYY-MM-DD HH:mm"));
-              }
-            );
-
-            $("#daterangepicker").val(
-              moment(start).format("MM/DD/YYYY HH:mm") +
-                " - " +
-                moment(end).format("MM/DD/YYYY HH:mm")
-            );
-          },
         });
       },
       navLinks: true,
@@ -124,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         right: "dayGridMonth,dayGridWeek,dayGridDay",
       },
       eventTextColor: "#ffffff",
+      firstDay: 1,
       events: `/company/units/${unitId}/events.json`,
       eventClick: function ({ event }) {
         $.ajax({

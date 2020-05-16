@@ -19,17 +19,19 @@ function pickrInit() {
 
   pickr
     .on("init", (instance) => {
-      if ($("#event_color").val()) {
-        instance.setColor($("#event_color").val());
+      if ($('input[data-type="color"').val()) {
+        instance.setColor($('input[data-type="color"').val());
       } else {
-        $("#event_color").val(instance.getColor().toHEXA().toString());
+        $('input[data-type="color"').val(
+          instance.getColor().toHEXA().toString()
+        );
       }
     })
     .on("save", function (color, instance) {
-      $("#event_color").val(color.toHEXA().toString());
+      $('input[data-type="color"').val(color.toHEXA().toString());
       instance.hide();
     })
     .on("clear", (instance) => {
-      $("#event_color").val("");
+      $('input[data-type="color"').val("");
     });
 }

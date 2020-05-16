@@ -10,6 +10,25 @@ $.magnificPopup.open({
     easing: 'ease-in-out',
   },
   callbacks: {
+    open: function() {
+      $('#addRecurringEvent').click(function(){
+        let start = moment($("#event_starts_at").val()).format("MM/DD/YYYY HH:mm")
+        let end = moment($("#event_ends_at").val()).format("MM/DD/YYYY HH:mm")
+        
+        $.magnificPopup.close()
+        setTimeout(() => {
+          $.ajax({
+            url: "<%= new_company_unit_recurring_event_path(@unit) %>",
+            data: {
+              recurring_event: {
+                anchor: moment(start).format("MM/DD/YYYY HH:mm"),
+                duration: moment(end).diff(moment(start), 'minutes'),
+              },
+            },
+          })
+        }, 300)
+      })
+    },
     afterClose: function() {
       $(".daterangepicker").remove();
       window.pickr.destroyAndRemove();
