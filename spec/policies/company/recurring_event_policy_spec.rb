@@ -17,9 +17,9 @@ RSpec.describe Company::RecurringEventPolicy, type: :policy do
 
   permissions :show? do
     it 'grant access' do
-      expect(subject).to permit(company_owner,recurring_event)
-      expect(subject).to permit(employee,recurring_event)
-      expect(subject).to permit(staff_member,recurring_event)
+      expect(subject).to permit(company_owner, recurring_event)
+      expect(subject).to permit(employee, recurring_event)
+      expect(subject).to permit(staff_member, recurring_event)
     end
   end
 
@@ -48,11 +48,11 @@ RSpec.describe Company::RecurringEventPolicy, type: :policy do
   permissions :destroy? do
     it 'grant access' do
       expect(subject).to permit(company_owner, recurring_event)
-      expect(subject).to permit(staff_member,recurring_event)
+      expect(subject).to permit(staff_member, recurring_event)
     end
 
     it 'denie access' do
-      expect(subject).not_to permit(employee,recurring_event)
+      expect(subject).not_to permit(employee, recurring_event)
     end
   end
 end

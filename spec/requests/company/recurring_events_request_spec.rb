@@ -5,6 +5,8 @@ RSpec.describe 'Company::RecurringEvents', type: :request do
   let!(:user) { create(:company_owner, company: company) }
   let!(:unit) { create(:unit, company: company) }
   let!(:recurring_event) { create(:recurring_event, unit: unit, user: user) }
+  let(:recurring_event_params) { attributes_for(:recurring_event) }
+  let(:params) { { recurring_event: recurring_event_params } }
 
   before { login_as user }
 
@@ -36,12 +38,9 @@ RSpec.describe 'Company::RecurringEvents', type: :request do
   end
 
   describe 'POST /company/units/:unit_id/recurring_events' do
-    let(:recurring_event_params) { attributes_for(:recurring_event) }
-
     it 'creates recurring event with valid params' do
       before_count = RecurringEvent.count
-      post company_unit_recurring_events_path(unit), xhr: true,
-                                                     params: { recurring_event: recurring_event_params }
+      post company_unit_recurring_events_path(unit), xhr: true, params: params
 
       expect(RecurringEvent.count).not_to eq(before_count)
       expect(response).to render_template(:create)
@@ -50,8 +49,7 @@ RSpec.describe 'Company::RecurringEvents', type: :request do
     it 'does not create recurring event with invalid params' do
       before_count = RecurringEvent.count
       recurring_event_params[:title] = ''
-      post company_unit_recurring_events_path(unit), xhr: true,
-                                                     params: { recurring_event: recurring_event_params }
+      post company_unit_recurring_events_path(unit), xhr: true, params: params
 
       expect(RecurringEvent.count).to eq(before_count)
       expect(response).to render_template(:create)
@@ -59,11 +57,9 @@ RSpec.describe 'Company::RecurringEvents', type: :request do
   end
 
   describe 'PATCH /company/units/:id' do
-    let(:recurring_event_params) { attributes_for(:recurring_event) }
-
     it 'updates recurring event if data is valid' do
-      patch company_unit_recurring_event_path(unit, recurring_event), xhr: true,
-                                                                      params: { recurring_event: recurring_event_params }
+      patch company_unit_recurring_event_path(unit, recurring_event),
+            xhr: true, params: params
 
       expect(RecurringEvent.find(recurring_event.id).title)
         .to eq(recurring_event_params[:title])
@@ -72,8 +68,8 @@ RSpec.describe 'Company::RecurringEvents', type: :request do
 
     it 'does not update recurring event with invalid params' do
       recurring_event_params[:title] = ''
-      patch company_unit_recurring_event_path(unit, recurring_event), xhr: true,
-                                                                      params: { recurring_event: recurring_event_params }
+      patch company_unit_recurring_event_path(unit, recurring_event),
+            xhr: true, params: params
 
       expect(RecurringEvent.find(recurring_event.id).title)
         .not_to eq(recurring_event_params[:title])
