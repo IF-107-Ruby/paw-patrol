@@ -3,15 +3,13 @@
   .row
     .col-xl-12.comments-header
       h3 Comments
-  .row
+  .row.comments-wraper
     #comments-list.col-xl-12
-      = render 'company/base/nested_comment', comments: commentable.comments.arrange, commentable: commentable
+      div
+        = render 'nested_comment', comments: commentable.comments.arrange, commentable: commentable
   - if @ticket.open?
     .row.add-comment-block
       .col-xl-12
-        button id='add-comment' class='button ripple-effect'
-          span class='add-comment-icon'
-            i.icon-feather-plus
-          | Add new comment
         #new-comment-form.mt-5
-          = render 'company/base/comment_form', commentable: commentable, submit_label: 'Send', parent_id: nil, js_form_class: 'js-form', js_form_id: 'new-comment'
+          = render 'comment_form', commentable: commentable, submit_label: 'Add comment', parent_id: nil, js_form_class: 'js-form js-new-comment', js_form_id: 'new-comment'
+ 

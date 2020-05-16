@@ -16,13 +16,18 @@ class Ticket < ApplicationRecord
 
   enum status: { open: 0, resolved: 1 }
 
+  after_create :send_ticket_notification
+  after_save :add_author_to_watchers
+
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :watchers_relationship, dependent: :destroy
+  has_many :watchers, through: :watchers_relationship, source: :user
+  accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
   belongs_to :user
   belongs_to :unit
 
   has_one :review, dependent: :destroy
   has_one :ticket_completion, dependent: :destroy
-
-  has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
   has_rich_text :resolution
@@ -87,9 +92,14 @@ class Ticket < ApplicationRecord
     SendNewTicketEmailJob.perform_later(id, unit.responsible_user.present?)
   end
 
+<<<<<<< HEAD
   def follow_up_params
     attributes
       .except('id', 'status')
       .merge(description: description, parent: self)
+=======
+  def add_author_to_watchers
+    watchers << user
+>>>>>>> Added ability to set watchers on ticket show page
   end
 end

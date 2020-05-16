@@ -2,4 +2,6 @@
   #comment-status
   = f.hidden_field :parent_id, value: parent_id
   = f.text_area :body, label: false, placeholder: "Add a comment", class: 'with-border'
-  = f.submit submit_label, class: 'margin-top-10 button ripple-effect'
+  = f.button(:submit, class: 'button ripple-effect margin-top-10 button-sliding-icon')
+      = submit_label 
+      i.icon-feather-plus

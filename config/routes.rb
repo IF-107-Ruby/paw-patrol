@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :comments
       resource :review, except: %i[index destroy]
       get :resolved, on: :collection
+      resources :watchers, only: %i[update]
     end
     resources :user_units, only: %i[index show]
   end

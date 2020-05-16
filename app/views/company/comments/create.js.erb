@@ -1,4 +1,4 @@
-$('#new-comment-form').html('<%= escape_javascript(render('comment_form', commentable: @commentable, submit_label: 'Send', parent_id: nil, js_form_class: 'js-new-comment', js_form_id: 'new-comment')) %>');
+$('#new-comment-form').html('<%= escape_javascript(render('comment_form', commentable: @commentable, submit_label: 'Add comment', parent_id: nil, js_form_class: 'js-new-comment', js_form_id: 'new-comment')) %>');
 $('#comments-list').html('<%= escape_javascript(render('nested_comment', commentable: @commentable, comments: @commentable.comments.arrange )) %>');
 
 

@@ -6,6 +6,7 @@ class Company
     def show
       @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
       Notification.mark_comments_as_read(@ticket, current_user)
+      @available_watchers = @ticket.unit.employees.decorate
     end
 
     def new

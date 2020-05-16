@@ -20,22 +20,19 @@ feature 'EmployeeAddComment' do
     visit company_ticket_path(ticket)
 
     expect(page).to have_text('Comments')
-    find('#add-comment').click
 
-    using_wait_time 2 do
-      within '#new-comment' do
-        fill_in id: 'comment_body', with: 'Test comment from employee'
-      end
+    within '#new-comment' do
+      fill_in id: 'comment_body', with: 'Test comment from employee'
     end
 
-    click_on 'Send'
+    click_on 'Add comment'
     wait_for_ajax
 
     expect(page).to have_text('Comment has been saved')
     expect(page).to have_text('Test comment from employee')
 
     fill_in id: 'comment_body', with: ''
-    click_on 'Send'
+    click_on 'Add comment'
     wait_for_ajax
     expect(page).to have_text('Comment failed to save, please try again')
   end
@@ -48,13 +45,10 @@ feature 'EmployeeAddComment' do
 
     expect(page).to have_text('Comments')
 
-    find('#add-comment').click
-    using_wait_time 2 do
-      within '#new-comment' do
-        fill_in id: 'comment_body', with: 'Test comment from responsible user'
-      end
+    within '#new-comment' do
+      fill_in id: 'comment_body', with: 'Test comment from responsible user'
     end
-    click_on 'Send'
+    click_on 'Add comment'
     wait_for_ajax
 
     expect(page).to have_text('Test comment from responsible user')
