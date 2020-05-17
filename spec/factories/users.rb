@@ -13,6 +13,7 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
+#  role                   :integer          default("company_owner"), not null
 #
 FactoryBot.define do
   factory :user do
