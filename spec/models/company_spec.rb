@@ -27,9 +27,8 @@ describe Company, type: :model do
     end
 
     it 'is not valid with invalid email format' do
-      company.email = 'example@domain'
+      company.email = 'example_domain'
       expect(company).to_not be_valid
-      expect(company.errors[:email]).to include('format is invalid')
     end
 
     it 'is not valid with incorrect phone number' do

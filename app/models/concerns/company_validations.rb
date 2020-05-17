@@ -13,10 +13,7 @@ module CompanyValidations
               length: { minimum: 8,
                         maximum: 255,
                         too_short: 'must have at least %<count>s characters',
-                        too_long: 'must have at most %<count>s characters' }
-
-    validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
-                                message: 'format is invalid' },
-                      if: ->(c) { c.email.present? }
+                        too_long: 'must have at most %<count>s characters' },
+              email: true
   end
 end
