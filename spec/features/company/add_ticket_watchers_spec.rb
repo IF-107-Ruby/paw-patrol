@@ -3,8 +3,8 @@ require 'rails_helper'
 feature 'EmployeePostATicket' do
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employees, company: company) }
-  let!(:employee) { unit.users.employees.first }
-  let!(:coworker) { unit.users.employees.second }
+  let!(:employee) { unit.employees.first }
+  let!(:coworker) { unit.employees.second }
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
 
   before do
