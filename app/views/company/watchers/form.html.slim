@@ -11,10 +11,8 @@
         .content.with-padding.padding-bottom-0
           .row
             .col-auto
-              .avatar-wrapper data-tippy-placement="bottom" title=("Add Avatar")
-                = image_tag "user-avatar-placeholder.png", class: "profile-pic"
-                .upload-button
-                input.file-upload accept="image/*" type="file" /
+              .avatar-wrapper data-tippy-placement="bottom"
+                = image_tag "user-avatar-placeholder.png"
             .col
               .row
                 .col
