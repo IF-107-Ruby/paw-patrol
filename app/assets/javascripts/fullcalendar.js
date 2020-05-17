@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let unitId = $calendar.attr("data-unit-id");
   let isEditable = $calendar.attr("data-editable") === "true";
   if (isEditable) {
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    window.calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: ["interaction", "dayGrid"],
       header: {
         left: "prev,next today",
@@ -120,6 +120,5 @@ document.addEventListener("DOMContentLoaded", function () {
       eventLimit: true,
     });
   }
-  calendar.render();
-  window.calendar = calendar;
+  window.calendar.render();
 });

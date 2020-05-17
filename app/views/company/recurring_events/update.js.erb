@@ -1,10 +1,9 @@
-window.calendar.getEventSources()[1].refetch();
+calendar.getEventSources()[1].refetch();
 if($.magnificPopup.instance.content) {
-  $.magnificPopup.close()
+  $.magnificPopup.close();
 }
-Snackbar.show({
-  pos: 'top-center',
-  text: "Event updated successfully",
-  backgroundColor: '#ebf6e0',
-  textColor: '#5f9025'
-})
+<% if @recurring_event.valid? %>
+showSnackbarSuccess("Event updated successfully");
+<% else %>
+showSnackbarError("Event not updated");
+<% end %>

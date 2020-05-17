@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: recurring_events
+#
+#  id         :bigint           not null, primary key
+#  title      :string           not null
+#  anchor     :datetime         not null
+#  duration   :integer          default(1440), not null
+#  frequency  :integer          default("weekly"), not null
+#  color      :string(9)        default("#0000ff"), not null
+#  ticket_id  :integer
+#  user_id    :integer
+#  unit_id    :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class RecurringEvent < ApplicationRecord
   enum frequency: { weekly: 0, biweekly: 1, monthly: 2, annually: 3 }
 

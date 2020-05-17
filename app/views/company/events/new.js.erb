@@ -12,10 +12,10 @@ $.magnificPopup.open({
   callbacks: {
     open: function() {
       $('#addRecurringEvent').click(function(){
-        let start = moment($("#event_starts_at").val()).format("MM/DD/YYYY HH:mm")
-        let end = moment($("#event_ends_at").val()).format("MM/DD/YYYY HH:mm")
+        let start = moment($("#event_starts_at").val()).format("MM/DD/YYYY HH:mm");
+        let end = moment($("#event_ends_at").val()).format("MM/DD/YYYY HH:mm");
         
-        $.magnificPopup.close()
+        $.magnificPopup.close();
         setTimeout(() => {
           $.ajax({
             url: "<%= new_company_unit_recurring_event_path(@unit) %>",
@@ -26,12 +26,12 @@ $.magnificPopup.open({
               },
             },
           })
-        }, 300)
+        }, 300);
       })
     },
     afterClose: function() {
       $(".daterangepicker").remove();
-      window.pickr.destroyAndRemove();
+      pickr.destroyAndRemove();
     },
   }
 });

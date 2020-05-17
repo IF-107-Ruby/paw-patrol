@@ -11,8 +11,8 @@ $.magnificPopup.open({
   },
   callbacks: {
     open: function() {
-      let start = moment("<%= @recurring_event.anchor %>")
-      let end = moment("<%= @recurring_event.anchor + @recurring_event.duration.minutes %>")
+      let start = moment("<%= @recurring_event.anchor %>");
+      let end = moment("<%= @recurring_event.anchor + @recurring_event.duration.minutes %>");
 
       $('#daterangepicker').daterangepicker(
         {
@@ -38,7 +38,7 @@ $.magnificPopup.open({
     },
     afterClose: function() {
       $(".daterangepicker").remove();
-      window.pickr.destroyAndRemove();
+      pickr.destroyAndRemove();
     },
   }
 });
