@@ -12,63 +12,59 @@
 
 ActiveRecord::Schema.define(version: 20_200_531_160_131) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'action_text_rich_texts', force: :cascade do |t|
-    t.string 'name', null: false
-    t.text 'body'
-    t.string 'record_type', null: false
-    t.bigint 'record_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index %w[record_type record_id name],
-            name: 'index_action_text_rich_texts_uniqueness',
-            unique: true
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
-  create_table 'active_storage_attachments', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'record_type', null: false
-    t.bigint 'record_id', null: false
-    t.bigint 'blob_id', null: false
-    t.datetime 'created_at', null: false
-    t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
-    t.index %w[record_type record_id name blob_id],
-            name: 'index_active_storage_attachments_uniqueness',
-            unique: true
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table 'active_storage_blobs', force: :cascade do |t|
-    t.string 'key', null: false
-    t.string 'filename', null: false
-    t.string 'content_type'
-    t.text 'metadata'
-    t.bigint 'byte_size', null: false
-    t.string 'checksum', null: false
-    t.datetime 'created_at', null: false
-    t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table 'comments', force: :cascade do |t|
-    t.integer 'commentable_id', null: false
-    t.string 'commentable_type', null: false
-    t.text 'body', null: false
-    t.bigint 'user_id', null: false
-    t.string 'ancestry'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['ancestry'], name: 'index_comments_on_ancestry'
-    t.index ['user_id'], name: 'index_comments_on_user_id'
+  create_table "comments", force: :cascade do |t|
+    t.integer "commentable_id", null: false
+    t.string "commentable_type", null: false
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.string "ancestry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ancestry"], name: "index_comments_on_ancestry"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table 'companies', force: :cascade do |t|
-    t.string 'name', null: false
-    t.text 'description'
-    t.string 'email', null: false
-    t.string 'phone'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['email'], name: 'index_companies_on_email', unique: true
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "email", null: false
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_companies_on_email", unique: true
   end
 
   create_table 'events', force: :cascade do |t|
@@ -154,24 +150,24 @@ ActiveRecord::Schema.define(version: 20_200_531_160_131) do
             unique: true
   end
 
-  create_table 'users_companies_relationships', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'company_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['company_id'], name: 'index_users_companies_relationships_on_company_id'
-    t.index %w[user_id company_id], name: 'relationship_index', unique: true
-    t.index ['user_id'], name: 'index_users_companies_relationships_on_user_id'
+  create_table "users_companies_relationships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_users_companies_relationships_on_company_id"
+    t.index ["user_id", "company_id"], name: "relationship_index", unique: true
+    t.index ["user_id"], name: "index_users_companies_relationships_on_user_id"
   end
 
-  create_table 'users_units_relationships', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'unit_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['unit_id'], name: 'index_users_units_relationships_on_unit_id'
-    t.index %w[user_id unit_id], name: 'index_users_units_rel', unique: true
-    t.index ['user_id'], name: 'index_users_units_relationships_on_user_id'
+  create_table "users_units_relationships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "unit_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["unit_id"], name: "index_users_units_relationships_on_unit_id"
+    t.index ["user_id", "unit_id"], name: "index_users_units_rel", unique: true
+    t.index ["user_id"], name: "index_users_units_relationships_on_user_id"
   end
 
   create_table 'watchers_relationships', force: :cascade do |t|
