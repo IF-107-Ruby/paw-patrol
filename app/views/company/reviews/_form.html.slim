@@ -11,6 +11,8 @@
           .content.with-padding
             .row
               .col-12.mb-4
+                p Evaluate the closing of the ticket
+              .col-12.mb-4
                 .submit-field
                   h5 Your Rating
                   .leave-rating
@@ -34,5 +36,5 @@
                                 required: 'required'
 
     = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do
-      | Leave a Review
+      = yield(:button_text)
       i.icon-material-outline-arrow-right-alt
