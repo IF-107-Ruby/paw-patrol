@@ -2,6 +2,10 @@ module Admin
   class FeedbacksController < Admin::BaseController
     before_action :find_feedback_by_id, only: %i[show destroy]
 
+    breadcrumb 'Feedbacks', %i[admin feedbacks], match: :exclusive
+    breadcrumb -> { @feedback.id.to_s }, -> { [:admin, @feedback] },
+               match: :exclusive, only: :show
+
     def index
       authorize([:admin, Feedback])
       @pagy, @feedbacks = pagy_decorated(Feedback.all.ordered_by_created_at, items: 10)

@@ -31,4 +31,3 @@
     - if @ticket.open? && policy([:company, @ticket]).resolution?
       - unless @ticket.resolved?
         = render 'company/tickets/ticket_resolution_form', ticket: @ticket
-

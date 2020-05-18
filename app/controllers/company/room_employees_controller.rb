@@ -2,6 +2,10 @@ class Company
   class RoomEmployeesController < Company::BaseController
     before_action :find_unit_by_id
 
+    breadcrumb 'Units', %i[company units], match: :exclusive
+    breadcrumb -> { @unit.name }, -> { [:company, @unit] }, match: :exclusive
+    breadcrumb 'Employees', -> { [:company, @unit, :room_employees] }, only: %i[show edit update]
+
     def show
       @pagy, @room_employees = pagy_decorated(@unit.users, items: 10)
     end

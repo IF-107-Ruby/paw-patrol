@@ -6,6 +6,12 @@ class Company
     helper_method :available_responsible_users
     decorates_assigned :unit
 
+    breadcrumb 'Units', %i[company units], match: :exclusive
+    breadcrumb -> { @unit.name }, [:company, :unit, @unit],
+               match: :exclusive, only: %i[show edit update]
+    breadcrumb 'New', %i[new company unit], only: %i[new create]
+    breadcrumb 'Edit', [:edit, :company, :unit, @unit], only: %i[edit update]
+
     def index
       authorize([:company, Unit])
       respond_to do |format|

@@ -2,11 +2,6 @@ class Company
   class CommentsController < Company::BaseController
     before_action :commentable
 
-    def new
-      @comment = @commentable.comments.build(parent_id: params[:parent_id])
-      authorize([:company, @comment])
-    end
-
     def create
       @comment = @commentable.comments.build(comment_params)
       authorize([:company, @comment])

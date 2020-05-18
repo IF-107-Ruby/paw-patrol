@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_company
 
+  breadcrumb 'Home', :root_path
+
   def current_user
     (super || Guest.new).decorate
   end

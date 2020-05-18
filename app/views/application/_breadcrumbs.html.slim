@@ -1,9 +1,7 @@
 #breadcrumbs.dark
   ul
-    li
-      a href="/"
-        | Home
-    - breadcrumbs.previous_routes.each do |route|
-      li = link_to route.name, route.path
-    li
-      = breadcrumbs.current_route_name
+    - breadcrumb_trail do |crumb|
+      - if crumb.current?
+        li = crumb.name
+      - else 
+        li = link_to crumb.name, crumb.path 

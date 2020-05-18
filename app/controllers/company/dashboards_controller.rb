@@ -1,5 +1,7 @@
 class Company
   class DashboardsController < Company::BaseController
+    breadcrumb 'Dashboard', :company_dashboard_path
+
     def show
       if current_user.staff_member? || current_user.employee?
         load_worker_data

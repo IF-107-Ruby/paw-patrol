@@ -4,6 +4,8 @@ class Company
     before_action :check_user_company
     layout 'hireo_dashboard'
 
+    breadcrumb -> { current_company.name }, :company_path, match: :exclusive
+
     private
 
     def check_user_company

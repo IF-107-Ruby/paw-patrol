@@ -1,5 +1,6 @@
 class TicketDecorator < Draper::Decorator
   delegate_all
+  delegate :name, to: :unit, prefix: true
   decorates_association :user
   decorates_association :review
   decorates_association :employees

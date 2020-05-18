@@ -3,9 +3,15 @@ class Company
     before_action :read_user_units, only: %i[new]
     before_action :read_ticket, only: %i[edit update]
 
+    breadcrumb 'Units', %i[company units], match: :exclusive, only: [:show]
+    breadcrumb 'Add Ticket', %i[new company ticket], only: %i[new create]
+
     def show
       @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
       Notification.mark_comments_as_read(@ticket, current_user)
+
+      breadcrumb @ticket.unit_name, [:company, @ticket.unit], match: :exclusive
+      breadcrumb @ticket.name, [:company, @ticket], only: %i[show]
     end
 
     def new
