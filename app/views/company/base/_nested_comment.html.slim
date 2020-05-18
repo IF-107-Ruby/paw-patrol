@@ -1,5 +1,5 @@
 ul
   - comments.each do |comment, sub_comment|
-    li class='reply-comment-wrapper'
+    li class='reply-comment-wrapper' id="#{dom_id(comment)}"
       = render 'comment', comment: comment, commentable: commentable
-    = render 'nested_comment', comments: sub_comment, commentable: commentable
+      = render 'nested_comment', comments: sub_comment, commentable: commentable
