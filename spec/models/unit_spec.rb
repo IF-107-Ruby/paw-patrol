@@ -23,11 +23,6 @@ RSpec.describe Unit, type: :model do
       expect(unit).to_not be_valid
     end
 
-    it 'is valid without qr_link' do
-      unit.qr_link = nil
-      expect(unit).to be_valid
-    end
-
     it 'is not valid without company' do
       unit.company = nil
       expect(unit).to_not be_valid

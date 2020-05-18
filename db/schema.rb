@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(version: 20_200_531_160_131) do
 
   create_table 'units', force: :cascade do |t|
     t.string 'name', null: false
-    t.string 'qr_link'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'company_id'

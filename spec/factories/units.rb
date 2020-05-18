@@ -14,7 +14,6 @@
 FactoryBot.define do
   factory :unit do
     sequence(:name) { |n| "unit_#{n}" }
-    sequence(:qr_link) { |n| "TEST_QR_LINK#{n}" }
     company
 
     trait :with_parent do

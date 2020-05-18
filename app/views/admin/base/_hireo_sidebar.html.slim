@@ -22,7 +22,7 @@
                 i.icon-material-outline-rate-review
                 | Feedbacks
           ul data-submenu-title="Account" 
-            li class="#{active_path(user_path(current_user))}"
+            li class="#{active_path(admin_user_path(current_user))}"
               = link_to admin_user_path(current_user)
                 i.icon-feather-user
                 | Profile

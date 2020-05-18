@@ -1,23 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe UnitsController, type: :controller do
+RSpec.describe Company::UnitsController, type: :controller do
   let!(:company) { create(:company) }
-  let!(:company_owner_relationship) do
-    create(:company_owner_relationship, company: company)
-  end
+  let!(:company_owner) { create(:company_owner, company: company) }
   let!(:unit) { create(:unit, company: company) }
   let!(:valid_params) { FactoryBot.attributes_for :unit }
   let!(:invalid_params) { { name: '' } }
 
   describe 'Units controller actions' do
     context 'if user is company owner' do
-      before { sign_in company_owner_relationship.user }
+      before { sign_in company_owner }
 
       describe 'GET#index' do
         it 'assigns units and renders template' do
-          get :index, params: { company_id: unit.company.id }
+          get :index, params: { company_id: company.id }
           expect(assigns(:units)).to eq([unit])
-          expect(response).to render_template('index')
+          expect(response).to render_template(:index)
         end
       end
 
@@ -52,7 +50,7 @@ RSpec.describe UnitsController, type: :controller do
             post :create, params: { unit: valid_params,
                                     company_id: unit.company.id }
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(unit_path(Unit.last))
+            expect(response).to redirect_to(company_unit_path(Unit.last))
             expect(flash[:success]).to be_present
           end
         end
@@ -62,12 +60,6 @@ RSpec.describe UnitsController, type: :controller do
               post :create, params: { unit: invalid_params,
                                       company_id: unit.company.id }
             end.not_to change(Unit, :count)
-          end
-          it 'render new page with flash' do
-            post :create, params: { unit: invalid_params,
-                                    company_id: unit.company.id }
-            expect(response).to have_http_status(:success)
-            expect(flash[:danger]).to be_present
           end
         end
       end
@@ -93,7 +85,7 @@ RSpec.describe UnitsController, type: :controller do
           it 'assign the unit' do
             expect(assigns(:unit)).to eq(unit)
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(unit_path(unit))
+            expect(response).to redirect_to(company_unit_path(unit))
             expect(flash[:success]).to be_present
           end
 
@@ -114,7 +106,6 @@ RSpec.describe UnitsController, type: :controller do
             put :update, params: { id: unit.id, unit: invalid_params,
                                    company_id: unit.company.id }
             expect(response).to have_http_status(:success)
-            expect(flash[:danger]).to be_present
           end
         end
       end
@@ -128,8 +119,7 @@ RSpec.describe UnitsController, type: :controller do
         it 'should redirect to units' do
           delete :destroy, params: { id: unit.id, company_id: unit.company.id }
           expect(response).to have_http_status(:redirect)
-          expect(response).to redirect_to(units_path)
-          expect(flash[:success]).to be_present
+          expect(response).to redirect_to(company_units_path)
         end
       end
     end

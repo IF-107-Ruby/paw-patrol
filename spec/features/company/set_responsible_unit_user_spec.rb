@@ -2,13 +2,13 @@ require 'rails_helper'
 
 feature 'Company owner set responsible user' do
   let!(:company) { create(:company) }
-  let!(:company_owner) { create(:company_owner_relationship, company: company) }
+  let!(:company_owner) { create(:company_owner, company: company) }
   let!(:unit) { create(:unit, company: company) }
   let!(:responsible_user) { create(:staff_member, company: company).decorate }
   let(:unit_params) { attributes_for(:unit) }
 
   before :each do
-    login_as company_owner.user
+    login_as company_owner
   end
 
   scenario 'Successfully set responsible user' do

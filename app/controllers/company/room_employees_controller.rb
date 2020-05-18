@@ -4,7 +4,8 @@ class Company
 
     breadcrumb 'Units', %i[company units], match: :exclusive
     breadcrumb -> { @unit.name }, -> { [:company, @unit] }, match: :exclusive
-    breadcrumb 'Employees', -> { [:company, @unit, :room_employees] }, only: %i[show edit update]
+    breadcrumb 'Employees', -> { [:company, @unit, :room_employees] },
+               only: %i[show edit update]
 
     def show
       @pagy, @room_employees = pagy_decorated(@unit.users, items: 10)
