@@ -19,6 +19,9 @@ header#header-container.fullwidth.position-fixed
                 = link_to "Dashboard", company_dashboard_path, class: current_path(company_dashboard_path)
         .clearfix
       .right-side
+        - if user_signed_in?
+          .header-widget.hide-on-mobile
+            = render 'company/notifications/notification_dropdown'
         .header-widget
           - if user_signed_in?
             .header-notifications.user-menu

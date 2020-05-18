@@ -11,4 +11,5 @@
   *= require company/units
   *= require users_invitation_email
   *= require comments
+  *= require notifications
  */

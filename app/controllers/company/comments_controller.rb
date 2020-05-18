@@ -12,6 +12,7 @@ class Company
       authorize([:company, @comment])
 
       @comment.save
+      create_notification @commentable, @comment
       respond_to do |format|
         format.js
       end
@@ -35,6 +36,15 @@ class Company
 
     def commentable
       @commentable ||= Ticket.find(params[:ticket_id])
+    end
+
+    def create_notification(commentable, comment)
+      return if commentable.user.id == current_user.id
+
+      # TODO
+      Notification.create(user: commentable.user,
+                          notified_by: current_user,
+                          noticeable: comment)
     end
   end
 end

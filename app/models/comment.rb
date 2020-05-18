@@ -14,6 +14,7 @@
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :user
+  has_many :notification, as: :noticeable, dependent: :destroy
   has_ancestry
 
   validates :body, :user, :commentable, presence: true
