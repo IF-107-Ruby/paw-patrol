@@ -45,6 +45,10 @@ class User < ApplicationRecord
                       too_long: 'must have at most %<count>s characters' }
 
   after_create :send_invitation
+  after_create do
+    skip_confirmation_notification!
+    SendConfirmationInstructionsJob.perform_later(id)
+  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :registerable
