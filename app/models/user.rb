@@ -64,6 +64,11 @@ class User < ApplicationRecord
     company.present?
   end
 
+  after_create do
+    skip_confirmation_notification!
+    SendConfirmationInstructionsJob.perform_later(id)
+  end
+
   private
 
   def send_invitation
