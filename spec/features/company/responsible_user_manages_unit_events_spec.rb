@@ -16,8 +16,7 @@ feature 'responsible user manages unit events', js: true do
 
     expect(page).not_to have_text(create_params[:title])
     within '#fullcalendar' do
-      find('td.fc-widget-content' \
-           "[data-date=\"#{Time.zone.now.beginning_of_month.strftime('%Y-%m-%d')}\"]").click
+      find('td.fc-widget-content', match: :first).click
       wait_for_ajax
     end
 
@@ -29,7 +28,7 @@ feature 'responsible user manages unit events', js: true do
     expect(page).to have_text(create_params[:title])
 
     within '#fullcalendar' do
-      first('span', text: create_params[:title]).click
+      find('span', text: create_params[:title], match: :first).click
       wait_for_ajax
     end
 
