@@ -1,6 +1,4 @@
 class FeedbacksController < ApplicationController
-  layout 'hireo', only: %i[new create]
-
   breadcrumb 'Contact', :contact_path
 
   def new

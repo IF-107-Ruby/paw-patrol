@@ -1,7 +1,5 @@
 module Users
   class SessionsController < Devise::SessionsController
-    layout 'hireo'
-
     breadcrumb 'Sign in', :new_user_session_path, only: %i[new create]
 
     # before_action :configure_sign_in_params, only: [:create]

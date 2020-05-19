@@ -1,6 +1,4 @@
 class CompaniesController < ApplicationController
-  layout 'hireo'
-
   breadcrumb 'Sign up', :sign_up_path, only: %i[new create]
 
   def new
