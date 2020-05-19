@@ -11,23 +11,29 @@ $.magnificPopup.open({
   },
   callbacks: {
     open: function() {
-      $('#addRecurringEvent').click(function(){
-        let start = moment($("#event_starts_at").val()).format("MM/DD/YYYY HH:mm");
-        let end = moment($("#event_ends_at").val()).format("MM/DD/YYYY HH:mm");
-        
-        $.magnificPopup.close();
-        setTimeout(() => {
-          $.ajax({
-            url: "<%= new_company_unit_recurring_event_path(@unit) %>",
-            data: {
-              recurring_event: {
-                anchor: moment(start).format("YYYY-MM-DD HH:mm"),
-                duration: moment(end).diff(moment(start), 'minutes'),
-              },
-            },
-          })
-        }, 300);
-      })
+      let start = moment("<%= @event.anchor %>")
+      let end = moment("<%= @event.anchor + @event.duration.minutes %>");
+      $('#daterangepicker').daterangepicker(
+        {
+          timePicker: true,
+          startDate: start,
+          endDate: end,
+          opens: "left",
+          locale: {
+            format: "MM/DD/YYYY HH:mm",
+          },
+        },
+        function (start, end, label) {
+          $("#event_anchor").val(start.format("YYYY-MM-DD HH:mm"));
+          $("#event_duration").val(end.diff(start, 'minutes'));
+        }
+      );
+
+      $("#daterangepicker").val(
+        start.format("MM/DD/YYYY HH:mm") +
+          " - " +
+        end.format("MM/DD/YYYY HH:mm")
+      );
     },
     afterClose: function() {
       $(".daterangepicker").remove();
@@ -38,6 +44,8 @@ $.magnificPopup.open({
 
 $(document).ready(function() {
   registerPopupTubs();
+  
   $('#event_ticket_id').selectpicker();
+  $('#event_frequency').selectpicker();
   pickrInit();
 })

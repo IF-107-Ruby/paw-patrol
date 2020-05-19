@@ -4,12 +4,18 @@ class EventDecorator < Draper::Decorator
   delegate :name, to: :ticket, prefix: true
 
   def place
-    'This event will happen at '.html_safe +
+    'This happens at '.html_safe +
       h.link_to(unit.name, [:company, unit])
   end
 
-  def timespan
-    "From #{starts_at.to_formatted_s(:short)} to #{ends_at.to_formatted_s(:short)}"
+  def duration_in_words
+    end_date = anchor + duration.minutes
+    if once?
+      "From #{anchor.to_formatted_s(:short)} " \
+        "to #{end_date.to_formatted_s(:short)}"
+    else
+      "Duration: #{h.distance_of_time_in_words(anchor, end_date)}"
+    end
   end
 
   def attachment

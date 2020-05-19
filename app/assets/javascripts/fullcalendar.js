@@ -22,40 +22,18 @@ document.addEventListener("DOMContentLoaded", function () {
       selectable: true,
       selectHelper: true,
       eventTextColor: "#ffffff",
-      eventSources: [
-        `/company/units/${unitId}/events.json`,
-        `/company/units/${unitId}/recurring_events.json`,
-      ],
+      events: `/company/units/${unitId}/events.json`,
       select: function (event) {
         let start = moment(event.start);
         let end = moment(event.end);
 
         $.ajax({
           url: `/company/units/${unitId}/events/new`,
-          success: function () {
-            $('input[data-behavior="daterangepicker"]').daterangepicker(
-              {
-                timePicker: true,
-                startDate: start.startOf("hour"),
-                endDate: end.startOf("hour"),
-                opens: "left",
-                locale: {
-                  format: "MM/DD/YYYY HH:mm",
-                },
-              },
-              function (start, end, label) {
-                $("#event_starts_at").val(start.format("YYYY-MM-DD HH:mm"));
-                $("#event_ends_at").val(end.format("YYYY-MM-DD HH:mm"));
-              }
-            );
-
-            $("#daterangepicker").val(
-              start.format("MM/DD/YYYY HH:mm") +
-                " - " +
-                end.format("MM/DD/YYYY HH:mm")
-            );
-            $("#event_starts_at").val(start.format("YYYY-MM-DD HH:mm"));
-            $("#event_ends_at").val(end.format("YYYY-MM-DD HH:mm"));
+          data: {
+            event: {
+              anchor: moment(start).format("YYYY-MM-DD HH:mm"),
+              duration: moment(end).diff(moment(start), "minutes"),
+            },
           },
         });
       },
@@ -71,16 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let eventData = {
           event: {
-            starts_at: start.format("YYYY-MM-DD HH:mm"),
-            ends_at: end.format("YYYY-MM-DD HH:mm"),
-          },
-          recurring_event: {
             anchor: start.format("YYYY-MM-DD HH:mm"),
           },
         };
 
         $.ajax({
-          url: event.extendedProps.update_url,
+          url: event.extendedProps.event_url,
           beforeSend: function (xhr) {
             xhr.setRequestHeader(
               "X-CSRF-Token",
@@ -93,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       eventClick: function ({ event }) {
         $.ajax({
-          url: event.extendedProps.show_url,
+          url: event.extendedProps.event_url,
         });
       },
       navLinks: true,
@@ -101,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       eventLimit: true,
     });
   } else {
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    window.calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: ["dayGrid"],
       header: {
         left: "prev,next today",
@@ -113,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       events: `/company/units/${unitId}/events.json`,
       eventClick: function ({ event }) {
         $.ajax({
-          url: event.extendedProps.show_url,
+          url: event.extendedProps.event_url,
         });
       },
       navLinks: true,

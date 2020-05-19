@@ -10,7 +10,6 @@ RSpec.describe Unit, type: :model do
     it { is_expected.to have_many(:users_units_relationships).dependent(:destroy) }
     it { is_expected.to have_many(:users).through(:users_units_relationships) }
     it { is_expected.to have_many(:events).dependent(:destroy) }
-    it { is_expected.to have_many(:recurring_events).dependent(:destroy) }
     it { is_expected.to accept_nested_attributes_for(:users_units_relationships) }
   end
 

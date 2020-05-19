@@ -32,7 +32,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify
-  has_many :recurring_events, dependent: :nullify
 
   validates :first_name, :last_name,
             presence: true,

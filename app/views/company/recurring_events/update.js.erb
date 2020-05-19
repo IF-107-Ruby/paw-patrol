@@ -1,9 +1,0 @@
-calendar.getEventSources()[1].refetch();
-if($.magnificPopup.instance.content) {
-  $.magnificPopup.close();
-}
-<% if @recurring_event.valid? %>
-showSnackbarSuccess("Event updated successfully");
-<% else %>
-showSnackbarError("Event not updated");
-<% end %>

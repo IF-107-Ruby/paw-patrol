@@ -23,7 +23,6 @@ class Ticket < ApplicationRecord
   has_one :ticket_completion, dependent: :destroy
   has_many :employees, through: :unit, class_name: 'User'
   has_many :events, dependent: :nullify
-  has_many :recurring_events, dependent: :nullify
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :watchers_relationship, dependent: :destroy
   has_many :watchers, through: :watchers_relationship, source: :user

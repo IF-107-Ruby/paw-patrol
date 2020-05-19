@@ -5,8 +5,8 @@
       = f.text_field :title, class: 'with-border'
       = f.label "Timespan"
       = text_field_tag :daterangepicker, "", "data-behavior" => 'daterangepicker', class: 'with-border'
-      = f.hidden_field :starts_at
-      = f.hidden_field :ends_at
+      = f.hidden_field :anchor
+      = f.hidden_field :duration
       = f.hidden_field :color, "data-type" => "color"
       = f.label :ticket_id
       = f.collection_select :ticket_id, avaible_tickets, :id, :name, {include_blank: true}, \
@@ -17,21 +17,19 @@
           'data-live-search' => true,
           }
       .margin-top-30
+      = f.label :frequency
+      = f.select :frequency, Event.frequencies.keys.map { |w| [w.humanize, w] }, \
+          { class: 'selectpicker with-border',
+            'data-size' => '3',
+            'tabindex' => '-98',
+            'title' => 'Select frequency',
+            required: true }
+      .margin-top-30
       .d-flex
         = f.label :color, class: "mr-2"
         .color-picker
   .row
-    - if event.new_record?
-      .col-xl-6
-        = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
-          | Add event
-          i.icon-feather-plus
-      .col-xl-6
-        a#addRecurringEvent.button.gray.full-width.margin-top-35.button-sliding-icon.ripple-effect href='#' 
-          | Add recurring event
-          i.icon-material-outline-arrow-right-alt
-    - else
-      .col-xl-12
-        = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
-          | Update event
-          i.icon-feather-check
+    .col-xl-12
+      = button_tag type: "submit", class: 'button full-width margin-top-35 button-sliding-icon ripple-effect'
+        = event.new_record? ? "Add event" : "Update event"
+        i.icon-feather-check

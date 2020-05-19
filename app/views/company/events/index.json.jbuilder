@@ -1,3 +1,3 @@
-json.partial! partial: 'event',
-              collection: @events,
+json.partial! @events,
+              partial: 'events/event',
               as: :event

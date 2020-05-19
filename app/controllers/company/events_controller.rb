@@ -19,7 +19,7 @@ class Company
     end
 
     def new
-      @event = @unit.events.build
+      @event = @unit.events.build(event_params)
       authorize([:company, @event])
       respond_to do |format|
         format.js
@@ -52,8 +52,8 @@ class Company
     private
 
     def event_params
-      params.require(:event)
-            .permit(:title, :ticket_id, :starts_at, :ends_at, :color)
+      params.fetch(:event, { anchor: Time.zone.now })
+            .permit(:title, :anchor, :duration, :frequency, :ticket_id, :color)
             .merge(user: current_user)
     end
 
@@ -76,10 +76,9 @@ class Company
     end
 
     def selected_events
-      @unit.events
-           .where(starts_at: params[:start]..params[:end])
-           .or(@unit.events
-        .where(ends_at: params[:start]..params[:end]))
+      @unit.events.one_time
+           .where('anchor <= ?', params[:end])
+           .or(@unit.events.recurring)
     end
   end
 end

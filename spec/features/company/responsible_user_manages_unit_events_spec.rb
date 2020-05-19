@@ -17,18 +17,22 @@ feature 'responsible user manages unit events', js: true do
     expect(page).not_to have_text(create_params[:title])
     within '#fullcalendar' do
       find('td.fc-widget-content' \
-           "[data-date=\"#{1.day.from_now.strftime('%Y-%m-%d')}\"]").click
+           "[data-date=\"#{Time.zone.now.beginning_of_month.strftime('%Y-%m-%d')}\"]")
+        .click
       wait_for_ajax
     end
+
     fill_in id: :event_title, with: create_params[:title]
+    click_on 'Once'
+    find('li[data-original-index="1"] a').click
     click_on 'Add event'
     wait_for_ajax
 
-    expect(page).to have_text('Event added successfully')
-    expect(page).to have_text(create_params[:title])
+    expect(page).to have_text('Event added successfully', wait: 3)
+    expect(page).to have_text(create_params[:title], minimum: 2)
 
     within '#fullcalendar' do
-      find('span', text: create_params[:title]).click
+      first('span', text: create_params[:title]).click
       wait_for_ajax
     end
 
@@ -37,12 +41,12 @@ feature 'responsible user manages unit events', js: true do
     click_on 'Update event'
     wait_for_ajax
 
-    expect(page).to have_text('Event updated successfully')
+    expect(page).to have_text('Event updated successfully', wait: 3)
     expect(page).not_to have_text(create_params[:title])
-    expect(page).to have_text(update_params[:title])
+    expect(page).to have_text(update_params[:title], minimum: 2)
 
     within '#fullcalendar' do
-      find('span', text: update_params[:title]).click
+      first('span', text: update_params[:title]).click
       wait_for_ajax
     end
 
@@ -53,7 +57,7 @@ feature 'responsible user manages unit events', js: true do
     end
     wait_for_ajax
 
-    expect(page).to have_text('Event removed successfully')
+    expect(page).to have_text('Event removed successfully', wait: 3)
     expect(page).not_to have_text(update_params[:title])
   end
 end

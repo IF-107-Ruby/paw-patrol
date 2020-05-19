@@ -5,6 +5,8 @@ RSpec.describe 'Company::Events', type: :request do
   let!(:user) { create(:company_owner, company: company) }
   let!(:unit) { create(:unit, company: company) }
   let!(:event) { create(:event, unit: unit, user: user) }
+  let(:event_params) { attributes_for(:event) }
+  let(:params) { { event: event_params } }
 
   before { login_as user }
 
@@ -36,12 +38,9 @@ RSpec.describe 'Company::Events', type: :request do
   end
 
   describe 'POST /company/units/:unit_id/events' do
-    let(:event_params) { attributes_for(:event) }
-
     it 'creates event with valid params' do
       before_count = Event.count
-      post company_unit_events_path(unit), xhr: true,
-                                           params: { event: event_params }
+      post company_unit_events_path(unit), xhr: true, params: params
 
       expect(Event.count).not_to eq(before_count)
       expect(response).to render_template(:create)
@@ -50,8 +49,7 @@ RSpec.describe 'Company::Events', type: :request do
     it 'does not create event with invalid params' do
       before_count = Event.count
       event_params[:title] = ''
-      post company_unit_events_path(unit), xhr: true,
-                                           params: { event: event_params }
+      post company_unit_events_path(unit), xhr: true, params: params
 
       expect(Event.count).to eq(before_count)
       expect(response).to render_template(:create)
@@ -59,11 +57,9 @@ RSpec.describe 'Company::Events', type: :request do
   end
 
   describe 'PATCH /company/units/:id' do
-    let(:event_params) { attributes_for(:event) }
-
     it 'updates event if data is valid' do
-      patch company_unit_event_path(unit, event), xhr: true,
-                                                  params: { event: event_params }
+      patch company_unit_event_path(unit, event),
+            xhr: true, params: params
 
       expect(Event.find(event.id).title)
         .to eq(event_params[:title])
@@ -72,8 +68,8 @@ RSpec.describe 'Company::Events', type: :request do
 
     it 'does not update event with invalid params' do
       event_params[:title] = ''
-      patch company_unit_event_path(unit, event), xhr: true,
-                                                  params: { event: event_params }
+      patch company_unit_event_path(unit, event),
+            xhr: true, params: params
 
       expect(Event.find(event.id).title)
         .not_to eq(event_params[:title])
