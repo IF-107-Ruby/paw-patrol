@@ -11,8 +11,8 @@ class Company
       @comment = @commentable.comments.build(comment_params)
       authorize([:company, @comment])
 
-      @comment.save
-      create_notification @commentable, @comment
+      create_notification @commentable, @comment if @comment.save
+
       respond_to do |format|
         format.js
       end
@@ -39,12 +39,16 @@ class Company
     end
 
     def create_notification(commentable, comment)
-      return if commentable.user.id == current_user.id
+      users_to_notify = [commentable.user, commentable.unit.responsible_user]
+      # Add watchers
 
-      # TODO
-      Notification.create(user: commentable.user,
-                          notified_by: current_user,
-                          noticeable: comment)
+      users_to_notify.each do |user|
+        next if user.id == current_user.id
+
+        Notification.create(user: user,
+                            notified_by: current_user,
+                            noticeable: comment)
+      end
     end
   end
 end
