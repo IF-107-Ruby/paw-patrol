@@ -17,7 +17,8 @@ feature 'responsible user manages unit events', js: true do
     expect(page).not_to have_text(create_params[:title])
     within '#fullcalendar' do
       find('td.fc-widget-content' \
-           "[data-date=\"#{Time.zone.now.beginning_of_month.strftime('%Y-%m-%d')}\"]")
+           "[data-date=\"#{Time.zone.now.beginning_of_month.strftime('%Y-%m-%d')}\"]",
+           wait: 3)
         .click
       wait_for_ajax
     end
