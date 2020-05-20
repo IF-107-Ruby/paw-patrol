@@ -16,6 +16,17 @@ class Company
       end
     end
 
+    def destroy
+      @ticket_completion = @ticket.ticket_completion
+      authorize([:company, @ticket_completion])
+
+      @ticket_completion.destroy
+      @ticket.uncomplete_and_save!
+
+      flash.now[:success] = 'Ticket completion deleted!'
+      render template: 'company/tickets/show'
+    end
+
     private
 
     def read_ticket

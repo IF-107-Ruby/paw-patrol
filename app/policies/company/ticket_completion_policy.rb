@@ -1,11 +1,11 @@
 class Company
   class TicketCompletionPolicy < ApplicationPolicy
-    def new?
+    def create?
       user.responsible_for?(record.ticket.unit) && !record.ticket.resolved?
     end
 
-    def create?
-      user.responsible_for?(record.ticket.unit) && !record.ticket.resolved?
+    def destroy?
+      user.completion_performer?(record)
     end
 
     class Scope < Scope

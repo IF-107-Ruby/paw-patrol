@@ -66,8 +66,13 @@ class User < ApplicationRecord
     company.present?
   end
 
+<<<<<<< HEAD
   def resolved_tickets?
     tickets.resolved.any?
+=======
+  def completion_performer?(completion)
+    ticket_completions.include?(completion)
+>>>>>>> added deleting ticket completion.
   end
 
   private

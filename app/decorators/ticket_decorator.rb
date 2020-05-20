@@ -18,4 +18,8 @@ class TicketDecorator < Draper::Decorator
   def completion_description
     ticket_completion.description
   end
+
+  def completion
+    ticket_completion
+  end
 end

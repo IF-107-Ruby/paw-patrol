@@ -37,11 +37,6 @@ class Ticket < ApplicationRecord
   scope :most_recent, -> { order(created_at: :desc) }
   scope :resolved, -> { where(status: :resolved) }
 
-  def complete_and_save!
-    self.status = 'closed'
-    save
-  end
-
   def description_attachments
     description.body.attachments
   end
@@ -56,6 +51,16 @@ class Ticket < ApplicationRecord
 
   def resolved?
     status == 'closed'
+  end
+
+  def complete_and_save!
+    self.status = 'closed'
+    save
+  end
+
+  def uncomplete_and_save!
+    self.status = 'open'
+    save
   end
 
   private
