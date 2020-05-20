@@ -40,5 +40,24 @@ describe Company::TicketCompletionsController, type: :controller do
         end
       end
     end
+
+    context 'if user can delete ticket completion' do
+      before do
+        sign_in unit.responsible_user
+      end
+
+      describe 'DELETE #destroy' do
+        before do
+          delete :destroy, params: {
+            id: unit.tickets.last.ticket_completion.id,
+            ticket_id: unit.tickets.last.id
+          }
+        end
+
+        it { is_expected.to set_flash.now[:success] }
+        it { is_expected.not_to set_flash[:warning] }
+        it { is_expected.to render_template('company/tickets/show') }
+      end
+    end
   end
 end

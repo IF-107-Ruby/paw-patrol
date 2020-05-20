@@ -42,11 +42,11 @@ FactoryBot.define do
       end
     end
 
-    trait :with_employee_ticket_and_completion do
+    trait :with_employee_and_ticket do
       with_employee
 
       after(:create) do |unit|
-        create(:ticket, :with_completion, user: unit.users.last, unit: unit)
+        create(:ticket, user: unit.users.last, unit: unit)
       end
     end
 

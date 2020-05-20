@@ -17,7 +17,6 @@ feature 'Responsible user resolve ticket' do
 
     expect(page).to have_selector('.notification.success.closeable',
                                   text: 'Ticket resolved!')
-
     expect(page).to have_selector('.headline', text: 'Ticket Completion')
   end
 
@@ -29,5 +28,17 @@ feature 'Responsible user resolve ticket' do
     expect(page).to have_selector('.notification.warning.closeable',
                                   text: 'Ticket is not resolved!')
     expect(page).to have_text('Description can\'t be blank')
+  end
+
+  scenario 'unsuccessfuly delete ticket completion' do
+    fill_in_trix_editor('ticket_completion_description_trix_input_ticket_completion',
+                        ticket_completion_attributes[:description])
+    click_on 'Resolve ticket'
+
+    find('a', class: 'delete-ticket-completion-icon').click
+
+    expect(page).to have_selector('.notification.success.closeable',
+                                  text: 'Ticket completion deleted!')
+    expect(page).to have_selector('.headline', text: 'Ticket Completion')
   end
 end

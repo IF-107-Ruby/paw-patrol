@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe TicketDecorator do
   let!(:company) { create(:company) }
-  let!(:staff_member) { create(:staff_member, company: company, unit: unit ) }
+  let!(:staff_member) { create(:staff_member, company: company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:ticket_completion ) { create(user: staff_member, ticket: ticket) }
+  let!(:ticket_completion ) { create(:ticket_completion, user: staff_member, ticket: ticket) }
   let!(:ticket) { unit.tickets.first.decorate }
   let!(:user) { ticket.user.decorate }
 
@@ -21,7 +21,7 @@ RSpec.describe TicketDecorator do
   end
 
   it 'completion_description' do
-    expect(ticket.completion_description).to eq("#{ticket_completion.description}")
+    expect(ticket.completion_description).to eq(ticket_completion.description)
   end
 
   it 'completion' do
