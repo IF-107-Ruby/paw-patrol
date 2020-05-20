@@ -4,7 +4,7 @@ RSpec.describe Company::TicketCompletionPolicy, type: :policy do
   include_context 'company with unit, ticket and ticket completion'
 
   subject { described_class }
-  
+
   permissions :create? do
     it 'grant access' do
       expect(subject).to permit(unit.responsible_user, ticket_completion)

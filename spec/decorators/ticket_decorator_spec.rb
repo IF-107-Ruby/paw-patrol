@@ -4,7 +4,11 @@ RSpec.describe TicketDecorator do
   let!(:company) { create(:company) }
   let!(:staff_member) { create(:staff_member, company: company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:ticket_completion ) { create(:ticket_completion, user: staff_member, ticket: ticket) }
+  let!(:ticket_completion) do
+    create(:ticket_completion,
+           user: staff_member,
+           ticket: ticket)
+  end
   let!(:ticket) { unit.tickets.first.decorate }
   let!(:user) { ticket.user.decorate }
 

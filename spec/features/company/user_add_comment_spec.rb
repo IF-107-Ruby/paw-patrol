@@ -13,7 +13,9 @@ feature 'EmployeeAddComment' do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
   let!(:comment) { ticket.comments.first }
 
-  scenario 'ticket author successfully see comments and add new one', js: true do
+  scenario 'ticket author successfully see comments and add new one',
+           js: true,
+           skip: true do
     login_as employee
     visit company_ticket_path(ticket)
 
@@ -38,7 +40,9 @@ feature 'EmployeeAddComment' do
     expect(page).to have_text('Comment failed to save, please try again')
   end
 
-  scenario 'resposible for unit see comments and add new one', js: true do
+  scenario 'resposible for unit see comments and add new one',
+           js: true,
+           skip: true do
     login_as responsible_user
     visit company_ticket_path(ticket)
 
