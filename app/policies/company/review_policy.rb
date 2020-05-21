@@ -1,17 +1,17 @@
 class Company
   class ReviewPolicy < ApplicationPolicy
-    delegate :can_create_ticket?, to: :user
-
     def index?
-      can_create_ticket?
+      user.can_create_ticket?
     end
 
     def create?
-      can_create_ticket?
+      user.can_create_ticket? &&
+        user.creator_of_closed_ticket?(ticket_id: record.ticket.id)
     end
 
     def update?
-      can_create_ticket?
+      user.can_create_ticket? &&
+        user.creator_of_closed_ticket?(ticket_id: record.ticket.id)
     end
 
     class Scope < Scope

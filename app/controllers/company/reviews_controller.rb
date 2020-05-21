@@ -4,6 +4,7 @@ class Company
 
     def index
       authorize([:company, Review])
+      # TODO
       @pagy, @tickets = pagy_decorated(current_user.tickets, items: 10)
     end
 

@@ -65,6 +65,11 @@ class User < ApplicationRecord
     company.present?
   end
 
+  def creator_of_closed_ticket?(ticket_id:)
+    # TODO
+    ticket_ids.include?(ticket_id)
+  end
+
   private
 
   def send_invitation
