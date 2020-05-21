@@ -17,8 +17,8 @@
             .col-xl-9.mx-auto.col-lg-9.col-md-12
               = render template: 'company/comments/index', locals: { commentable: @ticket }
     - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)
-      - if @ticket.resolved?
-        = render 'company/tickets/show_ticket_completion', ticket: @ticket
+      - if @ticket.resolved? && !@ticket.resolution.nil?
+        = render 'company/tickets/show_ticket_resolution', ticket: @ticket
     - if current_user.responsible_for?(@ticket.unit)
       - unless @ticket.resolved?
-        = render 'company/tickets/ticket_completion_form', ticket: @ticket
+        = render 'company/tickets/ticket_resolution_form', ticket: @ticket

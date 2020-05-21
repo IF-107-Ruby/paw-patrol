@@ -8,6 +8,10 @@ class Company
       create?
     end
 
+    def resolution?
+      user.responsible_for?(record.unit) && !record.resolved?
+    end
+
     class Scope < Scope
       def resolve
         Ticket.where(unit_id: user.company.unit_ids)

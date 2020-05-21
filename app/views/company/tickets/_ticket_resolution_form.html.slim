@@ -1,5 +1,5 @@
 .complete-ticket-form.margin-top-30
-  = form_for @ticket_completion, method: :post, url: company_ticket_completion_index_path(@ticket, @ticket_completion) do |f|
+  = form_for @ticket, method: :post, url: company_ticket_resolution_path(@ticket) do |f|
     .row
       .col-md-12
         .dashboard-box.mt-0
@@ -12,7 +12,7 @@
               = render 'shared/error_messages', object: f.object
               .submit-field
                 h5.pb-2 Describe ticket completion
-                = f.rich_text_area :description
+                = f.rich_text_area :resolution
 
     = f.button(:submit, class: 'button margin-top-30 complete-ticket-button') do
       | Resolve ticket

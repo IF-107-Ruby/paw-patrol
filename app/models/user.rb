@@ -67,6 +67,7 @@ class User < ApplicationRecord
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   def resolved_tickets?
     tickets.resolved.any?
 =======
@@ -75,6 +76,8 @@ class User < ApplicationRecord
 >>>>>>> added deleting ticket completion.
   end
 
+=======
+>>>>>>> changed creation ticket resolution way.
   private
 
   def send_invitation

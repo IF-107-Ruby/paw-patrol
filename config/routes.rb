@@ -19,9 +19,13 @@ Rails.application.routes.draw do
       resources :children, controller: :units_children, only: :index
     end
     resources :tickets, only: %i[show new create] do
+      post '/resolution', to: 'tickets#resolution', as: :resolution
       resources :comments
+<<<<<<< HEAD
       resource :review, except: %i[index destroy]
       get :resolved, on: :collection
+=======
+>>>>>>> changed creation ticket resolution way.
     end
   end
 

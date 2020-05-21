@@ -21,6 +21,7 @@ class Ticket < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
+  has_rich_text :resolution
   has_one :ticket_completion, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
@@ -32,13 +33,25 @@ class Ticket < ApplicationRecord
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
 
+<<<<<<< HEAD
   after_create :send_ticket_notification
+=======
+  validates_with ImageAttachmentsValidator,
+                 if: lambda { |ticket|
+                   ticket.resolution_attachments &&
+                     ticket.resolution_attachments.any?
+                 }
+>>>>>>> changed creation ticket resolution way.
 
   scope :most_recent, -> { order(created_at: :desc) }
   scope :resolved, -> { where(status: :resolved) }
 
   def description_attachments
     description.body.attachments
+  end
+
+  def resolution_attachments
+    resolution&.body&.attachments
   end
 
   def belongs_to?(current_user)
