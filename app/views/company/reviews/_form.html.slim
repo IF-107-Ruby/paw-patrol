@@ -12,7 +12,9 @@
           .content.with-padding
             .row
               .col-12.mb-4
-                p Evaluate the closing of the ticket
+                .review-form__ticket-link
+                  | Evaluate the closing of the
+                  = link_to 'ticket', company_ticket_path(@review.ticket_id)
               .col-12.mb-4
                 .submit-field
                   h5 Your Rating
