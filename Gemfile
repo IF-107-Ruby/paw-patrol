@@ -50,6 +50,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'webdrivers'
+  gem 'with_model'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
