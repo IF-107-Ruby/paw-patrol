@@ -2,8 +2,8 @@
   .header-notifications-trigger
     = link_to '#'
       i.icon-feather-bell
-      - if current_user.notifications.unread.count > 0
-        span = current_user.notifications.unread.count
+      - if notifications.count > 0
+        span = notifications.count
   .header-notifications-dropdown
     .header-notifications-headline
       h4 Notifications
@@ -14,4 +14,4 @@
         .simplebar-scroll-content
           .simplebar-content
             ul
-              = render partial: 'company/notifications/notification', collection: current_user.notifications.unread.order('created_at DESC').decorate
+              = render partial: 'notification', collection: notifications.decorate

@@ -6,10 +6,10 @@ class Notification < ApplicationRecord
 
   validates :user, :notified_by, :noticeable, presence: true
 
-  scope :unread, -> { where(read: false) }
+  scope :unread, -> { where(read: false).order('created_at DESC') }
   scope :read, -> { where(read: true) }
 
-  def self.mark_comments_as_read(object, user)
-    Notification.where(noticeable: object.comments, user: user).update read: true
+  def self.mark_comments_as_read(noticeable, user)
+    Notification.where(noticeable: noticeable.comments, user: user).update read: true
   end
 end
