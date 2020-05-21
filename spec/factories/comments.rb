@@ -16,5 +16,11 @@ FactoryBot.define do
     association :commentable, factory: :ticket
     body { Faker::Lorem.sentence(word_count: 3) }
     user
+
+    trait :with_notification do
+      after(:create) do |comment|
+        create(:notification, noticeable: comment)
+      end
+    end
   end
 end
