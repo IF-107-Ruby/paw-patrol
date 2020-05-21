@@ -20,14 +20,11 @@ feature 'AddCommentNotification' do
     visit company_ticket_path(ticket)
 
     expect do
-      find('#add-comment').click
-      using_wait_time 2 do
-        within '#new-comment' do
-          fill_in id: 'comment_body', with: 'Test comment from employee'
-        end
+      within '#new-comment' do
+        fill_in id: 'comment_body', with: 'Test comment from responsible user'
       end
 
-      click_on 'Send'
+      click_on 'Add comment'
       wait_for_ajax
     end.to change(Notification, :count).by(1)
   end

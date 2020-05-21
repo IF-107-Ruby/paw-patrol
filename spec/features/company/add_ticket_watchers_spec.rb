@@ -22,6 +22,6 @@ feature 'EmployeePostATicket' do
       .select_option
     click_on 'Save changes'
 
-    expect(ticket.watchers).to include(coworker)
+    expect(ticket.watchers.reload).to include(coworker)
   end
 end

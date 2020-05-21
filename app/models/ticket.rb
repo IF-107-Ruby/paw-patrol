@@ -19,15 +19,16 @@ class Ticket < ApplicationRecord
   after_create :send_ticket_notification
   after_save :add_author_to_watchers
 
-  has_many :comments, as: :commentable, dependent: :destroy
-  has_many :watchers_relationship, dependent: :destroy
-  has_many :watchers, through: :watchers_relationship, source: :user
-  accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
   belongs_to :user
   belongs_to :unit
 
   has_one :review, dependent: :destroy
   has_one :ticket_completion, dependent: :destroy
+  has_many :employees, through: :unit, class_name: 'User'
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :watchers_relationship, dependent: :destroy
+  has_many :watchers, through: :watchers_relationship, source: :user
+  accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
 
   has_rich_text :description
   has_rich_text :resolution
@@ -61,8 +62,13 @@ class Ticket < ApplicationRecord
     user == current_user
   end
 
+<<<<<<< HEAD
   def reviewed?
     review.present?
+=======
+  def available_watchers
+    employees.decorate - [user]
+>>>>>>> Fixed tests
   end
 
   def complete!(resolution)
