@@ -12,7 +12,7 @@
 class Review < ApplicationRecord
   belongs_to :ticket
 
-  validates :ticket, presence: true
+  validates :ticket, presence: true, uniqueness: true
 
   validates :rating, presence: true,
                      numericality: { only_integer: true },

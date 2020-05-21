@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20_200_517_160_130) do
     t.bigint 'ticket_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['ticket_id'], name: 'index_reviews_on_ticket_id'
+    t.index ['ticket_id'], name: 'index_reviews_on_ticket_id', unique: true
   end
 
   create_table 'tickets', force: :cascade do |t|
