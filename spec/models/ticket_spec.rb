@@ -6,6 +6,7 @@ RSpec.describe Ticket, type: :model do
   describe 'Associations' do
     it { expect(ticket).to belong_to(:user) }
     it { expect(ticket).to belong_to(:unit) }
+    it { expect(ticket).to have_one(:review).dependent(:destroy) }
   end
 
   describe 'validations' do

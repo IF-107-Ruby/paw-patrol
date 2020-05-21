@@ -82,8 +82,10 @@ ActiveRecord::Schema.define(version: 20_200_512_061_210) do
   create_table 'reviews', force: :cascade do |t|
     t.integer 'rating', null: false
     t.text 'comment', null: false
+    t.bigint 'ticket_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['ticket_id'], name: 'index_reviews_on_ticket_id'
   end
 
   create_table 'tickets', force: :cascade do |t|
@@ -147,6 +149,7 @@ ActiveRecord::Schema.define(version: 20_200_512_061_210) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'comments', 'users'
+  add_foreign_key 'reviews', 'tickets'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
   add_foreign_key 'units', 'companies'

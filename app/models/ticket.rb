@@ -12,9 +12,10 @@
 class Ticket < ApplicationRecord
   after_create :send_ticket_notification
 
-  has_many :comments, as: :commentable, dependent: :destroy
   belongs_to :user
   belongs_to :unit
+  has_one :review, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
 
