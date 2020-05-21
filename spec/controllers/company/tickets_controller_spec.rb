@@ -64,8 +64,8 @@ describe Company::TicketsController, type: :controller do
       end
 
       describe 'POST #create' do
-        let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
-        let(:ticket_invalid_params) { { name: '', description: '' } }
+        let!(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
+        let!(:ticket_invalid_params) { { name: '', description: '' } }
 
         context 'with valid params' do
           before { post :create, params: { ticket: ticket_valid_params } }
@@ -79,6 +79,27 @@ describe Company::TicketsController, type: :controller do
           it { is_expected.to set_flash.now[:warning] }
           it { is_expected.not_to set_flash[:success] }
           it { is_expected.to render_template('new') }
+        end
+      end
+
+      describe 'POST #resolution' do
+        let!(:ticket_resolution_params) do
+          ActionText::Content.new(Faker::Lorem.paragraph)
+        end
+
+        context 'with resolution explenation' do
+          before do
+            post :resolution, params: { ticket_id: ticket.id, ticket: {
+              resolution: ticket_resolution_params
+            } }
+          end
+
+          it 'creates resolution' do
+            expect(response).to have_http_status(:redirect)
+            expect(flash[:success]).to be_present
+            expect(flash[:warning]).not_to be_present
+            expect(response).to redirect_to(company_ticket_path(ticket.id))
+          end
         end
       end
     end

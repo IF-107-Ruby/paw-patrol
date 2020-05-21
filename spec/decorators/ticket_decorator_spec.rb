@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TicketDecorator do
   let!(:company) { create(:company) }
-  let!(:staff_member) { create(:staff_member, company: company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:ticket_completion) do
-    create(:ticket_completion,
-           user: staff_member,
-           ticket: ticket)
-  end
   let!(:ticket) { unit.tickets.first.decorate }
   let!(:user) { ticket.user.decorate }
 
@@ -22,13 +16,5 @@ RSpec.describe TicketDecorator do
 
   it 'display_status' do
     expect(ticket.display_status).to eq('open')
-  end
-
-  it 'completion_description' do
-    expect(ticket.completion_description).to eq(ticket_completion.description)
-  end
-
-  it 'completion' do
-    expect(ticket.completion).to eq(ticket_completion)
   end
 end

@@ -42,4 +42,11 @@ RSpec.describe Ticket, type: :model do
       it { expect(ticket.reviewed?).to be false }
     end
   end
+
+  describe 'resolution' do
+    it 'resolution_attachments' do
+      expected = ticket.resolution.body.attachments
+      expect(ticket.resolution_attachments).to eq(expected)
+    end
+  end
 end

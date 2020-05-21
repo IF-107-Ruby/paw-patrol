@@ -36,5 +36,15 @@ FactoryBot.define do
                                        ticket: resolved_ticket)
       end
     end
+
+    trait :with_resolution do
+      after(:build) do |ticket|
+        ticket.resolution = ActionText::Content.new(Faker::Lorem.paragraph)
+      end
+    end
+
+    factory :resolved_ticket, parent: :ticket do
+      status { 1 }
+    end
   end
 end
