@@ -19,7 +19,22 @@ class Comment < ApplicationRecord
 
   validates :body, :user, :commentable, presence: true
 
+  after_save :create_notification
+
   def belongs_to?(current_user)
     user == current_user
+  end
+
+  def create_notification
+    users_to_notify = [commentable.user, commentable.unit.responsible_user]
+    # Add watchers
+
+    users_to_notify.each do |user|
+      next if user == self.user
+
+      Notification.create(user: user,
+                          notified_by: self.user,
+                          noticeable: self)
+    end
   end
 end
