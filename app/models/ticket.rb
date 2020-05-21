@@ -50,11 +50,11 @@ class Ticket < ApplicationRecord
   end
 
   def resolved?
-    status == 'closed'
+    status == 'resolved'
   end
 
   def complete_and_save!
-    self.status = 'closed'
+    self.status = 'resolved'
     save
   end
 
