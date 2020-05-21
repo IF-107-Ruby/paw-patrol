@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_512_061_210) do
+ActiveRecord::Schema.define(version: 20_200_517_160_130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -77,6 +77,17 @@ ActiveRecord::Schema.define(version: 20_200_512_061_210) do
     t.text 'message'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'notifications', force: :cascade do |t|
+    t.integer 'noticeable_id', null: false
+    t.string 'noticeable_type', null: false
+    t.bigint 'user_id', null: false
+    t.integer 'notified_by_id', null: false
+    t.boolean 'read', default: false, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['user_id'], name: 'index_notifications_on_user_id'
   end
 
   create_table 'reviews', force: :cascade do |t|
@@ -147,8 +158,19 @@ ActiveRecord::Schema.define(version: 20_200_512_061_210) do
     t.index ['user_id'], name: 'index_users_units_relationships_on_user_id'
   end
 
+  create_table 'watchers_relationships', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'ticket_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['ticket_id'], name: 'index_watchers_relationships_on_ticket_id'
+    t.index ['user_id'], name: 'index_watchers_relationships_on_user_id'
+  end
+
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'comments', 'users'
+  add_foreign_key 'notifications', 'users'
+  add_foreign_key 'notifications', 'users', column: 'notified_by_id'
   add_foreign_key 'reviews', 'tickets'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
@@ -158,4 +180,6 @@ ActiveRecord::Schema.define(version: 20_200_512_061_210) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
+  add_foreign_key 'watchers_relationships', 'tickets'
+  add_foreign_key 'watchers_relationships', 'users'
 end
