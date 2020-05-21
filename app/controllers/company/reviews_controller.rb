@@ -8,7 +8,7 @@ class Company
     end
 
     def new
-      @review = Review.new
+      @review = Review.new(ticket_id: params[:ticket_id])
       authorize([:company, @review])
     end
 
@@ -44,7 +44,7 @@ class Company
     end
 
     def review_params
-      params.require(:review).permit(:rating, :comment)
+      params.require(:review).permit(:rating, :comment, :ticket_id)
     end
   end
 end

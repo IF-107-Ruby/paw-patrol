@@ -8,6 +8,7 @@
               i.icon-material-outline-business
               | Review Submission Form
           = render 'shared/error_messages', object: f.object
+          = f.hidden_field :ticket_id
           .content.with-padding
             .row
               .col-12.mb-4
@@ -34,7 +35,6 @@
                                 placeholder: 'e.g. everything was done well',
                                 cols: "7",
                                 required: 'required'
-
     = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do
       = yield(:button_text)
       i.icon-material-outline-arrow-right-alt
