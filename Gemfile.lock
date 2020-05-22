@@ -253,6 +253,12 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react_on_rails (11.3.0)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 3.2)
+      rainbow (~> 3.0)
     redis (4.1.4)
     regexp_parser (1.7.0)
     request_store (1.5.0)
@@ -407,6 +413,7 @@ DEPENDENCIES
   pundit
   rails (~> 6.0.2, >= 6.0.2.2)
   rails-controller-testing
+  react_on_rails
   rspec-rails (~> 4.0)
   rubocop-rails
   sass-rails (>= 6)
