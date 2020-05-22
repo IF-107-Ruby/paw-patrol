@@ -92,7 +92,8 @@ describe Company::ReviewsController do
     context 'Employee review ticket with invalid params' do
       before do
         sign_in employee
-        post :create, params: { review: review_invalid_params.merge(ticket_id: ticket.id) }
+        post :create,
+             params: { review: review_invalid_params.merge(ticket_id: ticket.id) }
       end
 
       it { is_expected.not_to set_flash[:success] }
