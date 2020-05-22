@@ -27,4 +27,18 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.description_attachments).to eq(expected)
     end
   end
+
+  describe 'was_reviewable?' do
+    context 'with review' do
+      before do
+        create(:review, ticket: ticket)
+      end
+
+      it { expect(ticket.was_reviewable?).to be true }
+    end
+
+    context 'without review' do
+      it { expect(ticket.was_reviewable?).to be false }
+    end
+  end
 end

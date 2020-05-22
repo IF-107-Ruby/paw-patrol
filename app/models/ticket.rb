@@ -37,6 +37,10 @@ class Ticket < ApplicationRecord
     user == current_user
   end
 
+  def was_reviewable?
+    !review.nil?
+  end
+
   private
 
   def unit_permission
