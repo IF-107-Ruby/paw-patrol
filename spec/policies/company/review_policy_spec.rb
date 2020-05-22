@@ -20,6 +20,14 @@ RSpec.describe Company::ReviewPolicy, type: :policy do
     end
   end
 
+  permissions :show? do
+    it 'grant access' do
+      expect(subject).to permit(company_owner)
+      expect(subject).to permit(employee)
+      expect(subject).to permit(staff_member)
+    end
+  end
+
   permissions :create? do
     it 'grant access' do
       expect(subject).to permit(employee, Review.new(ticket_id: ticket.id))

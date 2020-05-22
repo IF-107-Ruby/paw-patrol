@@ -2,7 +2,10 @@ class Company
   module ReviewsHelper
     def ticket_reviewable_status(ticket:)
       if ticket.was_reviewable?
-        reviewable_content(review: ticket.review)
+        review = ticket.review
+        link_to(company_review_path(review), class: 'review-link') do
+          reviewable_content(review: review)
+        end
       else
         content_tag(:span, 'Not Rated',
                     class: 'company-not-rated margin-bottom-5')

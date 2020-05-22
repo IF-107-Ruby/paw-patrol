@@ -4,6 +4,10 @@ class Company
       user.can_create_ticket?
     end
 
+    def show?
+      true
+    end
+
     def create?
       user.can_create_ticket? &&
         user.creator_of_closed_ticket?(ticket_id: record.ticket.id)

@@ -1,12 +1,14 @@
 class Company
   class ReviewsController < Company::BaseController
-    before_action :find_review_by_id, only: %i[edit update]
+    before_action :find_review_by_id, only: %i[show edit update]
 
     def index
       authorize([:company, Review])
       # TODO
       @pagy, @tickets = pagy_decorated(current_user.tickets, items: 10)
     end
+
+    def show; end
 
     def new
       @review = Review.new(ticket_id: params[:ticket_id])
@@ -40,7 +42,7 @@ class Company
     private
 
     def find_review_by_id
-      @review = Review.find(params[:id])
+      @review = Review.find(params[:id]).decorate
       authorize([:company, @review])
     end
 

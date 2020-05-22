@@ -1,7 +1,40 @@
+$review-link-color: #767474;
+
+@mixin link-margin {
+  a {
+    margin-left: 5px;
+  }
+}
+
+.review{
+  &-link {
+    color: $review-link-color !important;
+  }
+
+  &-rating {
+    .detail-material-outline-date-range {
+      margin-left: 5px;
+      display: inline-block;
+    }
+  }
+
+  &-object {
+    @include link-margin;
+  }
+
+  &-comment {
+    margin-top: 15px;
+
+    &__text {
+      margin-top: 10px;
+      font-size: 15pt;
+      text-indent: 1.5em;
+    }
+  }
+}
+
 .review-form {
   &__ticket-link {
-    a {
-      margin-left: 5px;
-    }
+    @include link-margin;
   }
 }
