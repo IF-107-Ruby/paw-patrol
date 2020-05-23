@@ -11,6 +11,7 @@ feature 'EmployeeLeaveAReview' do
 
   scenario 'successfully' do
     expect(page).to have_selector('h3', text: 'Reviews')
+    expect(page).to have_selector('.company-not-rated', text: 'Not Rated')
     click_on 'Leave a Review'
 
     expect(page).to have_selector('h3', text: 'Leave a Review')
@@ -30,7 +31,8 @@ feature 'EmployeeLeaveAReview' do
       click_on 'Leave a Review'
     end
 
-    expect(page).not_to have_selector('.notification.success.closeable',
-                                      text: 'Review saved!')
+    expect(page).to have_css('.notification.warning.closeable',
+                             text: 'Review is not saved!')
+    expect(page).to have_css('#error_explanation')
   end
 end
