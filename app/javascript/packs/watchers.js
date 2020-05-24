@@ -8,3 +8,4 @@ $(document).ready(function () {
     $("#add-watcher-form").toggle("slide");
   });
 });
+

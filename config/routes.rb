@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'hello_world', to: 'hello_world#index'
   namespace :admin do
     get '/', to: 'dashboards#index', as: :dashboard
     resources :feedbacks, only: %i[index show destroy]
