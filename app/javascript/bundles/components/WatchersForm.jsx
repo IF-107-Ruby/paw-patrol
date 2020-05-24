@@ -1,8 +1,13 @@
 import React from 'react';
+import avatar from '../../../assets/images/user-avatar-placeholder.png';
+import '../../../assets/stylesheets/watchers.scss';
 
 const WatchersForm = props => {
     return(
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={props.handleSubmit}
+            style={{display: props.showForm ? 'block' : 'none'}}
+            className='add-watcher-form'
+            >
         <div className='row'>
           <div className='col-xl-12'>
             <div className='dashboard-box margin-top-0'>
@@ -16,7 +21,7 @@ const WatchersForm = props => {
                 <div className='row'>
                   <div className='col-auto'>
                     <div className='avatar-wrapper data-tippy-placement="bottom"'>
-                      <img src='user-avatar-placeholder.png'/>
+                      <img src={avatar}/>
                     </div>
                   </div>
                   <div className='col'>

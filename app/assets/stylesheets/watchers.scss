@@ -1,7 +1,18 @@
-#add-watcher-form {
-  display: none;
+// #add-watcher-form {
+//   display: none;
+//   margin-top: 20px;
+//   .dashboard-box {
+//     box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+//   }
+// }
+
+.add-watcher-form {
   margin-top: 20px;
   .dashboard-box {
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   }
+}
+
+#flash-messages {
+  margin-top: 15px;
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import WatchersForm from './WatchersForm';
+import '../../../assets/stylesheets/watchers.scss';
 import axios from 'axios';
 
 const csrfToken = document.querySelector('[name=csrf-token]').content
@@ -73,25 +74,20 @@ class WatchersBlock extends Component {
           <div id='flash-messages'>
             <div className='notification success closeable'>
               <p>Watchers updated!</p>
-              <a className='close'></a>
+              <a className='close' onClick={()=> this.setState({ showFlash: false})}></a>
             </div>
           </div>
           : 
           null
         }
-
-        {/* { this.state.showForm ? */}
-          <WatchersForm 
-            availableWatchers={this.state.availableWatchers}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            selectedWatchers={this.state.selectedWatchers}
-            showForm={this.state.showForm}
-            handleForm = {this.handleForm}
-          />  
-        {/* :
-        null
-        } */}
+        <WatchersForm 
+          availableWatchers={this.state.availableWatchers}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          selectedWatchers={this.state.selectedWatchers}
+          showForm={this.state.showForm}
+          handleForm = {this.handleForm}
+        />  
       </>
     );
   }
