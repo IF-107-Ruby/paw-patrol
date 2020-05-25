@@ -5,11 +5,10 @@ class Company
 
     def show
       @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
-      @available_watchers = @ticket.available_watchers
-      @watchers_props = { available_watchers: @available_watchers.map do |w|
+      @watchers_props = { available_watchers: @ticket.available_watchers.map do |w|
                                                 { id: w.id, full_name: w.full_name }
                                               end,
-                          selected_ids: @ticket.watchers.pluck(:id),
+                          selected_ids: @ticket.watcher_ids,
                           ticket_id: @ticket.id }
       Notification.mark_comments_as_read(@ticket, current_user)
     end

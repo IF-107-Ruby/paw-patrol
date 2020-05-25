@@ -20,6 +20,8 @@
                - if policy([:company, @ticket]).show? && @ticket.parent
                  = link_to company_ticket_path(@ticket.parent)
                    i.icon-material-outline-launch.ticket-icons
+        - if @ticket.belongs_to?(current_user)  
+          = react_component("WatchersBlock", props: @watchers_props, prerender: false)
       .content.with-padding
         == @ticket.description
         - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit) || @ticket.watchers.include?(current_user)
@@ -34,5 +36,8 @@
         = render 'company/tickets/ticket_resolution_form', ticket: @ticket
 =======
 
+<<<<<<< HEAD
 / = javascript_pack_tag 'watchers'
 >>>>>>> Added react-on-rails, created Watchers component
+=======
+>>>>>>> Remove redundant code

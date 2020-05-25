@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'EmployeePostATicket' do
+feature 'Employee set ticket watchers' do
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employees, company: company) }
   let!(:employee) { unit.employees.first }
@@ -12,11 +12,12 @@ feature 'EmployeePostATicket' do
     visit company_ticket_path(ticket)
   end
 
-  xscenario 'successfully' do
+  xscenario 'successfully', js: true do
     expect(page).to have_text('Add watchers')
     expect(ticket.watchers).to include(employee)
 
     click_on 'Add watchers'
+
     find(:select, 'ticket_watcher_ids')
       .first(:option, coworker.decorate.full_name)
       .select_option

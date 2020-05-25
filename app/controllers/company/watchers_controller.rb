@@ -3,8 +3,6 @@ class Company
     def update
       @ticket = Ticket.find(params[:ticket_id])
       @ticket.update(watcher_relationship_params)
-      # flash[:success] = 'Watchers updated!'
-      # redirect_to company_ticket_path(@ticket)
     end
 
     private
