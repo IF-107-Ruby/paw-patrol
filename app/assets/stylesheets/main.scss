@@ -1,18 +1,5 @@
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
 
 $base-color-dark: rgb(88, 89, 92);
 $base-color-light: rgb(137, 139, 145);
-
-body {
-  padding-top: 56px;
-  color: $base-color-dark;
-  display: flex;
-  flex-direction: column;
-}
-
-html,
-body {
-  height: 100%;
-}

@@ -2,11 +2,10 @@ class Company
   class EventsController < Company::BaseController
     before_action :obtain_unit
     before_action :obtain_event, only: %i[show update destroy]
-    helper_method :avaible_tickets
 
     def index
-      @events = selected_events
-      authorize([:company, @events])
+      authorize([:company, selected_events])
+      @events = selected_events.includes(:user, :ticket).decorate
       respond_to do |format|
         format.json
       end
@@ -15,6 +14,7 @@ class Company
     def show
       respond_to do |format|
         format.js
+        format.json
       end
     end
 
@@ -23,6 +23,7 @@ class Company
       authorize([:company, @event])
       respond_to do |format|
         format.js
+        format.json
       end
     end
 
@@ -32,6 +33,7 @@ class Company
       @event.save
       respond_to do |format|
         format.js
+        format.json
       end
     end
 
@@ -39,6 +41,7 @@ class Company
       @event.update(event_params)
       respond_to do |format|
         format.js
+        format.json
       end
     end
 
@@ -46,6 +49,13 @@ class Company
       @event.destroy
       respond_to do |format|
         format.js
+        format.json
+      end
+    end
+
+    def avaible_tickets
+      respond_to do |format|
+        format.json
       end
     end
 
@@ -55,10 +65,6 @@ class Company
       params.fetch(:event, { anchor: Time.zone.now })
             .permit(:title, :anchor, :duration, :frequency, :ticket_id, :color)
             .merge(user: current_user)
-    end
-
-    def avaible_tickets
-      @unit.tickets
     end
 
     def obtain_unit
@@ -76,9 +82,9 @@ class Company
     end
 
     def selected_events
-      @unit.events.one_time
-           .where('anchor <= ?', params[:end])
-           .or(@unit.events.recurring)
+      @selected_events ||= @unit.events.one_time
+                                .where('anchor <= ?', params[:end])
+                                .or(@unit.events.recurring)
     end
   end
 end

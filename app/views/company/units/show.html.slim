@@ -40,8 +40,8 @@
         h3 
           i.icon-line-awesome-calendar-o
           | Planed events
-      .content.with-padding
-        #fullcalendar data-unit-id="#{unit.id}" data-editable="#{current_user.can_manage_unit_events?(unit)}"
+      .content.with-padding#fullcalendar
+        = react_component("Calendar", props: { unit_id: unit.id }, prerender: false)
   .col-xl-12
     .dashboard-box
       .headline
@@ -75,4 +75,4 @@
       = render partial: 'shared/pagination', locals: { pagy: @children_pagy }
 
 = javascript_include_tag "unit-qr-code"
-= javascript_include_tag "fullcalendar"
+= javascript_pack_tag "server-bundle"

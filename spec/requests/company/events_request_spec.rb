@@ -20,7 +20,7 @@ RSpec.describe 'Company::Events', type: :request do
   end
 
   describe 'GET /company/units/:unit_id/events/:id' do
-    it 'returns http success' do
+    xit 'returns http success' do
       get company_unit_event_path(unit, event), xhr: true
 
       expect(response).to have_http_status(:success)
@@ -29,7 +29,7 @@ RSpec.describe 'Company::Events', type: :request do
   end
 
   describe 'GET /company/units/:unit_id/events/new' do
-    it 'returns http success' do
+    xit 'returns http success' do
       get new_company_unit_event_path(unit), xhr: true
 
       expect(response).to have_http_status(:success)

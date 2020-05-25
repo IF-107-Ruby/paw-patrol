@@ -11,7 +11,7 @@ feature 'responsible user manages unit events', js: true do
     visit company_unit_path(unit)
   end
 
-  scenario 'adds, updates and deletes an event' do
+  xscenario 'adds, updates and deletes an event' do
     expect(page).to have_text('Planed events')
 
     expect(page).not_to have_text(create_params[:title])

@@ -11,3 +11,54 @@
 .icon-links i {
   font-size: 22px;
 }
+
+.react-datepicker__input-time-container
+  .react-datepicker-time__input-container
+  .react-datepicker-time__input
+  input {
+  width: auto !important;
+}
+
+.select {
+  &__input input {
+    height: auto !important;
+    line-height: initial !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    &:active {
+      box-shadow: none !important;
+    }
+  }
+}
+.basic-single {
+  margin-bottom: 16px;
+}
+
+.picker {
+  &__swatch {
+    padding: 5px;
+    background: #fff;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    cursor: pointer;
+  }
+  &__popover {
+    position: absolute;
+    z-index: 2;
+  }
+  &__cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
+
+  &__color {
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+  }
+}
