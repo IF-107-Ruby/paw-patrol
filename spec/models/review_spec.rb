@@ -29,5 +29,28 @@ RSpec.describe Review, type: :model do
     context 'Uniqueness validation' do
       it { expect(review).to validate_uniqueness_of(:ticket) }
     end
+
+    describe 'Ticket Decision Status' do
+      let!(:new_ticket) do
+        employee.tickets.create(FactoryBot.attributes_for(:ticket)
+                                    .merge(unit: employee.units.first))
+      end
+
+      context 'Ticket resolved' do
+        before do
+          new_ticket.resolved!
+        end
+
+        let!(:new_review) { build(:review, ticket: new_ticket) }
+
+        it { expect(new_review).to be_valid }
+      end
+
+      context 'Ticket is not resolved' do
+        let!(:new_review) { build(:review, ticket: new_ticket) }
+
+        it { expect(new_review).not_to be_valid }
+      end
+    end
   end
 end

@@ -13,9 +13,17 @@ class Review < ApplicationRecord
   belongs_to :ticket
 
   validates :ticket, presence: true, uniqueness: true
-
   validates :rating, presence: true,
                      numericality: { only_integer: true },
                      inclusion: { in: 1..5 }
   validates :comment, presence: true, length: { maximum: 255 }
+  validate :ticket_decision_status, if: ->(review) { review.ticket }
+
+  private
+
+  def ticket_decision_status
+    return if ticket.resolved?
+
+    errors.add(:ticket, 'ticket must be resolved')
+  end
 end
