@@ -8,6 +8,7 @@
 #  unit_id    :bigint           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer          default("open"), not null
 #
 class Ticket < ApplicationRecord
   enum status: { open: 0, resolved: 1 }
