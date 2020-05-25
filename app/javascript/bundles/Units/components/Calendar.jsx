@@ -148,9 +148,9 @@ export default class Calendar extends Component {
           events={this.state.events}
           firstDay={1}
           eventTextColor="#ffffff"
-          selectable
+          selectable={!this.props.readOnly}
           navLinks
-          editable
+          editable={!this.props.readOnly}
           eventLimit
           selectMirror
           eventDrop={this.handleEventDrop}
@@ -184,20 +184,22 @@ export default class Calendar extends Component {
             <div className="px-3 pb-4">
               <div className="d-flex justify-content-between container">
                 <h3>{this.state.event.title}</h3>
-                <div>
-                  <a className="mr-1" href="">
-                    <i
-                      onClick={this.handleEventEdit}
-                      className="icon-feather-edit"
-                    ></i>
-                  </a>
-                  <a href="">
-                    <i
-                      onClick={this.handleEventDelete}
-                      className="icon-feather-trash-2"
-                    ></i>
-                  </a>
-                </div>
+                {!this.props.readOnly && (
+                  <div>
+                    <a className="mr-1" href="">
+                      <i
+                        onClick={this.handleEventEdit}
+                        className="icon-feather-edit"
+                      ></i>
+                    </a>
+                    <a href="">
+                      <i
+                        onClick={this.handleEventDelete}
+                        className="icon-feather-trash-2"
+                      ></i>
+                    </a>
+                  </div>
+                )}
               </div>
 
               <hr />

@@ -20,7 +20,8 @@
           .col-auto
             .row.align-items-start
               .col-auto
-                .avatar-wrapper#qrcode data-qrcode-url="#{company_unit_url(unit)}" data-tippy-placement="bottom" title=("Unit QR code")
+                .avatar-wrapper data-tippy-placement="bottom" title=("Unit QR code")
+                  = react_component("QrCode", props: { value: company_unit_url(unit), size: 150, level: 'Q' }, prerender: false)
               .col-auto
                 .company-details
                   h3.margin-bottom-0
@@ -41,7 +42,7 @@
           i.icon-line-awesome-calendar-o
           | Planed events
       .content.with-padding#fullcalendar
-        = react_component("Calendar", props: { unit_id: unit.id }, prerender: false)
+        = react_component("Calendar", props: { unit_id: unit.id, readOnly: !current_user.can_manage_unit_events?(unit) }, prerender: false)
   .col-xl-12
     .dashboard-box
       .headline
@@ -74,5 +75,4 @@
 
       = render partial: 'shared/pagination', locals: { pagy: @children_pagy }
 
-= javascript_include_tag "unit-qr-code"
 = javascript_pack_tag "server-bundle"

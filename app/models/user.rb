@@ -65,7 +65,7 @@ class User < ApplicationRecord
   end
 
   def can_manage_unit_events?(unit)
-    company_owner? || self == unit.responsible_user
+    company_owner? || responsible_for?(unit)
   end
 
   def company?

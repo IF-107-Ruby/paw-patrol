@@ -13,7 +13,8 @@
         .content.with-padding.padding-bottom-0
           .row
             .col-auto
-              .avatar-wrapper#qrcode data-qrcode-url="#{company_unit_url(unit)}" data-tippy-placement="bottom" title=("Unit QR code")
+              .avatar-wrapper data-tippy-placement="bottom" title=("Unit QR code")
+                = react_component("QrCode", props: { value: company_unit_url(unit), size: 150, level: 'Q' }, prerender: false)
             .col
               .row
                 .col-xl-6
@@ -36,5 +37,4 @@
             | Cancel 
             i.icon-feather-x
 
-= javascript_include_tag "unit-qr-code"
-
+= javascript_pack_tag "server-bundle"
