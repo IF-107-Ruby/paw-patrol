@@ -38,5 +38,5 @@
                                 cols: "7",
                                 required: 'required'
     = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do
-      = yield(:button_text)
+      = review.new_record? ? 'Leave a Review' : 'Save Changes'
       i.icon-material-outline-arrow-right-alt

@@ -1,7 +1,7 @@
 class Company
   module ReviewsHelper
     def ticket_reviewable_status(ticket:)
-      if ticket.was_reviewable?
+      if ticket.reviewed?
         review = ticket.review
         link_to(company_review_path(review), class: 'review-link') do
           reviewable_content(review: review)
@@ -26,7 +26,7 @@ class Company
     end
 
     def review_action_link(ticket:)
-      if ticket.was_reviewable?
+      if ticket.reviewed?
         update_review_link(review: ticket.review)
       else
         create_review_link(ticket_id: ticket.id)

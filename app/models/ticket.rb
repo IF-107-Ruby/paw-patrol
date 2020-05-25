@@ -41,8 +41,8 @@ class Ticket < ApplicationRecord
     user == current_user
   end
 
-  def was_reviewable?
-    !review.nil?
+  def reviewed?
+    review.present?
   end
 
   private

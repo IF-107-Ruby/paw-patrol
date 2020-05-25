@@ -28,18 +28,18 @@ RSpec.describe Ticket, type: :model do
     end
   end
 
-  describe 'was_reviewable?' do
+  describe 'reviewed?' do
     context 'with review' do
       before do
         ticket.resolved!
         create(:review, ticket: ticket)
       end
 
-      it { expect(ticket.was_reviewable?).to be true }
+      it { expect(ticket.reviewed?).to be true }
     end
 
     context 'without review' do
-      it { expect(ticket.was_reviewable?).to be false }
+      it { expect(ticket.reviewed?).to be false }
     end
   end
 end
