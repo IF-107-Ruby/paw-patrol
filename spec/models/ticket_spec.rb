@@ -31,6 +31,7 @@ RSpec.describe Ticket, type: :model do
   describe 'was_reviewable?' do
     context 'with review' do
       before do
+        ticket.resolved!
         create(:review, ticket: ticket)
       end
 

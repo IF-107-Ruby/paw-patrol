@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  include_context 'employee with ticket'
-  let!(:review) { create(:review, ticket: ticket) }
+  include_context 'resolved_ticket_and_review'
 
   describe 'Associations' do
     it { expect(review).to belong_to(:ticket) }

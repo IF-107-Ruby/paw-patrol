@@ -8,6 +8,11 @@ RSpec.describe Company::ReviewPolicy, type: :policy do
     create(:ticket, user: company_owner, unit: company.units.first)
   end
 
+  before do
+    ticket.resolved!
+    company_owner_ticket.resolved!
+  end
+
   subject { described_class }
 
   permissions :index? do

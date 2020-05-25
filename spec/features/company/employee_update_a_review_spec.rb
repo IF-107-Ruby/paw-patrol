@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 feature 'EmployeeUpdateAReview' do
-  include_context 'employee with ticket'
-  let!(:review) { create(:review, ticket: ticket) }
+  include_context 'resolved_ticket_and_review'
   let(:review_attributes) { FactoryBot.attributes_for :review }
 
   before do

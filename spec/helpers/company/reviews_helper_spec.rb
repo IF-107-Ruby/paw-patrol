@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Company::ReviewsHelper, type: :helper do
   include_context 'employee with ticket'
+
+  before do
+    ticket.resolved!
+  end
+
   let!(:decorated_ticket) { ticket.decorate }
 
   let(:not_rated_html) do

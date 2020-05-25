@@ -6,6 +6,10 @@ describe Company::ReviewsController do
   let(:review_params) { FactoryBot.attributes_for :review }
   let(:review_invalid_params) { { rating: 0, comment: '' } }
 
+  before do
+    ticket.resolved!
+  end
+
   describe 'GET #index' do
     context 'User is employee' do
       before { sign_in employee }
