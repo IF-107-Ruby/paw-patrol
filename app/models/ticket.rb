@@ -33,15 +33,11 @@ class Ticket < ApplicationRecord
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
 
-<<<<<<< HEAD
-  after_create :send_ticket_notification
-=======
   validates_with ImageAttachmentsValidator,
                  if: lambda { |ticket|
                    ticket.resolution_attachments &&
                      ticket.resolution_attachments.any?
                  }
->>>>>>> changed creation ticket resolution way.
 
   scope :most_recent, -> { order(created_at: :desc) }
   scope :resolved, -> { where(status: :resolved) }
@@ -58,6 +54,7 @@ class Ticket < ApplicationRecord
     user == current_user
   end
 
+<<<<<<< HEAD
   def reviewed?
     review.present?
   end
@@ -74,6 +71,16 @@ class Ticket < ApplicationRecord
   def uncomplete_and_save!
     self.status = 'open'
     save
+=======
+  def complete!(resolution)
+    if resolution[:resolution].present?
+      update(resolution)
+      resolved!
+    else
+      errors.add(:ticket, 'completion must be not empty.')
+      false
+    end
+>>>>>>> changed resolving ticket way.
   end
 
   private

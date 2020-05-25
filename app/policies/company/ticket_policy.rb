@@ -9,7 +9,7 @@ class Company
     end
 
     def resolution?
-      user.responsible_for?(record.unit) && !record.resolved?
+      user.responsible_for?(record.unit) && record.open?
     end
 
     class Scope < Scope

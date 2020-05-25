@@ -10,8 +10,4 @@ class TicketDecorator < Draper::Decorator
   def created_by
     "Created by #{user.full_name}"
   end
-
-  def display_status
-    status
-  end
 end

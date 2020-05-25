@@ -49,10 +49,6 @@ class User < ApplicationRecord
     id == unit.responsible_user_id
   end
 
-  def company_owner?
-    role == 'company_owner'
-  end
-
   def self.grouped_collection_by_role
     {
       'admin' => User.admins,

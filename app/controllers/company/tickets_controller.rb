@@ -25,7 +25,6 @@ class Company
       end
     end
 
-<<<<<<< HEAD
     def resolved
       authorize([:company, Ticket])
       @pagy, @resolved_tickets = pagy_decorated(current_user
@@ -33,16 +32,18 @@ class Company
                                                     .resolved
                                                     .most_recent,
                                                 items: 10)
-=======
+    end
+
     def resolution
-      @ticket = policy_scope([:company, Ticket]).find(params[:ticket_id])
+      @ticket = policy_scope([:company, Ticket]).find(params[:ticket_id]).decorate
 
-      @ticket.update(ticket_resolution_params) if check_resolution_presence
-
-      @ticket.complete_and_save!
-      flash[:success] = 'Ticket resolved!'
-      redirect_to [:company, @ticket]
->>>>>>> changed creation ticket resolution way.
+      if @ticket.complete!(ticket_resolution_params)
+        flash[:success] = 'Ticket resolved!'
+        redirect_to [:company, @ticket]
+      else
+        flash[:warning] = 'Ticket is resolved!'
+        render :show
+      end
     end
 
     private
@@ -57,10 +58,6 @@ class Company
 
     def ticket_resolution_params
       params.require(:ticket).permit(:resolution)
-    end
-
-    def check_resolution_presence
-      params[:ticket][:resolution] != ''
     end
   end
 end

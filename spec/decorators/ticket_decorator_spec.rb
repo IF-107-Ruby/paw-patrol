@@ -13,8 +13,4 @@ RSpec.describe TicketDecorator do
   it 'created_by' do
     expect(ticket.created_by).to eq("Created by #{user.full_name}")
   end
-
-  it 'display_status' do
-    expect(ticket.display_status).to eq('open')
-  end
 end

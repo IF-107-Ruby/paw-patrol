@@ -1,9 +1,5 @@
 - if yield(:headline).present?
   .dashboard-headline
-    h3.margin-right-10
-      = yield(:headline)
-    - if yield(:status).present?
-      i.icon-feather-check-square.margin-top-5 value="#{yield(:status)}"
-
+    h3 = yield(:headline)
 
     = render Breadcrumbs.new(request)

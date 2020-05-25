@@ -87,7 +87,7 @@ describe Company::TicketsController, type: :controller do
           ActionText::Content.new(Faker::Lorem.paragraph)
         end
 
-        context 'with resolution explenation' do
+        context 'with valid params' do
           before do
             post :resolution, params: { ticket_id: ticket.id, ticket: {
               resolution: ticket_resolution_params
@@ -99,6 +99,21 @@ describe Company::TicketsController, type: :controller do
             expect(flash[:success]).to be_present
             expect(flash[:warning]).not_to be_present
             expect(response).to redirect_to(company_ticket_path(ticket.id))
+          end
+        end
+
+        context 'with valid params' do
+          before do
+            post :resolution, params: { ticket_id: ticket.id, ticket: {
+              resolution: ''
+            } }
+          end
+
+          it 'do not create resolution' do
+            expect(response).to have_http_status(:success)
+            expect(flash[:warning]).to be_present
+            expect(flash[:success]).not_to be_present
+            expect(response).to render_template('show')
           end
         end
       end
