@@ -13,16 +13,6 @@ class Company
 
     def show
       respond_to do |format|
-        format.js
-        format.json
-      end
-    end
-
-    def new
-      @event = @unit.events.build(event_params)
-      authorize([:company, @event])
-      respond_to do |format|
-        format.js
         format.json
       end
     end
@@ -32,7 +22,6 @@ class Company
       authorize([:company, @event])
       @event.save
       respond_to do |format|
-        format.js
         format.json
       end
     end
@@ -40,7 +29,6 @@ class Company
     def update
       @event.update(event_params)
       respond_to do |format|
-        format.js
         format.json
       end
     end

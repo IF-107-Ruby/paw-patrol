@@ -14,9 +14,4 @@
   *= require comments
   *= require notifications
   *= require room_employees
-  *= require fullcalendar/core/main
-  *= require fullcalendar/daygrid/main
-  *= require daterangepicker
-  *= require pickr/nano
-  *= require main
  */

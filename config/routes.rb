@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  get 'hello_world', to: 'hello_world#index'
   namespace :admin do
     get '/', to: 'dashboards#index', as: :dashboard
     resources :feedbacks, only: %i[index show destroy]
@@ -24,7 +23,7 @@ Rails.application.routes.draw do
     resources :units do
       resource :room_employees, only: %i[show edit update]
       resources :children, controller: :units_children, only: :index
-      resources :events, except: :edit do
+      resources :events, except: %i[new edit] do
         get 'avaible_tickets', on: :collection
       end
     end

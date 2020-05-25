@@ -156,7 +156,6 @@ class Form extends Component {
             timeInputLabel="Time:"
             dateFormat="MM/dd/yyyy hh:mm aa"
             showTimeInput
-            dateFormat="MM/dd/yyyy HH:mm"
           />
           <DatePicker
             selected={endDate.toDate()}
@@ -168,7 +167,6 @@ class Form extends Component {
             timeInputLabel="Time:"
             dateFormat="MM/dd/yyyy h:mm aa"
             showTimeInput
-            dateFormat="MM/dd/yyyy HH:mm"
           />
         </div>
         <label>Ticket</label>

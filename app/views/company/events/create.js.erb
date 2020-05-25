@@ -1,7 +1,0 @@
-$.magnificPopup.close();
-<% if @event.valid? %>
-calendar.getEventSources()[0].refetch();
-showSnackbarSuccess("Event added successfully");
-<% else %>
-showSnackbarError("Event not saved");
-<% end %>

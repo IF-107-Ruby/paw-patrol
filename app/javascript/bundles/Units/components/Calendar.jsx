@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
 
 import moment from "moment";
 import axios from "axios";

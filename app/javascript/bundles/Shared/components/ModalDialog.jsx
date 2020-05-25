@@ -16,8 +16,6 @@ export default class ModalDialog extends Component {
     setTimeout(this.props.closeCallback, 500);
   };
 
-  async componentDidMount() {}
-
   render() {
     return (
       <Modal show={this.state.isOpen} onHide={this.handleClose} centered>

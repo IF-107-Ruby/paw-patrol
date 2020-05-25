@@ -3,4 +3,3 @@
 //= link hireo.js
 //= link leaflet.js
 //= link unit-qr-code.js
-//= link fullcalendar.js

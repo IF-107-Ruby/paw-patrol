@@ -12,5 +12,4 @@
 //= require slick.min
 //= require custom
 //= require unit-event-handlers
-//= require popup-tabs
 //= require custom-snackbars
