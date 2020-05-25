@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Ticket < ApplicationRecord
-  after_create :send_ticket_notification
+  enum status: { open: 0, resolved: 1 }
 
   belongs_to :user
   belongs_to :unit
@@ -27,7 +27,10 @@ class Ticket < ApplicationRecord
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
 
+  after_create :send_ticket_notification
+
   scope :most_recent, -> { order(created_at: :desc) }
+  scope :were_resolved, -> { where(status: :resolved) }
 
   def description_attachments
     description.body.attachments
