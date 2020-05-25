@@ -61,9 +61,9 @@ FactoryBot.define do
 
       after(:create) do |unit|
         unit.users.each do |user|
-          5.times do
-            create(:ticket, :with_comments, user: user, unit: unit)
-          end
+          create_list(:ticket, 5, :with_comments, user: user, unit: unit)
+          create_list(:resolved_ticket, 3, user: user, unit: unit)
+          create_list(:resolved_ticket, 2, :with_review, user: user, unit: unit)
         end
       end
     end
