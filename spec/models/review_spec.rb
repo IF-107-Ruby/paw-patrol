@@ -5,6 +5,7 @@ RSpec.describe Review, type: :model do
 
   describe 'Associations' do
     it { expect(review).to belong_to(:ticket) }
+    it { expect(review).to belong_to(:user) }
   end
 
   describe 'Validation' do
