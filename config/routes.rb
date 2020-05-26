@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
     resources :tickets, only: %i[show new create] do
       post '/resolution', to: 'tickets#resolution', as: :resolution
+      get  '/followed_new', to: 'tickets#followed_new', as: :followed
       resources :comments
 <<<<<<< HEAD
       resource :review, except: %i[index destroy]

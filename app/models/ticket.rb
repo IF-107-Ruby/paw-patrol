@@ -24,6 +24,7 @@ class Ticket < ApplicationRecord
   has_rich_text :resolution
   has_one :ticket_completion, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  has_ancestry
 
   validates :user, :unit, :description, presence: true
   validates :name, presence: true, length: { in: 6..50 }

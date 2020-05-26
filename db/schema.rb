@@ -21,9 +21,7 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
     t.bigint 'record_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index %w[record_type record_id name],
-            name: 'index_action_text_rich_texts_uniqueness',
-            unique: true
+    t.index %w[record_type record_id name], name: 'index_action_text_rich_texts_uniqueness', unique: true
   end
 
   create_table 'active_storage_attachments', force: :cascade do |t|
@@ -33,9 +31,7 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
     t.bigint 'blob_id', null: false
     t.datetime 'created_at', null: false
     t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
-    t.index %w[record_type record_id name blob_id],
-            name: 'index_active_storage_attachments_uniqueness',
-            unique: true
+    t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness', unique: true
   end
 
   create_table 'active_storage_blobs', force: :cascade do |t|
@@ -106,6 +102,9 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'status', default: 0, null: false
+    t.integer 'following_up_ticket_id'
+    t.string 'ancestry'
+    t.index ['ancestry'], name: 'index_tickets_on_ancestry'
     t.index ['unit_id'], name: 'index_tickets_on_unit_id'
     t.index ['user_id'], name: 'index_tickets_on_user_id'
   end
@@ -159,15 +158,6 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
     t.index ['user_id'], name: 'index_users_units_relationships_on_user_id'
   end
 
-  create_table 'watchers_relationships', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'ticket_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['ticket_id'], name: 'index_watchers_relationships_on_ticket_id'
-    t.index ['user_id'], name: 'index_watchers_relationships_on_user_id'
-  end
-
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'comments', 'users'
   add_foreign_key 'notifications', 'users'
@@ -181,6 +171,4 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
-  add_foreign_key 'watchers_relationships', 'tickets'
-  add_foreign_key 'watchers_relationships', 'users'
 end

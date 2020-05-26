@@ -42,11 +42,15 @@
   }
 }
 
-.complete-ticket-icon {
-  color: #40b660;
-  font-size: 24px;
+.ticket-icons {
+  color: #707070;
+  font-size: 20px;
 
   &:hover {
-    color: #707070;
+    color: #2a41e8;
   }
+}
+
+.nowrap-text {
+  white-space: nowrap;
 }

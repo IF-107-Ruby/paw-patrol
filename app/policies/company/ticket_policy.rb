@@ -12,6 +12,10 @@ class Company
       user.responsible_for?(record.unit) && record.open?
     end
 
+    def followed_new?
+      user.responsible_for?(record.unit) && record.resolved?
+    end
+
     class Scope < Scope
       def resolve
         Ticket.where(unit_id: user.company.unit_ids)

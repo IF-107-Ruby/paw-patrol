@@ -8,8 +8,18 @@
           h3
             i.icon-material-outline-description
             | Description
-          span
-            = @ticket.place_were_opened
+          .row
+            .col-md-8.nowrap-text
+              span
+                = @ticket.place_were_opened
+            .col-md-2
+              - if @ticket.belongs_to?(current_user) && @ticket.resolved?
+                = link_to company_ticket_followed_path(@ticket)
+                  i.icon-feather-copy.ticket-icons
+            .col-md-2
+               - if (@ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)) && @ticket.parent.present?
+                 = link_to company_ticket_path(@ticket.parent)
+                   i.icon-material-outline-launch.ticket-icons
       .content.with-padding
         == @ticket.description
         - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)
