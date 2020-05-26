@@ -4,7 +4,8 @@ class Company
 
     def index
       authorize([:company, Review])
-      @pagy, @tickets = pagy_decorated(current_user.tickets.were_resolved, items: 10)
+      @pagy, @reviewable_tickets = pagy_decorated(current_user.tickets.were_resolved,
+                                                  items: 10)
     end
 
     def show; end

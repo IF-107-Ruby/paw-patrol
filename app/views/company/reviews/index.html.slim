@@ -9,12 +9,6 @@ section.reviews-index
             | Rate Closed Tickets
         .content.with-padding.overflow-hidden
           ul.dashboard-box-list
-            - @tickets.each do |ticket|
-              li
-                .boxed-list-item
-                  .item-content
-                    h4 = ticket.name
-                    = ticket_reviewable_status(ticket)
-                = review_action_link(ticket: ticket)
+            = render partial: 'reviewable_ticket', collection: @reviewable_tickets
 
           = render partial: 'shared/pagination', locals: { pagy: @pagy }

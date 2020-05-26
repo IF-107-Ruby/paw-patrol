@@ -1,0 +1,15 @@
+li
+  .boxed-list-item
+    .item-content
+      h4 = reviewable_ticket.name
+      = ticket_reviewable_status(reviewable_ticket)
+  - if reviewable_ticket.reviewed?
+    = link_to edit_company_review_path(reviewable_ticket.review),
+            class: 'button gray ripple-effect margin-top-5 margin-bottom-10' do
+      i.icon-feather-edit
+      | Edit Review
+  - else
+    = link_to new_company_review_path(ticket_id: reviewable_ticket.id),
+            class: 'button ripple-effect margin-top-5 margin-bottom-10' do
+      i.icon-material-outline-thumb-up
+      | Leave a Review
