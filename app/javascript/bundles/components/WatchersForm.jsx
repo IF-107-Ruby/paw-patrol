@@ -31,7 +31,8 @@ const WatchersForm = props => {
                           <h5>Select watchers</h5>
                           <select className='with-border selectpicker' 
                             multiple={true} 
-                            data-size={7}
+                            id="ticket_watcher_ids"
+                            data-size={4}
                             title="Add ticket watchers"
                             data-live-search={true}
                             required='required'
