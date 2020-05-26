@@ -22,7 +22,7 @@ RSpec.describe Company::ReviewsHelper, type: :helper do
     end
 
     it 'ticket reviewable status' do
-      expect(helper.ticket_reviewable_status(ticket: decorated_ticket))
+      expect(helper.ticket_reviewable_status(decorated_ticket))
         .to eq(not_rated_html)
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Company::ReviewsHelper, type: :helper do
     end
 
     it 'ticket reviewable status' do
-      expect(helper.ticket_reviewable_status(ticket: decorated_ticket))
+      expect(helper.ticket_reviewable_status(decorated_ticket))
         .not_to eq(not_rated_html)
     end
 

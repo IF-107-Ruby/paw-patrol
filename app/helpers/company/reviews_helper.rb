@@ -1,6 +1,6 @@
 class Company
   module ReviewsHelper
-    def ticket_reviewable_status(ticket:)
+    def ticket_reviewable_status(ticket)
       if ticket.reviewed?
         review = ticket.review
         link_to(company_review_path(review), class: 'review-link') do
@@ -19,7 +19,7 @@ class Company
                     'data-rating' => review.rating,
                     class: 'star-rating') +
           content_tag(:div, content_tag(:i,
-                                        " #{review.month_of_reviewable}",
+                                        " #{review.reviews_at_month}",
                                         class: 'icon-material-outline-date-range'),
                       class: 'detail-material-outline-date-range')
       end

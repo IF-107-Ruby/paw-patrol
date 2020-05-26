@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :tickets, only: %i[show new create] do
       resources :comments
     end
-    resources :reviews, only: %i[index show new edit create update]
+    resources :reviews, except: :destroy
   end
 
   devise_for :users, path: '', only: :sessions, controllers: {

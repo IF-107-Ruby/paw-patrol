@@ -14,7 +14,7 @@ section.reviews-index
                 .boxed-list-item
                   .item-content
                     h4 = ticket.name
-                    = ticket_reviewable_status(ticket: ticket)
+                    = ticket_reviewable_status(ticket)
                 = review_action_link(ticket: ticket)
 
           = render partial: 'shared/pagination', locals: { pagy: @pagy }

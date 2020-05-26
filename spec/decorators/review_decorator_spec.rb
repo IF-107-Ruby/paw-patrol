@@ -6,6 +6,6 @@ RSpec.describe ReviewDecorator do
 
   it 'month_of_reviewable' do
     expected_date = review.created_at.strftime('%B %Y')
-    expect(decorated_review.month_of_reviewable).to eq(expected_date)
+    expect(decorated_review.reviews_at_month).to eq(expected_date)
   end
 end
