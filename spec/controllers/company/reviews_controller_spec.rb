@@ -33,7 +33,7 @@ describe Company::ReviewsController do
   describe 'GET #show' do
     before { sign_in employee }
 
-    let!(:review) { create(:review, ticket: ticket) }
+    let!(:review) { create(:review, ticket: ticket, user: employee) }
 
     subject { get :show, params: { id: review.id } }
 
@@ -62,7 +62,7 @@ describe Company::ReviewsController do
   end
 
   describe 'GET #edit' do
-    let!(:review) { create(:review, ticket: ticket) }
+    let!(:review) { create(:review, ticket: ticket, user: employee) }
     context 'Employee edit review' do
       before { sign_in employee }
 
@@ -70,15 +70,6 @@ describe Company::ReviewsController do
 
       it { is_expected.to have_http_status(:success) }
       it { is_expected.to render_template('edit') }
-    end
-
-    context 'Staff member edit review' do
-      before { sign_in staff_member }
-
-      subject { get :edit, params: { id: review.id } }
-
-      it { is_expected.to have_http_status(:redirect) }
-      it { is_expected.not_to render_template('edit') }
     end
   end
 
@@ -115,7 +106,7 @@ describe Company::ReviewsController do
   end
 
   describe 'PUT#update' do
-    let!(:review) { create(:review, ticket: ticket) }
+    let!(:review) { create(:review, ticket: ticket, user: employee) }
 
     context 'Employee update review with invalid params' do
       before do

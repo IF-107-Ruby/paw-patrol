@@ -10,14 +10,14 @@ class Company
     def show; end
 
     def new
-      @review = Review.new(ticket_id: params[:ticket_id])
+      @review = current_user.reviews.build(ticket_id: params[:ticket_id])
       authorize([:company, @review])
     end
 
     def edit; end
 
     def create
-      @review = Review.create(review_params)
+      @review = current_user.reviews.build(review_params)
       authorize([:company, @review])
       if @review.save
         flash[:success] = 'Review saved!'
@@ -41,7 +41,7 @@ class Company
     private
 
     def find_review_by_id
-      @review = Review.find(params[:id]).decorate
+      @review = current_user.reviews.find(params[:id]).decorate
       authorize([:company, @review])
     end
 

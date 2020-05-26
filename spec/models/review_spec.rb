@@ -10,6 +10,7 @@ RSpec.describe Review, type: :model do
   describe 'Validation' do
     context 'Presence validation' do
       it { expect(review).to validate_presence_of(:ticket) }
+      it { expect(review).to validate_presence_of(:user) }
       it { expect(review).to validate_presence_of(:rating) }
       it { expect(review).to validate_presence_of(:comment) }
     end
