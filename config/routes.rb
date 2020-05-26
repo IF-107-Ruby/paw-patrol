@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :tickets, only: %i[show new create] do
       resources :comments
     end
+    resources :user_units, only: %i[index show]
   end
 
   devise_for :users, path: '', only: :sessions, controllers: {

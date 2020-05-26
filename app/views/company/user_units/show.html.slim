@@ -1,0 +1,54 @@
+- provide(:headline, unit.name)
+- unit_ancestors = unit.ancestors
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .headline
+        h3
+          i.icon-material-outline-business
+          - if unit_ancestors.present?
+            nav.ancestors
+              ul
+                - unit_ancestors.each do |ancestor|
+                  li
+                    = link_to ancestor.name, [:company, ancestor]
+                    i.icon-material-outline-keyboard-arrow-right
+          = unit.name
+      .content.with-padding.padding-bottom-0
+        .row.justify-content-between
+          .col-auto
+            .row.align-items-start
+              .col-auto
+                .avatar-wrapper#qrcode data-qrcode-url="#{company_unit_url(unit)}" data-tippy-placement="bottom" title=("Unit QR code")
+              .col-auto
+                .company-details
+                  h3.margin-bottom-0
+                    = unit.name
+                    - if unit.responsible_user.present?
+                      span = link_to unit.responsible_user_text, [:company, unit.responsible_user]
+                    span = link_to unit.employees_count, [:company, unit, :room_employees]
+          - if current_user.company_owner?
+            .col-auto.icon-links.align-self-start
+              = link_to [:edit, :company, unit], class: "ml-2"
+                i.icon-feather-edit
+              = link_to [:company, unit], method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+                i.icon-feather-trash-2
+  - if @unit_tickets.present?
+    .col-xl-12
+      .dashboard-box
+        .headline
+          .d-flex.justify-content-between
+            h3
+              i.icon-material-outline-library-books
+              | Tickets
+            - if current_user.can_create_ticket?
+              .icon-links
+                = link_to new_company_ticket_path(unit_id: unit.id)
+                  i.icon-feather-plus
+        .content.padding-bottom-20
+          ul.dashboard-box-list
+            = render @unit_tickets
+          = render partial: 'shared/pagination', locals: { pagy: @tickets_pagy }
+
+= javascript_include_tag "unit-qr-code"

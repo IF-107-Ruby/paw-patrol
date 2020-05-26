@@ -66,6 +66,10 @@ class User < ApplicationRecord
     company.present?
   end
 
+  def can_view_unit_dashboard?
+    employee? && units.any?
+  end
+
   private
 
   def send_invitation

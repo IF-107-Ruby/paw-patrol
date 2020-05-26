@@ -1,0 +1,15 @@
+- provide(:headline, "My units")
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .headline
+        .d-flex
+          h3
+            i.icon-material-outline-business
+            | Units
+      .content.with-padding
+        ul.dashboard-box-list
+          = render partial: 'unit', collection: @units, as: :unit
+
+        = render partial: 'shared/pagination', locals: { pagy: @pagy }
