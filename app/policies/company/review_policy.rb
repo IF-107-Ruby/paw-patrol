@@ -1,7 +1,7 @@
 class Company
   class ReviewPolicy < ApplicationPolicy
     def index?
-      user.can_create_ticket?
+      user.company_owner? || user.employee?
     end
 
     def show?

@@ -1,7 +1,7 @@
 class Company
   class TicketPolicy < ApplicationPolicy
     def create?
-      user.can_create_ticket?
+      user.company_owner? || user.employee?
     end
 
     class Scope < Scope
