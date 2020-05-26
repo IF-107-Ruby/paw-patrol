@@ -20,7 +20,9 @@ FactoryBot.define do
 
     trait :with_comments do
       after(:build) do |ticket|
-        ticket.comments = build_list(:comment, 5, commentable: ticket)
+        ticket.comments = build_list(:comment, 2,
+                                     commentable: ticket,
+                                     user: ticket.unit.users.sample)
       end
     end
   end
