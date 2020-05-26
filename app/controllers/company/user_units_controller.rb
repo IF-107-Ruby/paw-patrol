@@ -4,7 +4,7 @@ class Company
     decorates_assigned :unit
 
     def index
-      authorize([:company, Unit])
+      authorize(%i[company user_unit])
       @pagy, @units = pagy_decorated(current_user.units, items: 10)
     end
 
@@ -18,7 +18,7 @@ class Company
 
     def obtain_unit
       @unit = units_base_relation.find(params[:id])
-      authorize([:company, @unit])
+      authorize(%i[company user_unit])
     end
 
     def units_base_relation

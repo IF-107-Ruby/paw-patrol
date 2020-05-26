@@ -1,4 +1,4 @@
-- provide(:headline, unit.name)
+- provide(:headline, "Unit dashboard")
 - unit_ancestors = unit.ancestors
 
 .row
@@ -7,13 +7,6 @@
       .headline
         h3
           i.icon-material-outline-business
-          - if unit_ancestors.present?
-            nav.ancestors
-              ul
-                - unit_ancestors.each do |ancestor|
-                  li
-                    = link_to ancestor.name, [:company, ancestor]
-                    i.icon-material-outline-keyboard-arrow-right
           = unit.name
       .content.with-padding.padding-bottom-0
         .row.justify-content-between
