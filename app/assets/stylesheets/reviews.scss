@@ -13,8 +13,10 @@ $review-link-color: #767474;
 
   &-rating {
     .detail-material-outline-date-range {
-      margin-left: 5px;
+      margin-left: 10px;
       display: inline-block;
+      position: absolute;
+      top: 32px;
     }
   }
 
