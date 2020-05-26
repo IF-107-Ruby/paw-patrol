@@ -7,7 +7,7 @@ feature 'user browses unit employees' do
 
   before { login_as company_owner }
 
-  scenario 'successfully', js: true do
+  xscenario 'successfully', js: true do
     visit company_units_path
     expect(page).to have_text("#{company.name}'s units")
     expect(page).to have_text('Company units')

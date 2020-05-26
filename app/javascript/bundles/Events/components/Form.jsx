@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import moment from "moment";
 import axios from "axios";
-import AxiosHelper from "../../../AxiosHelper";
+import "../../../AxiosHelper";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -50,7 +50,6 @@ class Form extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    AxiosHelper();
 
     let { anchor, color, duration, frequency, title, ticket_id } = this.state;
 

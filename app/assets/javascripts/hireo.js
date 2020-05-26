@@ -11,5 +11,4 @@
 //= require magnific-popup.min
 //= require slick.min
 //= require custom
-//= require unit-event-handlers
 //= require custom-snackbars

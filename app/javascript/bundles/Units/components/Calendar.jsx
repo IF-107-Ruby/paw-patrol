@@ -8,11 +8,11 @@ import "@fullcalendar/daygrid/main.css";
 
 import moment from "moment";
 import axios from "axios";
+import "../../../AxiosHelper";
 
 import Form from "../../Events/components/Form";
 
 import ModalDialog from "../../Shared/components/ModalDialog";
-import AxiosHelper from "../../../AxiosHelper";
 
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
@@ -77,7 +77,6 @@ export default class Calendar extends Component {
         },
       };
 
-      AxiosHelper();
       let res = await axios.patch(event.extendedProps.event_url, eventData);
 
       if (res.status == 200) {

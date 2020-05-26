@@ -8,10 +8,21 @@ RSpec.describe 'Company::Units', type: :request do
   before { login_as user }
 
   describe 'GET /company/units' do
-    it 'returns http success' do
-      get company_units_path
-      expect(response).to have_http_status(:success)
-      expect(response).to render_template(:index)
+    context 'html' do
+      it 'returns http success' do
+        get company_units_path
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:index)
+      end
+    end
+
+    context 'json' do
+      it 'returns http success' do
+        get company_units_path(format: :json)
+
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:index)
+      end
     end
   end
 
@@ -78,9 +89,9 @@ RSpec.describe 'Company::Units', type: :request do
 
   describe 'DELETE /company/units/:id' do
     it 'deletes unit and redirects to units page' do
-      delete company_unit_path(unit)
+      delete company_unit_path(unit, format: :json)
 
-      expect(response).to redirect_to(company_units_path)
+      expect(response).to render_template(:destroy)
     end
   end
 end

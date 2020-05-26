@@ -1,11 +1,13 @@
 class Company
-  class UnitsChildrenController < ApplicationController
+  class UnitsChildrenController < Company::BaseController
     before_action :obtain_unit, only: [:index]
+    after_action :add_pagy_headers, only: :index
     decorates_assigned :unit
 
     def index
+      @pagy, @units = pagy(@unit.children, items: 10)
       respond_to do |format|
-        format.js
+        format.json
       end
     end
 

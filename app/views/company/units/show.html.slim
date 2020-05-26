@@ -60,19 +60,4 @@
             = render @unit_tickets
           = render partial: 'shared/pagination', locals: { pagy: @tickets_pagy }
   .col-xl-12
-    .dashboard-box
-      .headline
-        .d-flex.justify-content-between
-          h3
-            i.icon-material-outline-layers
-            | Sub units
-          - if current_user.company_owner?
-            .icon-links
-              = link_to new_company_unit_path(parent_id: unit)
-                i.icon-feather-plus
-      ul.dashboard-box-list
-        = render @unit_children
-
-      = render partial: 'shared/pagination', locals: { pagy: @children_pagy }
-
-= javascript_pack_tag "server-bundle"
+    = react_component("Units", props: { headline: "Sub units", newUnitPath: new_company_unit_path(parent_id: unit), unitsPath: company_unit_children_path(unit, format: :json) }, prerender: false)

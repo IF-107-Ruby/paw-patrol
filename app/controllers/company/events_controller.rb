@@ -36,7 +36,6 @@ class Company
     def destroy
       @event.destroy
       respond_to do |format|
-        format.js
         format.json
       end
     end
