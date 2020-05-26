@@ -1,6 +1,5 @@
 module Admin
   class FeedbacksController < Admin::BaseController
-    before_action :authenticate_user!
     before_action :find_feedback_by_id, only: %i[show destroy]
 
     def index

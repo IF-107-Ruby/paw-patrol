@@ -1,6 +1,5 @@
 module Admin
   class UsersController < Admin::BaseController
-    before_action :authenticate_user!
     before_action :obtain_user, only: %i[show edit update destroy impersonate]
 
     def index
