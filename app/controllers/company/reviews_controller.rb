@@ -1,7 +1,7 @@
 class Company
   class ReviewsController < Company::BaseController
-    before_action :find_reviewable_ticket_by_id, only: %i[show new edit create update]
-    before_action :find_review_by_ticket,        only: %i[show edit update]
+    before_action :find_reviewable_ticket_by_id
+    before_action :find_review_by_ticket, only: %i[show edit update]
 
     def show; end
 
