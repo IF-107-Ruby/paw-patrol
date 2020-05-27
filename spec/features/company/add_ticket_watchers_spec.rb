@@ -8,22 +8,29 @@ feature 'Employee set ticket watchers', js: true do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
 
   before do
+    ActionController::Base.allow_forgery_protection = true
     login_as employee
     visit company_ticket_path(ticket)
   end
 
-  xscenario 'successfully set ticket watchers' do
+  teardown do
+    ActionController::Base.allow_forgery_protection = false
+  end
+
+  scenario 'successfully set ticket watchers' do
     expect(ticket.watchers).to include(employee)
     expect(page).to have_text('Add watchers')
 
     click_on 'Add watchers'
     wait_for_ajax
 
-    find(:select, 'ticket_watcher_ids')
-      .first(:option, coworker.decorate.full_name)
-      .select_option
+    find(".dropdown-toggle[data-id='ticket_watcher_ids']").click
+    find('.inner.dropdown-menu li', text: coworker.decorate.full_name).click
+
     click_on 'Save changes'
+    wait_for_ajax
 
     expect(ticket.watchers.reload).to include(coworker)
+    expect(page).to have_text('Watchers updated')
   end
 end

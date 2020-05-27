@@ -4,7 +4,7 @@ import '../../../assets/stylesheets/watchers.scss';
 import axios from 'axios';
 
 const csrfToken = document.querySelector('[name=csrf-token]').content
-  axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 class WatchersBlock extends Component {
   constructor(props) {
