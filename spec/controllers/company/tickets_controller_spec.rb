@@ -27,6 +27,17 @@ describe Company::TicketsController, type: :controller do
         it { is_expected.to have_http_status(:redirect) }
         it { is_expected.not_to render_template('new') }
       end
+
+      describe 'GET #resolved' do
+        before do
+          ticket.resolved!
+        end
+
+        subject { get :resolved }
+
+        it { is_expected.to have_http_status(:redirect) }
+        it { is_expected.not_to render_template('resolved') }
+      end
     end
 
     context 'if user can create ticket' do
@@ -39,6 +50,17 @@ describe Company::TicketsController, type: :controller do
 
         it { is_expected.to have_http_status(:success) }
         it { is_expected.to render_template('new') }
+      end
+
+      describe 'GET #resolved' do
+        before do
+          ticket.resolved!
+        end
+
+        subject { get :resolved }
+
+        it { is_expected.to have_http_status(:success) }
+        it { is_expected.to render_template('resolved') }
       end
 
       describe 'POST #create' do

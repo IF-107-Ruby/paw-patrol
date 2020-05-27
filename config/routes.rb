@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     get 'edit', to: 'companies#edit'
     patch 'edit', to: 'companies#update'
     get 'dashboard', to: 'dashboards#show'
-    get 'reviews', to: 'resolved_tickets#index'
     resources :users
     resources :units do
       resources :room_employees, only: :index
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
     resources :tickets, only: %i[show new create] do
       resources :comments
       resource :review, except: %i[index destroy]
+      get :resolved, on: :collection
     end
   end
 

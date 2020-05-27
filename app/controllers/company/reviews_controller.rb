@@ -17,7 +17,7 @@ class Company
       authorize([:company, @review])
       if @review.save
         flash[:success] = 'Review saved!'
-        redirect_to company_reviews_path
+        redirect_to resolved_company_tickets_path
       else
         flash.now[:warning] = 'Review is not saved!'
         render :new
@@ -27,7 +27,7 @@ class Company
     def update
       if @review.update(review_params)
         flash[:success] = 'Review updated!'
-        redirect_to company_reviews_path
+        redirect_to resolved_company_tickets_path
       else
         flash.now[:warning] = 'Review is not updated!'
         render :edit

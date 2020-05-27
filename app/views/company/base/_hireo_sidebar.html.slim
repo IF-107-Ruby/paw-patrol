@@ -26,14 +26,14 @@
                 i.icon-material-outline-business
                 | Units
             - if policy(%i[company ticket]).create?
-              li class="#{active_path(company_reviews_path)}"
-                = link_to company_reviews_path
-                  i.icon-material-outline-rate-review
-                  | Reviews
               li class="#{active_path(new_company_ticket_path)}"
                 = link_to new_company_ticket_path
                   i.icon-material-outline-library-add
                   | Add ticket
+              li class="#{active_path(resolved_company_tickets_path)}"
+                = link_to resolved_company_tickets_path
+                  i.icon-material-outline-rate-review
+                  | Rate resolved tickets
           ul data-submenu-title="Account" 
             li class="#{active_path(user_path(current_user))}"
               = link_to company_user_path(current_user)

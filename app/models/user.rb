@@ -63,7 +63,7 @@ class User < ApplicationRecord
   end
 
   def creator_of_closed_ticket?(ticket_id:)
-    tickets.were_resolved.ids.include?(ticket_id)
+    tickets.resolved.ids.include?(ticket_id)
   end
 
   private

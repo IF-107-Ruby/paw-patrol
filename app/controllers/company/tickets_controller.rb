@@ -25,6 +25,12 @@ class Company
       end
     end
 
+    def resolved
+      authorize([:company, Ticket])
+      @pagy, @resolved_tickets = pagy_decorated(current_user.tickets.resolved,
+                                                items: 10)
+    end
+
     private
 
     def read_user_units

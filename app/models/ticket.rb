@@ -31,7 +31,7 @@ class Ticket < ApplicationRecord
   after_create :send_ticket_notification
 
   scope :most_recent, -> { order(created_at: :desc) }
-  scope :were_resolved, -> { where(status: :resolved) }
+  scope :resolved, -> { where(status: :resolved) }
 
   def description_attachments
     description.body.attachments

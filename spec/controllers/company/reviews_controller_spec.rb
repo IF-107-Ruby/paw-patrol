@@ -61,7 +61,7 @@ RSpec.describe Company::ReviewsController, type: :controller do
       end
 
       it { is_expected.to set_flash[:success] }
-      it { is_expected.to redirect_to(company_reviews_path) }
+      it { is_expected.to redirect_to(resolved_company_tickets_path) }
     end
 
     context 'Employee review ticket with invalid params' do
@@ -96,7 +96,7 @@ RSpec.describe Company::ReviewsController, type: :controller do
       end
 
       it { is_expected.to set_flash[:success] }
-      it { is_expected.to redirect_to(company_reviews_path) }
+      it { is_expected.to redirect_to(resolved_company_tickets_path) }
     end
 
     context 'Employee update review with invalid params' do
