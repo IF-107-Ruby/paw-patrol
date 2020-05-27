@@ -20,7 +20,7 @@ class Company < ApplicationRecord
            source: :user, through: :users_companies_relationships
 
   def tickets
-    Ticket.joins(unit: :company).where(unit: units)
+    Ticket.where(unit: units)
   end
 
   def resolved_tickets
