@@ -119,4 +119,16 @@ describe Company::TicketsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #followed_new' do
+    before do
+      sign_in unit.responsible_user
+    end
+
+    subject { get :followed_new, params: { ticket_id: ticket.id } }
+
+    it { is_expected.to have_http_status(:success) }
+    it { is_expected.to render_template('company/tickets/followed_new') }
+    it { is_expected.not_to have_selector('.btn-group.bootstrap-select.with-border') }
+  end
 end

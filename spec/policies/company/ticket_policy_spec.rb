@@ -37,4 +37,16 @@ RSpec.describe Company::TicketPolicy, type: :policy do
       expect(subject).not_to permit(employee, unit.tickets.last)
     end
   end
+
+  permissions :followed_new? do
+    it 'grant access' do
+      unit.tickets.last.resolved!
+      expect(subject).to permit(unit.responsible_user, unit.tickets.last)
+    end
+
+    it 'denied access' do
+      expect(subject).not_to permit(company_owner, unit.tickets.last)
+      expect(subject).not_to permit(employee, unit.tickets.last)
+    end
+  end
 end

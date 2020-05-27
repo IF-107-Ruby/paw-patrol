@@ -51,8 +51,8 @@ feature 'EmployeePostATicket' do
       click_on 'Post a Ticket'
     end
 
-    expect(page).to have_selector('.notification.warning.closeable',
-                                  text: 'Ticket is not posted!')
-    expect(page).to have_selector('#error_explanation')
+    expect(page).not_to have_selector('.notification.warning.closeable',
+                                      text: 'Ticket is not posted!')
+    expect(page).not_to have_selector('#error_explanation')
   end
 end

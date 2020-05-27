@@ -43,6 +43,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_following_up_ticket do
+      after(:build) do |ticket|
+        ticket.parent = create(:ticket, user: ticket.user, unit: ticket.unit)
+      end
+    end
+
     factory :resolved_ticket, parent: :ticket do
       status { 1 }
     end
