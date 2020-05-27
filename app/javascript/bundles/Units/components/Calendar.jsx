@@ -8,7 +8,6 @@ import "@fullcalendar/daygrid/main.css";
 
 import moment from "moment";
 import axios from "axios";
-import "../../../AxiosHelper";
 
 import Form from "../../Events/components/Form";
 

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import moment from "moment";
 import axios from "axios";
-import "../../../AxiosHelper";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

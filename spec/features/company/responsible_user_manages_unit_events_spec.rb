@@ -11,31 +11,28 @@ feature 'responsible user manages unit events', js: true do
     visit company_unit_path(unit)
   end
 
-  xscenario 'adds, updates and deletes an event' do
+  scenario 'adds, updates and deletes an event' do
     expect(page).to have_text('Planed events')
 
     expect(page).not_to have_text(create_params[:title])
     within '#fullcalendar' do
       find('td.fc-widget-content', match: :first).click
-      wait_for_ajax
     end
 
     fill_in id: :event_title, with: create_params[:title]
     click_on 'Add event'
-    wait_for_ajax
 
     expect(page).to have_text('Event added successfully', wait: 5)
     expect(page).to have_text(create_params[:title])
 
     within '#fullcalendar' do
       find('span', text: create_params[:title], match: :first).click
-      wait_for_ajax
     end
 
-    click_on 'Update'
+    find('i.icon-feather-edit').click
+
     fill_in id: :event_title, with: update_params[:title]
     click_on 'Update event'
-    wait_for_ajax
 
     expect(page).to have_text('Event updated successfully', wait: 5)
     expect(page).not_to have_text(create_params[:title])
@@ -43,15 +40,13 @@ feature 'responsible user manages unit events', js: true do
 
     within '#fullcalendar' do
       find('span', text: update_params[:title]).click
-      wait_for_ajax
     end
 
-    within '#small-dialog' do
+    within '.modal-body' do
       accept_confirm do
-        find('a[data-method="delete"]').click
+        find('i.icon-feather-trash-2').click
       end
     end
-    wait_for_ajax
 
     expect(page).to have_text('Event removed successfully', wait: 5)
     expect(page).not_to have_text(update_params[:title])

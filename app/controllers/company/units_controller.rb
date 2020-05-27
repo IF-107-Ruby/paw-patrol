@@ -2,6 +2,8 @@ class Company
   class UnitsController < Company::BaseController
     before_action :obtain_unit, only: %i[show edit update destroy]
     after_action :add_pagy_headers, only: :index
+    skip_before_action :verify_authenticity_token, only: [:destroy]
+
     helper_method :available_responsible_users
     decorates_assigned :unit
 

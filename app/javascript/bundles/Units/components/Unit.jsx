@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import pluralize from "pluralize";
 
 import axios from "axios";
-import "../../../AxiosHelper";
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
 export default class Unit extends Component {
@@ -64,7 +63,7 @@ export default class Unit extends Component {
             <div className="job-listing-description">
               <h3 className="job-listing-title">
                 {this.state.unit.hasChildren && (
-                  <a id={`${this.props.unit.id}_children`}>
+                  <a id={`unit_${this.props.unit.id}_children`}>
                     <i
                       onClick={this.handleChildrenToggle}
                       className={`icon-material-outline-keyboard-arrow-right show-arrow ${
@@ -98,26 +97,28 @@ export default class Unit extends Component {
               </div>
             </div>
           </div>
-          <div className="buttons-to-right">
-            <a
-              href={`/company/units/new?parent_id=${this.props.unit.id}`}
-              className="button gray ripple-effect ico"
-            >
-              <i className="icon-feather-plus"></i>
-            </a>
-            <a
-              href={this.state.unitUrl + "/edit"}
-              className="button dark ripple-effect ico"
-            >
-              <i className="icon-feather-edit"></i>
-            </a>
-            <a
-              className="button red ripple-effect ico"
-              onClick={() => this.props.handleDestroy(this.state.unit)}
-            >
-              <i className="icon-feather-trash-2"></i>
-            </a>
-          </div>
+          {this.props.editable && (
+            <div className="buttons-to-right">
+              <a
+                href={`/company/units/new?parent_id=${this.props.unit.id}`}
+                className="button gray ripple-effect ico"
+              >
+                <i className="icon-feather-plus"></i>
+              </a>
+              <a
+                href={this.state.unitUrl + "/edit"}
+                className="button dark ripple-effect ico"
+              >
+                <i className="icon-feather-edit"></i>
+              </a>
+              <a
+                className="button red ripple-effect ico"
+                onClick={() => this.props.handleDestroy(this.state.unit)}
+              >
+                <i className="icon-feather-trash-2"></i>
+              </a>
+            </div>
+          )}
         </div>
         {this.state.unit.hasChildren && this.state.childrenLoaded && (
           <div className={this.state.childrenOpen ? "" : "d-none"}>
@@ -125,6 +126,7 @@ export default class Unit extends Component {
               {this.state.children.map((unit) => (
                 <li key={unit.id}>
                   <Unit
+                    editable={this.props.editable}
                     parentRef={this}
                     unit={unit}
                     handleDestroy={this.handleDestroy}

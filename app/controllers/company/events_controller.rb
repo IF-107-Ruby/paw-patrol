@@ -2,6 +2,7 @@ class Company
   class EventsController < Company::BaseController
     before_action :obtain_unit
     before_action :obtain_event, only: %i[show update destroy]
+    skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
     def index
       authorize([:company, selected_events])

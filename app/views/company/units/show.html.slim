@@ -60,4 +60,4 @@
             = render @unit_tickets
           = render partial: 'shared/pagination', locals: { pagy: @tickets_pagy }
   .col-xl-12
-    = react_component("Units", props: { headline: "Sub units", newUnitPath: new_company_unit_path(parent_id: unit), unitsPath: company_unit_children_path(unit, format: :json) }, prerender: false)
+    = react_component("Units", props: { headline: "Sub units", editable: current_user.company_owner?, newUnitPath: new_company_unit_path(parent_id: unit), unitsPath: company_unit_children_path(unit, format: :json) }, prerender: false)

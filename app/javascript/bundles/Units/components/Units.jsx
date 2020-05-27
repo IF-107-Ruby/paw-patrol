@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import axios from "axios";
-import "../../../AxiosHelper";
 import Unit from "./Unit";
 
 import Pagination from "../../Shared/components/Pagination";
@@ -29,6 +28,10 @@ export default class Units extends Component {
   }
 
   handleDestroy = async (unit) => {
+    if (!window.confirm("Are you sure?")) {
+      return;
+    }
+
     let res = await axios.delete(unit.url, { params: { format: "json" } });
 
     if (res.status == 200) {
@@ -74,6 +77,7 @@ export default class Units extends Component {
               {this.state.units.map((unit) => (
                 <li key={unit.id}>
                   <Unit
+                    editable={this.props.editable}
                     parentRef={this}
                     unit={unit}
                     handleDestroy={this.handleDestroy}
