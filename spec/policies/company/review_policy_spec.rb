@@ -15,16 +15,6 @@ RSpec.describe Company::ReviewPolicy, type: :policy do
 
   subject { described_class }
 
-  permissions :index? do
-    it 'grant access' do
-      expect(subject).to permit(employee)
-    end
-
-    it 'denied access' do
-      expect(subject).not_to permit(staff_member)
-    end
-  end
-
   permissions :show? do
     it 'grant access' do
       expect(subject).to permit(company_owner)

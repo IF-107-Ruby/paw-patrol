@@ -1,9 +1,5 @@
 class Company
   class ReviewPolicy < ApplicationPolicy
-    def index?
-      user.company_owner? || user.employee?
-    end
-
     def show?
       true
     end
