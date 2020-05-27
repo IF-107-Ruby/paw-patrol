@@ -27,7 +27,10 @@ class Company
 
     def resolved
       authorize([:company, Ticket])
-      @pagy, @resolved_tickets = pagy_decorated(current_user.tickets.resolved,
+      @pagy, @resolved_tickets = pagy_decorated(current_user
+                                                    .tickets
+                                                    .resolved
+                                                    .most_recent,
                                                 items: 10)
     end
 
