@@ -1,9 +1,15 @@
 class Company
   class ReviewsController < Company::BaseController
-    before_action :find_reviewable_ticket_by_id
-    before_action :find_review_by_ticket, only: %i[show edit update]
+    before_action :find_reviewable_ticket_by_id, except: :show
+    before_action :find_review_by_ticket,        only: %i[edit update]
 
-    def show; end
+    def show
+      @review = current_company.resolved_tickets
+                               .find(params[:ticket_id])
+                               .review
+                               .decorate
+      authorize([:company, @review])
+    end
 
     def new
       @review = @ticket.build_review
