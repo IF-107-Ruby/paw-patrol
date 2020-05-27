@@ -1,5 +1,5 @@
 .review-form
-  = form_for [:company, review] do |f|
+  = form_for review, url: company_ticket_review_path do |f|
     .row.margin-bottom-30
       .col-md-12
         .dashboard-box.mt-0
@@ -8,7 +8,6 @@
               i.icon-material-outline-business
               | Review Submission Form
           = render 'shared/error_messages', object: f.object
-          = f.hidden_field :ticket_id
           .content.with-padding
             .row
               .col-12.mb-4

@@ -94,11 +94,9 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
     t.integer 'rating', null: false
     t.text 'comment', null: false
     t.bigint 'ticket_id', null: false
-    t.bigint 'user_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['ticket_id'], name: 'index_reviews_on_ticket_id', unique: true
-    t.index ['user_id'], name: 'index_reviews_on_user_id'
   end
 
   create_table 'tickets', force: :cascade do |t|
@@ -175,7 +173,6 @@ ActiveRecord::Schema.define(version: 20_200_525_073_432) do
   add_foreign_key 'notifications', 'users'
   add_foreign_key 'notifications', 'users', column: 'notified_by_id'
   add_foreign_key 'reviews', 'tickets'
-  add_foreign_key 'reviews', 'users'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
   add_foreign_key 'units', 'companies'

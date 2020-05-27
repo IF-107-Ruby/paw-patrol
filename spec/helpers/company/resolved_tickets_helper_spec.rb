@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Company::ReviewsHelper, type: :helper do
+RSpec.describe Company::ResolvedTicketsHelper, type: :helper do
   include_context 'employee with ticket'
 
   before do

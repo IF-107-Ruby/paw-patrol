@@ -1,24 +1,19 @@
 class Company
   class ReviewsController < Company::BaseController
-    before_action :find_review_by_id, only: %i[show edit update]
-
-    def index
-      authorize([:company, Review])
-      @pagy, @reviewable_tickets = pagy_decorated(current_user.tickets.were_resolved,
-                                                  items: 10)
-    end
+    before_action :find_reviewable_ticket_by_id, only: %i[show new edit create update]
+    before_action :find_review_by_ticket,        only: %i[show edit update]
 
     def show; end
 
     def new
-      @review = current_user.reviews.build(ticket_id: params[:ticket_id])
+      @review = @ticket.build_review
       authorize([:company, @review])
     end
 
     def edit; end
 
     def create
-      @review = current_user.reviews.build(review_params)
+      @review = @ticket.build_review(review_params)
       authorize([:company, @review])
       if @review.save
         flash[:success] = 'Review saved!'
@@ -41,8 +36,12 @@ class Company
 
     private
 
-    def find_review_by_id
-      @review = current_user.reviews.find(params[:id]).decorate
+    def find_reviewable_ticket_by_id
+      @ticket = current_user.tickets.find(params[:ticket_id])
+    end
+
+    def find_review_by_ticket
+      @review = @ticket.review.decorate
       authorize([:company, @review])
     end
 

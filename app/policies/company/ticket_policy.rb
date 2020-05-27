@@ -1,5 +1,9 @@
 class Company
   class TicketPolicy < ApplicationPolicy
+    def index?
+      create?
+    end
+
     def create?
       user.company_owner? || user.employee?
     end

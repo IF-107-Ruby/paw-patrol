@@ -5,5 +5,5 @@ RSpec.shared_context 'resolved_ticket_and_review' do
     ticket.resolved!
   end
 
-  let!(:review) { create(:review, ticket: ticket, user: ticket.user) }
+  let!(:review) { create(:review, ticket: ticket) }
 end

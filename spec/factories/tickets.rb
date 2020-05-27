@@ -33,8 +33,7 @@ FactoryBot.define do
     trait :with_review do
       after(:build) do |resolved_ticket|
         resolved_ticket.review = build(:review,
-                                       ticket: resolved_ticket,
-                                       user: resolved_ticket.user)
+                                       ticket: resolved_ticket)
       end
     end
   end

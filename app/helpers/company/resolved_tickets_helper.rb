@@ -1,10 +1,10 @@
 class Company
-  module ReviewsHelper
+  module ResolvedTicketsHelper
     def ticket_reviewable_status(ticket)
       if ticket.reviewed?
         review = ticket.review
-        link_to(company_review_path(review), class: 'review-link') do
-          render('company/reviews/reviewable_content', review: review)
+        link_to(company_ticket_review_path(ticket), class: 'review-link') do
+          render('company/shared/reviewable_content', review: review)
         end
       else
         content_tag(:span, 'Not Rated',

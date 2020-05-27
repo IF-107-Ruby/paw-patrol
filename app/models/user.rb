@@ -32,7 +32,6 @@ class User < ApplicationRecord
   has_many :units, through: :users_units_relationships
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
-  has_many :reviews, dependent: :destroy
 
   validates :first_name, :last_name,
             presence: true,

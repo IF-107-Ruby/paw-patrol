@@ -1,41 +1,21 @@
 require 'rails_helper'
 
-describe Company::ReviewsController do
+RSpec.describe Company::ReviewsController, type: :controller do
   include_context 'employee with ticket'
   let!(:staff_member) { create(:staff_member, company: company) }
   let(:review_params) { FactoryBot.attributes_for :review }
-  let(:review_invalid_params) { { rating: 0, comment: '' } }
+  let(:review_invalid_params) { { rating: -1, comment: '' } }
 
   before do
     ticket.resolved!
   end
 
-  describe 'GET #index' do
-    context 'User is employee' do
-      before { sign_in employee }
-
-      subject { get :index }
-
-      it { is_expected.to have_http_status(:success) }
-      it { is_expected.to render_template('index') }
-    end
-
-    context 'User is staff member' do
-      before { sign_in staff_member }
-
-      subject { get :index }
-
-      it { is_expected.to have_http_status(:redirect) }
-      it { is_expected.not_to render_template('index') }
-    end
-  end
-
   describe 'GET #show' do
     before { sign_in employee }
 
-    let!(:review) { create(:review, ticket: ticket, user: employee) }
+    let!(:review) { create(:review, ticket: ticket) }
 
-    subject { get :show, params: { id: review.id } }
+    subject { get :show, params: { ticket_id: ticket.id } }
 
     it { is_expected.to have_http_status(:success) }
     it { is_expected.to render_template('show') }
@@ -56,17 +36,17 @@ describe Company::ReviewsController do
 
       subject { get :new, params: { ticket_id: ticket.id } }
 
-      it { is_expected.to have_http_status(:redirect) }
+      it { is_expected.to have_http_status(:success) }
       it { is_expected.not_to render_template('new') }
     end
   end
 
   describe 'GET #edit' do
-    let!(:review) { create(:review, ticket: ticket, user: employee) }
+    let!(:review) { create(:review, ticket: ticket) }
     context 'Employee edit review' do
       before { sign_in employee }
 
-      subject { get :edit, params: { id: review.id } }
+      subject { get :edit, params: { ticket_id: ticket.id } }
 
       it { is_expected.to have_http_status(:success) }
       it { is_expected.to render_template('edit') }
@@ -77,7 +57,7 @@ describe Company::ReviewsController do
     context 'Employee review ticket with valid params' do
       before do
         sign_in employee
-        post :create, params: { review: review_params.merge(ticket_id: ticket.id) }
+        post :create, params: { ticket_id: ticket.id, review: review_params }
       end
 
       it { is_expected.to set_flash[:success] }
@@ -88,7 +68,7 @@ describe Company::ReviewsController do
       before do
         sign_in employee
         post :create,
-             params: { review: review_invalid_params.merge(ticket_id: ticket.id) }
+             params: { ticket_id: ticket.id, review: review_invalid_params }
       end
 
       it { is_expected.not_to set_flash[:success] }
@@ -98,7 +78,7 @@ describe Company::ReviewsController do
     context 'Staff member review ticket' do
       before do
         sign_in staff_member
-        post :create, params: { review: review_params.merge(ticket_id: ticket.id) }
+        post :create, params: { ticket_id: ticket.id, review: review_params }
       end
 
       it { is_expected.not_to set_flash[:success] }
@@ -106,12 +86,12 @@ describe Company::ReviewsController do
   end
 
   describe 'PUT#update' do
-    let!(:review) { create(:review, ticket: ticket, user: employee) }
+    let!(:review) { create(:review, ticket: ticket) }
 
     context 'Employee update review with invalid params' do
       before do
         sign_in employee
-        put :update, params: { id: review.id,
+        put :update, params: { ticket_id: ticket.id,
                                review: review_params.merge(ticket_id: ticket.id) }
       end
 
@@ -122,8 +102,8 @@ describe Company::ReviewsController do
     context 'Employee update review with invalid params' do
       before do
         sign_in employee
-        put :update, params: { id: review.id,
-                               review: review_invalid_params.merge(ticket_id: ticket.id) }
+        put :update, params: { ticket_id: ticket.id,
+                               review: review_invalid_params }
       end
 
       it { is_expected.not_to set_flash[:success] }
@@ -133,7 +113,7 @@ describe Company::ReviewsController do
     context 'Staff member update review' do
       before do
         sign_in staff_member
-        put :update, params: { id: review.id,
+        put :update, params: { ticket_id: ticket.id,
                                review: review_invalid_params.merge(ticket_id: ticket.id) }
       end
 

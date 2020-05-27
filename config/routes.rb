@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'edit', to: 'companies#edit'
     patch 'edit', to: 'companies#update'
     get 'dashboard', to: 'dashboards#show'
+    get 'reviews', to: 'resolved_tickets#index'
     resources :users
     resources :units do
       resources :room_employees, only: :index
@@ -20,8 +21,8 @@ Rails.application.routes.draw do
     end
     resources :tickets, only: %i[show new create] do
       resources :comments
+      resource :review, except: %i[index destroy]
     end
-    resources :reviews, except: :destroy
   end
 
   devise_for :users, path: '', only: :sessions, controllers: {
