@@ -17,12 +17,12 @@ class Review < ApplicationRecord
                      numericality: { only_integer: true },
                      inclusion: { in: 1..5 }
   validates :comment, presence: true, length: { maximum: 255 }
-  validate :ticket_decision_status, if: ->(review) { review.ticket }
+  validate :ticket_decision_status
 
   private
 
   def ticket_decision_status
-    return if ticket.resolved?
+    return if ticket&.resolved?
 
     errors.add(:ticket, 'ticket must be resolved')
   end

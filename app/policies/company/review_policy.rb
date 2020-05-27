@@ -9,11 +9,11 @@ class Company
     end
 
     def create?
-      user.creator_of_closed_ticket?(ticket_id: record.ticket.id)
+      user.ticket_ids.include?(record.ticket.id)
     end
 
     def update?
-      user.creator_of_closed_ticket?(ticket_id: record.ticket.id)
+      create?
     end
 
     class Scope < Scope

@@ -62,8 +62,8 @@ class User < ApplicationRecord
     company.present?
   end
 
-  def creator_of_closed_ticket?(ticket_id:)
-    tickets.resolved.ids.include?(ticket_id)
+  def resolved_tickets?
+    tickets.resolved.present?
   end
 
   private
