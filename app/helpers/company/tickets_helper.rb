@@ -1,5 +1,5 @@
 class Company
-  module ResolvedTicketsHelper
+  module TicketsHelper
     def ticket_reviewable_status(ticket)
       if ticket.reviewed?
         review = ticket.review

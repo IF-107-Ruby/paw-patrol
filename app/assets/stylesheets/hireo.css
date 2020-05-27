@@ -7,7 +7,6 @@
   *= require hireo/colors/blue
   *= require hireo/icons
   *= require tickets
-  *= require resolved_tickets
   *= require reviews
   *= require company/custom
   *= require company/units
