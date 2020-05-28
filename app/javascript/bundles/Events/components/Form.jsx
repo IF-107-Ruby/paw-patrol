@@ -249,10 +249,7 @@ class Form extends Component {
         <Select
           className="basic-single"
           classNamePrefix="select"
-          defaultValue={
-            this.frequencies.find(({ value }) => frequency == value) ||
-            this.frequencies[0]
-          }
+          defaultValue={_.find(this.frequencies, ["value", frequency])}
           onChange={this.onFrequencyChange}
           options={this.frequencies}
         />

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 import axios from "../../../AxiosHelper";
 
+import _ from "lodash";
+
 import Unit from "./Unit";
-
 import Pagination from "../../Shared/components/Pagination";
-
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
 class Units extends Component {
@@ -34,7 +34,8 @@ class Units extends Component {
       if (res.status == 200)
         this.setState({
           units: res.data,
-          pageCount: +res.headers["total-pages"],
+          page: _.toInteger(_.get(res.headers, "current-page", 1)),
+          pageCount: _.toInteger(_.get(res.headers, "total-pages", 1)),
         });
     } catch {
       showSnackbarError("Unable to load units");
@@ -67,7 +68,7 @@ class Units extends Component {
     let pagination = pageCount && (
       <Pagination
         pageCount={pageCount}
-        initialPage={page}
+        initialPage={page - 1}
         onPageChange={this.onPageChange}
       />
     );
@@ -79,7 +80,6 @@ class Units extends Component {
             <li key={unit.id}>
               <Unit
                 editable={editable}
-                parentRef={this}
                 unit={unit}
                 handleDestroy={this.handleDestroy}
               />

@@ -21,7 +21,9 @@ class Unit extends Component {
     };
   }
 
-  handleChildrenToggle = async () => {
+  handleChildrenToggle = async (e) => {
+    e.preventDefault();
+
     try {
       if (!this.state.childrenLoaded) {
         let res = await axios.get(this.state.unit.url + "/children");
@@ -67,7 +69,9 @@ class Unit extends Component {
     }
   };
 
-  handleDestroy = () => {
+  handleDestroy = (e) => {
+    e.preventDefault();
+
     this.props.handleDestroy(this.state.unit);
   };
 
@@ -116,14 +120,13 @@ class Unit extends Component {
       </div>
     );
 
-    let unitChildren = unit.hasChildren && childrenLoaded && (
+    let unitChildren = childrenLoaded && unit.hasChildren && (
       <div className={childrenOpen ? "" : "d-none"}>
         <ul className="dashboard-box-list">
           {children.map((unit) => (
             <li key={unit.id}>
               <Unit
                 editable={editable}
-                parentRef={this}
                 unit={unit}
                 handleDestroy={this.handleChildDestroy}
               />

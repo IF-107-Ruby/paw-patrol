@@ -21,6 +21,7 @@ function Pagination(props) {
           <ReactPaginate
             pageCount={pageCount}
             initialPage={initialPage}
+            disableInitialCallback
             onPageChange={onPageChange}
             pageRangeDisplayed={4}
             marginPagesDisplayed={2}
