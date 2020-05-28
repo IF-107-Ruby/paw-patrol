@@ -5,16 +5,16 @@ RSpec.describe Company::UserUnitsController, type: :controller do
 
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:employee_with_unit) { unit.users.first }
+  let!(:employee) { unit.users.first }
   let!(:user) { create(:staff_member, company: company) }
 
   describe 'User Units controller actions' do
     context 'if user is employee' do
-      before { sign_in employee_with_unit }
+      before { sign_in employee }
 
       describe 'GET#index' do
         it 'assigns units and renders template' do
-          get :index, params: { user_id: employee_with_unit.id }
+          get :index, params: { user_id: employee.id }
           expect(assigns(:units)).to eq([unit])
           expect(response).to render_template('index')
         end

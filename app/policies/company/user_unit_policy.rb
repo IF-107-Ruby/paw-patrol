@@ -1,11 +1,11 @@
 class Company
   UserUnitPolicy = Struct.new(:user, :unit) do
     def index?
-      user.can_view_unit_dashboard?
+      user.employee?
     end
 
     def show?
-      user.can_view_unit_dashboard?
+      user.employee?
     end
   end
 end

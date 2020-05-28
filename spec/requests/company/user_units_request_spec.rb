@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Company::UserUnits', type: :request do
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-  let!(:employee_with_unit) { unit.users.first }
+  let!(:employee) { unit.users.first }
 
-  before { login_as employee_with_unit }
+  before { login_as employee }
 
   describe 'GET /company/user_units' do
     it 'returns http success' do
