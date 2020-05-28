@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import pluralize from "pluralize";
 
+import _ from "lodash";
+
 import axios from "../../../AxiosHelper";
 
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
@@ -40,17 +42,18 @@ class Unit extends Component {
     }
   };
 
-  handleDestroy = async (unit) => {
+  handleChildDestroy = async (unit) => {
     if (!window.confirm("Are you sure?")) return;
+
     try {
       let res = await axios.delete(unit.url);
 
       if (res.status == 200) {
         showSnackbarSuccess("Unit removed successfully");
         this.setState(
-          {
-            children: this.state.children.filter(({ id }) => id != res.data.id),
-          },
+          (state) => ({
+            children: _.remove(state.children, ({ id }) => id != res.data.id),
+          }),
           () => {
             if (this.state.children.length == 0) {
               this.state.unit.hasChildren = false;
@@ -62,6 +65,10 @@ class Unit extends Component {
     } catch {
       showSnackbarError("Unit is not removed");
     }
+  };
+
+  handleDestroy = () => {
+    this.props.handleDestroy(this.state.unit);
   };
 
   render() {
@@ -102,7 +109,7 @@ class Unit extends Component {
         </a>
         <a
           className="button red ripple-effect ico"
-          onClick={() => this.props.handleDestroy(unit)}
+          onClick={this.handleDestroy}
         >
           <i className="icon-feather-trash-2"></i>
         </a>
@@ -118,7 +125,7 @@ class Unit extends Component {
                 editable={editable}
                 parentRef={this}
                 unit={unit}
-                handleDestroy={this.handleDestroy}
+                handleDestroy={this.handleChildDestroy}
               />
             </li>
           ))}

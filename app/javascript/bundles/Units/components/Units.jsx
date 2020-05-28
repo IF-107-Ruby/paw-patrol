@@ -31,12 +31,11 @@ class Units extends Component {
         },
       });
 
-      if (res.status == 200) {
+      if (res.status == 200)
         this.setState({
           units: res.data,
           pageCount: +res.headers["total-pages"],
         });
-      }
     } catch {
       showSnackbarError("Unable to load units");
     }

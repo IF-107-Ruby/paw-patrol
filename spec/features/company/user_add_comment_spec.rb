@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'EmployeeAddComment' do
+xfeature 'EmployeeAddComment' do
   let!(:company) { create(:company) }
   let!(:responsible_user) { create(:staff_member, :with_company, company: company) }
   let!(:unit) do
@@ -10,7 +10,7 @@ feature 'EmployeeAddComment' do
   let!(:employee) { unit.users.first }
   let!(:another_employee) { unit.users.second }
   let!(:responsible_user) { create(:staff_member, :with_company, company: company) }
-  let!(:ticket) { create(:ticket, user: employee, unit: unit) }
+  let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
   let!(:comment) { ticket.comments.first }
 
   scenario 'ticket author successfully see comments and add new one', js: true do

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import moment from "moment";
-import axios from "../../../AxiosHelper";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,7 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 
+import _ from "lodash";
+
 import ColorPicker from "../../Shared/components/ColorPicker";
+import axios from "../../../AxiosHelper";
 
 class Form extends Component {
   frequencies = [
@@ -29,20 +31,20 @@ class Form extends Component {
     super(props);
 
     let original = {
-      id: props.id || null,
-      title: props.title || "",
-      anchor: props.anchor || moment(),
-      duration: props.duration || 24 * 60,
-      color: props.color || "#0000ff",
-      ticket_id: (props.ticket && props.ticket.id) || null,
-      frequency: props.frequency || "once",
+      id: _.get(props, "id", null),
+      title: _.get(props, "title", ""),
+      anchor: _.get(props, "anchor", moment()),
+      duration: _.get(props, "duration", 24 * 60),
+      color: _.get(props, "color", "#0000ff"),
+      ticket_id: _.get(props, "ticket.id", null),
+      frequency: _.get(props, "frequency", "once"),
     };
 
     this.state = {
       original,
       unitId: props.unitId,
       isChanged: props.isNewRecord,
-      ticket_name: props.ticket && props.ticket.name,
+      ticket_name: _.get(props, "ticket.name", null),
       ...original,
     };
   }
@@ -50,12 +52,28 @@ class Form extends Component {
   compareOldValues = () => {
     if (this.props.isNewRecord) return;
 
-    let { title, anchor, duration, color, ticket_id, frequency } = this.state;
-    let newValues = { title, anchor, duration, color, ticket_id, frequency };
+    let {
+      id,
+      title,
+      anchor,
+      duration,
+      color,
+      ticket_id,
+      frequency,
+    } = this.state;
+
+    let newValues = {
+      id,
+      title,
+      anchor,
+      duration,
+      color,
+      ticket_id,
+      frequency,
+    };
 
     this.setState({
-      isChanged:
-        JSON.stringify(this.state.original) !== JSON.stringify(newValues),
+      isChanged: !_.isEqual(this.state.original, newValues),
     });
   };
 
@@ -65,9 +83,7 @@ class Form extends Component {
     );
 
     if (res.status == 200)
-      return res.data.map(({ id, name }) => {
-        return { value: id, label: name };
-      });
+      return res.data.map(({ id, name }) => ({ value: id, label: name }));
     return [];
   };
 
@@ -169,8 +185,8 @@ class Form extends Component {
       isChanged,
     } = this.state;
 
-    let startDate = moment(anchor);
-    let endDate = moment(anchor).add("minutes", duration);
+    let startDate = moment(anchor).toDate();
+    let endDate = moment(anchor).add("minutes", duration).toDate();
 
     let submitClass = isChanged
       ? this.changedButtonClass
@@ -191,23 +207,23 @@ class Form extends Component {
         <label>Timespan</label>
         <div className="d-flex justify-content-between">
           <DatePicker
-            selected={startDate.toDate()}
+            selected={startDate}
             onChange={this.handleStartDateSelect}
-            startDate={startDate.toDate()}
-            endDate={endDate.toDate()}
+            startDate={startDate}
+            endDate={endDate}
             timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy hh:mm aa"
+            dateFormat="MM/dd/yyyy HH:mm"
             selectsStart
             showTimeInput
           />
           <DatePicker
-            selected={endDate.toDate()}
+            selected={endDate}
             onChange={this.handleEndDateSelect}
-            startDate={startDate.toDate()}
-            endDate={endDate.toDate()}
-            minDate={startDate.toDate()}
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
             timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy h:mm aa"
+            dateFormat="MM/dd/yyyy HH:mm"
             selectsEnd
             showTimeInput
           />
