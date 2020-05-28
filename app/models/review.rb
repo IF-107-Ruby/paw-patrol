@@ -22,7 +22,7 @@ class Review < ApplicationRecord
   private
 
   def ticket_decision_status
-    return if ticket&.resolved?
+    return if ticket.resolved?
 
     errors.add(:ticket, 'ticket must be resolved')
   end

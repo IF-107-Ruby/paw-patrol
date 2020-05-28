@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-describe Company, type: :model do
+RSpec.describe Company, type: :model do
   let!(:company) { create(:company) }
 
   describe 'Associations' do
     it { is_expected.to have_many(:units).dependent(:destroy) }
     it { is_expected.to have_many(:users_companies_relationships).dependent(:destroy) }
     it { is_expected.to have_many(:users).through(:users_companies_relationships) }
+    it { is_expected.to have_many(:tickets).through(:units) }
   end
 
   describe 'Validations' do
