@@ -24,7 +24,6 @@ RSpec.describe 'Company::Events', type: :request do
       get company_unit_event_path(unit, event, format: :json)
 
       expect(response).to have_http_status(:success)
-      expect(response).to render_template(:show)
     end
   end
 
@@ -34,7 +33,7 @@ RSpec.describe 'Company::Events', type: :request do
       post company_unit_events_path(unit, format: :json), params: params
 
       expect(Event.count).not_to eq(before_count)
-      expect(response).to render_template(:create)
+      expect(response).to have_http_status(:created)
     end
 
     it 'does not create event with invalid params' do
@@ -43,7 +42,7 @@ RSpec.describe 'Company::Events', type: :request do
       post company_unit_events_path(unit, format: :json), params: params
 
       expect(Event.count).to eq(before_count)
-      expect(response).to render_template(:create)
+      expect(response).to render_template(:new)
     end
   end
 
@@ -53,7 +52,7 @@ RSpec.describe 'Company::Events', type: :request do
 
       expect(Event.find(event.id).title)
         .to eq(event_params[:title])
-      expect(response).to render_template(:update)
+      expect(response).to have_http_status(:success)
     end
 
     it 'does not update event with invalid params' do
@@ -62,15 +61,13 @@ RSpec.describe 'Company::Events', type: :request do
 
       expect(Event.find(event.id).title)
         .not_to eq(event_params[:title])
-      expect(response).to render_template(:update)
     end
   end
 
   describe 'DELETE /company/units/:unit_id/events/:id.json' do
     it 'deletes unit and redirects to units page' do
-      delete company_unit_event_path(unit, event, format: :json)
-
-      expect(response).to render_template(:destroy)
+      expect { delete company_unit_event_path(unit, event, format: :json) }
+        .to change(Event, :count).by(-1)
     end
   end
 end

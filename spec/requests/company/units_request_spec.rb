@@ -89,9 +89,8 @@ RSpec.describe 'Company::Units', type: :request do
 
   describe 'DELETE /company/units/:id' do
     it 'deletes unit and redirects to units page' do
-      delete company_unit_path(unit, format: :json)
-
-      expect(response).to render_template(:destroy)
+      expect { delete company_unit_path(unit, format: :json) }
+        .to change(Unit, :count).by(-1)
     end
   end
 end

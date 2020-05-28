@@ -13,36 +13,35 @@ class Company
 
     def show
       respond_to do |format|
-        format.json
+        format.json { render @event }
       end
     end
 
     def create
-      @event = @unit.events.build(event_params)
-      authorize([:company, @event])
-
-      status_code = if @event.save
-                      :created
-                    else
-                      :unprocessable_entity
-                    end
+      _, @event = authorize([:company, @unit.events.build(event_params)])
 
       respond_to do |format|
-        format.json { render :create, status: status_code }
+        format.json do
+          if @event.save
+            render @event, status: :created
+          else
+            render :new, status: :unprocessable_entity
+          end
+        end
       end
     end
 
     def update
       @event.update(event_params)
       respond_to do |format|
-        format.json
+        format.json { render @event }
       end
     end
 
     def destroy
       @event.destroy
       respond_to do |format|
-        format.json
+        format.json { render @event }
       end
     end
 

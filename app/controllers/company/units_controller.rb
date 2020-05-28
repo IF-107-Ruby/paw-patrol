@@ -55,7 +55,11 @@ class Company
     def destroy
       @unit.destroy
       respond_to do |format|
-        format.json
+        format.json { render @unit }
+        format.html do
+          redirect_back(fallback_location: company_units_path,
+                        success: 'Unit deleted successfully.')
+        end
       end
     end
 
