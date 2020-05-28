@@ -5,14 +5,7 @@ import ModalDialog from "../../Shared/components/ModalDialog";
 import Form from "./Form";
 
 function NewEventModal(props) {
-  const {
-    unitId,
-    anchor,
-    duration,
-    submitUrl,
-    closeCallback,
-    successCallback,
-  } = props;
+  const { unitId, anchor, duration, closeCallback, submitCallback } = props;
 
   return (
     <ModalDialog title="New event" closeCallback={closeCallback}>
@@ -20,8 +13,7 @@ function NewEventModal(props) {
         unitId={unitId}
         anchor={anchor}
         duration={duration}
-        submitUrl={submitUrl}
-        successCallback={successCallback}
+        submitCallback={submitCallback}
         afterSubmitCallback={closeCallback}
         isNewRecord
       />
@@ -34,8 +26,7 @@ NewEventModal.propTypes = {
   unitId: PropTypes.number,
   anchor: PropTypes.objectOf(Date),
   duration: PropTypes.number,
-  submitUrl: PropTypes.string,
-  successCallback: PropTypes.func,
+  submitCallback: PropTypes.func,
 };
 
 export default NewEventModal;

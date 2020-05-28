@@ -20,41 +20,46 @@ class Unit extends Component {
   }
 
   handleChildrenToggle = async () => {
-    if (!this.state.childrenLoaded) {
-      let res = await axios.get(this.state.unit.url + "/children.json");
+    try {
+      if (!this.state.childrenLoaded) {
+        let res = await axios.get(this.state.unit.url + "/children");
+        this.setState({
+          childrenLoaded: true,
+          children: res.data,
+        });
+      }
+      this.setState((state) => ({
+        childrenOpen: !state.childrenOpen,
+      }));
+    } catch {
+      showSnackbarError("Unable to load unit children");
       this.setState({
-        childrenLoaded: true,
-        children: res.data,
+        childrenLoaded: false,
+        childrenOpen: false,
       });
     }
-    this.setState((state) => ({
-      childrenOpen: !state.childrenOpen,
-    }));
   };
 
   handleDestroy = async (unit) => {
     if (!window.confirm("Are you sure?")) return;
+    try {
+      let res = await axios.delete(unit.url);
 
-    let res = await axios.delete(unit.url, {
-      params: {
-        format: "json",
-      },
-    });
-
-    if (res.status == 200) {
-      showSnackbarSuccess("Unit removed successfully");
-      this.setState(
-        {
-          children: this.state.children.filter(({ id }) => id != res.data.id),
-        },
-        () => {
-          if (this.state.children.length == 0) {
-            this.state.unit.hasChildren = false;
-            this.forceUpdate();
+      if (res.status == 200) {
+        showSnackbarSuccess("Unit removed successfully");
+        this.setState(
+          {
+            children: this.state.children.filter(({ id }) => id != res.data.id),
+          },
+          () => {
+            if (this.state.children.length == 0) {
+              this.state.unit.hasChildren = false;
+              this.forceUpdate();
+            }
           }
-        }
-      );
-    } else {
+        );
+      }
+    } catch {
       showSnackbarError("Unit is not removed");
     }
   };

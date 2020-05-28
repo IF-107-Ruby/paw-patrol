@@ -29,18 +29,18 @@ class Form extends Component {
     super(props);
 
     let original = {
-      title: props.title,
-      anchor: props.anchor,
-      duration: props.duration,
+      id: props.id || null,
+      title: props.title || "",
+      anchor: props.anchor || moment(),
+      duration: props.duration || 24 * 60,
       color: props.color || "#0000ff",
       ticket_id: (props.ticket && props.ticket.id) || null,
-      frequency: props.frequency,
+      frequency: props.frequency || "once",
     };
 
     this.state = {
       original,
       unitId: props.unitId,
-      submitUrl: props.submitUrl,
       isChanged: props.isNewRecord,
       ticket_name: props.ticket && props.ticket.name,
       ...original,
@@ -61,7 +61,7 @@ class Form extends Component {
 
   avaibleTickets = async () => {
     let res = await axios.get(
-      `/company/units/${this.state.unitId}/events/avaible_tickets.json`
+      `/company/units/${this.state.unitId}/events/avaible_tickets`
     );
 
     if (res.status == 200)
@@ -71,36 +71,28 @@ class Form extends Component {
     return [];
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     let {
+      id,
       anchor,
       color,
       duration,
       frequency,
       title,
       ticket_id,
-      submitUrl,
     } = this.state;
 
-    let res = await (this.props.isNewRecord ? axios.post : axios.patch)(
-      submitUrl,
-      {
-        event: {
-          anchor: moment(anchor).format("YYYY-MM-DD HH:mm"),
-          color,
-          duration,
-          frequency,
-          title,
-          ticket_id,
-        },
-      }
-    );
-
-    if (res.status == 200 || res.status == 201) {
-      this.props.successCallback(res.data);
-    }
+    this.props.submitCallback({
+      id,
+      anchor: moment(anchor).format("YYYY-MM-DD HH:mm"),
+      color,
+      duration,
+      frequency,
+      title,
+      ticket_id,
+    });
 
     this.props.afterSubmitCallback();
   };
@@ -268,7 +260,7 @@ class Form extends Component {
 Form.propTypes = {
   isNewRecord: PropTypes.bool,
   unitId: PropTypes.number,
-  submitUrl: PropTypes.string,
+  id: PropTypes.number,
   title: PropTypes.string,
   anchor: PropTypes.objectOf(Date),
   duration: PropTypes.number,
@@ -276,7 +268,7 @@ Form.propTypes = {
   color: PropTypes.string,
   ticket: PropTypes.object,
   afterSubmitCallback: PropTypes.func,
-  successCallback: PropTypes.func,
+  submitCallback: PropTypes.func,
 };
 
 export default Form;

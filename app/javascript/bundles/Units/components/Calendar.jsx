@@ -29,16 +29,20 @@ export default class Calendar extends Component {
   }
 
   fetchEvents = async (start, end) => {
-    const res = await axios.get(
-      `/company/units/${this.state.unitId}/events.json`,
-      {
-        params: {
-          start: moment(start).format("YYYY-MM-DD"),
-          end: moment(end).format("YYYY-MM-DD"),
-        },
-      }
-    );
-    this.setState({ events: res.data, start, end });
+    try {
+      const res = await axios.get(
+        `/company/units/${this.state.unitId}/events`,
+        {
+          params: {
+            start: moment(start).format("YYYY-MM-DD"),
+            end: moment(end).format("YYYY-MM-DD"),
+          },
+        }
+      );
+      this.setState({ events: res.data, start, end });
+    } catch {
+      showSnackbarError("Can't load events");
+    }
   };
 
   handleDateRender = async ({ view }) => {
@@ -66,31 +70,56 @@ export default class Calendar extends Component {
         await this.fetchEvents(this.state.start, this.state.end);
       }
     } catch (e) {
-      showSnackbarError("Error");
+      showSnackbarError("Event was not updated");
     }
   };
 
   handleEventCreated = async (event) => {
-    showSnackbarSuccess("Event added successfully");
-    await this.fetchEvents(this.state.start, this.state.end);
+    try {
+      let res = await axios.post(`/company/units/${this.state.unitId}/events`, {
+        event,
+      });
+
+      if (res.status == 200 || res.status == 201) {
+        showSnackbarSuccess("Event added successfully");
+        await this.fetchEvents(this.state.start, this.state.end);
+      }
+    } catch {
+      showSnackbarError("Event was not added");
+    }
   };
 
   handleEventEdited = async (event) => {
-    showSnackbarSuccess("Event updated successfully");
-    await this.fetchEvents(this.state.start, this.state.end);
+    try {
+      let res = await axios.patch(
+        `/company/units/${this.state.unitId}/events/${event.id}`,
+        { event }
+      );
+
+      if (res.status == 200) {
+        showSnackbarSuccess("Event updated successfully");
+        await this.fetchEvents(this.state.start, this.state.end);
+      }
+    } catch {
+      showSnackbarError("Event was not updated");
+    }
   };
 
   handleEventDelete = async (event) => {
-    if (!window.confirm("Are you sure?")) return;
+    try {
+      if (!window.confirm("Are you sure?")) return;
 
-    let res = await axios.delete(event.extendedProps.event_url);
+      let res = await axios.delete(event.extendedProps.event_url);
 
-    if (res.status == 200) {
-      this.setState({
-        events: this.state.events.filter(({ id }) => id != res.data.id),
-      });
-      showSnackbarSuccess("Event removed successfully");
-      this.handleClose();
+      if (res.status == 200) {
+        this.setState({
+          events: this.state.events.filter(({ id }) => id != res.data.id),
+        });
+        showSnackbarSuccess("Event removed successfully");
+        this.handleClose();
+      }
+    } catch {
+      showSnackbarError("Event was not removed");
     }
   };
 
@@ -102,8 +131,7 @@ export default class Calendar extends Component {
           closeCallback={this.handleClose}
           unitId={this.props.unit_id}
           anchor={start}
-          submitUrl={`/company/units/${this.props.unit_id}/events.json`}
-          successCallback={this.handleEventCreated}
+          submitCallback={this.handleEventCreated}
           duration={moment(end).diff(start, "minutes")}
         />
       ),
@@ -130,9 +158,9 @@ export default class Calendar extends Component {
         <EventEditModal
           closeCallback={this.handleClose}
           unitId={this.props.unit_id}
+          id={+event.id}
           anchor={event.start}
-          submitUrl={event.extendedProps.event_url}
-          successCallback={this.handleEventEdited}
+          submitCallback={this.handleEventEdited}
           title={event.title}
           frequency={event.extendedProps.frequency}
           duration={moment(event.end).diff(event.start, "minutes")}

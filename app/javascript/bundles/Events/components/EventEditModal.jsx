@@ -6,6 +6,7 @@ import Form from "./Form";
 
 function NewEventModal(props) {
   const {
+    id,
     unitId,
     anchor,
     title,
@@ -13,24 +14,23 @@ function NewEventModal(props) {
     duration,
     color,
     ticket,
-    submitUrl,
     closeCallback,
-    successCallback,
+    submitCallback,
   } = props;
 
   return (
     <ModalDialog title="New event" closeCallback={closeCallback}>
       <Form
+        id={id}
         unitId={unitId}
         anchor={anchor}
-        submitUrl={submitUrl}
-        successCallback={successCallback}
-        afterSubmitCallback={closeCallback}
         title={title}
         frequency={frequency}
         duration={duration}
         color={color}
         ticket={ticket}
+        submitCallback={submitCallback}
+        afterSubmitCallback={closeCallback}
       />
     </ModalDialog>
   );
@@ -39,12 +39,12 @@ function NewEventModal(props) {
 NewEventModal.propTypes = {
   closeCallback: PropTypes.func,
   unitId: PropTypes.number,
+  id: PropTypes.number,
   anchor: PropTypes.objectOf(Date),
   frequency: PropTypes.string,
   title: PropTypes.string,
   duration: PropTypes.number,
-  submitUrl: PropTypes.string,
-  successCallback: PropTypes.func,
+  submitCallback: PropTypes.func,
   color: PropTypes.string,
   ticket: PropTypes.object,
 };

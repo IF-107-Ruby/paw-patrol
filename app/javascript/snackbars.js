@@ -16,5 +16,6 @@ export function showSnackbarError(text) {
     text,
     backgroundColor: "#ffe9e9",
     textColor: "#de5959",
+    showAction: false,
   });
 }
