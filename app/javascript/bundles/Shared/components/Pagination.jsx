@@ -9,18 +9,18 @@ Pagination.propTypes = {
 };
 
 function Pagination(props) {
-  if (props.pageCount == 1) {
-    return null;
-  }
-  
+  const { pageCount, initialPage, onPageChange } = props;
+
+  if (pageCount == 1) return null;
+
   return (
     <div>
       <div className="pagination-container margin-top-20 margin-bottom-20">
         <nav className="pagination" role="navigation" aria-label="pager">
           <ReactPaginate
-            pageCount={props.pageCount}
-            initialPage={props.initialPage}
-            onPageChange={props.onPageChange}
+            pageCount={pageCount}
+            initialPage={initialPage}
+            onPageChange={onPageChange}
             pageRangeDisplayed={4}
             marginPagesDisplayed={2}
             previousClassName="pagination-arrow"

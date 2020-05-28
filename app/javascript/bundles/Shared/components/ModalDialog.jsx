@@ -18,12 +18,15 @@ class ModalDialog extends Component {
   };
 
   render() {
+    const { isOpen } = this.state;
+    const { title, children } = this.props;
+
     return (
-      <Modal show={this.state.isOpen} onHide={this.handleClose} centered>
+      <Modal show={isOpen} onHide={this.handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{this.props.title}</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{this.props.children}</Modal.Body>
+        <Modal.Body>{children}</Modal.Body>
       </Modal>
     );
   }

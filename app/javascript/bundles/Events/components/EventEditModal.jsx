@@ -5,19 +5,32 @@ import ModalDialog from "../../Shared/components/ModalDialog";
 import Form from "./Form";
 
 function NewEventModal(props) {
+  const {
+    unitId,
+    anchor,
+    title,
+    frequency,
+    duration,
+    color,
+    ticket,
+    submitUrl,
+    closeCallback,
+    successCallback,
+  } = props;
+
   return (
-    <ModalDialog title="New event" closeCallback={props.closeCallback}>
+    <ModalDialog title="New event" closeCallback={closeCallback}>
       <Form
-        unitId={props.unitId}
-        anchor={props.anchor}
-        submitUrl={props.submitUrl}
-        successCallback={props.successCallback}
-        afterSubmitCallback={props.closeCallback}
-        title={props.title}
-        frequency={props.frequency}
-        duration={props.duration}
-        color={props.color}
-        ticket={props.ticket}
+        unitId={unitId}
+        anchor={anchor}
+        submitUrl={submitUrl}
+        successCallback={successCallback}
+        afterSubmitCallback={closeCallback}
+        title={title}
+        frequency={frequency}
+        duration={duration}
+        color={color}
+        ticket={ticket}
       />
     </ModalDialog>
   );

@@ -21,7 +21,7 @@
             .row.align-items-start
               .col-auto
                 .avatar-wrapper data-tippy-placement="bottom" title=("Unit QR code")
-                  = react_component("QrCode", props: { value: company_unit_url(unit), size: 150, level: 'Q' }, prerender: false)
+                  = react_component("QrCode", props: { value: company_unit_url(unit), size: 150, level: 'Q' })
               .col-auto
                 .company-details
                   h3.margin-bottom-0
@@ -42,7 +42,7 @@
           i.icon-line-awesome-calendar-o
           | Planed events
       .content.with-padding#fullcalendar
-        = react_component("Calendar", props: { unit_id: unit.id, readOnly: !policy([:company, unit]).events? }, prerender: false)
+        = react_component("Calendar", props: { unit_id: unit.id, editable: policy([:company, unit]).events? })
   .col-xl-12
     .dashboard-box
       .headline
@@ -60,4 +60,4 @@
             = render @unit_tickets
           = render partial: 'shared/pagination', locals: { pagy: @tickets_pagy }
   .col-xl-12
-    = react_component("Units", props: { headline: "Sub units", editable: current_user.company_owner?, newUnitPath: new_company_unit_path(parent_id: unit), unitsPath: company_unit_children_path(unit, format: :json) }, prerender: false)
+    = react_component("Units", props: { headline: "Sub units", editable: current_user.company_owner?, newUnitPath: new_company_unit_path(parent_id: unit), unitsPath: company_unit_children_path(unit, format: :json) })

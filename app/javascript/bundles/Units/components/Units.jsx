@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import axios from "axios";
 import Unit from "./Unit";
@@ -7,12 +8,12 @@ import Pagination from "../../Shared/components/Pagination";
 
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
-export default class Units extends Component {
+class Units extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       units: [],
-      page: this.props.page,
     };
   }
 
@@ -28,9 +29,7 @@ export default class Units extends Component {
   }
 
   handleDestroy = async (unit) => {
-    if (!window.confirm("Are you sure?")) {
-      return;
-    }
+    if (!window.confirm("Are you sure?")) return;
 
     let res = await axios.delete(unit.url, { params: { format: "json" } });
 
@@ -56,45 +55,61 @@ export default class Units extends Component {
   };
 
   render() {
+    const { headline, newUnitPath, editable } = this.props;
+    const { units, pageCount, page } = this.state;
+
+    let pagination = pageCount && (
+      <Pagination
+        pageCount={pageCount}
+        initialPage={page}
+        onPageChange={this.onPageChange}
+      />
+    );
+
+    let content = units.length > 0 && (
+      <div className="content with-padding">
+        <ul className="dashboard-box-list">
+          {units.map((unit) => (
+            <li key={unit.id}>
+              <Unit
+                editable={editable}
+                parentRef={this}
+                unit={unit}
+                handleDestroy={this.handleDestroy}
+              />
+            </li>
+          ))}
+        </ul>
+        {pagination}
+      </div>
+    );
+
     return (
       <div className="dashboard-box">
         <div className="headline">
           <div className="d-flex justify-content-between">
             <h3>
               <i className="icon-material-outline-business"></i>
-              {this.props.headline}
+              {headline}
             </h3>
             <div className="icon-links">
-              <a href={this.props.newUnitPath}>
+              <a href={newUnitPath}>
                 <i className="icon-feather-plus"></i>
               </a>
             </div>
           </div>
         </div>
-        {this.state.units.length > 0 && (
-          <div className="content with-padding">
-            <ul className="dashboard-box-list">
-              {this.state.units.map((unit) => (
-                <li key={unit.id}>
-                  <Unit
-                    editable={this.props.editable}
-                    parentRef={this}
-                    unit={unit}
-                    handleDestroy={this.handleDestroy}
-                  />
-                </li>
-              ))}
-            </ul>
-            {this.state.pageCount && (
-              <Pagination
-                pageCount={this.state.pageCount}
-                initialPage={this.state.page}
-                onPageChange={this.onPageChange}
-              />
-            )}
-          </div>
-        )}
+        {content}
       </div>
     );
   }
 }
+
+Units.propTypes = {
+  headline: PropTypes.string,
+  newUnitPath: PropTypes.string,
+  unitsPath: PropTypes.string,
+  editable: PropTypes.bool,
+};
+
+export default Units;

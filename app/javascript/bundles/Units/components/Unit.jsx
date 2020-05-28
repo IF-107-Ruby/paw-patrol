@@ -19,18 +19,21 @@ class Unit extends Component {
   }
 
   handleChildrenToggle = async () => {
-    let res = await axios.get(this.state.unit.url + "/children.json");
-    this.setState({
-      childrenOpen: !this.state.childrenOpen,
-      childrenLoaded: true,
-      children: res.data,
-    });
+    if (!this.state.childrenLoaded) {
+      let res = await axios.get(this.state.unit.url + "/children.json");
+      this.setState({
+        childrenLoaded: true,
+        children: res.data,
+      });
+    }
+    this.setState((state) => ({
+      childrenOpen: !state.childrenOpen,
+    }));
   };
 
   handleDestroy = async (unit) => {
-    if (!window.confirm("Are you sure?")) {
-      return;
-    }
+    if (!window.confirm("Are you sure?")) return;
+
     let res = await axios.delete(unit.url, {
       params: {
         format: "json",
@@ -56,86 +59,90 @@ class Unit extends Component {
   };
 
   render() {
+    const { unit, childrenOpen, childrenLoaded, children } = this.state;
+    const { editable } = this.props;
+
+    let childrenToggleButton = unit.hasChildren && (
+      <a id={`unit_${unit.id}_children`}>
+        <i
+          onClick={this.handleChildrenToggle}
+          className={`icon-material-outline-keyboard-arrow-right show-arrow ${
+            childrenOpen ? "show-arrow-down" : ""
+          }`}
+        ></i>
+      </a>
+    );
+
+    let responsibleUserText = unit.responsible_user && (
+      <li>
+        <i className="icon-material-outline-supervisor-account"></i>
+        {unit.responsible_user.first_name +
+          " " +
+          unit.responsible_user.last_name +
+          "  is responsible"}
+      </li>
+    );
+
+    let editButtons = editable && (
+      <div className="buttons-to-right">
+        <a
+          href={`/company/units/new?parent_id=${unit.id}`}
+          className="button gray ripple-effect ico"
+        >
+          <i className="icon-feather-plus"></i>
+        </a>
+        <a href={unit.url + "/edit"} className="button dark ripple-effect ico">
+          <i className="icon-feather-edit"></i>
+        </a>
+        <a
+          className="button red ripple-effect ico"
+          onClick={() => this.props.handleDestroy(unit)}
+        >
+          <i className="icon-feather-trash-2"></i>
+        </a>
+      </div>
+    );
+
+    let unitChildren = unit.hasChildren && childrenLoaded && (
+      <div className={childrenOpen ? "" : "d-none"}>
+        <ul className="dashboard-box-list">
+          {children.map((unit) => (
+            <li key={unit.id}>
+              <Unit
+                editable={editable}
+                parentRef={this}
+                unit={unit}
+                handleDestroy={this.handleDestroy}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+
     return (
       <div className="w-100">
         <div className="job-listing">
           <div className="job-listing-details">
             <div className="job-listing-description">
               <h3 className="job-listing-title">
-                {this.state.unit.hasChildren && (
-                  <a id={`unit_${this.props.unit.id}_children`}>
-                    <i
-                      onClick={this.handleChildrenToggle}
-                      className={`icon-material-outline-keyboard-arrow-right show-arrow ${
-                        this.state.childrenOpen ? "show-arrow-down" : ""
-                      }`}
-                    ></i>
-                  </a>
-                )}
-                <a href={this.state.unit.url}>{this.state.unit.name}</a>
+                {childrenToggleButton}
+                <a href={unit.url}>{unit.name}</a>
               </h3>
               <div className="job-listing-footer">
                 <ul>
-                  {this.state.unit.responsible_user ? (
-                    <li>
-                      <i className="icon-material-outline-supervisor-account"></i>
-                      {this.state.unit.responsible_user.first_name +
-                        " " +
-                        this.state.unit.responsible_user.last_name +
-                        "  is responsible"}
-                    </li>
-                  ) : null}
+                  {responsibleUserText}
                   <li>
                     <i className="icon-material-outline-group"></i>
-                    {pluralize(
-                      "Employee",
-                      this.state.unit.employees_count,
-                      true
-                    )}
+                    {pluralize("Employee", unit.employees_count, true)}
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          {this.props.editable && (
-            <div className="buttons-to-right">
-              <a
-                href={`/company/units/new?parent_id=${this.props.unit.id}`}
-                className="button gray ripple-effect ico"
-              >
-                <i className="icon-feather-plus"></i>
-              </a>
-              <a
-                href={this.state.unit.url + "/edit"}
-                className="button dark ripple-effect ico"
-              >
-                <i className="icon-feather-edit"></i>
-              </a>
-              <a
-                className="button red ripple-effect ico"
-                onClick={() => this.props.handleDestroy(this.state.unit)}
-              >
-                <i className="icon-feather-trash-2"></i>
-              </a>
-            </div>
-          )}
+          {editButtons}
         </div>
-        {this.state.unit.hasChildren && this.state.childrenLoaded && (
-          <div className={this.state.childrenOpen ? "" : "d-none"}>
-            <ul className="dashboard-box-list">
-              {this.state.children.map((unit) => (
-                <li key={unit.id}>
-                  <Unit
-                    editable={this.props.editable}
-                    parentRef={this}
-                    unit={unit}
-                    handleDestroy={this.handleDestroy}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {unitChildren}
       </div>
     );
   }

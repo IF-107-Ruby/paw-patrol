@@ -1,4 +1,4 @@
 - provide(:headline, "#{current_company.name}\'s units")
 .row
   .col-xl-12.margin-top-n-30
-    = react_component("Units", props: { headline: "Company units", editable: current_user.company_owner?, newUnitPath: new_company_unit_path, unitsPath: company_units_path(format: :json) }, prerender: false)
+    = react_component("Units", props: { headline: "Company units", editable: current_user.company_owner?, newUnitPath: new_company_unit_path, unitsPath: company_units_path(format: :json) })

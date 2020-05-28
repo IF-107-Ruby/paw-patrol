@@ -14,7 +14,7 @@
           .row
             .col-auto
               .avatar-wrapper data-tippy-placement="bottom" title=("Unit QR code")
-                = react_component("QrCode", props: { value: company_unit_url(unit), size: 150, level: 'Q' }, prerender: false)
+                = react_component("QrCode", props: { value: company_unit_url(unit), size: 150, level: 'Q' })
             .col
               .row
                 .col-xl-6
@@ -24,7 +24,7 @@
                 .col-xl-6
                   .submit-field
                     h5 Responsible user
-                    = f.collection_select :responsible_user_id, available_responsible_users,:id, :full_name,
+                    = f.collection_select :responsible_user_id, available_responsible_users, :id, :full_name,
                       { }, { class: "with-border selectpicker", "data-size" => "7", "title" => "Select responsible user", "data-live-search" => true }
     .col-xl-12
       .row

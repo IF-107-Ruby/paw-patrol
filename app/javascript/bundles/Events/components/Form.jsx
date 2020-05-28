@@ -20,6 +20,11 @@ class Form extends Component {
     { value: "monthly", label: "Monthly" },
     { value: "annually", label: "Annually" },
   ];
+
+  changedButtonClass = "button full-width margin-top-35 button-sliding-icon";
+  unchangedButtonClass =
+    "button full-width margin-top-35 button-sliding-icon dark disabled";
+
   constructor(props) {
     super(props);
 
@@ -45,8 +50,10 @@ class Form extends Component {
 
   compareOldValues = () => {
     if (this.props.isNewRecord) return;
+
     let { title, anchor, duration, color, ticket_id, frequency } = this.state;
     let newValues = { title, anchor, duration, color, ticket_id, frequency };
+
     this.setState({
       isChanged:
         JSON.stringify(this.state.original) !== JSON.stringify(newValues),
@@ -68,10 +75,18 @@ class Form extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    let { anchor, color, duration, frequency, title, ticket_id } = this.state;
+    let {
+      anchor,
+      color,
+      duration,
+      frequency,
+      title,
+      ticket_id,
+      submitUrl,
+    } = this.state;
 
     let res = await (this.props.isNewRecord ? axios.post : axios.patch)(
-      this.state.submitUrl,
+      submitUrl,
       {
         event: {
           anchor: moment(anchor).format("YYYY-MM-DD HH:mm"),
@@ -123,9 +138,9 @@ class Form extends Component {
   };
 
   handlePickerClick = () => {
-    this.setState({
-      displayColorPicker: !this.state.displayColorPicker,
-    });
+    this.setState((state) => ({
+      displayColorPicker: !state.displayColorPicker,
+    }));
   };
 
   handlePickerClose = () => {
@@ -160,8 +175,35 @@ class Form extends Component {
   };
 
   render() {
-    let startDate = moment(this.state.anchor);
-    let endDate = moment(this.state.anchor).add("minutes", this.state.duration);
+    const { isNewRecord } = this.props;
+
+    const {
+      title,
+      ticket_id,
+      ticket_name,
+      frequency,
+      color,
+      anchor,
+      duration,
+      displayColorPicker,
+      isChanged,
+    } = this.state;
+
+    let startDate = moment(anchor);
+    let endDate = moment(anchor).add("minutes", duration);
+
+    let colorPicker = displayColorPicker && (
+      <div className="picker__popover">
+        <div className="picker__cover" onClick={this.handlePickerClose} />
+        <SketchPicker color={color} onChange={this.handleColorChange} />
+      </div>
+    );
+
+    let submitClass = isChanged
+      ? this.changedButtonClass
+      : this.unchangedButtonClass;
+
+    let submitText = isNewRecord ? "Add event" : "Update event";
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -170,7 +212,7 @@ class Form extends Component {
           id="event_title"
           className="with-border"
           type="text"
-          value={this.state.title}
+          value={title}
           onChange={this.handleTitleChange}
         />
         <label>Timespan</label>
@@ -178,31 +220,31 @@ class Form extends Component {
           <DatePicker
             selected={startDate.toDate()}
             onChange={this.handleStartDateSelect}
-            selectsStart
             startDate={startDate.toDate()}
             endDate={endDate.toDate()}
             timeInputLabel="Time:"
             dateFormat="MM/dd/yyyy hh:mm aa"
+            selectsStart
             showTimeInput
           />
           <DatePicker
             selected={endDate.toDate()}
             onChange={this.handleEndDateSelect}
-            selectsEnd
             startDate={startDate.toDate()}
             endDate={endDate.toDate()}
             minDate={startDate.toDate()}
             timeInputLabel="Time:"
             dateFormat="MM/dd/yyyy h:mm aa"
+            selectsEnd
             showTimeInput
           />
         </div>
         <label>Ticket</label>
         <AsyncSelect
           defaultValue={
-            this.props.ticket && {
-              value: this.state.ticket_id,
-              label: this.state.ticket_name,
+            ticket_id && {
+              value: ticket_id,
+              label: ticket_name,
             }
           }
           cacheOptions
@@ -219,9 +261,8 @@ class Form extends Component {
           className="basic-single"
           classNamePrefix="select"
           defaultValue={
-            this.frequencies.find(
-              ({ value }) => this.props.frequency == value
-            ) || this.frequencies[0]
+            this.frequencies.find(({ value }) => frequency == value) ||
+            this.frequencies[0]
           }
           onChange={this.onFrequencyChange}
           options={this.frequencies}
@@ -229,31 +270,14 @@ class Form extends Component {
         <div className="d-flex align-items-center">
           <label className="mr-2">Color</label>
           <div className="picker__swatch" onClick={this.handlePickerClick}>
-            <div
-              className="picker__color"
-              style={{ background: this.state.color }}
-            />
+            <div className="picker__color" style={{ background: color }} />
           </div>
-          {this.state.displayColorPicker ? (
-            <div className="picker__popover">
-              <div className="picker__cover" onClick={this.handlePickerClose} />
-              <SketchPicker
-                color={this.state.color}
-                onChange={this.handleColorChange}
-              />
-            </div>
-          ) : null}
+          {colorPicker}
         </div>
         <div className="row">
           <div className="col-xl-12">
-            <button
-              disabled={!this.state.isChanged}
-              type="submit"
-              className={`button full-width margin-top-35 button-sliding-icon ${
-                !this.state.isChanged && "dark"
-              }`}
-            >
-              {this.props.isNewRecord ? "Add event" : "Update event"}
+            <button disabled={!isChanged} type="submit" className={submitClass}>
+              {submitText}
               <i className="icon-feather-check"></i>
             </button>
           </div>

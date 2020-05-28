@@ -3,17 +3,17 @@ import React, { Component } from "react";
 import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 
 import moment from "moment";
 import axios from "axios";
 
-import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
-
 import NewEventModal from "../../Events/components/NewEventModal";
 import EventShowModal from "../../Events/components/EventShowModal";
 import EventEditModal from "../../Events/components/EventEditModal";
+import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
 export default class Calendar extends Component {
   calendarRef = React.createRef();
@@ -25,8 +25,6 @@ export default class Calendar extends Component {
       unitId: this.props.unit_id,
       events: [],
       modal: null,
-      event: {},
-      editable: !props.readOnly,
     };
   }
 
@@ -57,13 +55,11 @@ export default class Calendar extends Component {
     try {
       let start = moment(event.start);
 
-      let eventData = {
+      let res = await axios.patch(event.extendedProps.event_url, {
         event: {
           anchor: start.format("YYYY-MM-DD HH:mm"),
         },
-      };
-
-      let res = await axios.patch(event.extendedProps.event_url, eventData);
+      });
 
       if (res.status == 200) {
         showSnackbarSuccess("Event moved successfully");
@@ -84,13 +80,10 @@ export default class Calendar extends Component {
     await this.fetchEvents(this.state.start, this.state.end);
   };
 
-  handleEventDelete = async (e) => {
-    e.preventDefault();
+  handleEventDelete = async (event) => {
+    if (!window.confirm("Are you sure?")) return;
 
-    if (!window.confirm("Are you sure?")) {
-      return;
-    }
-    let res = await axios.delete(this.state.event.extendedProps.event_url);
+    let res = await axios.delete(event.extendedProps.event_url);
 
     if (res.status == 200) {
       this.setState({
@@ -119,11 +112,10 @@ export default class Calendar extends Component {
 
   handleEventClick = async ({ event }) => {
     this.setState({
-      event,
       modal: (
         <EventShowModal
           closeCallback={this.handleClose}
-          editable={this.state.editable}
+          editable={this.props.editable}
           event={event}
           onEventEdit={this.handleEventEdit}
           onEventDelete={this.handleEventDelete}
@@ -132,25 +124,20 @@ export default class Calendar extends Component {
     });
   };
 
-  handleEventEdit = (e) => {
-    e.preventDefault();
-
+  handleEventEdit = (event) => {
     this.setState({
       modal: (
         <EventEditModal
           closeCallback={this.handleClose}
           unitId={this.props.unit_id}
-          anchor={this.state.event.start}
-          submitUrl={this.state.event.extendedProps.event_url}
+          anchor={event.start}
+          submitUrl={event.extendedProps.event_url}
           successCallback={this.handleEventEdited}
-          title={this.state.event.title}
-          frequency={this.state.event.extendedProps.frequency}
-          duration={moment(this.state.event.end).diff(
-            this.state.event.start,
-            "minutes"
-          )}
-          ticket={this.state.event.extendedProps.ticket}
-          color={this.state.event.backgroundColor}
+          title={event.title}
+          frequency={event.extendedProps.frequency}
+          duration={moment(event.end).diff(event.start, "minutes")}
+          ticket={event.extendedProps.ticket}
+          color={event.backgroundColor}
         />
       ),
     });
@@ -161,6 +148,9 @@ export default class Calendar extends Component {
   };
 
   render() {
+    const { editable } = this.props;
+    const { events, modal } = this.state;
+
     return (
       <div>
         <Fullcalendar
@@ -171,12 +161,12 @@ export default class Calendar extends Component {
             center: "title",
             right: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
-          events={this.state.events}
+          events={events}
           firstDay={1}
           eventTextColor="#ffffff"
-          selectable={!this.props.readOnly}
+          selectable={editable}
           navLinks
-          editable={!this.props.readOnly}
+          editable={editable}
           eventLimit
           selectMirror
           eventDrop={this.handleEventDrop}
@@ -185,7 +175,7 @@ export default class Calendar extends Component {
           eventClick={this.handleEventClick}
           ref={this.calendarRef}
         />
-        {this.state.modal}
+        {modal}
       </div>
     );
   }
