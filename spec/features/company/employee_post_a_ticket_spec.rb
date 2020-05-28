@@ -52,7 +52,7 @@ feature 'EmployeePostATicket' do
     end
 
     expect(page).to have_selector('.notification.warning.closeable',
-                                      text: 'Ticket is not posted!')
+                                  text: 'Ticket is not posted!')
     expect(page).to have_selector('#error_explanation')
   end
 end

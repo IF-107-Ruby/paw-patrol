@@ -55,24 +55,10 @@ class Ticket < ApplicationRecord
     user == current_user
   end
 
-<<<<<<< HEAD
   def reviewed?
     review.present?
   end
 
-  def resolved?
-    status == 'resolved'
-  end
-
-  def complete_and_save!
-    self.status = 'resolved'
-    save
-  end
-
-  def uncomplete_and_save!
-    self.status = 'open'
-    save
-=======
   def complete!(resolution)
     if resolution[:resolution].present?
       update(resolution)
@@ -81,7 +67,6 @@ class Ticket < ApplicationRecord
       errors.add(:ticket, 'completion must be not empty.')
       false
     end
->>>>>>> changed resolving ticket way.
   end
 
   def follow_up

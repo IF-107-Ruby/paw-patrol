@@ -22,11 +22,8 @@ Rails.application.routes.draw do
       post '/resolution', to: 'tickets#resolution', as: :resolution
       get  '/follow_up', to: 'tickets#followed_up', as: :followed
       resources :comments
-<<<<<<< HEAD
       resource :review, except: %i[index destroy]
       get :resolved, on: :collection
-=======
->>>>>>> changed creation ticket resolution way.
     end
   end
 

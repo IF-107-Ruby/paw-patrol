@@ -62,18 +62,14 @@ class User < ApplicationRecord
     company.present?
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   def resolved_tickets?
     tickets.resolved.any?
-=======
-  def completion_performer?(completion)
-    ticket_completions.include?(completion)
->>>>>>> added deleting ticket completion.
   end
 
-=======
->>>>>>> changed creation ticket resolution way.
+  def completion_performer?(completion)
+    ticket_completions.include?(completion)
+  end
+
   private
 
   def send_invitation

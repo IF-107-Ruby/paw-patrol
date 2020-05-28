@@ -155,22 +155,22 @@ describe Company::TicketsController, type: :controller do
     end
 
     context 'with invalid params' do
-       it 'do not update ticket' do
-         expect do
-           put :update, params: { id: ticket.id,
-                                  ticket: ticket_invalid_params }
-         end
-           .not_to change { ticket.reload.name }
-       end
+      it 'do not update ticket' do
+        expect do
+          put :update, params: { id: ticket.id,
+                                 ticket: ticket_invalid_params }
+        end
+          .not_to change { ticket.reload.name }
+      end
 
-       it 'render edit page with flash' do
-         put :update, params: { id: ticket.id,
-                                ticket: ticket_invalid_params }
+      it 'render edit page with flash' do
+        put :update, params: { id: ticket.id,
+                               ticket: ticket_invalid_params }
 
-         expect(response).to have_http_status(:success)
-         expect(flash[:danger]).to be_present
-       end
-     end
+        expect(response).to have_http_status(:success)
+        expect(flash[:danger]).to be_present
+      end
+    end
   end
 
   describe 'GET #followed_up' do

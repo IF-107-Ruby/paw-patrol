@@ -61,7 +61,9 @@ class Company
     end
 
     def followed_up
-      @original_ticket = policy_scope([:company, Ticket]).resolved.find(params[:ticket_id])
+      @original_ticket = policy_scope([:company, Ticket])
+                         .resolved
+                         .find(params[:ticket_id])
       @ticket = @original_ticket.follow_up
       if @ticket.save
         redirect_to edit_company_ticket_path(@ticket)

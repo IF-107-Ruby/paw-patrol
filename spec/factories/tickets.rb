@@ -25,17 +25,6 @@ FactoryBot.define do
                                      user: ticket.unit.users.sample)
       end
     end
-  end
-
-  factory :resolved_ticket, parent: :ticket do
-    status { :resolved }
-
-    trait :with_review do
-      after(:build) do |resolved_ticket|
-        resolved_ticket.review = build(:review,
-                                       ticket: resolved_ticket)
-      end
-    end
 
     trait :with_resolution do
       after(:build) do |ticket|
@@ -48,9 +37,16 @@ FactoryBot.define do
         ticket.parent = create(:ticket, user: ticket.user, unit: ticket.unit)
       end
     end
+  end
 
-    factory :resolved_ticket, parent: :ticket do
-      status { 1 }
+  factory :resolved_ticket, parent: :ticket do
+    status { :resolved }
+
+    trait :with_review do
+      after(:build) do |resolved_ticket|
+        resolved_ticket.review = build(:review,
+                                       ticket: resolved_ticket)
+      end
     end
   end
 end

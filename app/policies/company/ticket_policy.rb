@@ -1,6 +1,5 @@
 class Company
   class TicketPolicy < ApplicationPolicy
-
     def show?
       record.belongs_to?(user) || user.responsible_for?(record.unit)
     end
