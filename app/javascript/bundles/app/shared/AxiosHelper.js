@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const csrfToken = document.querySelector("[name=csrf-token]");
-if (csrfToken) {
-  axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken.content;
+const csrfTokenEl = document.querySelector("[name=csrf-token]");
+if (csrfTokenEl) {
+  axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfTokenEl.content;
 }
 
 export default axios;

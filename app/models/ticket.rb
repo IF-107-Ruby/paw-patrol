@@ -62,13 +62,12 @@ class Ticket < ApplicationRecord
     user == current_user
   end
 
-<<<<<<< HEAD
   def reviewed?
     review.present?
-=======
+  end
+
   def available_watchers
     employees.decorate - [user]
->>>>>>> Fixed tests
   end
 
   def complete!(resolution)

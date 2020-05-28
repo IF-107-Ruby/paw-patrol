@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import WatchersForm from './WatchersForm';
 import './watchers-block.scss';
-import axios from 'axios';
-import '../../../shared/AxiosHelper';
+import axios from '../../../shared/AxiosHelper';
 import FlashMessage from './FlashMessage';
 import _ from 'lodash';
 
