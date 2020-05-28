@@ -35,8 +35,8 @@ class Unit extends Component {
       this.setState((state) => ({
         childrenOpen: !state.childrenOpen,
       }));
-    } catch {
-      showSnackbarError("Unable to load unit children");
+    } catch (error) {
+      if (error.response) showSnackbarError("Unable to load unit children");
       this.setState({
         childrenLoaded: false,
         childrenOpen: false,
@@ -64,8 +64,8 @@ class Unit extends Component {
           }
         );
       }
-    } catch {
-      showSnackbarError("Unit is not removed");
+    } catch (error) {
+      if (error.response) showSnackbarError("Unit is not removed");
     }
   };
 

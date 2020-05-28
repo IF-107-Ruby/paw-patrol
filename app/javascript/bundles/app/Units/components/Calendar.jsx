@@ -70,8 +70,8 @@ export default class Calendar extends Component {
         showSnackbarSuccess("Event moved successfully");
         await this.fetchEvents(this.state.start, this.state.end);
       }
-    } catch (e) {
-      showSnackbarError("Event was not updated");
+    } catch (error) {
+      if (error.response) showSnackbarError("Event was not updated");
     }
   };
 
@@ -85,8 +85,8 @@ export default class Calendar extends Component {
         showSnackbarSuccess("Event added successfully");
         await this.fetchEvents(this.state.start, this.state.end);
       }
-    } catch {
-      showSnackbarError("Event was not added");
+    } catch (error) {
+      if (error.response) showSnackbarError("Event was not added");
     }
   };
 
@@ -101,8 +101,8 @@ export default class Calendar extends Component {
         showSnackbarSuccess("Event updated successfully");
         await this.fetchEvents(this.state.start, this.state.end);
       }
-    } catch {
-      showSnackbarError("Event was not updated");
+    } catch (error) {
+      if (error.response) showSnackbarError("Event was not updated");
     }
   };
 
@@ -119,8 +119,8 @@ export default class Calendar extends Component {
         showSnackbarSuccess("Event removed successfully");
         this.handleClose();
       }
-    } catch {
-      showSnackbarError("Event was not removed");
+    } catch (error) {
+      if (error.response) showSnackbarError("Event was not removed");
     }
   };
 

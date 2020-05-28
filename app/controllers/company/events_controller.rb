@@ -20,9 +20,15 @@ class Company
     def create
       @event = @unit.events.build(event_params)
       authorize([:company, @event])
-      @event.save
+
+      status_code = if @event.save
+                      :created
+                    else
+                      :unprocessable_entity
+                    end
+
       respond_to do |format|
-        format.json
+        format.json { render :create, status: status_code }
       end
     end
 

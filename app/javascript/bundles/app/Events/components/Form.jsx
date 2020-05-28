@@ -13,6 +13,7 @@ import _ from "lodash";
 
 import ColorPicker from "../../shared/components/ColorPicker";
 import axios from "../../../../AxiosHelper";
+import { showSnackbarError } from "../../../../snackbars";
 
 class Form extends Component {
   frequencies = [
@@ -74,13 +75,17 @@ class Form extends Component {
   };
 
   avaibleTickets = async () => {
-    let res = await axios.get(
-      `/company/units/${this.state.unitId}/events/avaible_tickets`
-    );
+    try {
+      let res = await axios.get(
+        `/company/units/${this.state.unitId}/events/avaible_tickets`
+      );
 
-    if (res.status == 200)
-      return res.data.map(({ id, name }) => ({ value: id, label: name }));
-    return [];
+      if (res.status == 200)
+        return res.data.map(({ id, name }) => ({ value: id, label: name }));
+      return [];
+    } catch (error) {
+      if (error.response) showSnackbarError("Unable to load avaible tickets");
+    }
   };
 
   handleSubmit = (e) => {

@@ -37,8 +37,8 @@ class Units extends Component {
           page: _.toInteger(_.get(res.headers, "current-page", 1)),
           pageCount: _.toInteger(_.get(res.headers, "total-pages", 1)),
         });
-    } catch {
-      showSnackbarError("Unable to load units");
+    } catch (error) {
+      if (error.response) showSnackbarError("Unable to load units");
     }
   };
 
@@ -52,8 +52,8 @@ class Units extends Component {
         showSnackbarSuccess("Unit removed successfully");
         await this.loadUnits();
       }
-    } catch {
-      showSnackbarError("Unit is not removed");
+    } catch (error) {
+      if (error.response) showSnackbarError("Unit is not removed");
     }
   };
 
