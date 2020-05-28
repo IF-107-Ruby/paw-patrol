@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 
-import { SketchPicker } from "react-color";
+import ColorPicker from "../../Shared/components/ColorPicker";
 
 class Form extends Component {
   frequencies = [
@@ -39,7 +39,6 @@ class Form extends Component {
 
     this.state = {
       original,
-      displayColorPicker: false,
       unitId: props.unitId,
       submitUrl: props.submitUrl,
       isChanged: props.isNewRecord,
@@ -137,16 +136,6 @@ class Form extends Component {
     );
   };
 
-  handlePickerClick = () => {
-    this.setState((state) => ({
-      displayColorPicker: !state.displayColorPicker,
-    }));
-  };
-
-  handlePickerClose = () => {
-    this.setState({ displayColorPicker: false });
-  };
-
   handleColorChange = (color) => {
     this.setState(
       {
@@ -185,19 +174,11 @@ class Form extends Component {
       color,
       anchor,
       duration,
-      displayColorPicker,
       isChanged,
     } = this.state;
 
     let startDate = moment(anchor);
     let endDate = moment(anchor).add("minutes", duration);
-
-    let colorPicker = displayColorPicker && (
-      <div className="picker__popover">
-        <div className="picker__cover" onClick={this.handlePickerClose} />
-        <SketchPicker color={color} onChange={this.handleColorChange} />
-      </div>
-    );
 
     let submitClass = isChanged
       ? this.changedButtonClass
@@ -269,10 +250,7 @@ class Form extends Component {
         />
         <div className="d-flex align-items-center">
           <label className="mr-2">Color</label>
-          <div className="picker__swatch" onClick={this.handlePickerClick}>
-            <div className="picker__color" style={{ background: color }} />
-          </div>
-          {colorPicker}
+          <ColorPicker initialColor={color} onChange={this.handleColorChange} />
         </div>
         <div className="row">
           <div className="col-xl-12">
