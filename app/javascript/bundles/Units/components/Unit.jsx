@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import pluralize from "pluralize";
 
 import axios from "axios";
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
-export default class Unit extends Component {
+class Unit extends Component {
   constructor(props) {
     super(props);
 
@@ -14,12 +15,11 @@ export default class Unit extends Component {
       childrenOpen: false,
       childrenLoaded: false,
       children: [],
-      unitUrl: `/company/units/${this.props.unit.id}`,
     };
   }
 
   handleChildrenToggle = async () => {
-    let res = await axios.get(this.state.unitUrl + "/children.json");
+    let res = await axios.get(this.state.unit.url + "/children.json");
     this.setState({
       childrenOpen: !this.state.childrenOpen,
       childrenLoaded: true,
@@ -72,7 +72,7 @@ export default class Unit extends Component {
                     ></i>
                   </a>
                 )}
-                <a href={this.state.unitUrl}>{this.state.unit.name}</a>
+                <a href={this.state.unit.url}>{this.state.unit.name}</a>
               </h3>
               <div className="job-listing-footer">
                 <ul>
@@ -106,7 +106,7 @@ export default class Unit extends Component {
                 <i className="icon-feather-plus"></i>
               </a>
               <a
-                href={this.state.unitUrl + "/edit"}
+                href={this.state.unit.url + "/edit"}
                 className="button dark ripple-effect ico"
               >
                 <i className="icon-feather-edit"></i>
@@ -140,3 +140,11 @@ export default class Unit extends Component {
     );
   }
 }
+
+Unit.propTypes = {
+  unit: PropTypes.object,
+  editable: PropTypes.bool,
+  handleDestroy: PropTypes.func,
+};
+
+export default Unit;

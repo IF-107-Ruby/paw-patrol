@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import moment from "moment";
 import axios from "axios";
@@ -22,29 +23,46 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    let original = {
       title: props.title,
-      unitId: props.unitId,
-      displayColorPicker: false,
       anchor: props.anchor,
       duration: props.duration,
       color: props.color || "#0000ff",
-      submitUrl: props.submitUrl,
-      ticket_id: props.ticket && props.ticket.id,
-      ticket_name: props.ticket && props.ticket.name,
-      isChanged: props.isNewRecord,
+      ticket_id: (props.ticket && props.ticket.id) || null,
       frequency: props.frequency,
     };
+
+    this.state = {
+      original,
+      displayColorPicker: false,
+      unitId: props.unitId,
+      submitUrl: props.submitUrl,
+      isChanged: props.isNewRecord,
+      ticket_name: props.ticket && props.ticket.name,
+      ...original,
+    };
   }
+
+  compareOldValues = () => {
+    if (this.props.isNewRecord) return;
+    let { title, anchor, duration, color, ticket_id, frequency } = this.state;
+    let newValues = { title, anchor, duration, color, ticket_id, frequency };
+    this.setState({
+      isChanged:
+        JSON.stringify(this.state.original) !== JSON.stringify(newValues),
+    });
+  };
 
   avaibleTickets = async () => {
     let res = await axios.get(
       `/company/units/${this.state.unitId}/events/avaible_tickets.json`
     );
 
-    return res.data.map(({ id, name }) => {
-      return { value: id, label: name };
-    });
+    if (res.status == 200)
+      return res.data.map(({ id, name }) => {
+        return { value: id, label: name };
+      });
+    return [];
   };
 
   handleSubmit = async (e) => {
@@ -76,26 +94,32 @@ class Form extends Component {
   handleStartDateSelect = (date) => {
     let start = moment(this.state.anchor);
     let newDuration = moment(start).diff(date, "minutes");
-    this.setState({
-      isChanged: true,
-      duration: newDuration > 0 ? newDuration : 24 * 60,
-      anchor: moment(date).format("YYYY-MM-DD HH:mm"),
-    });
+    this.setState(
+      {
+        duration: newDuration > 0 ? newDuration : 24 * 60,
+        anchor: moment(date).format("YYYY-MM-DD HH:mm"),
+      },
+      this.compareOldValues
+    );
   };
 
   handleEndDateSelect = (date) => {
     let start = moment(this.state.anchor);
-    this.setState({
-      isChanged: true,
-      duration: moment(date).diff(start, "minutes"),
-    });
+    this.setState(
+      {
+        duration: moment(date).diff(start, "minutes"),
+      },
+      this.compareOldValues
+    );
   };
 
   handleTicketChange = (option) => {
-    this.setState({
-      isChanged: (option && option.value) != this.props.ticket.id,
-      ticket_id: option && option.value,
-    });
+    this.setState(
+      {
+        ticket_id: option && option.value,
+      },
+      this.compareOldValues
+    );
   };
 
   handlePickerClick = () => {
@@ -109,24 +133,30 @@ class Form extends Component {
   };
 
   handleColorChange = (color) => {
-    this.setState({
-      isChanged: this.props.color != color.hex,
-      color: color.hex,
-    });
+    this.setState(
+      {
+        color: color.hex,
+      },
+      this.compareOldValues
+    );
   };
 
   handleTitleChange = (event) => {
-    this.setState({
-      isChanged: event.target.value != this.props.title,
-      title: event.target.value,
-    });
+    this.setState(
+      {
+        title: event.target.value,
+      },
+      this.compareOldValues
+    );
   };
 
   onFrequencyChange = ({ value }) => {
-    this.setState({
-      isChanged: this.props.frequency != value,
-      frequency: value,
-    });
+    this.setState(
+      {
+        frequency: value,
+      },
+      this.compareOldValues
+    );
   };
 
   render() {
@@ -232,5 +262,19 @@ class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  isNewRecord: PropTypes.bool,
+  unitId: PropTypes.number,
+  submitUrl: PropTypes.string,
+  title: PropTypes.string,
+  anchor: PropTypes.objectOf(Date),
+  duration: PropTypes.number,
+  frequency: PropTypes.string,
+  color: PropTypes.string,
+  ticket: PropTypes.object,
+  afterSubmitCallback: PropTypes.func,
+  successCallback: PropTypes.func,
+};
 
 export default Form;

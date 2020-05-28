@@ -9,15 +9,15 @@ class Company
     end
 
     def create?
-      user.can_manage_unit_events?(record.unit)
+      user.company_owner? || user.responsible_for?(record.unit)
     end
 
     def update?
-      user.can_manage_unit_events?(record.unit)
+      create?
     end
 
     def destroy?
-      user.can_manage_unit_events?(record.unit)
+      create?
     end
 
     class Scope < Scope

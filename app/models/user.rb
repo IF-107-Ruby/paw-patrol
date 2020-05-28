@@ -64,10 +64,6 @@ class User < ApplicationRecord
     company_owner? || employee?
   end
 
-  def can_manage_unit_events?(unit)
-    company_owner? || responsible_for?(unit)
-  end
-
   def company?
     company.present?
   end

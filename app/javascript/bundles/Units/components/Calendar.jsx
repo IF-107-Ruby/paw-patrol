@@ -9,39 +9,26 @@ import "@fullcalendar/daygrid/main.css";
 import moment from "moment";
 import axios from "axios";
 
-import Form from "../../Events/components/Form";
-
-import ModalDialog from "../../Shared/components/ModalDialog";
-
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
+
+import NewEventModal from "../../Events/components/NewEventModal";
+import EventShowModal from "../../Events/components/EventShowModal";
+import EventEditModal from "../../Events/components/EventEditModal";
 
 export default class Calendar extends Component {
   calendarRef = React.createRef();
 
-  /**
-   * @param props - Comes from your rails view.
-   */
   constructor(props) {
     super(props);
 
     this.state = {
       unitId: this.props.unit_id,
       events: [],
-      createModalIsOpen: false,
-      showModalIsOpen: false,
+      modal: null,
       event: {},
+      editable: !props.readOnly,
     };
-
-    this.handleClose = this.handleClose.bind(this);
   }
-
-  handleClose() {
-    this.setState({ createModalIsOpen: false });
-  }
-
-  handleSelect = ({ start, end }) => {
-    this.setState({ newEvent: { start, end }, createModalIsOpen: true });
-  };
 
   fetchEvents = async (start, end) => {
     const res = await axios.get(
@@ -97,12 +84,9 @@ export default class Calendar extends Component {
     await this.fetchEvents(this.state.start, this.state.end);
   };
 
-  handleEventClick = async ({ event }) => {
-    this.setState({ event, showModalIsOpen: true });
-  };
-
   handleEventDelete = async (e) => {
     e.preventDefault();
+
     if (!window.confirm("Are you sure?")) {
       return;
     }
@@ -113,23 +97,67 @@ export default class Calendar extends Component {
         events: this.state.events.filter(({ id }) => id != res.data.id),
       });
       showSnackbarSuccess("Event removed successfully");
-      this.handleShowClose();
+      this.handleClose();
     }
   };
 
-  handleShowClose = () => {
-    this.setState({ showModalIsOpen: false });
+  handleSelect = ({ start, end }) => {
+    this.setState({
+      newEvent: { start, end },
+      modal: (
+        <NewEventModal
+          closeCallback={this.handleClose}
+          unitId={this.props.unit_id}
+          anchor={start}
+          submitUrl={`/company/units/${this.props.unit_id}/events.json`}
+          successCallback={this.handleEventCreated}
+          duration={moment(end).diff(start, "minutes")}
+        />
+      ),
+    });
   };
 
-  handleEditClose = () => {
-    this.setState({ editModalIsOpen: false });
+  handleEventClick = async ({ event }) => {
+    this.setState({
+      event,
+      modal: (
+        <EventShowModal
+          closeCallback={this.handleClose}
+          editable={this.state.editable}
+          event={event}
+          onEventEdit={this.handleEventEdit}
+          onEventDelete={this.handleEventDelete}
+        />
+      ),
+    });
   };
 
   handleEventEdit = (e) => {
     e.preventDefault();
 
-    this.setState({ editModalIsOpen: true });
-    this.handleShowClose();
+    this.setState({
+      modal: (
+        <EventEditModal
+          closeCallback={this.handleClose}
+          unitId={this.props.unit_id}
+          anchor={this.state.event.start}
+          submitUrl={this.state.event.extendedProps.event_url}
+          successCallback={this.handleEventEdited}
+          title={this.state.event.title}
+          frequency={this.state.event.extendedProps.frequency}
+          duration={moment(this.state.event.end).diff(
+            this.state.event.start,
+            "minutes"
+          )}
+          ticket={this.state.event.extendedProps.ticket}
+          color={this.state.event.backgroundColor}
+        />
+      ),
+    });
+  };
+
+  handleClose = () => {
+    this.setState({ modal: null });
   };
 
   render() {
@@ -157,112 +185,7 @@ export default class Calendar extends Component {
           eventClick={this.handleEventClick}
           ref={this.calendarRef}
         />
-        {this.state.createModalIsOpen && (
-          <ModalDialog title="New event" closeCallback={this.handleClose}>
-            <Form
-              unitId={this.props.unit_id}
-              anchor={this.state.newEvent.start}
-              submitUrl={`/company/units/${this.props.unit_id}/events.json`}
-              successCallback={this.handleEventCreated}
-              afterSubmitCallback={this.handleClose}
-              isNewRecord
-              duration={moment(this.state.newEvent.end).diff(
-                this.state.newEvent.start,
-                "minutes"
-              )}
-            />
-          </ModalDialog>
-        )}
-
-        {this.state.showModalIsOpen && (
-          <ModalDialog
-            title={"Show event"}
-            closeCallback={this.handleShowClose}
-          >
-            <div className="px-3 pb-4">
-              <div className="d-flex justify-content-between container">
-                <h3>{this.state.event.title}</h3>
-                {!this.props.readOnly && (
-                  <div>
-                    <a className="mr-1" href="">
-                      <i
-                        onClick={this.handleEventEdit}
-                        className="icon-feather-edit"
-                      ></i>
-                    </a>
-                    <a href="">
-                      <i
-                        onClick={this.handleEventDelete}
-                        className="icon-feather-trash-2"
-                      ></i>
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              <hr />
-              <div className="margin-top-30"></div>
-              <ul className="p-0">
-                <li>
-                  <i className="icon-material-outline-location-on mr-1"></i>
-                  This happens at
-                  <a
-                    className="ml-1"
-                    href={this.state.event.extendedProps.unit.url}
-                  >
-                    {this.state.event.extendedProps.unit.name}
-                  </a>
-                </li>
-                {this.state.event.extendedProps.ticket && (
-                  <li>
-                    <i className="icon-feather-paperclip mr-1"></i>
-                    Attached:{" "}
-                    <a href={this.state.event.extendedProps.ticket.url}>
-                      {this.state.event.extendedProps.ticket.name}
-                    </a>
-                  </li>
-                )}
-                <li>
-                  <i className="icon-feather-clock mr-1"></i>
-                  From {moment(this.state.event.start).format(
-                    "h:mm a Do MMM"
-                  )}{" "}
-                  to {""}
-                  {moment(this.state.event.end).format("h:mm a Do MMM")}
-                </li>
-                <li>
-                  <i className="icon-feather-user mr-1"></i>
-                  Planed by{" "}
-                  <a href={this.state.event.extendedProps.user.url}>
-                    {this.state.event.extendedProps.user.first_name}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </ModalDialog>
-        )}
-        {this.state.editModalIsOpen && (
-          <ModalDialog
-            title={"Edit event"}
-            closeCallback={this.handleEditClose}
-          >
-            <Form
-              title={this.state.event.title}
-              unitId={this.props.unit_id}
-              anchor={this.state.event.start}
-              submitUrl={this.state.event.extendedProps.event_url}
-              successCallback={this.handleEventEdited}
-              frequency={this.state.event.extendedProps.frequency}
-              afterSubmitCallback={this.handleEditClose}
-              duration={moment(this.state.event.end).diff(
-                this.state.event.start,
-                "minutes"
-              )}
-              ticket={this.state.event.extendedProps.ticket}
-              color={this.state.event.backgroundColor}
-            />
-          </ModalDialog>
-        )}
+        {this.state.modal}
       </div>
     );
   }

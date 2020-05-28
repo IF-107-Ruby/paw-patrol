@@ -22,6 +22,10 @@ class Company
       company_owner?
     end
 
+    def events?
+      user.company_owner? || user.responsible_for?(record)
+    end
+
     class Scope < Scope
       def resolve
         scope.all

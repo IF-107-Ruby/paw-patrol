@@ -12,6 +12,7 @@ function Pagination(props) {
   if (props.pageCount == 1) {
     return null;
   }
+  
   return (
     <div>
       <div className="pagination-container margin-top-20 margin-bottom-20">

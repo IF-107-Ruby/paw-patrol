@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 
-export default class ModalDialog extends Component {
+class ModalDialog extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,8 @@ export default class ModalDialog extends Component {
 
   handleClose = () => {
     this.setState({ isOpen: false });
-    setTimeout(this.props.closeCallback, 500);
+
+    setTimeout(() => this.props.closeCallback(), 500);
   };
 
   render() {
@@ -27,3 +28,10 @@ export default class ModalDialog extends Component {
     );
   }
 }
+
+ModalDialog.propTypes = {
+  title: PropTypes.string,
+  closeCallback: PropTypes.func,
+};
+
+export default ModalDialog;

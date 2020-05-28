@@ -42,7 +42,7 @@
           i.icon-line-awesome-calendar-o
           | Planed events
       .content.with-padding#fullcalendar
-        = react_component("Calendar", props: { unit_id: unit.id, readOnly: !current_user.can_manage_unit_events?(unit) }, prerender: false)
+        = react_component("Calendar", props: { unit_id: unit.id, readOnly: !policy([:company, unit]).events? }, prerender: false)
   .col-xl-12
     .dashboard-box
       .headline

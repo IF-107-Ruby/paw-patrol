@@ -5,8 +5,8 @@ class Company
     skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
     def index
-      authorize([:company, selected_events])
-      @events = selected_events.includes(:user, :ticket).decorate
+      authorize(%i[company event])
+      @events = selected_events.includes(:user, :ticket)
       respond_to do |format|
         format.json
       end
@@ -61,7 +61,7 @@ class Company
     end
 
     def obtain_event
-      @event = @unit.events.find(params[:id]).decorate
+      @event = @unit.events.find(params[:id])
       authorize([:company, @event])
     end
 
