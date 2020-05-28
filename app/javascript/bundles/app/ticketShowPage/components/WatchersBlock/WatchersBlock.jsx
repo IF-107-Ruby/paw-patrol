@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import WatchersForm from './WatchersForm';
-import '../../../../../assets/stylesheets/watchers.scss';
+import './watchers-block.scss';
 import axios from 'axios';
-import AxiosHelper from '../../shared/AxiosHelper';
+import '../../../shared/AxiosHelper';
 import FlashMessage from './FlashMessage';
+import _ from 'lodash';
 
 
 class WatchersBlock extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      availableWatchers: this.props.available_watchers,
-      selectedWatchers: this.props.selected_ids,
+      availableWatchers: _.get(this.props, 'available_watchers', []),
+      selectedWatchers: _.get(this.props, 'selected_ids', []),
       showForm: false,
       showFlash: false
      };
@@ -35,11 +36,13 @@ class WatchersBlock extends Component {
   handleChange(event) {
     let options = event.target.options;
     let value = [];
-    for (let i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
+
+    _.forEach(options, option => {
+      if (option.selected) {
+        value.push(option.value)
+      } 
+    })
+
     this.setState({ selectedWatchers: value });
   }
 

@@ -11,4 +11,14 @@ class TicketDecorator < Draper::Decorator
   def created_by
     "Created by #{user.full_name}"
   end
+
+  def watchers_info
+    {
+      available_watchers: available_watchers.map do |w|
+        { id: w.id, full_name: w.full_name }
+      end,
+      selected_ids: watcher_ids,
+      ticket_id: id
+    }
+  end
 end

@@ -1,6 +1,6 @@
 import React from 'react';
-import avatar from '../../../../../assets/images/user-avatar-placeholder.png';
-import '../../../../../assets/stylesheets/watchers.scss';
+import avatar from '../../../../../../assets/images/user-avatar-placeholder.png';
+import './watchers-block.scss';
 
 const WatchersForm = props => {
   const { handleSubmit,

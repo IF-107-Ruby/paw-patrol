@@ -1,5 +1,5 @@
 import React from 'react'; 
-import '../../../../../assets/stylesheets/watchers.scss';
+import './watchers-block.scss';
 
 const FlashMessage = props => {
   const {closeFlash} = props;
