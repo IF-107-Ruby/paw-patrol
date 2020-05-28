@@ -5,7 +5,7 @@ class Company
     end
 
     def create?
-      user.ticket_ids.include?(record.ticket.id)
+      record.ticket.belongs_to?(user)
     end
 
     def update?

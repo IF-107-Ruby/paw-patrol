@@ -51,21 +51,4 @@ describe Company, type: :model do
       expect(company).to be_valid
     end
   end
-
-  describe 'tickets' do
-    let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
-    let!(:unit_of_another_company) do
-      create(:unit, :with_employee_and_ticket, company: create(:company))
-    end
-
-    it 'contains a ticket created in the company\'s unit' do
-      ticket = unit.tickets.first
-      expect(company.tickets.include?(ticket)).to be true
-    end
-
-    it 'does not contain a ticket created in the unit of another company' do
-      ticket = unit_of_another_company.tickets.first
-      expect(company.tickets.include?(ticket)).to be false
-    end
-  end
 end

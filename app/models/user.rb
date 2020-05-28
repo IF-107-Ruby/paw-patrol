@@ -63,7 +63,7 @@ class User < ApplicationRecord
   end
 
   def resolved_tickets?
-    tickets.resolved.present?
+    tickets.resolved.any?
   end
 
   private

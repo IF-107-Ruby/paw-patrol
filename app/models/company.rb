@@ -18,12 +18,5 @@ class Company < ApplicationRecord
   has_many :users, through: :users_companies_relationships
   has_many :staff, -> { where(role: 'staff_member') },
            source: :user, through: :users_companies_relationships
-
-  def tickets
-    Ticket.where(unit: units)
-  end
-
-  def resolved_tickets
-    tickets.resolved
-  end
+  has_many :tickets, through: :units
 end

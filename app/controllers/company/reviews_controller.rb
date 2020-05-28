@@ -37,7 +37,7 @@ class Company
     private
 
     def find_reviewable_ticket_by_id
-      @ticket = current_company.resolved_tickets.find(params[:ticket_id])
+      @ticket = current_company.tickets.resolved.find(params[:ticket_id])
     end
 
     def find_review_by_ticket
