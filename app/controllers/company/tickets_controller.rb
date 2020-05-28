@@ -67,6 +67,7 @@ class Company
         redirect_to edit_company_ticket_path(@ticket)
       else
         flash[:warning] = 'Ticket is not followed up.'
+        render 'show'
       end
     end
 
