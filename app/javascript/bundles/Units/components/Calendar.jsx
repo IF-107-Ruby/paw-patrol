@@ -8,7 +8,7 @@ import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 
 import moment from "moment";
-import axios from "axios";
+import axios from "../../../AxiosHelper";
 
 import NewEventModal from "../../Events/components/NewEventModal";
 import EventShowModal from "../../Events/components/EventShowModal";

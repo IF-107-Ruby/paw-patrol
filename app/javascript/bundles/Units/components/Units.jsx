@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import axios from "axios";
+import axios from "../../../AxiosHelper";
+
 import Unit from "./Unit";
 
 import Pagination from "../../Shared/components/Pagination";

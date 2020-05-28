@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 
 import pluralize from "pluralize";
 
-import axios from "axios";
+import axios from "../../../AxiosHelper";
+
 import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
 
 class Unit extends Component {

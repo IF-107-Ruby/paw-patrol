@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import moment from "moment";
-import axios from "axios";
+import axios from "../../../AxiosHelper";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

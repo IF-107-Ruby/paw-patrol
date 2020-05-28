@@ -4,7 +4,7 @@ feature 'users' do
   let(:user_params) { attributes_for(:staff_member) }
   let!(:company) { create(:company) }
   let!(:company_owner) { create(:company_owner, company: company) }
-  let(:employee) { create(:employee, company: company) }
+  let(:employee) { create(:employee, company: company).decorate }
 
   before { login_as company_owner }
 
@@ -52,6 +52,6 @@ feature 'users' do
       find('a[data-method="delete"]').click
     end
     expect(page).to have_text('Company member was deleted')
-    expect(page).not_to have_content(employee.first_name)
+    expect(page).not_to have_content(employee.full_name)
   end
 end
