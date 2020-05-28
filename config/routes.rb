@@ -18,9 +18,9 @@ Rails.application.routes.draw do
       resources :room_employees, only: :index
       resources :children, controller: :units_children, only: :index
     end
-    resources :tickets, only: %i[show new create] do
+    resources :tickets, only: %i[show new create edit update] do
       post '/resolution', to: 'tickets#resolution', as: :resolution
-      get  '/followed_new', to: 'tickets#followed_new', as: :followed
+      get  '/follow_up', to: 'tickets#followed_up', as: :followed
       resources :comments
 <<<<<<< HEAD
       resource :review, except: %i[index destroy]

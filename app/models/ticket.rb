@@ -84,6 +84,13 @@ class Ticket < ApplicationRecord
 >>>>>>> changed resolving ticket way.
   end
 
+  def follow_up
+    ticket = Ticket.new(attributes.except('id', 'status'))
+    ticket.description = description
+    ticket.parent = self
+    ticket
+  end
+
   private
 
   def unit_permission

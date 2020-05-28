@@ -1,7 +1,7 @@
 class Company
   class TicketsController < Company::BaseController
-    before_action :read_user_units, only: %i[new followed_new]
-    before_action :read_ticket, only: %i[resolution followed_new]
+    before_action :read_user_units, only: %i[new]
+    before_action :read_ticket, only: %i[edit update]
 
     def show
       @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
@@ -27,6 +27,18 @@ class Company
       end
     end
 
+    def edit; end
+
+    def update
+      if @ticket.update(ticket_params)
+        flash[:success] = 'Ticket information updated.'
+        redirect_to [:company, @ticket]
+      else
+        flash[:danger] = 'Ticket updating failed.'
+        render 'edit'
+      end
+    end
+
     def resolved
       authorize([:company, Ticket])
       @pagy, @resolved_tickets = pagy_decorated(current_user
@@ -37,7 +49,7 @@ class Company
     end
 
     def resolution
-      @ticket = policy_scope([:company, Ticket]).find(params[:ticket_id]).decorate
+      @ticket = policy_scope([:company, Ticket]).open.find(params[:ticket_id]).decorate
 
       if @ticket.complete!(ticket_resolution_params)
         flash[:success] = 'Ticket resolved!'
@@ -48,10 +60,14 @@ class Company
       end
     end
 
-    def followed_new
-      @followed_ticket = policy_scope([:company, Ticket]).find(params[:ticket_id]).clone
-      @ticket = @followed_ticket.dup
-      @ticket.description = @followed_ticket.description
+    def followed_up
+      @original_ticket = policy_scope([:company, Ticket]).resolved.find(params[:ticket_id])
+      @ticket = @original_ticket.follow_up
+      if @ticket.save
+        redirect_to edit_company_ticket_path(@ticket)
+      else
+        flash[:warning] = 'Ticket is not followed up.'
+      end
     end
 
     private
@@ -69,7 +85,7 @@ class Company
     end
 
     def read_ticket
-      @ticket = policy_scope([:company, Ticket]).find(params[:ticket_id]).decorate
+      @ticket = policy_scope([:company, Ticket]).find(params[:id])
     end
   end
 end

@@ -6,7 +6,7 @@
   .row
     #comments-list.col-xl-12
       = render 'company/base/nested_comment', comments: commentable.comments.arrange, commentable: commentable
-  - unless @ticket.resolved?
+  - if @ticket.open?
     .row.add-comment-block
       .col-xl-12
         button id='add-comment' class='button ripple-effect'

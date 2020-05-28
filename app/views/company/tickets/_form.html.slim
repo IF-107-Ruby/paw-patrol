@@ -1,7 +1,5 @@
 .ticket-form
   = form_for [:company, ticket] do |f|
-    - if @followed_ticket.present?
-      = f.hidden_field :parent_id, value: @followed_ticket.id
     .row
       .col-md-12
         .dashboard-box.mt-0
@@ -31,8 +29,6 @@
                             'data-live-search' => true,
                             required: 'required',
                             prompt: true }
-              - else
-                = f.hidden_field :unit_id, value: @followed_ticket.unit.id
               .col-12
                 .submit-field
                   h5.pb-2 Describe your problem

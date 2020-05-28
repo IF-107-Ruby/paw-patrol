@@ -1,5 +1,10 @@
 class Company
   class TicketPolicy < ApplicationPolicy
+
+    def show?
+      record.belongs_to?(user) || user.responsible_for?(record.unit)
+    end
+
     def create?
       user.company_owner? || user.employee?
     end
@@ -8,12 +13,16 @@ class Company
       create?
     end
 
+    def update?
+      record.belongs_to?(user)
+    end
+
     def resolution?
-      user.responsible_for?(record.unit) && record.open?
+      user.responsible_for?(record.unit)
     end
 
     def followed_new?
-      user.responsible_for?(record.unit) && record.resolved?
+      user.responsible_for?(record.unit)
     end
 
     class Scope < Scope
