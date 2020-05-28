@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_517_160_130) do
+ActiveRecord::Schema.define(version: 20_200_525_073_432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -90,12 +90,22 @@ ActiveRecord::Schema.define(version: 20_200_517_160_130) do
     t.index ['user_id'], name: 'index_notifications_on_user_id'
   end
 
+  create_table 'reviews', force: :cascade do |t|
+    t.integer 'rating', null: false
+    t.text 'comment', null: false
+    t.bigint 'ticket_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['ticket_id'], name: 'index_reviews_on_ticket_id', unique: true
+  end
+
   create_table 'tickets', force: :cascade do |t|
     t.string 'name', null: false
     t.bigint 'user_id', null: false
     t.bigint 'unit_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'status', default: 0, null: false
     t.index ['unit_id'], name: 'index_tickets_on_unit_id'
     t.index ['user_id'], name: 'index_tickets_on_user_id'
   end
@@ -125,9 +135,8 @@ ActiveRecord::Schema.define(version: 20_200_517_160_130) do
     t.datetime 'remember_created_at'
     t.integer 'role', default: 0, null: false
     t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['reset_password_token'],
-            name: 'index_users_on_reset_password_token',
-            unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token',
+                                      unique: true
   end
 
   create_table 'users_companies_relationships', force: :cascade do |t|
@@ -163,6 +172,7 @@ ActiveRecord::Schema.define(version: 20_200_517_160_130) do
   add_foreign_key 'comments', 'users'
   add_foreign_key 'notifications', 'users'
   add_foreign_key 'notifications', 'users', column: 'notified_by_id'
+  add_foreign_key 'reviews', 'tickets'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
   add_foreign_key 'units', 'companies'

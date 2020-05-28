@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id              :bigint           not null, primary key
+#  noticeable_id   :integer          not null
+#  noticeable_type :string           not null
+#  user_id         :bigint           not null
+#  notified_by_id  :integer          not null
+#  read            :boolean          default(FALSE), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class Notification < ApplicationRecord
   belongs_to :noticeable, polymorphic: true
   belongs_to :notified_by, class_name: 'User', foreign_key: :notified_by_id,

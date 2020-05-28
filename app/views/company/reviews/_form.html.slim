@@ -1,0 +1,41 @@
+.review-form
+  = form_for review, url: company_ticket_review_path do |f|
+    .row.margin-bottom-30
+      .col-md-12
+        .dashboard-box.mt-0
+          .headline
+            h3
+              i.icon-material-outline-business
+              | Review Submission Form
+          = render 'shared/error_messages', object: f.object
+          .content.with-padding
+            .row
+              .col-12.mb-4
+                .review-form__ticket-link
+                  | Evaluate the closing of the
+                  = link_to 'ticket', company_ticket_path(@review.ticket_id)
+              .col-12.mb-4
+                .submit-field
+                  h5 Your Rating
+                  .leave-rating
+                    = f.radio_button :rating, 5, required: 'required'
+                    = f.label 'rating_5', "&nbsp;".html_safe, class: 'icon-material-outline-star'
+                    = f.radio_button :rating, 4, required: 'required'
+                    = f.label 'rating_4', "&nbsp;".html_safe, class: 'icon-material-outline-star'
+                    = f.radio_button :rating, 3, required: 'required'
+                    = f.label 'rating_3', "&nbsp;".html_safe, class: 'icon-material-outline-star'
+                    = f.radio_button :rating, 2, required: 'required'
+                    = f.label 'rating_2', "&nbsp;".html_safe, class: 'icon-material-outline-star'
+                    = f.radio_button :rating, 1, required: 'required'
+                    = f.label 'rating_1', "&nbsp;".html_safe, class: 'icon-material-outline-star'
+              .col-12
+                .submit-field
+                  h5 Your Comment
+                  = f.text_area :comment,
+                                class: 'with-border',
+                                placeholder: 'e.g. everything was done well',
+                                cols: "7",
+                                required: 'required'
+    = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do
+      = review.new_record? ? 'Leave a Review' : 'Save Changes'
+      i.icon-material-outline-arrow-right-alt

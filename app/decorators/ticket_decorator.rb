@@ -1,6 +1,7 @@
 class TicketDecorator < Draper::Decorator
   delegate_all
   decorates_association :user
+  decorates_association :review
 
   def place_were_opened
     "Ticket opened for #{unit.name}"

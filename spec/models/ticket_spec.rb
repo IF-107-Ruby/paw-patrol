@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-  let!(:company) { create(:company) }
-  let!(:unit) { create(:unit, :with_employees_and_tickets, company: company) }
-  let!(:ticket) { unit.tickets.first }
+  include_context 'employee with ticket'
 
   describe 'Associations' do
     it { expect(ticket).to belong_to(:user) }
     it { expect(ticket).to belong_to(:unit) }
+    it { expect(ticket).to have_one(:review).dependent(:destroy) }
   end
 
   describe 'validations' do
@@ -26,6 +25,21 @@ RSpec.describe Ticket, type: :model do
     it 'description_attachments' do
       expected = ticket.description.body.attachments
       expect(ticket.description_attachments).to eq(expected)
+    end
+  end
+
+  describe 'reviewed?' do
+    context 'with review' do
+      before do
+        ticket.resolved!
+        create(:review, ticket: ticket)
+      end
+
+      it { expect(ticket.reviewed?).to be true }
+    end
+
+    context 'without review' do
+      it { expect(ticket.reviewed?).to be false }
     end
   end
 end

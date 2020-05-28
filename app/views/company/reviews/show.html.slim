@@ -1,0 +1,17 @@
+section.review
+  - provide(:headline, 'Review')
+  .row
+    .col-xl-12
+      .dashboard-box
+        .headline
+          .review-rating
+            = render 'company/shared/reviewable_content', review: @review
+        .content.with-padding
+          .review-object
+            h3
+              | For ticket
+              = link_to @review.ticket.name, company_ticket_path(@review.ticket)
+          .review-comment
+            h3 Comment:
+            .review-comment__text
+              = @review.comment

@@ -8,13 +8,15 @@
 #  unit_id    :bigint           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer          default("open"), not null
 #
 class Ticket < ApplicationRecord
-  after_create :send_ticket_notification
+  enum status: { open: 0, resolved: 1 }
 
-  has_many :comments, as: :commentable, dependent: :destroy
   belongs_to :user
   belongs_to :unit
+  has_one :review, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
 
@@ -26,7 +28,10 @@ class Ticket < ApplicationRecord
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
 
+  after_create :send_ticket_notification
+
   scope :most_recent, -> { order(created_at: :desc) }
+  scope :resolved, -> { where(status: :resolved) }
 
   def description_attachments
     description.body.attachments
@@ -34,6 +39,10 @@ class Ticket < ApplicationRecord
 
   def belongs_to?(current_user)
     user == current_user
+  end
+
+  def reviewed?
+    review.present?
   end
 
   private
