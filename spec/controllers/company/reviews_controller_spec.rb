@@ -36,7 +36,7 @@ RSpec.describe Company::ReviewsController, type: :controller do
 
       subject { get :new, params: { ticket_id: ticket.id } }
 
-      it { is_expected.to have_http_status(:success) }
+      it { is_expected.to have_http_status(:redirect) }
       it { is_expected.not_to render_template('new') }
     end
   end
@@ -92,7 +92,7 @@ RSpec.describe Company::ReviewsController, type: :controller do
       before do
         sign_in employee
         put :update, params: { ticket_id: ticket.id,
-                               review: review_params.merge(ticket_id: ticket.id) }
+                               review: review_params }
       end
 
       it { is_expected.to set_flash[:success] }
@@ -114,7 +114,7 @@ RSpec.describe Company::ReviewsController, type: :controller do
       before do
         sign_in staff_member
         put :update, params: { ticket_id: ticket.id,
-                               review: review_invalid_params.merge(ticket_id: ticket.id) }
+                               review: review_params }
       end
 
       it { is_expected.not_to set_flash[:success] }
