@@ -8,12 +8,13 @@ import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 
 import moment from "moment";
-import axios from "../../../AxiosHelper";
+import axios from "../../../../AxiosHelper";
 
 import NewEventModal from "../../Events/components/NewEventModal";
 import EventShowModal from "../../Events/components/EventShowModal";
 import EventEditModal from "../../Events/components/EventEditModal";
-import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
+
+import { showSnackbarError, showSnackbarSuccess } from "../../../../snackbars";
 
 export default class Calendar extends Component {
   calendarRef = React.createRef();

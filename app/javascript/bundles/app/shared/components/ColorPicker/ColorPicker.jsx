@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { SketchPicker } from "react-color";
+import "./color-picker.scss";
 
 class ColorPicker extends Component {
   constructor(props) {

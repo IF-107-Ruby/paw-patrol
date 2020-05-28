@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import axios from "../../../AxiosHelper";
+import axios from "../../../../AxiosHelper";
 
 import _ from "lodash";
 
-import Unit from "./Unit";
-import Pagination from "../../Shared/components/Pagination";
-import { showSnackbarError, showSnackbarSuccess } from "../../../snackbars";
+import Unit from "../../Units/components/Unit";
+import Pagination from "./Pagination";
+import { showSnackbarError, showSnackbarSuccess } from "../../../../snackbars";
 
 class Units extends Component {
   constructor(props) {

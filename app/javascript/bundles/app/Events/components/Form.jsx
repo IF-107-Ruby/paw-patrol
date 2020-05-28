@@ -11,8 +11,8 @@ import AsyncSelect from "react-select/async";
 
 import _ from "lodash";
 
-import ColorPicker from "../../Shared/components/ColorPicker";
-import axios from "../../../AxiosHelper";
+import ColorPicker from "../../shared/components/ColorPicker";
+import axios from "../../../../AxiosHelper";
 
 class Form extends Component {
   frequencies = [
@@ -22,10 +22,6 @@ class Form extends Component {
     { value: "monthly", label: "Monthly" },
     { value: "annually", label: "Annually" },
   ];
-
-  changedButtonClass = "button full-width margin-top-35 button-sliding-icon";
-  unchangedButtonClass =
-    "button full-width margin-top-35 button-sliding-icon dark disabled";
 
   constructor(props) {
     super(props);
@@ -188,9 +184,9 @@ class Form extends Component {
     let startDate = moment(anchor).toDate();
     let endDate = moment(anchor).add("minutes", duration).toDate();
 
-    let submitClass = isChanged
-      ? this.changedButtonClass
-      : this.unchangedButtonClass;
+    let submitClass =
+      "button full-width margin-top-35 button-sliding-icon" +
+      (isChanged ? "" : " dark disabled");
 
     let submitText = isNewRecord ? "Add event" : "Update event";
 
