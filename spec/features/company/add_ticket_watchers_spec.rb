@@ -8,13 +8,8 @@ feature 'Employee set ticket watchers', js: true do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
 
   before do
-    ActionController::Base.allow_forgery_protection = true
     login_as employee
     visit company_ticket_path(ticket)
-  end
-
-  teardown do
-    ActionController::Base.allow_forgery_protection = false
   end
 
   scenario 'successfully set ticket watchers' do

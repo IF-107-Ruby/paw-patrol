@@ -21,7 +21,7 @@
                  = link_to company_ticket_path(@ticket.parent)
                    i.icon-material-outline-launch.ticket-icons
         - if @ticket.belongs_to?(current_user)  
-          = react_component("WatchersBlock", props: @watchers_props, prerender: false)
+          = react_component("WatchersBlock", props: @watchers_props)
       .content.with-padding
         == @ticket.description
         - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit) || @ticket.watchers.include?(current_user)

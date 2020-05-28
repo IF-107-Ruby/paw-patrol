@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import WatchersForm from './WatchersForm';
-import '../../../assets/stylesheets/watchers.scss';
+import '../../../../../assets/stylesheets/watchers.scss';
 import axios from 'axios';
+import AxiosHelper from '../../shared/AxiosHelper';
+import FlashMessage from './FlashMessage';
 
-const csrfToken = document.querySelector('[name=csrf-token]').content
-axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 class WatchersBlock extends Component {
   constructor(props) {
@@ -15,16 +15,24 @@ class WatchersBlock extends Component {
       showForm: false,
       showFlash: false
      };
+    this.handleForm = this.handleForm.bind(this);
+    this.closeFlash = this.closeFlash.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleForm = () => {
-    this.setState({
-      showForm: !this.state.showForm,
+  handleForm() {
+    this.setState((state) => ({
+      showForm: !state.showForm,
       showFlash: false
-    })
+    }))
   }
 
-  handleChange = (event) => {
+  closeFlash() {
+    this.setState({ showFlash: false})
+  }
+
+  handleChange(event) {
     let options = event.target.options;
     let value = [];
     for (let i = 0, l = options.length; i < l; i++) {
@@ -35,7 +43,7 @@ class WatchersBlock extends Component {
     this.setState({ selectedWatchers: value });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit(event) {
     let watcher_ids = this.state.selectedWatchers;
     let id = this.props.ticket_id
     axios
@@ -44,11 +52,10 @@ class WatchersBlock extends Component {
         watcher_ids: watcher_ids, 
         id: id}
       })
-      .then(response => {
-        console.log(response);
-        this.setState({
-          showFlash: !this.state.showFlash
-        })
+      .then(res => {
+        this.setState((state) => ({
+          showFlash: !state.showFlash
+        }))
       })
       .catch(error => {
         console.log(error)
@@ -57,6 +64,12 @@ class WatchersBlock extends Component {
   }
 
   render() {
+    const {showForm,
+          availableWatchers,
+          selectedWatchers} = this.state;
+          
+    const btnStyle = { display: showForm ? 'none' : 'block' };
+
     return (
       <>
         <div className="d-flex justify-content-end">
@@ -64,28 +77,23 @@ class WatchersBlock extends Component {
             className="button margin-top-10 button-sliding-icon"
             id='add-watchers-btn'
             onClick={this.handleForm}
-            style = {{ display: this.state.showForm ? 'none' : 'block' }}
+            style = {btnStyle}
             >
               Add watchers
               <i className='icon-material-outline-visibility'></i>
           </button>
         </div>
         {this.state.showFlash ?
-          <div id='flash-messages'>
-            <div className='notification success closeable'>
-              <p>Watchers updated!</p>
-              <a className='close' onClick={()=> this.setState({ showFlash: false})}></a>
-            </div>
-          </div>
+          <FlashMessage closeFlash = {this.closeFlash} />
           : 
           null
         }
         <WatchersForm 
-          availableWatchers={this.state.availableWatchers}
+          availableWatchers={availableWatchers}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          selectedWatchers={this.state.selectedWatchers}
-          showForm={this.state.showForm}
+          selectedWatchers={selectedWatchers}
+          showForm={showForm}
           handleForm = {this.handleForm}
         />  
       </>
