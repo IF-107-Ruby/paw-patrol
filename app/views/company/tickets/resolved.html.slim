@@ -9,4 +9,5 @@
       .content.with-padding.overflow-hidden
         ul.dashboard-box-list
           = render partial: 'resolved_ticket', collection: @resolved_tickets
+
         = render partial: 'shared/pagination', locals: { pagy: @pagy }

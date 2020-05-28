@@ -46,7 +46,7 @@ class Company
     end
 
     def review_params
-      params.require(:review).permit(:rating, :comment, :ticket_id)
+      params.require(:review).permit(:rating, :comment)
     end
   end
 end
