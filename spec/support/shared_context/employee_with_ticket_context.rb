@@ -8,7 +8,9 @@ RSpec.shared_context 'employee with ticket' do
   end
   let!(:employee) { unit.users.first }
   let!(:ticket) { unit.tickets.first }
-  let!(:resolved_ticket) { create(:resolved_ticket,
-                                  user: employee,
-                                  unit: unit)}
+  let!(:resolved_ticket) do
+    create(:resolved_ticket,
+           user: employee,
+           unit: unit)
+  end
 end
