@@ -11,20 +11,22 @@
 #  status     :integer          default("open"), not null
 #
 class Ticket < ApplicationRecord
-  enum status: { open: 0, resolved: 1 }
+  scope :most_recent, -> { order(created_at: :desc) }
+  scope :resolved, -> { where(status: :resolved) }
 
-  after_create :send_ticket_notification
+  enum status: { open: 0, resolved: 1 }
 
   belongs_to :user
   belongs_to :unit
+
   has_one :review, dependent: :destroy
+  has_one :ticket_completion, dependent: :destroy
+
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
   has_rich_text :resolution
-  has_one :ticket_completion, dependent: :destroy
-  has_many :comments, as: :commentable, dependent: :destroy
-  has_ancestry
 
   validates :user, :unit, :description, presence: true
   validates :name, presence: true, length: { in: 6..50 }
@@ -33,15 +35,15 @@ class Ticket < ApplicationRecord
 
   validates_with ImageAttachmentsValidator,
                  if: ->(ticket) { ticket.description_attachments.any? }
-
   validates_with ImageAttachmentsValidator,
                  if: lambda { |ticket|
                    ticket.resolution_attachments &&
                      ticket.resolution_attachments.any?
                  }
 
-  scope :most_recent, -> { order(created_at: :desc) }
-  scope :resolved, -> { where(status: :resolved) }
+  after_create :send_ticket_notification
+
+  has_ancestry
 
   def description_attachments
     description.body.attachments
