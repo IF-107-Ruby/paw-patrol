@@ -14,12 +14,14 @@
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :user
+
   has_many :notification, as: :noticeable, dependent: :destroy
-  has_ancestry
 
   validates :body, :user, :commentable, presence: true
 
   after_save :create_notification
+
+  has_ancestry
 
   def belongs_to?(current_user)
     user == current_user

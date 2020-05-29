@@ -16,17 +16,16 @@
 #  role                   :integer          default("company_owner"), not null
 #
 class User < ApplicationRecord
+  scope :admins, -> { where(admin: true) }
+  scope :company_owners, -> { where(role: :company_owner) }
+  scope :employees, -> { where(role: :employee) }
+  scope :staff_members, -> { where(role: :staff_member) }
+
   enum role: { company_owner: 0, employee: 1, staff_member: 2 }
-
-  after_create :send_invitation
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :registerable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
 
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
+
   has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
@@ -40,10 +39,12 @@ class User < ApplicationRecord
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
 
-  scope :admins, -> { where(admin: true) }
-  scope :company_owners, -> { where(role: :company_owner) }
-  scope :employees, -> { where(role: :employee) }
-  scope :staff_members, -> { where(role: :staff_member) }
+  after_create :send_invitation
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :registerable
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :validatable
 
   def responsible_for?(unit)
     id == unit.responsible_user_id
@@ -64,6 +65,10 @@ class User < ApplicationRecord
 
   def resolved_tickets?
     tickets.resolved.any?
+  end
+
+  def completion_performer?(completion)
+    ticket_completions.include?(completion)
   end
 
   private

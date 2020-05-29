@@ -1,0 +1,56 @@
+// Place all the styles related to the TicketSolutions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.dashboard-headline {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+}
+
+.icon-feather-check-square {
+  font-size: 24px;
+
+  &[value~="open"] {
+   color: #666;
+   }
+
+  &[value~="resolved"] {
+   color: #40b660;
+   }
+}
+
+.delete-ticket-completion-icon {
+  font-size: 22px;
+  color: #666;
+
+  &:hover {
+    color: #dc3139;
+  }
+}
+
+.green-ticket-completion-form-icon {
+  color: #40b660 !important;
+}
+
+.complete-ticket-button {
+  background-color: #40b660 !important;
+
+  &:hover {
+    background-color: #707070 !important;
+    color: #fff !important;
+  }
+}
+
+.ticket-icons {
+  color: #707070;
+  font-size: 20px;
+
+  &:hover {
+    color: #2a41e8;
+  }
+}
+
+.nowrap-text {
+  white-space: nowrap;
+}

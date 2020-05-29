@@ -668,7 +668,7 @@
     userMenuScrollbar();
 
     /*--------------------------------------------------*/
-    /*  Tippy JS 
+    /*  Tippy JS
 	/*--------------------------------------------------*/
     /* global tippy */
     tippy("[data-tippy-placement]", {
@@ -1217,6 +1217,7 @@
     /*----------------------------------------------------*/
     /*  Indicator Bar
     /*----------------------------------------------------*/
+
     $(".indicator-bar").each(function () {
       var indicatorLenght = $(this).attr("data-indicator-percentage");
       $(this)

@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Company::TicketsController, type: :controller do
   include_context 'employee with ticket'
   let!(:user) { create(:staff_member, company: company) }
+  let!(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
+  let!(:ticket_invalid_params) { { name: '', description: '' } }
 
   describe 'GET #show' do
     before do
@@ -64,9 +66,6 @@ describe Company::TicketsController, type: :controller do
       end
 
       describe 'POST #create' do
-        let(:ticket_valid_params) { FactoryBot.attributes_for :ticket }
-        let(:ticket_invalid_params) { { name: '', description: '' } }
-
         context 'with valid params' do
           before { post :create, params: { ticket: ticket_valid_params } }
 
@@ -81,6 +80,109 @@ describe Company::TicketsController, type: :controller do
           it { is_expected.to render_template('new') }
         end
       end
+
+      describe 'POST #resolution' do
+        let!(:ticket_resolution_params) do
+          ActionText::Content.new(Faker::Lorem.paragraph)
+        end
+
+        context 'with valid params' do
+          before do
+            post :resolution, params: { ticket_id: ticket.id, ticket: {
+              resolution: ticket_resolution_params
+            } }
+          end
+
+          it 'creates resolution' do
+            expect(response).to have_http_status(:redirect)
+            expect(flash[:success]).to be_present
+            expect(flash[:warning]).not_to be_present
+            expect(response).to redirect_to(company_ticket_path(ticket.id))
+          end
+        end
+
+        context 'with valid params' do
+          before do
+            post :resolution, params: { ticket_id: ticket.id, ticket: {
+              resolution: ''
+            } }
+          end
+
+          it 'do not create resolution' do
+            expect(response).to have_http_status(:success)
+            expect(flash[:warning]).to be_present
+            expect(flash[:success]).not_to be_present
+            expect(response).to render_template('show')
+          end
+        end
+      end
+    end
+  end
+
+  describe 'GET#edit' do
+    before do
+      sign_in ticket.user
+      get :edit, params: { id: ticket.id }
+    end
+    it 'returns http success and assign ticket' do
+      expect(response).to have_http_status(:success)
+      expect(assigns(:ticket)).to eq(ticket)
+      expect(response).to render_template('edit')
+    end
+  end
+
+  describe 'PUT#update' do
+    before do
+      sign_in ticket.user
+    end
+
+    context 'with valid params' do
+      before do
+        put :update, params: { id: ticket.id,
+                               ticket: ticket_valid_params }
+      end
+
+      it 'assign the ticket' do
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(company_ticket_path(ticket))
+        expect(flash[:success]).to be_present
+      end
+
+      it 'updates ticket name' do
+        ticket.reload
+        expect(ticket.name).to eq(ticket_valid_params[:name])
+      end
+    end
+
+    context 'with invalid params' do
+      it 'do not update ticket' do
+        expect do
+          put :update, params: { id: ticket.id,
+                                 ticket: ticket_invalid_params }
+        end
+          .not_to change { ticket.reload.name }
+      end
+
+      it 'render edit page with flash' do
+        put :update, params: { id: ticket.id,
+                               ticket: ticket_invalid_params }
+
+        expect(response).to have_http_status(:success)
+        expect(flash[:danger]).to be_present
+      end
+    end
+  end
+
+  describe 'GET #followed_up' do
+    before do
+      ticket.resolved!
+      sign_in ticket.user
+      get :followed_up, params: { ticket_id: ticket.id }
+    end
+
+    it 'create ticket and redirect' do
+      expect(response).to have_http_status(:redirect)
+      expect(ticket.children).not_to be_empty
     end
   end
 end
