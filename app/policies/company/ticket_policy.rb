@@ -8,6 +8,10 @@ class Company
       user.company_owner? || user.employee?
     end
 
+    def update?
+      record.belongs_to?(user)
+    end
+
     def resolved?
       create?
     end

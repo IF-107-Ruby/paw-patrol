@@ -19,7 +19,7 @@ feature 'AddCommentNotification' do
 
     expect do
       within '#new-comment' do
-        fill_in id: 'comment_body', with: 'Test comment from responsible user'
+        first('#comment_body', visible: false).set('Test comment from responsible user')
       end
 
       click_on 'Add comment'

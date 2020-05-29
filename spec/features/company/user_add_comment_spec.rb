@@ -45,8 +45,10 @@ feature 'EmployeeAddComment' do
 
     expect(page).to have_text('Comments')
 
-    within '#new-comment' do
-      fill_in id: 'comment_body', with: 'Test comment from responsible user'
+    using_wait_time 3 do
+      within '#new-comment' do
+        first('#comment_body', visible: false).set('Test comment from responsible user')
+      end
     end
     click_on 'Add comment'
     wait_for_ajax

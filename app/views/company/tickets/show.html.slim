@@ -20,11 +20,11 @@
                - if policy([:company, @ticket]).show? && @ticket.parent
                  = link_to company_ticket_path(@ticket.parent)
                    i.icon-material-outline-launch.ticket-icons
-        - if @ticket.belongs_to?(current_user)  
+        - if policy([:company, @ticket]).update?  
           = react_component("WatchersBlock", props: @ticket.watchers_info)
       .content.with-padding
         == @ticket.description
-        - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit) || @ticket.watchers.include?(current_user)
+        - if policy([:company, @ticket]).show? || @ticket.watchers.include?(current_user)
           .row
             .col-xl-9.mx-auto.col-lg-9.col-md-12
               = render template: 'company/comments/index', locals: { commentable: @ticket }
