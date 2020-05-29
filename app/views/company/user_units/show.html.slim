@@ -1,0 +1,38 @@
+- provide(:headline, "Unit dashboard")
+- unit_ancestors = unit.ancestors
+
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .headline
+        h3
+          i.icon-material-outline-business
+          = unit.name
+      .content.with-padding.padding-bottom-0
+        .row.align-items-start
+          .col-auto
+            .avatar-wrapper#qrcode data-qrcode-url="#{company_unit_url(unit)}" data-tippy-placement="bottom" title=("Unit QR code")
+          .col-auto
+            .company-details
+              h3.margin-bottom-0
+                = unit.name
+                - if unit.responsible_user.present?
+                  span = link_to unit.responsible_user_text, [:company, unit.responsible_user]
+                span = link_to unit.employees_count, [:company, unit, :room_employees]          
+  - if @unit_tickets.present?
+    .col-xl-12
+      .dashboard-box
+        .headline
+          .d-flex.justify-content-between
+            h3
+              i.icon-material-outline-library-books
+              | Tickets
+            .icon-links
+              = link_to new_company_ticket_path(unit_id: unit.id)
+                i.icon-feather-plus
+        .content.padding-bottom-20
+          ul.dashboard-box-list
+            = render @unit_tickets
+          = render partial: 'shared/pagination', locals: { pagy: @tickets_pagy }
+
+= javascript_include_tag "unit-qr-code"

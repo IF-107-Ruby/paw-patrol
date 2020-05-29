@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resource :review, except: %i[index destroy]
       get :resolved, on: :collection
     end
+    resources :user_units, only: %i[index show]
   end
 
   devise_for :users, path: '', only: :sessions, controllers: {

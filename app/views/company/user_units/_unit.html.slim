@@ -1,0 +1,15 @@
+li
+  .job-listing
+    .job-listing-details
+      .job-listing-description
+        h3.job-listing-title
+          = link_to unit.name, company_user_unit_path(unit)
+        .job-listing-footer
+          ul
+            - if unit.responsible_user.present?
+              li 
+                i.icon-material-outline-supervisor-account
+                = unit.responsible_user_text
+            li 
+              i.icon-material-outline-group
+              = unit.employees_count

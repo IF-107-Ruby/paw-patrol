@@ -25,6 +25,11 @@
               = link_to company_units_path
                 i.icon-material-outline-business
                 | Units
+            - if policy(%i[company user_unit]).index?
+              li class="#{active_path(company_user_units_path)}"
+                = link_to company_user_units_path
+                  i.icon-material-outline-home
+                  | My units    
             - if policy(%i[company ticket]).create?
               li class="#{active_path(new_company_ticket_path)}"
                 = link_to new_company_ticket_path
