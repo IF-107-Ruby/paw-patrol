@@ -3,20 +3,19 @@ import PropTypes from "prop-types";
 
 import moment from "moment";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 
 import _ from "lodash";
 
 import ColorPicker from "../../shared/components/ColorPicker";
+import DateRangePicker from "../../shared/components/DateRangePicker";
+
 import axios from "../../../../AxiosHelper";
 import { showSnackbarError } from "../../../../snackbars";
 
 class Form extends Component {
-  frequencies = [
+  static frequencies = [
     { value: "once", label: "Once" },
     { value: "weekly", label: "Weekly" },
     { value: "biweekly", label: "Biweekly" },
@@ -82,27 +81,13 @@ class Form extends Component {
     this.props.afterSubmitCallback();
   };
 
-  handleStartDateSelect = (date) => {
-    this.setState(({ newValues }) => {
-      let start = moment(newValues.anchor);
-      let newDuration = moment(start).diff(date, "minutes");
-
-      return {
-        newValues: {
-          ...newValues,
-          duration: newDuration > 0 ? newDuration : 24 * 60,
-          anchor: moment(date).format("YYYY-MM-DD HH:mm"),
-        },
-      };
-    }, this.compareOldValues);
-  };
-
-  handleEndDateSelect = (date) => {
+  handleDateRangeChange = ({ anchor, duration }) => {
     this.setState(
       ({ newValues }) => ({
         newValues: {
           ...newValues,
-          duration: moment(date).diff(moment(newValues.anchor), "minutes"),
+          anchor,
+          duration,
         },
       }),
       this.compareOldValues
@@ -165,8 +150,6 @@ class Form extends Component {
 
     const { title, ticket_id, frequency, color, anchor, duration } = newValues;
 
-    let startDate = moment(anchor).toDate();
-    let endDate = moment(anchor).add("minutes", duration).toDate();
     let defaultTicket = ticket_id && {
       value: ticket_id,
       label: ticket_name,
@@ -194,29 +177,11 @@ class Form extends Component {
         </div>
         <div>
           <label>Timespan</label>
-          <div className="d-flex justify-content-between">
-            <DatePicker
-              selected={startDate}
-              onChange={this.handleStartDateSelect}
-              startDate={startDate}
-              endDate={endDate}
-              timeInputLabel="Time:"
-              dateFormat="MM/dd/yyyy HH:mm"
-              selectsStart
-              showTimeInput
-            />
-            <DatePicker
-              selected={endDate}
-              onChange={this.handleEndDateSelect}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              timeInputLabel="Time:"
-              dateFormat="MM/dd/yyyy HH:mm"
-              selectsEnd
-              showTimeInput
-            />
-          </div>
+          <DateRangePicker
+            initialAnchor={anchor}
+            initialDuration={duration}
+            onChange={this.handleDateRangeChange}
+          />
         </div>
         <div>
           <label>Ticket</label>
