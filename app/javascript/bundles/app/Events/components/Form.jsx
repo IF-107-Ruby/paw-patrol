@@ -30,7 +30,9 @@ class Form extends Component {
     let original = {
       id: _.get(props, "id", null),
       title: _.get(props, "title", ""),
-      anchor: _.get(props, "anchor", moment()),
+      anchor: moment(_.get(props, "anchor", moment())).format(
+        "YYYY-MM-DD HH:mm"
+      ),
       duration: _.get(props, "duration", 24 * 60),
       color: _.get(props, "color", "#0000ff"),
       ticket_id: _.get(props, "ticket.id", null),
@@ -39,38 +41,20 @@ class Form extends Component {
 
     this.state = {
       original,
+      newValues: original,
       unitId: props.unitId,
       isChanged: props.isNewRecord,
       ticket_name: _.get(props, "ticket.name", null),
-      ...original,
     };
   }
 
   compareOldValues = () => {
     if (this.props.isNewRecord) return;
 
-    let {
-      id,
-      title,
-      anchor,
-      duration,
-      color,
-      ticket_id,
-      frequency,
-    } = this.state;
-
-    let newValues = {
-      id,
-      title,
-      anchor,
-      duration,
-      color,
-      ticket_id,
-      frequency,
-    };
+    let { newValues, original } = this.state;
 
     this.setState({
-      isChanged: !_.isEqual(this.state.original, newValues),
+      isChanged: !_.isEqual(original, newValues),
     });
   };
 
@@ -91,103 +75,103 @@ class Form extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let {
-      id,
-      anchor,
-      color,
-      duration,
-      frequency,
-      title,
-      ticket_id,
-    } = this.state;
+    const { newValues } = this.state;
 
-    this.props.submitCallback({
-      id,
-      anchor: moment(anchor).format("YYYY-MM-DD HH:mm"),
-      color,
-      duration,
-      frequency,
-      title,
-      ticket_id,
-    });
+    this.props.submitCallback({ ...newValues });
 
     this.props.afterSubmitCallback();
   };
 
   handleStartDateSelect = (date) => {
-    let start = moment(this.state.anchor);
-    let newDuration = moment(start).diff(date, "minutes");
-    this.setState(
-      {
-        duration: newDuration > 0 ? newDuration : 24 * 60,
-        anchor: moment(date).format("YYYY-MM-DD HH:mm"),
-      },
-      this.compareOldValues
-    );
+    this.setState(({ newValues }) => {
+      let start = moment(newValues.anchor);
+      let newDuration = moment(start).diff(date, "minutes");
+
+      return {
+        newValues: {
+          ...newValues,
+          duration: newDuration > 0 ? newDuration : 24 * 60,
+          anchor: moment(date).format("YYYY-MM-DD HH:mm"),
+        },
+      };
+    }, this.compareOldValues);
   };
 
   handleEndDateSelect = (date) => {
-    let start = moment(this.state.anchor);
     this.setState(
-      {
-        duration: moment(date).diff(start, "minutes"),
-      },
+      ({ newValues }) => ({
+        newValues: {
+          ...newValues,
+          duration: moment(date).diff(moment(newValues.anchor), "minutes"),
+        },
+      }),
       this.compareOldValues
     );
   };
 
   handleTicketChange = (option) => {
     this.setState(
-      {
-        ticket_id: option && option.value,
-      },
+      ({ newValues }) => ({
+        newValues: {
+          ...newValues,
+          ticket_id: _.get(option, "value", null),
+        },
+      }),
       this.compareOldValues
     );
   };
 
   handleColorChange = (color) => {
     this.setState(
-      {
-        color: color.hex,
-      },
+      ({ newValues }) => ({
+        newValues: {
+          ...newValues,
+          color: color.hex,
+        },
+      }),
       this.compareOldValues
     );
   };
 
   handleTitleChange = (event) => {
+    let title = event.target.value;
+
     this.setState(
-      {
-        title: event.target.value,
-      },
+      ({ newValues }) => ({
+        newValues: {
+          ...newValues,
+          title,
+        },
+      }),
       this.compareOldValues
     );
   };
 
-  onFrequencyChange = ({ value }) => {
+  onFrequencyChange = (option) => {
     this.setState(
-      {
-        frequency: value,
-      },
+      ({ newValues }) => ({
+        newValues: {
+          ...newValues,
+          frequency: _.get(option, "value", "once"),
+        },
+      }),
       this.compareOldValues
     );
   };
 
   render() {
     const { isNewRecord } = this.props;
+    const { newValues, ticket_name, isChanged } = this.state;
 
-    const {
-      title,
-      ticket_id,
-      ticket_name,
-      frequency,
-      color,
-      anchor,
-      duration,
-      isChanged,
-    } = this.state;
+    const { title, ticket_id, frequency, color, anchor, duration } = newValues;
 
     let startDate = moment(anchor).toDate();
     let endDate = moment(anchor).add("minutes", duration).toDate();
+    let defaultTicket = ticket_id && {
+      value: ticket_id,
+      label: ticket_name,
+    };
+    let defaultFrequency = _.find(this.frequencies, ["value", frequency]);
 
     let submitClass =
       "button full-width margin-top-35 button-sliding-icon" +
@@ -197,63 +181,67 @@ class Form extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>Title</label>
-        <input
-          id="event_title"
-          className="with-border"
-          type="text"
-          value={title}
-          onChange={this.handleTitleChange}
-        />
-        <label>Timespan</label>
-        <div className="d-flex justify-content-between">
-          <DatePicker
-            selected={startDate}
-            onChange={this.handleStartDateSelect}
-            startDate={startDate}
-            endDate={endDate}
-            timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy HH:mm"
-            selectsStart
-            showTimeInput
-          />
-          <DatePicker
-            selected={endDate}
-            onChange={this.handleEndDateSelect}
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy HH:mm"
-            selectsEnd
-            showTimeInput
+        <div>
+          <label>Title</label>
+          <input
+            required
+            id="event_title"
+            className="with-border"
+            type="text"
+            value={title}
+            onChange={this.handleTitleChange}
           />
         </div>
-        <label>Ticket</label>
-        <AsyncSelect
-          defaultValue={
-            ticket_id && {
-              value: ticket_id,
-              label: ticket_name,
-            }
-          }
-          cacheOptions
-          defaultOptions
-          loadOptions={this.avaibleTickets}
-          className="basic-single"
-          classNamePrefix="select"
-          isClearable
-          isSearchable
-          onChange={this.handleTicketChange}
-        />
-        <label>Frequency</label>
-        <Select
-          className="basic-single"
-          classNamePrefix="select"
-          defaultValue={_.find(this.frequencies, ["value", frequency])}
-          onChange={this.onFrequencyChange}
-          options={this.frequencies}
-        />
+        <div>
+          <label>Timespan</label>
+          <div className="d-flex justify-content-between">
+            <DatePicker
+              selected={startDate}
+              onChange={this.handleStartDateSelect}
+              startDate={startDate}
+              endDate={endDate}
+              timeInputLabel="Time:"
+              dateFormat="MM/dd/yyyy HH:mm"
+              selectsStart
+              showTimeInput
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={this.handleEndDateSelect}
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              timeInputLabel="Time:"
+              dateFormat="MM/dd/yyyy HH:mm"
+              selectsEnd
+              showTimeInput
+            />
+          </div>
+        </div>
+        <div>
+          <label>Ticket</label>
+          <AsyncSelect
+            defaultValue={defaultTicket}
+            cacheOptions
+            defaultOptions
+            loadOptions={this.avaibleTickets}
+            className="basic-single"
+            classNamePrefix="select"
+            isClearable
+            isSearchable
+            onChange={this.handleTicketChange}
+          />
+        </div>
+        <div>
+          <label>Frequency</label>
+          <Select
+            className="basic-single"
+            classNamePrefix="select"
+            defaultValue={defaultFrequency}
+            onChange={this.onFrequencyChange}
+            options={this.frequencies}
+          />
+        </div>
         <div className="d-flex align-items-center">
           <label className="mr-2">Color</label>
           <ColorPicker initialColor={color} onChange={this.handleColorChange} />

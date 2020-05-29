@@ -16,7 +16,7 @@ feature 'responsible user manages unit events', js: true do
 
     expect(page).not_to have_text(create_params[:title])
     within '#fullcalendar' do
-      find('td.fc-widget-content', match: :first).click
+      find('td.fc-widget-content.fc-mon', match: :first).click
     end
 
     fill_in id: :event_title, with: create_params[:title]
