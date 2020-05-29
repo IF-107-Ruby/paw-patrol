@@ -6,10 +6,7 @@ const FlashMessage = props => {
   const flashClassName = `${serverError ? 'warning' : 'success'}`;
   return(
     <div id='flash-messages'>
-      <div 
-      // className='notification success closeable'
-      className={`notification closeable ${flashClassName}`}
-      >
+      <div className={`notification closeable ${flashClassName}`} >
         {serverError ?
           <p>Unable to update watchers!</p>
         :
