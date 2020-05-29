@@ -47,6 +47,7 @@ class Ticket < ApplicationRecord
                  }
 
   after_create :send_ticket_notification
+  before_update :send_ticket_resolved_email
 
   has_ancestry
 
@@ -102,8 +103,14 @@ class Ticket < ApplicationRecord
       .except('id', 'status')
       .merge(description: description, parent: self)
   end
-
+  
   def add_author_to_watchers
     watchers << user
+  end
+  
+  def send_ticket_resolved_email
+    return unless status_changed? && resolved?
+
+    SendTicketResolvedEmailJob.perform_later(id)
   end
 end
