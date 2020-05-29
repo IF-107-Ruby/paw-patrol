@@ -1,13 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import ReactPaginate from "react-paginate";
-
-Pagination.propTypes = {
-  pageCount: PropTypes.number,
-  initialPage: PropTypes.number,
-  onPageChange: PropTypes.func,
-};
 
 function Pagination(props) {
   const { pageCount, initialPage, onPageChange } = props;

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import pluralize from "pluralize";
 
@@ -166,11 +165,5 @@ class Unit extends Component {
     );
   }
 }
-
-Unit.propTypes = {
-  unit: PropTypes.object,
-  editable: PropTypes.bool,
-  handleDestroy: PropTypes.func,
-};
 
 export default Unit;

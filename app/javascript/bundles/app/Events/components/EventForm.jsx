@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import moment from "moment";
 
@@ -215,19 +214,5 @@ class Form extends Component {
     );
   }
 }
-
-Form.propTypes = {
-  isNewRecord: PropTypes.bool,
-  unitId: PropTypes.number,
-  id: PropTypes.number,
-  title: PropTypes.string,
-  anchor: PropTypes.oneOfType([PropTypes.objectOf(Date), PropTypes.string]),
-  duration: PropTypes.number,
-  frequency: PropTypes.string,
-  color: PropTypes.string,
-  ticket: PropTypes.object,
-  afterSubmitCallback: PropTypes.func,
-  submitCallback: PropTypes.func,
-};
 
 export default Form;

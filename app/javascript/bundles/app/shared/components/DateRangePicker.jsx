@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import DatePicker from "react-datepicker";
 import moment from "moment";
@@ -84,14 +83,5 @@ class DateRangePicker extends Component {
     );
   }
 }
-
-DateRangePicker.propTypes = {
-  initialAnchor: PropTypes.oneOfType([
-    PropTypes.objectOf(Date),
-    PropTypes.string,
-  ]),
-  initialDuration: PropTypes.number,
-  onChange: PropTypes.func,
-};
 
 export default DateRangePicker;

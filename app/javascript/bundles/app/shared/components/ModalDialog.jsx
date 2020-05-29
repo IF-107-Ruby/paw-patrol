@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import Modal from "react-bootstrap/Modal";
 
@@ -34,10 +33,5 @@ class ModalDialog extends Component {
     );
   }
 }
-
-ModalDialog.propTypes = {
-  title: PropTypes.string,
-  closeCallback: PropTypes.func,
-};
 
 export default ModalDialog;

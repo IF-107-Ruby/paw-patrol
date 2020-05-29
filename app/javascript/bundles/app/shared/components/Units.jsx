@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import _ from "lodash";
 
@@ -114,12 +113,5 @@ class Units extends Component {
     );
   }
 }
-
-Units.propTypes = {
-  headline: PropTypes.string,
-  newUnitPath: PropTypes.string,
-  unitsPath: PropTypes.string,
-  editable: PropTypes.bool,
-};
 
 export default Units;

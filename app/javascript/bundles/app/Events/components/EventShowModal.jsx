@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import moment from "moment";
 
@@ -75,13 +74,5 @@ function EventShowModal(props) {
     </ModalDialog>
   );
 }
-
-EventShowModal.propTypes = {
-  closeCallback: PropTypes.func,
-  onEventEdit: PropTypes.func,
-  onEventDelete: PropTypes.func,
-  event: PropTypes.object,
-  editable: PropTypes.bool,
-};
 
 export default EventShowModal;
