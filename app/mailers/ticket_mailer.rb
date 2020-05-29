@@ -12,4 +12,14 @@ class TicketMailer < ApplicationMailer
 
     mail(to: @company_owner.email, subject: 'Assign responsible user')
   end
+
+  def ticket_resolved_email(ticket)
+    @ticket = ticket
+    @users_emails = @ticket.commentators
+                           .pluck(:email)
+                           .unshift(@ticket.user.email)
+                           .uniq
+
+    mail(to: @users_emails, subject: "Ticket: #{@ticket.name}")
+  end
 end

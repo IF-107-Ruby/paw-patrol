@@ -9,4 +9,8 @@ class TicketMailerPreview < ActionMailer::Preview
     ticket = Ticket.all.detect { |t| t.unit.responsible_user.nil? }
     TicketMailer.assign_responsible_user_email(ticket)
   end
+
+  def ticket_resolved_email
+    TicketMailer.ticket_resolved_email(Ticket.first)
+  end
 end
