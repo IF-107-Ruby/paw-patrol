@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import WatchersForm from './WatchersForm';
-import './watchers-block.scss';
-import axios from '../../../shared/AxiosHelper';
-import FlashMessage from './FlashMessage';
 import _ from 'lodash';
+import axios from '../../../shared/AxiosHelper';
+import WatchersForm from './WatchersForm';
+import FlashMessage from './FlashMessage';
+import './watchers-block.scss';
 
 
 class WatchersBlock extends Component {
@@ -35,19 +35,14 @@ class WatchersBlock extends Component {
 
   handleChange(event) {
     let options = event.target.options;
-    let value = [];
+    const values = _.filter(options, 'selected');
 
-    _.forEach(options, option => {
-      if (option.selected) {
-        value.push(option.value)
-      } 
-    })
-    this.setState({ selectedWatchers: value });
+    this.setState({ selectedWatchers: _.map(values, 'value') });
   }
 
   handleSubmit(event) {
-    let watcher_ids = this.state.selectedWatchers;
-    let id = this.props.ticket_id
+    const watcher_ids = [...this.state.selectedWatchers];
+    const id = this.props.ticket_id;
     axios
       .patch(`${this.props.ticket_id}/watchers`, {
         ticket: {
