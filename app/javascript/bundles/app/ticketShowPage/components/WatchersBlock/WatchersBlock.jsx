@@ -13,7 +13,8 @@ class WatchersBlock extends Component {
       availableWatchers: _.get(this.props, 'available_watchers', []),
       selectedWatchers: _.get(this.props, 'selected_ids', []),
       showForm: false,
-      showFlash: false
+      showFlash: false,
+      serverError: false
      };
     this.handleForm = this.handleForm.bind(this);
     this.closeFlash = this.closeFlash.bind(this);
@@ -41,7 +42,6 @@ class WatchersBlock extends Component {
         value.push(option.value)
       } 
     })
-
     this.setState({ selectedWatchers: value });
   }
 
@@ -60,7 +60,10 @@ class WatchersBlock extends Component {
         }))
       })
       .catch(error => {
-        console.log(error)
+        this.setState((state) => ({
+          serverError: true,
+          showFlash: !state.showFlash
+        }))
       })
     event.preventDefault();
   }
@@ -68,7 +71,8 @@ class WatchersBlock extends Component {
   render() {
     const {showForm,
           availableWatchers,
-          selectedWatchers} = this.state;
+          selectedWatchers,
+          serverError} = this.state;
           
     const btnStyle = { display: showForm ? 'none' : 'block' };
 
@@ -86,7 +90,7 @@ class WatchersBlock extends Component {
           </button>
         </div>
         {this.state.showFlash ?
-          <FlashMessage closeFlash = {this.closeFlash} />
+          <FlashMessage closeFlash = {this.closeFlash} serverError = {serverError} />
           : 
           null
         }

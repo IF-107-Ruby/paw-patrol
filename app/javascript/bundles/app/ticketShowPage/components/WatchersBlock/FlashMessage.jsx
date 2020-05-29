@@ -2,11 +2,19 @@ import React from 'react';
 import './watchers-block.scss';
 
 const FlashMessage = props => {
-  const {closeFlash} = props;
+  const {closeFlash, serverError} = props;
+  const flashClassName = `${serverError ? 'warning' : 'success'}`;
   return(
     <div id='flash-messages'>
-      <div className='notification success closeable'>
-        <p>Watchers updated!</p>
+      <div 
+      // className='notification success closeable'
+      className={`notification closeable ${flashClassName}`}
+      >
+        {serverError ?
+          <p>Unable to update watchers!</p>
+        :
+          <p>Watchers updated!</p>
+        }  
         <a className='close' onClick={closeFlash}></a>
       </div>
     </div>
