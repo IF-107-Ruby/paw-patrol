@@ -51,8 +51,8 @@ FactoryBot.define do
     end
 
     trait :with_employees do
-      after(:build) do |unit|
-        unit.users = build_list(:employee, 4, company: unit.company)
+      before(:create) do |unit|
+        unit.users = create_list(:employee, 4, company: unit.company)
       end
     end
 
@@ -61,9 +61,13 @@ FactoryBot.define do
 
       after(:create) do |unit|
         unit.users.each do |user|
-          5.times do
-            create(:ticket, :with_comments, user: user, unit: unit)
-          end
+          create_list(:ticket, 5, :with_comments, user: user, unit: unit)
+          create_list(:resolved_ticket, 3, :with_comments, user: user, unit: unit)
+          create_list(:resolved_ticket, 2,
+                      :with_comments,
+                      :with_review,
+                      user: user,
+                      unit: unit)
         end
       end
     end

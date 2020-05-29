@@ -43,6 +43,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.32', '>= 3.32.1'
+  gem 'chromedriver-helper'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'

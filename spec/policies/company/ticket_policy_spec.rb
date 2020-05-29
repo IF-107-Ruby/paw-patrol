@@ -15,4 +15,15 @@ RSpec.describe Company::TicketPolicy, type: :policy do
       expect(subject).not_to permit(staff_member)
     end
   end
+
+  permissions :resolved? do
+    it 'grant access' do
+      expect(subject).to permit(company_owner)
+      expect(subject).to permit(employee)
+    end
+
+    it 'denied access' do
+      expect(subject).not_to permit(staff_member)
+    end
+  end
 end

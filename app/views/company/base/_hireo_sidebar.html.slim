@@ -35,6 +35,11 @@
                 = link_to new_company_ticket_path
                   i.icon-material-outline-library-add
                   | Add ticket
+              - if current_user.resolved_tickets?
+                li class="#{active_path(resolved_company_tickets_path)}"
+                  = link_to resolved_company_tickets_path
+                    i.icon-material-outline-rate-review
+                    | Rate resolved tickets
           ul data-submenu-title="Account" 
             li class="#{active_path(user_path(current_user))}"
               = link_to company_user_path(current_user)

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
     resources :tickets, only: %i[show new create] do
       resources :comments
+      resource :review, except: %i[index destroy]
+      get :resolved, on: :collection
     end
     resources :user_units, only: %i[index show]
   end

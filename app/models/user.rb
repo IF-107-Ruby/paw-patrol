@@ -58,12 +58,12 @@ class User < ApplicationRecord
     }
   end
 
-  def can_create_ticket?
-    company_owner? || employee?
-  end
-
   def company?
     company.present?
+  end
+
+  def resolved_tickets?
+    tickets.resolved.any?
   end
 
   private

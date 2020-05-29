@@ -16,15 +16,15 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph_by_chars }
     email { Faker::Internet.unique.safe_email }
     phone { Faker::PhoneNumber.cell_phone_in_e164 }
+  end
 
-    factory :company_with_units do
-      transient do
-        units_count { 5 }
-      end
+  factory :company_with_units, parent: :company do
+    transient do
+      units_count { 5 }
+    end
 
-      after(:create) do |company, evaluator|
-        create_list(:unit, evaluator.units_count, company: company)
-      end
+    after(:create) do |company, evaluator|
+      create_list(:unit, evaluator.units_count, company: company)
     end
   end
 end

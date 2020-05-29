@@ -1,0 +1,13 @@
+- provide(:headline, 'Resolved Tickets')
+.row
+  .col-md-12
+    .dashboard-box
+      .headline
+        h3
+          i.icon-material-outline-rate-review
+          | Rate Resolved Tickets
+      .content.with-padding.overflow-hidden
+        ul.dashboard-box-list
+          = render partial: 'resolved_ticket', collection: @resolved_tickets
+
+        = render partial: 'shared/pagination', locals: { pagy: @pagy }
