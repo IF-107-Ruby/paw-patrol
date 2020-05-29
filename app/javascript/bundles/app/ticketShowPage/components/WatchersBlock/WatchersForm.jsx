@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import avatar from '../../../../../../assets/images/user-avatar-placeholder.png';
 import './watchers-block.scss';
 
@@ -10,20 +11,19 @@ const WatchersForm = props => {
           availableWatchers,
           handleForm } = props;
 
-  const btnStyle = {display: showForm ? 'block' : 'none'};
-
   const options = availableWatchers.map((watcher) => {
     return (
       <option key={watcher.id} value={watcher.id}>
         {watcher.full_name}
       </option>
     )
-  })
+  });
+
+  const formClasses = classNames('add-watcher-form', { 'shown-form': showForm });
   
   return(
     <form onSubmit={handleSubmit}
-          style={btnStyle}
-          className='add-watcher-form'
+          className={formClasses}
           >
       <div className='row'>
         <div className='col-xl-12'>

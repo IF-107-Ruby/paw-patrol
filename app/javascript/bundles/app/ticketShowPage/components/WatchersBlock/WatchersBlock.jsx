@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import axios from '../../../shared/AxiosHelper';
+import classNames from 'classnames';
 import WatchersForm from './WatchersForm';
 import FlashMessage from './FlashMessage';
 import './watchers-block.scss';
@@ -35,9 +36,9 @@ class WatchersBlock extends Component {
 
   handleChange(event) {
     let options = event.target.options;
-    const values = _.filter(options, 'selected');
+    const values = _.map(_.filter(options, 'selected'), 'value');
 
-    this.setState({ selectedWatchers: _.map(values, 'value') });
+    this.setState({ selectedWatchers: values });
   }
 
   handleSubmit(event) {
@@ -69,16 +70,16 @@ class WatchersBlock extends Component {
           selectedWatchers,
           serverError} = this.state;
           
-    const btnStyle = { display: showForm ? 'none' : 'block' };
+    const btnClasses = classNames('button margin-top-10 button-sliding-icon',
+                                  { 'hide-btn': showForm });
 
     return (
       <>
         <div className="d-flex justify-content-end">
           <button 
-            className="button margin-top-10 button-sliding-icon"
+            className={btnClasses}
             id='add-watchers-btn'
             onClick={this.handleForm}
-            style = {btnStyle}
             >
               Add watchers
               <i className='icon-material-outline-visibility'></i>

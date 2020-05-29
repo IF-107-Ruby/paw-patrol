@@ -3,7 +3,9 @@ import './watchers-block.scss';
 
 const FlashMessage = props => {
   const {closeFlash, serverError} = props;
+  
   const flashClassName = `${serverError ? 'warning' : 'success'}`;
+
   return(
     <div id='flash-messages'>
       <div className={`notification closeable ${flashClassName}`} >
