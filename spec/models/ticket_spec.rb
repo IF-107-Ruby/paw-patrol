@@ -7,6 +7,7 @@ RSpec.describe Ticket, type: :model do
     it { expect(ticket).to belong_to(:user) }
     it { expect(ticket).to belong_to(:unit) }
     it { expect(ticket).to have_one(:review).dependent(:destroy) }
+    it { is_expected.to have_many(:commentators).through(:comments) }
   end
 
   describe 'validations' do
