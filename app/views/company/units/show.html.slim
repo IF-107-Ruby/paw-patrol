@@ -50,7 +50,7 @@
           h3
             i.icon-material-outline-library-books
             | Tickets
-          - if current_user.can_create_ticket?
+          - if policy(%i[company ticket]).create?
             .icon-links
               = link_to new_company_ticket_path(unit_id: unit.id)
                 i.icon-feather-plus

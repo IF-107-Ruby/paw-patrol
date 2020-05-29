@@ -19,20 +19,18 @@ class ColorPicker extends Component {
   }
 
   handlePickerClick() {
-    this.setState(
-      state({
-        displayColorPicker: !state.displayColorPicker,
-      })
-    );
+    this.setState((state) => ({
+      displayColorPicker: !state.displayColorPicker,
+    }));
   }
 
   handlePickerClose() {
     this.setState({ displayColorPicker: false });
   }
 
-  onChange(color) {
-    this.setState({ color });
-    this.props.onChange(color);
+  onChange({ hex }) {
+    this.setState({ color: hex });
+    this.props.onChange(hex);
   }
 
   render() {

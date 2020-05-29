@@ -7,13 +7,7 @@ import _ from "lodash";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export default class DateRangePicker extends Component {
-  static propTypes = {
-    initialAnchor: PropTypes.objectOf(Date),
-    initialDuration: PropTypes.number,
-    onChange: PropTypes.func,
-  };
-
+class DateRangePicker extends Component {
   constructor(props) {
     super(props);
 
@@ -90,3 +84,14 @@ export default class DateRangePicker extends Component {
     );
   }
 }
+
+DateRangePicker.propTypes = {
+  initialAnchor: PropTypes.oneOfType([
+    PropTypes.objectOf(Date),
+    PropTypes.string,
+  ]),
+  initialDuration: PropTypes.number,
+  onChange: PropTypes.func,
+};
+
+export default DateRangePicker;

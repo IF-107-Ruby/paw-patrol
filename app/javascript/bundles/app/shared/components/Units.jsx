@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import _ from "lodash";
 
-import axios from "../../../../AxiosHelper";
+import axios from "../AxiosHelper";
 
 import Unit from "../../Units/components/Unit";
 import Pagination from "./Pagination";

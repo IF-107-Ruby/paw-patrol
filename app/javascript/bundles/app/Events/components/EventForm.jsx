@@ -11,7 +11,7 @@ import _ from "lodash";
 import ColorPicker from "../../shared/components/ColorPicker";
 import DateRangePicker from "../../shared/components/DateRangePicker";
 
-import axios from "../../../../AxiosHelper";
+import axios from "../../shared/AxiosHelper";
 import { showSnackbarError } from "../../../../snackbars";
 
 class Form extends Component {
@@ -100,7 +100,7 @@ class Form extends Component {
     this.setState(({ newEventValues }) => ({
       newEventValues: {
         ...newEventValues,
-        color: color.hex,
+        color,
       },
     }));
   }
@@ -219,7 +219,7 @@ Form.propTypes = {
   unitId: PropTypes.number,
   id: PropTypes.number,
   title: PropTypes.string,
-  anchor: PropTypes.objectOf(Date),
+  anchor: PropTypes.oneOfType([PropTypes.objectOf(Date), PropTypes.string]),
   duration: PropTypes.number,
   frequency: PropTypes.string,
   color: PropTypes.string,

@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 import moment from "moment";
 
-import axios from "../../../../AxiosHelper";
+import axios from "../../shared/AxiosHelper";
 
 import NewEventModal from "../../Events/components/NewEventModal";
 import EventShowModal from "../../Events/components/EventShowModal";
@@ -138,49 +138,31 @@ export default class Calendar extends Component {
 
   handleSelect({ start, end }) {
     this.setState({
-      newEvent: { start, end },
-      modal: (
-        <NewEventModal
-          closeCallback={this.handleClose}
-          unitId={this.props.unit_id}
-          anchor={start}
-          submitCallback={this.handleEventCreated}
-          duration={moment(end).diff(start, "minutes")}
-        />
-      ),
+      modal: {
+        type: "NewEventModal",
+        data: {
+          start,
+          end,
+        },
+      },
     });
   }
 
   handleEventClick({ event }) {
     this.setState({
-      modal: (
-        <EventShowModal
-          closeCallback={this.handleClose}
-          editable={this.props.editable}
-          event={event}
-          onEventEdit={this.handleEventEdit}
-          onEventDelete={this.handleEventDelete}
-        />
-      ),
+      modal: {
+        type: "EventShowModal",
+        data: event,
+      },
     });
   }
 
   handleEventEdit(event) {
     this.setState({
-      modal: (
-        <EventEditModal
-          closeCallback={this.handleClose}
-          unitId={this.props.unit_id}
-          id={_.toInteger(event.id)}
-          anchor={event.start}
-          submitCallback={this.handleEventEdited}
-          title={event.title}
-          frequency={event.extendedProps.frequency}
-          duration={moment(event.end).diff(event.start, "minutes")}
-          ticket={event.extendedProps.ticket}
-          color={event.backgroundColor}
-        />
-      ),
+      modal: {
+        type: "EventEditModal",
+        data: event,
+      },
     });
   }
 
@@ -188,9 +170,64 @@ export default class Calendar extends Component {
     this.setState({ modal: null });
   }
 
+  getEewEventModal({ start, end }) {
+    return (
+      <NewEventModal
+        closeCallback={this.handleClose}
+        unitId={this.props.unit_id}
+        anchor={start}
+        submitCallback={this.handleEventCreated}
+        duration={moment(end).diff(start, "minutes")}
+      />
+    );
+  }
+
+  getEventEditModal(event) {
+    return (
+      <EventEditModal
+        closeCallback={this.handleClose}
+        unitId={this.props.unit_id}
+        id={_.toInteger(event.id)}
+        anchor={event.start}
+        submitCallback={this.handleEventEdited}
+        title={event.title}
+        frequency={event.extendedProps.frequency}
+        duration={moment(event.end).diff(event.start, "minutes")}
+        ticket={event.extendedProps.ticket}
+        color={event.backgroundColor}
+      />
+    );
+  }
+
+  getEventShowModal(event) {
+    return (
+      <EventShowModal
+        closeCallback={this.handleClose}
+        editable={this.props.editable}
+        event={event}
+        onEventEdit={this.handleEventEdit}
+        onEventDelete={this.handleEventDelete}
+      />
+    );
+  }
+
+  getModal() {
+    const { modal } = this.state;
+    if (_.isNil(modal)) return null;
+
+    if (_.eq(modal.type, "NewEventModal"))
+      return this.getEewEventModal(modal.data);
+    if (_.eq(modal.type, "EventShowModal"))
+      return this.getEventShowModal(modal.data);
+    if (_.eq(modal.type, "EventEditModal"))
+      return this.getEventEditModal(modal.data);
+  }
+
   render() {
     const { editable } = this.props;
-    const { events, modal } = this.state;
+    const { events } = this.state;
+
+    let modal = this.getModal();
 
     return (
       <div>

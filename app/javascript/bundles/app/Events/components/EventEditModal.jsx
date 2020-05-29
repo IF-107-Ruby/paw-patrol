@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ModalDialog from "../../shared/components/ModalDialog";
-import Form from "./EventForm";
+import EventForm from "./EventForm";
 
 function NewEventModal(props) {
   const {
@@ -20,7 +20,7 @@ function NewEventModal(props) {
 
   return (
     <ModalDialog title="New event" closeCallback={closeCallback}>
-      <Form
+      <EventForm
         id={id}
         unitId={unitId}
         anchor={anchor}
@@ -40,7 +40,7 @@ NewEventModal.propTypes = {
   closeCallback: PropTypes.func,
   unitId: PropTypes.number,
   id: PropTypes.number,
-  anchor: PropTypes.objectOf(Date),
+  anchor: PropTypes.oneOfType([PropTypes.objectOf(Date), PropTypes.string]),
   frequency: PropTypes.string,
   title: PropTypes.string,
   duration: PropTypes.number,
