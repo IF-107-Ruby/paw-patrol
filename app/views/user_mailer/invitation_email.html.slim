@@ -16,7 +16,7 @@ html
               '
               = @user.first_name
               | ,
-            h4.mail-text 
+            h4.mail-text
               | You have been invited to join
               '
               strong.email-main-color = @user.company_name
@@ -25,10 +25,10 @@ html
               '
               = @user.display_role
             br
-            h4.mail-text 
+            h4.mail-text
               | To login to the site, just follow this
               '
-              a href="#{@url}" link
+              a href="#{@login_url}" link
 
             h4.mail-text.margin-top-15
               | Here is your credentials for log in:
@@ -39,14 +39,14 @@ html
             h4.mail-text.bolder
               | Password:
               '
-              span.normal = @user.password
+              span.normal = @password
             br
-            h4.mail-text 
+            h4.mail-text
               | If you have been invited by mistake, please contact a Company Owner.
             br
-            h4.mail-text 
+            h4.mail-text
               | Cheers,
-            h4.mail-text 
+            h4.mail-text
               | The team at ROOM PASSPORT
           .section-headline.gray.centered.margin-bottom-15.margin-top-30.email-footer-background
             h6.padding-bottom-30.padding-top-30

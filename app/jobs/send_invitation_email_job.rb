@@ -5,7 +5,6 @@ class SendInvitationEmailJob < ApplicationJob
     user = User.find_by(id: user_id)
     return if user.nil?
 
-    user.password = password
-    UserMailer.invitation_email(user).deliver_now
+    UserMailer.invitation_email(user, password).deliver_now
   end
 end

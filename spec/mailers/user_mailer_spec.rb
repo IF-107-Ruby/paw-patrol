@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe UserMailer, type: :mailer do
   describe 'ivivation email' do
     let!(:user) { create :company_owner, :with_company }
-    let!(:mail) { described_class.invitation_email(user).deliver_now }
+    let!(:mail) { described_class.invitation_email(user, user.password).deliver_now }
 
     it 'renders the subject' do
       expect(mail.subject).to eql('Invitation email')
