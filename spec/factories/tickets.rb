@@ -26,12 +26,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_resolution do
-      after(:build) do |ticket|
-        ticket.resolution = ActionText::Content.new(Faker::Lorem.paragraph)
-      end
-    end
-
     trait :with_following_up_ticket do
       after(:build) do |ticket|
         ticket.parent = create(:ticket, user: ticket.user, unit: ticket.unit)
@@ -41,6 +35,7 @@ FactoryBot.define do
 
   factory :resolved_ticket, parent: :ticket do
     status { :resolved }
+    resolution { ActionText::Content.new(Faker::Lorem.paragraph) }
 
     trait :with_review do
       after(:build) do |resolved_ticket|

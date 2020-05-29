@@ -45,8 +45,8 @@ RSpec.describe Ticket, type: :model do
 
   describe 'resolution' do
     it 'resolution_attachments' do
-      expected = ticket.resolution.body.attachments
-      expect(ticket.resolution_attachments).to eq(expected)
+      expected = resolved_ticket.resolution.body.attachments
+      expect(resolved_ticket.resolution_attachments).to eq(expected)
     end
   end
 

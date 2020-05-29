@@ -5,7 +5,6 @@ feature 'EmployeeLeaveAReview' do
   let(:review_attributes) { FactoryBot.attributes_for :review }
 
   before do
-    ticket.resolved!
     login_as employee
     visit resolved_company_tickets_path
   end

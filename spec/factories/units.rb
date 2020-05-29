@@ -46,7 +46,7 @@ FactoryBot.define do
       with_employee
 
       after(:create) do |unit|
-        create(:ticket, :with_resolution, user: unit.users.last, unit: unit)
+        create(:ticket, user: unit.users.last, unit: unit)
       end
     end
 
