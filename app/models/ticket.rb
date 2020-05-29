@@ -23,7 +23,6 @@ class Ticket < ApplicationRecord
   has_one :ticket_completion, dependent: :destroy
 
   has_many :comments, as: :commentable, dependent: :destroy
-  has_many :comments, as: :commentable, dependent: :destroy
 
   has_rich_text :description
   has_rich_text :resolution
@@ -72,10 +71,7 @@ class Ticket < ApplicationRecord
   end
 
   def follow_up
-    ticket = Ticket.new(attributes.except('id', 'status'))
-    ticket.description = description
-    ticket.parent = self
-    ticket
+    Ticket.create(follow_up_params)
   end
 
   private
@@ -89,5 +85,11 @@ class Ticket < ApplicationRecord
 
   def send_ticket_notification
     SendNewTicketEmailJob.perform_later(id, unit.responsible_user.present?)
+  end
+
+  def follow_up_params
+    attributes
+      .except('id', 'status')
+      .merge(description: description, parent: self)
   end
 end

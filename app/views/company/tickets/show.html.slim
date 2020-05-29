@@ -17,7 +17,7 @@
                 = link_to company_ticket_followed_path(@ticket)
                   i.icon-feather-copy.ticket-icons
             .col-md-2
-               - if policy([:company, @ticket]).show? && @ticket.parent.present?
+               - if policy([:company, @ticket]).show? && @ticket.parent
                  = link_to company_ticket_path(@ticket.parent)
                    i.icon-material-outline-launch.ticket-icons
       .content.with-padding

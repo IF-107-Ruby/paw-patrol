@@ -65,12 +65,8 @@ class Company
                          .resolved
                          .find(params[:ticket_id])
       @ticket = @original_ticket.follow_up
-      if @ticket.save
-        redirect_to edit_company_ticket_path(@ticket)
-      else
-        flash[:warning] = 'Ticket is not followed up.'
-        render 'show'
-      end
+
+      redirect_to edit_company_ticket_path(@ticket)
     end
 
     private
