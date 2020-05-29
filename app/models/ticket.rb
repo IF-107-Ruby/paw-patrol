@@ -29,6 +29,7 @@ class Ticket < ApplicationRecord
   has_many :watchers_relationship, dependent: :destroy
   has_many :watchers, through: :watchers_relationship, source: :user
   accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
+  has_many :commentators, -> { distinct }, source: :user, through: :comments
 
   has_rich_text :description
   has_rich_text :resolution
