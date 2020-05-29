@@ -7,6 +7,7 @@ import Select from "react-select";
 import AsyncSelect from "react-select/async";
 
 import _ from "lodash";
+import classNames from "classnames";
 
 import ColorPicker from "../../shared/components/ColorPicker";
 import DateRangePicker from "../../shared/components/DateRangePicker";
@@ -146,9 +147,10 @@ class Form extends Component {
 
     let defaultFrequency = _.find(this.frequencies, ["value", frequency]);
 
-    let submitClass =
-      "button full-width margin-top-35 button-sliding-icon" +
-      (isChanged ? "" : " dark disabled");
+    let submitClass = classNames(
+      "button full-width margin-top-35 button-sliding-icon",
+      { "dark disabled": !isChanged }
+    );
 
     let submitText = isNewRecord ? "Add event" : "Update event";
 

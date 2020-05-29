@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import pluralize from "pluralize";
 
 import _ from "lodash";
+import classNames from "classnames";
 
 import axios from "../../shared/AxiosHelper";
 import { showSnackbarError, showSnackbarSuccess } from "../../../../snackbars";
@@ -78,13 +79,16 @@ class Unit extends Component {
     const { unit, childrenOpen, childrenLoaded, children } = this.state;
     const { editable } = this.props;
 
+    let childrenToggleButtonClass = classNames(
+      "icon-material-outline-keyboard-arrow-right show-arrow",
+      { "show-arrow-down": childrenOpen }
+    );
+
     let childrenToggleButton = unit.hasChildren && (
       <a id={`unit_${unit.id}_children`}>
         <i
           onClick={this.handleChildrenToggle}
-          className={`icon-material-outline-keyboard-arrow-right show-arrow ${
-            childrenOpen ? "show-arrow-down" : ""
-          }`}
+          className={childrenToggleButtonClass}
         ></i>
       </a>
     );
