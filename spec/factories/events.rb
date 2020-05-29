@@ -17,7 +17,8 @@
 FactoryBot.define do
   factory :event do
     title { Faker::Lorem.sentence }
-    anchor { Faker::Date.between(from: 10.days.ago, to: 10.days.from_now) }
+    anchor { Faker::Date.between(from: 1.year.ago, to: 1.year.from_now) }
+    duration { Faker::Number.between(from: 1, to: 3) * 24 * 60 }
     frequency { :once }
     color { Faker::Color.hex_color }
     unit

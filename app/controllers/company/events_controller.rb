@@ -74,9 +74,7 @@ class Company
     end
 
     def selected_events
-      @selected_events ||= @unit.events.one_time
-                                .where('anchor <= ?', params[:end])
-                                .or(@unit.events.recurring)
+      @selected_events ||= @unit.events.where('anchor <= ?', params[:end])
     end
   end
 end
