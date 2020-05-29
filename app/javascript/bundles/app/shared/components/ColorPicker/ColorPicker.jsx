@@ -12,22 +12,28 @@ class ColorPicker extends Component {
       displayColorPicker: false,
       color: props.initialColor,
     };
+
+    this.handlePickerClick = this.handlePickerClick.bind(this);
+    this.handlePickerClose = this.handlePickerClose.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  handlePickerClick = () => {
-    this.setState((state) => ({
-      displayColorPicker: !state.displayColorPicker,
-    }));
-  };
+  handlePickerClick() {
+    this.setState(
+      state({
+        displayColorPicker: !state.displayColorPicker,
+      })
+    );
+  }
 
-  handlePickerClose = () => {
+  handlePickerClose() {
     this.setState({ displayColorPicker: false });
-  };
+  }
 
-  onChange = (color) => {
+  onChange(color) {
     this.setState({ color });
     this.props.onChange(color);
-  };
+  }
 
   render() {
     const { displayColorPicker, color } = this.state;

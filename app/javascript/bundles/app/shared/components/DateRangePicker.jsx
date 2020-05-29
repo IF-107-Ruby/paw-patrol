@@ -21,17 +21,21 @@ export default class DateRangePicker extends Component {
       anchor: _.get(props, "initialAnchor", moment()),
       duration: _.get(props, "initialDuration", 24 * 60),
     };
+
+    this.handleStartDateSelect = this.handleStartDateSelect.bind(this);
+    this.handleEndDateSelect = this.handleEndDateSelect.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  onChange = () => {
+  onChange() {
     const { anchor, duration } = this.state;
     this.props.onChange({
       anchor: moment(anchor).format('"YYYY-MM-DD HH:mm"'),
       duration,
     });
-  };
+  }
 
-  handleStartDateSelect = (date) => {
+  handleStartDateSelect(date) {
     this.setState(({ anchor, duration }) => {
       let start = moment(anchor).add("minutes", duration);
       let newDuration = moment(start).diff(moment(date), "minutes");
@@ -41,16 +45,16 @@ export default class DateRangePicker extends Component {
         anchor: date,
       };
     }, this.onChange);
-  };
+  }
 
-  handleEndDateSelect = (date) => {
+  handleEndDateSelect(date) {
     this.setState(
       ({ anchor }) => ({
         duration: moment(date).diff(moment(anchor), "minutes"),
       }),
       this.onChange
     );
-  };
+  }
 
   render() {
     const { anchor, duration } = this.state;

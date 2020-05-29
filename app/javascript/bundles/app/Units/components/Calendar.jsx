@@ -4,10 +4,8 @@ import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
-import "@fullcalendar/core/main.css";
-import "@fullcalendar/daygrid/main.css";
-
 import moment from "moment";
+
 import axios from "../../../../AxiosHelper";
 
 import NewEventModal from "../../Events/components/NewEventModal";
@@ -15,6 +13,9 @@ import EventShowModal from "../../Events/components/EventShowModal";
 import EventEditModal from "../../Events/components/EventEditModal";
 
 import { showSnackbarError, showSnackbarSuccess } from "../../../../snackbars";
+
+import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
 
 export default class Calendar extends Component {
   calendarRef = React.createRef();
@@ -27,9 +28,20 @@ export default class Calendar extends Component {
       events: [],
       modal: null,
     };
+
+    this.fetchEvents = this.fetchEvents.bind(this);
+    this.handleDateRender = this.handleDateRender.bind(this);
+    this.handleEventDrop = this.handleEventDrop.bind(this);
+    this.handleEventCreated = this.handleEventCreated.bind(this);
+    this.handleEventEdited = this.handleEventEdited.bind(this);
+    this.handleEventDelete = this.handleEventDelete.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleEventClick = this.handleEventClick.bind(this);
+    this.handleEventEdit = this.handleEventEdit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  fetchEvents = async (start, end) => {
+  async fetchEvents(start, end) {
     try {
       const res = await axios.get(
         `/company/units/${this.state.unitId}/events`,
@@ -44,9 +56,9 @@ export default class Calendar extends Component {
     } catch {
       showSnackbarError("Can't load events");
     }
-  };
+  }
 
-  handleDateRender = async ({ view }) => {
+  async handleDateRender({ view }) {
     let { activeStart, activeEnd } = view;
     if (
       !moment(this.state.start).isSame(moment(activeStart)) ||
@@ -54,9 +66,9 @@ export default class Calendar extends Component {
     ) {
       await this.fetchEvents(activeStart, activeEnd);
     }
-  };
+  }
 
-  handleEventDrop = async ({ event }) => {
+  async handleEventDrop({ event }) {
     try {
       let start = moment(event.start);
 
@@ -73,9 +85,9 @@ export default class Calendar extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Event was not updated");
     }
-  };
+  }
 
-  handleEventCreated = async (event) => {
+  async handleEventCreated(event) {
     try {
       let res = await axios.post(`/company/units/${this.state.unitId}/events`, {
         event,
@@ -88,9 +100,9 @@ export default class Calendar extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Event was not added");
     }
-  };
+  }
 
-  handleEventEdited = async (event) => {
+  async handleEventEdited(event) {
     try {
       let res = await axios.patch(
         `/company/units/${this.state.unitId}/events/${event.id}`,
@@ -104,27 +116,27 @@ export default class Calendar extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Event was not updated");
     }
-  };
+  }
 
-  handleEventDelete = async (event) => {
+  async handleEventDelete(event) {
     try {
       if (!window.confirm("Are you sure?")) return;
 
       let res = await axios.delete(event.extendedProps.event_url);
 
       if (res.status == 200) {
-        this.setState({
-          events: this.state.events.filter(({ id }) => id != res.data.id),
-        });
+        this.setState(({ events }) => ({
+          events: events.filter(({ id }) => id != res.data.id),
+        }));
         showSnackbarSuccess("Event removed successfully");
         this.handleClose();
       }
     } catch (error) {
       if (error.response) showSnackbarError("Event was not removed");
     }
-  };
+  }
 
-  handleSelect = ({ start, end }) => {
+  handleSelect({ start, end }) {
     this.setState({
       newEvent: { start, end },
       modal: (
@@ -137,9 +149,9 @@ export default class Calendar extends Component {
         />
       ),
     });
-  };
+  }
 
-  handleEventClick = async ({ event }) => {
+  handleEventClick({ event }) {
     this.setState({
       modal: (
         <EventShowModal
@@ -151,15 +163,15 @@ export default class Calendar extends Component {
         />
       ),
     });
-  };
+  }
 
-  handleEventEdit = (event) => {
+  handleEventEdit(event) {
     this.setState({
       modal: (
         <EventEditModal
           closeCallback={this.handleClose}
           unitId={this.props.unit_id}
-          id={+event.id}
+          id={_.toInteger(event.id)}
           anchor={event.start}
           submitCallback={this.handleEventEdited}
           title={event.title}
@@ -170,11 +182,11 @@ export default class Calendar extends Component {
         />
       ),
     });
-  };
+  }
 
-  handleClose = () => {
+  handleClose() {
     this.setState({ modal: null });
-  };
+  }
 
   render() {
     const { editable } = this.props;

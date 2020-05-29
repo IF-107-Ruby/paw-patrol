@@ -15,7 +15,7 @@ import axios from "../../../../AxiosHelper";
 import { showSnackbarError } from "../../../../snackbars";
 
 class Form extends Component {
-  static frequencies = [
+  frequencies = [
     { value: "once", label: "Once" },
     { value: "weekly", label: "Weekly" },
     { value: "biweekly", label: "Biweekly" },
@@ -26,7 +26,7 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    let original = {
+    this.original = {
       id: _.get(props, "id", null),
       title: _.get(props, "title", ""),
       anchor: moment(_.get(props, "anchor", moment())).format(
@@ -39,25 +39,21 @@ class Form extends Component {
     };
 
     this.state = {
-      original,
-      newValues: original,
+      newEventValues: _.clone(this.original),
       unitId: props.unitId,
-      isChanged: props.isNewRecord,
       ticket_name: _.get(props, "ticket.name", null),
     };
+
+    this.avaibleTickets = this.avaibleTickets.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDateRangeChange = this.handleDateRangeChange.bind(this);
+    this.handleTicketChange = this.handleTicketChange.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
+    this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
   }
 
-  compareOldValues = () => {
-    if (this.props.isNewRecord) return;
-
-    let { newValues, original } = this.state;
-
-    this.setState({
-      isChanged: !_.isEqual(original, newValues),
-    });
-  };
-
-  avaibleTickets = async () => {
+  async avaibleTickets() {
     try {
       let res = await axios.get(
         `/company/units/${this.state.unitId}/events/avaible_tickets`
@@ -69,91 +65,85 @@ class Form extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Unable to load avaible tickets");
     }
-  };
+  }
 
-  handleSubmit = (e) => {
+  handleSubmit(e) {
     e.preventDefault();
 
-    const { newValues } = this.state;
+    const { newEventValues } = this.state;
 
-    this.props.submitCallback({ ...newValues });
+    this.props.submitCallback({ ...newEventValues });
 
     this.props.afterSubmitCallback();
-  };
+  }
 
-  handleDateRangeChange = ({ anchor, duration }) => {
-    this.setState(
-      ({ newValues }) => ({
-        newValues: {
-          ...newValues,
-          anchor,
-          duration,
-        },
-      }),
-      this.compareOldValues
-    );
-  };
+  handleDateRangeChange({ anchor, duration }) {
+    this.setState(({ newEventValues }) => ({
+      newEventValues: {
+        ...newEventValues,
+        anchor,
+        duration,
+      },
+    }));
+  }
 
-  handleTicketChange = (option) => {
-    this.setState(
-      ({ newValues }) => ({
-        newValues: {
-          ...newValues,
-          ticket_id: _.get(option, "value", null),
-        },
-      }),
-      this.compareOldValues
-    );
-  };
+  handleTicketChange(option) {
+    this.setState(({ newEventValues }) => ({
+      newEventValues: {
+        ...newEventValues,
+        ticket_id: _.get(option, "value", null),
+      },
+    }));
+  }
 
-  handleColorChange = (color) => {
-    this.setState(
-      ({ newValues }) => ({
-        newValues: {
-          ...newValues,
-          color: color.hex,
-        },
-      }),
-      this.compareOldValues
-    );
-  };
+  handleColorChange(color) {
+    this.setState(({ newEventValues }) => ({
+      newEventValues: {
+        ...newEventValues,
+        color: color.hex,
+      },
+    }));
+  }
 
-  handleTitleChange = (event) => {
+  handleTitleChange(event) {
     let title = event.target.value;
 
-    this.setState(
-      ({ newValues }) => ({
-        newValues: {
-          ...newValues,
-          title,
-        },
-      }),
-      this.compareOldValues
-    );
-  };
+    this.setState(({ newEventValues }) => ({
+      newEventValues: {
+        ...newEventValues,
+        title,
+      },
+    }));
+  }
 
-  onFrequencyChange = (option) => {
-    this.setState(
-      ({ newValues }) => ({
-        newValues: {
-          ...newValues,
-          frequency: _.get(option, "value", "once"),
-        },
-      }),
-      this.compareOldValues
-    );
-  };
+  handleFrequencyChange(option) {
+    this.setState(({ newEventValues }) => ({
+      newEventValues: {
+        ...newEventValues,
+        frequency: _.get(option, "value", "once"),
+      },
+    }));
+  }
 
   render() {
     const { isNewRecord } = this.props;
-    const { newValues, ticket_name, isChanged } = this.state;
+    const { newEventValues, ticket_name } = this.state;
+    const isChanged = isNewRecord || !_.isEqual(this.original, newEventValues);
 
-    const { title, ticket_id, frequency, color, anchor, duration } = newValues;
+    const {
+      title,
+      ticket_id,
+      frequency,
+      color,
+      anchor,
+      duration,
+    } = newEventValues;
 
     let defaultTicket = ticket_id && {
       value: ticket_id,
       label: ticket_name,
     };
+
     let defaultFrequency = _.find(this.frequencies, ["value", frequency]);
 
     let submitClass =
@@ -203,7 +193,7 @@ class Form extends Component {
             className="basic-single"
             classNamePrefix="select"
             defaultValue={defaultFrequency}
-            onChange={this.onFrequencyChange}
+            onChange={this.handleFrequencyChange}
             options={this.frequencies}
           />
         </div>

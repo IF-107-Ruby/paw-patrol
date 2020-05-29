@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ModalDialog from "../../shared/components/ModalDialog";
-import Form from "./Form";
+import Form from "./EventForm";
 
 function NewEventModal(props) {
   const {

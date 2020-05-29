@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ModalDialog from "../../shared/components/ModalDialog";
-
 import moment from "moment";
+
+import ModalDialog from "../../shared/components/ModalDialog";
 
 function EventShowModal(props) {
   const { event, closeCallback, editable, onEventEdit, onEventDelete } = props;

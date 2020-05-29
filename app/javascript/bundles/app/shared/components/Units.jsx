@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import axios from "../../../../AxiosHelper";
-
 import _ from "lodash";
+
+import axios from "../../../../AxiosHelper";
 
 import Unit from "../../Units/components/Unit";
 import Pagination from "./Pagination";
@@ -17,13 +17,17 @@ class Units extends Component {
       units: [],
       page: 1,
     };
+
+    this.loadUnits = this.loadUnits.bind(this);
+    this.handleDestroy = this.handleDestroy.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
   async componentDidMount() {
     await this.loadUnits();
   }
 
-  loadUnits = async () => {
+  async loadUnits() {
     try {
       let res = await axios.get(this.props.unitsPath, {
         params: {
@@ -40,9 +44,9 @@ class Units extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Unable to load units");
     }
-  };
+  }
 
-  handleDestroy = async (unit) => {
+  async handleDestroy(unit) {
     if (!window.confirm("Are you sure?")) return;
 
     try {
@@ -55,11 +59,11 @@ class Units extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Unit is not removed");
     }
-  };
+  }
 
-  onPageChange = ({ selected }) => {
+  onPageChange({ selected }) {
     this.setState({ page: selected + 1 }, this.loadUnits);
-  };
+  }
 
   render() {
     const { headline, newUnitPath, editable } = this.props;

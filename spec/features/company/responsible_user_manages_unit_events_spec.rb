@@ -26,7 +26,7 @@ feature 'responsible user manages unit events', js: true do
     expect(page).to have_text(create_params[:title])
 
     within '#fullcalendar' do
-      find('span', text: create_params[:title], match: :first).click
+      find('span', text: create_params[:title], match: :first, wait: 5).click
     end
 
     find('i.icon-feather-edit').click

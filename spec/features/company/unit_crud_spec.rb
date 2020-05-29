@@ -59,6 +59,6 @@ feature 'unit crud' do
       end
     end
 
-    expect(page).not_to have_content(child.name)
+    expect(page).not_to have_content(child.name, wait: 5)
   end
 end

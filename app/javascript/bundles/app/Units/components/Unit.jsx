@@ -6,7 +6,6 @@ import pluralize from "pluralize";
 import _ from "lodash";
 
 import axios from "../../../../AxiosHelper";
-
 import { showSnackbarError, showSnackbarSuccess } from "../../../../snackbars";
 
 class Unit extends Component {
