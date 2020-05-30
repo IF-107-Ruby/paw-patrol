@@ -16,10 +16,6 @@ class Company
       create?
     end
 
-    def update?
-      record.belongs_to?(user)
-    end
-
     def resolution?
       user.responsible_for?(record.unit)
     end

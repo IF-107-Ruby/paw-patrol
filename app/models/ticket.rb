@@ -97,14 +97,13 @@ class Ticket < ApplicationRecord
     SendNewTicketEmailJob.perform_later(id, unit.responsible_user.present?)
   end
 
-<<<<<<< HEAD
   def follow_up_params
     attributes
       .except('id', 'status')
       .merge(description: description, parent: self)
-=======
+  end
+
   def add_author_to_watchers
     watchers << user
->>>>>>> Added ability to set watchers on ticket show page
   end
 end

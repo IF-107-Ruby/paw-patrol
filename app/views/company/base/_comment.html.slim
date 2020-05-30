@@ -11,7 +11,7 @@ div
       = comment.body
     .col
       .d-flex.justify-content-end
-        - unless @ticket.resolved?
+        - if policy([:company, commentable]).show?
           - if comment.depth == 0
             .reply-button.d-inline.mr-1 id="reply_#{dom_id(comment)}" title="Reply" data-tippy-placement="bottom"
               i.icon-line-awesome-reply

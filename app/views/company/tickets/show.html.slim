@@ -8,18 +8,16 @@
           h3
             i.icon-material-outline-description
             | Description
-          .row
-            .col-md-8.nowrap-text
+          .d-flex
+            .nowrap-text
               span
                 = @ticket.place_were_opened
-            .col-md-2
-              - if policy([:company, @ticket]).update? && @ticket.resolved?
-                = link_to company_ticket_followed_path(@ticket)
-                  i.icon-feather-copy.ticket-icons
-            .col-md-2
-               - if policy([:company, @ticket]).show? && @ticket.parent
-                 = link_to company_ticket_path(@ticket.parent)
-                   i.icon-material-outline-launch.ticket-icons
+            - if policy([:company, @ticket]).update? && @ticket.resolved?
+              = link_to company_ticket_followed_path(@ticket)
+                i.icon-feather-copy.ticket-icons
+            - if policy([:company, @ticket]).show? && @ticket.parent
+              = link_to company_ticket_path(@ticket.parent)
+                i.icon-material-outline-launch.ticket-icons
         - if policy([:company, @ticket]).update?  
           = react_component("WatchersBlock", props: @ticket.watchers_info)
       .content.with-padding
