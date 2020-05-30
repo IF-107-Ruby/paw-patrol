@@ -16,7 +16,9 @@ feature 'responsible user manages unit events', js: true do
 
     expect(page).not_to have_text(create_params[:title])
     within '#fullcalendar' do
-      find('td.fc-widget-content.fc-mon', match: :first).click
+      calendar_tile = find('td.fc-widget-content.fc-sun', match: :first, wait: 5)
+      scroll_to(calendar_tile, align: :center)
+      calendar_tile.click
     end
 
     fill_in id: :event_title, with: create_params[:title]
@@ -39,7 +41,7 @@ feature 'responsible user manages unit events', js: true do
     expect(page).to have_text(update_params[:title])
 
     within '#fullcalendar' do
-      find('span', text: update_params[:title]).click
+      find('span', text: update_params[:title], match: :first, wait: 5).click
     end
 
     within '.modal-body' do
