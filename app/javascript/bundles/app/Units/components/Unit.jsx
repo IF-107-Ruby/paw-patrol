@@ -18,9 +18,13 @@ class Unit extends Component {
       childrenLoaded: false,
       children: [],
     };
+
+    this.handleChildrenToggle = this.handleChildrenToggle.bind(this);
+    this.handleChildDestroy = this.handleChildDestroy.bind(this);
+    this.handleDestroy = this.handleDestroy.bind(this);
   }
 
-  handleChildrenToggle = async (e) => {
+  async handleChildrenToggle(e) {
     e.preventDefault();
 
     try {
@@ -41,9 +45,9 @@ class Unit extends Component {
         childrenOpen: false,
       });
     }
-  };
+  }
 
-  handleChildDestroy = async (unit) => {
+  async handleChildDestroy(unit) {
     if (!window.confirm("Are you sure?")) return;
 
     try {
@@ -66,13 +70,13 @@ class Unit extends Component {
     } catch (error) {
       if (error.response) showSnackbarError("Unit is not removed");
     }
-  };
+  }
 
-  handleDestroy = (e) => {
+  handleDestroy(e) {
     e.preventDefault();
 
     this.props.handleDestroy(this.state.unit);
-  };
+  }
 
   render() {
     const { unit, childrenOpen, childrenLoaded, children } = this.state;

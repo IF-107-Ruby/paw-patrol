@@ -22,6 +22,7 @@ class DateRangePicker extends Component {
 
   onChange() {
     const { anchor, duration } = this.state;
+
     this.props.onChange({
       anchor: moment(anchor).format('"YYYY-MM-DD HH:mm"'),
       duration,
