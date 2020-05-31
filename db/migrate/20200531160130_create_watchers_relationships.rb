@@ -5,7 +5,7 @@ class CreateWatchersRelationships < ActiveRecord::Migration[6.0]
       t.bigint :ticket_id, null: false
       t.timestamps
     end
-    add_foreign_key watchers_relationships:, :ticket_id
-    add_foreign_key watchers_relationships:, :user_id
+    add_index :watchers_relationships, :ticket_id
+    add_index :watchers_relationships, :user_id
   end
 end
