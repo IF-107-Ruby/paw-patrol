@@ -16,9 +16,6 @@ class Ticket < ApplicationRecord
 
   enum status: { open: 0, resolved: 1 }
 
-  after_create :send_ticket_notification
-  after_save :add_author_to_watchers
-
   belongs_to :user
   belongs_to :unit
 
@@ -46,8 +43,9 @@ class Ticket < ApplicationRecord
                      ticket.resolution_attachments.any?
                  }
 
+  after_create :add_author_to_watchers
   after_create :send_ticket_notification
-  before_update :send_ticket_resolved_email
+  after_update :send_ticket_resolved_email
 
   has_ancestry
 
@@ -60,7 +58,7 @@ class Ticket < ApplicationRecord
   end
 
   def participants
-    [user, unit.responsible_user]
+    watchers + [unit.responsible_user]
   end
 
   def belongs_to?(current_user)
@@ -113,7 +111,7 @@ class Ticket < ApplicationRecord
   end
 
   def send_ticket_resolved_email
-    return unless status_changed? && resolved?
+    return unless status_previously_changed? && resolved?
 
     SendTicketResolvedEmailJob.perform_later(id)
   end
