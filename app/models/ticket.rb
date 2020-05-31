@@ -29,7 +29,6 @@ class Ticket < ApplicationRecord
   has_many :watchers_relationship, dependent: :destroy
   has_many :watchers, through: :watchers_relationship, source: :user
   accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
-  has_many :commentators, -> { distinct }, source: :user, through: :comments
 
   has_rich_text :description
   has_rich_text :resolution
@@ -108,11 +107,11 @@ class Ticket < ApplicationRecord
       .except('id', 'status')
       .merge(description: description, parent: self)
   end
-  
+
   def add_author_to_watchers
     watchers << user
   end
-  
+
   def send_ticket_resolved_email
     return unless status_changed? && resolved?
 
