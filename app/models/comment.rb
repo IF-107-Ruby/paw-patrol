@@ -12,6 +12,7 @@
 #  updated_at       :datetime         not null
 #
 class Comment < ApplicationRecord
+  after_create :send_comment_notification
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
@@ -28,8 +29,7 @@ class Comment < ApplicationRecord
   end
 
   def create_notification
-    users_to_notify = [commentable.user, commentable.unit.responsible_user]
-    # Add watchers
+    users_to_notify = [commentable.watchers, commentable.unit.responsible_user].flatten
 
     users_to_notify.each do |user|
       next if user == self.user
@@ -38,5 +38,11 @@ class Comment < ApplicationRecord
                           notified_by: self.user,
                           noticeable: self)
     end
+  end
+
+  private
+
+  def send_comment_notification
+    SendNewCommentEmailJob.perform_later(id, commentable)
   end
 end

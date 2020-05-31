@@ -19,6 +19,7 @@ gem 'pretender'
 gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'react_on_rails'
 gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
@@ -43,6 +44,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.32', '>= 3.32.1'
+  gem 'capybara-screenshot'
   gem 'chromedriver-helper'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
@@ -54,3 +56,5 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'mini_racer', platforms: :ruby

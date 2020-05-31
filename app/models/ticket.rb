@@ -16,13 +16,19 @@ class Ticket < ApplicationRecord
 
   enum status: { open: 0, resolved: 1 }
 
+  after_create :send_ticket_notification
+  after_save :add_author_to_watchers
+
   belongs_to :user
   belongs_to :unit
 
   has_one :review, dependent: :destroy
   has_one :ticket_completion, dependent: :destroy
-
+  has_many :employees, through: :unit, class_name: 'User'
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :watchers_relationship, dependent: :destroy
+  has_many :watchers, through: :watchers_relationship, source: :user
+  accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
 
   has_rich_text :description
   has_rich_text :resolution
@@ -60,6 +66,10 @@ class Ticket < ApplicationRecord
     review.present?
   end
 
+  def available_watchers
+    employees.decorate - [user]
+  end
+
   def complete!(resolution)
     if resolution[:resolution].present?
       update(resolution)
@@ -91,5 +101,9 @@ class Ticket < ApplicationRecord
     attributes
       .except('id', 'status')
       .merge(description: description, parent: self)
+  end
+
+  def add_author_to_watchers
+    watchers << user
   end
 end

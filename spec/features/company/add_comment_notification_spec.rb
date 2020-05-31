@@ -13,21 +13,16 @@ feature 'AddCommentNotification' do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
   let!(:comment) { ticket.comments.first }
 
-  scenario 'watchers successfully see comments notification',
-           js: true,
-           skip: true do
+  scenario 'watchers successfully see comments notification', js: true do
     login_as responsible_user
     visit company_ticket_path(ticket)
 
     expect do
-      find('#add-comment').click
-      using_wait_time 2 do
-        within '#new-comment' do
-          fill_in id: 'comment_body', with: 'Test comment from employee'
-        end
+      within '#new-comment' do
+        first('#comment_body', visible: false).set('Test comment from responsible user')
       end
 
-      click_on 'Send'
+      click_on 'Add comment'
       wait_for_ajax
     end.to change(Notification, :count).by(1)
   end

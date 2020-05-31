@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       post '/resolution', to: 'tickets#resolution', as: :resolution
       get  '/follow_up', to: 'tickets#followed_up', as: :followed
       resources :comments
+      resource :watchers, only: %i[update]
       resource :review, except: %i[index destroy]
       get :resolved, on: :collection
     end

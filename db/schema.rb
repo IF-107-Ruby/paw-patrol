@@ -162,6 +162,15 @@ ActiveRecord::Schema.define(version: 20_200_526_125_730) do
     t.index ['user_id'], name: 'index_users_units_relationships_on_user_id'
   end
 
+  create_table 'watchers_relationships', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'ticket_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['ticket_id'], name: 'index_watchers_relationships_on_ticket_id'
+    t.index ['user_id'], name: 'index_watchers_relationships_on_user_id'
+  end
+
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'comments', 'users'
   add_foreign_key 'notifications', 'users'
@@ -175,4 +184,6 @@ ActiveRecord::Schema.define(version: 20_200_526_125_730) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
+  add_foreign_key 'watchers_relationships', 'tickets'
+  add_foreign_key 'watchers_relationships', 'users'
 end

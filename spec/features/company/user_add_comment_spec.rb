@@ -13,48 +13,40 @@ feature 'EmployeeAddComment' do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
   let!(:comment) { ticket.comments.first }
 
-  scenario 'ticket author successfully see comments and add new one',
-           js: true,
-           skip: true do
+  scenario 'ticket author successfully see comments and add new one', js: true do
     login_as employee
     visit company_ticket_path(ticket)
 
     expect(page).to have_text('Comments')
-    find('#add-comment').click
 
-    using_wait_time 2 do
-      within '#new-comment' do
-        fill_in id: 'comment_body', with: 'Test comment from employee'
-      end
+    within '#new-comment' do
+      fill_in id: 'comment_body', with: 'Test comment from employee'
     end
 
-    click_on 'Send'
+    click_on 'Add comment'
     wait_for_ajax
 
     expect(page).to have_text('Comment has been saved')
     expect(page).to have_text('Test comment from employee')
 
     fill_in id: 'comment_body', with: ''
-    click_on 'Send'
+    click_on 'Add comment'
     wait_for_ajax
     expect(page).to have_text('Comment failed to save, please try again')
   end
 
-  scenario 'resposible for unit see comments and add new one',
-           js: true,
-           skip: true do
+  scenario 'resposible for unit see comments and add new one', js: true do
     login_as responsible_user
     visit company_ticket_path(ticket)
 
     expect(page).to have_text('Comments')
 
-    find('#add-comment').click
-    using_wait_time 2 do
+    using_wait_time 3 do
       within '#new-comment' do
-        fill_in id: 'comment_body', with: 'Test comment from responsible user'
+        first('#comment_body', visible: false).set('Test comment from responsible user')
       end
     end
-    click_on 'Send'
+    click_on 'Add comment'
     wait_for_ajax
 
     expect(page).to have_text('Test comment from responsible user')

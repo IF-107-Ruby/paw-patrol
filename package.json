@@ -2,19 +2,28 @@
   "name": "paw_patrol",
   "private": true,
   "dependencies": {
+    "@babel/preset-react": "^7.9.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/actiontext": "^6.0.2-2",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "axios": "^0.19.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "4.4.1",
+    "classnames": "^2.2.6",
     "expose-loader": "^0.7.5",
     "jquery": "3.5.0",
+    "lodash": "^4.17.15",
     "popper.js": "^1.16.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-on-rails": "11.3.0",
     "trix": "^1.0.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   }
 }

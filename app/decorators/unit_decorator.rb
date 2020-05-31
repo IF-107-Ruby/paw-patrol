@@ -1,6 +1,7 @@
 class UnitDecorator < Draper::Decorator
   delegate_all
   decorates_association :responsible_user
+  decorates_association :employees
   decorates_association :children
 
   def creation_headline

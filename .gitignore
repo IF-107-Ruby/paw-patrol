@@ -42,3 +42,4 @@ yarn-debug.log*
 .yarn-integrity
 coverage/*
 .DS_Store
+dump.rdb

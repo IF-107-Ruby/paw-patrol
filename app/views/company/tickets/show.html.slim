@@ -8,21 +8,21 @@
           h3
             i.icon-material-outline-description
             | Description
-          .row
-            .col-md-8.nowrap-text
+          .d-flex
+            .nowrap-text
               span
                 = @ticket.place_were_opened
-            .col-md-2
-              - if policy([:company, @ticket]).update? && @ticket.resolved?
-                = link_to company_ticket_followed_path(@ticket)
-                  i.icon-feather-copy.ticket-icons
-            .col-md-2
-               - if policy([:company, @ticket]).show? && @ticket.parent
-                 = link_to company_ticket_path(@ticket.parent)
-                   i.icon-material-outline-launch.ticket-icons
+            - if policy([:company, @ticket]).update? && @ticket.resolved?
+              = link_to company_ticket_followed_path(@ticket)
+                i.icon-feather-copy.ticket-icons
+            - if policy([:company, @ticket]).show? && @ticket.parent
+              = link_to company_ticket_path(@ticket.parent)
+                i.icon-material-outline-launch.ticket-icons
+        - if policy([:company, @ticket]).update?  
+          = react_component("WatchersBlock", props: @ticket.watchers_info)
       .content.with-padding
         == @ticket.description
-        - if @ticket.belongs_to?(current_user) || current_user.responsible_for?(@ticket.unit)
+        - if policy([:company, @ticket]).show? || @ticket.watchers.include?(current_user)
           .row
             .col-xl-9.mx-auto.col-lg-9.col-md-12
               = render template: 'company/comments/index', locals: { commentable: @ticket }
@@ -31,3 +31,4 @@
     - if @ticket.open? && policy([:company, @ticket]).resolution?
       - unless @ticket.resolved?
         = render 'company/tickets/ticket_resolution_form', ticket: @ticket
+
