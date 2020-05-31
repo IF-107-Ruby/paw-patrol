@@ -60,4 +60,34 @@ RSpec.describe TicketMailer, type: :mailer do
       expect(mail.body.encoded).to match(ticket.unit.name)
     end
   end
+
+  describe 'ticket_resolved_email' do
+    let!(:unit) do
+      create(:unit,
+             :with_employee_and_ticket,
+             :with_responsible_user,
+             company: company)
+    end
+    let!(:ticket) { unit.tickets.first }
+    let!(:comment) do
+      create(:comment, commentable: ticket, user: unit.responsible_user)
+    end
+    let!(:mail) { described_class.ticket_resolved_email(ticket) }
+
+    it 'renders the subject' do
+      expect(mail.subject).to eql("Ticket: #{ticket.name}")
+    end
+
+    it 'renders the receivers email' do
+      expect(mail.to).to eql([ticket.user.email, unit.responsible_user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['roompassport@example.com'])
+    end
+
+    it 'assigns ticket name' do
+      expect(mail.body.encoded).to match(ticket.name)
+    end
+  end
 end
