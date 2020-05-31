@@ -14,7 +14,9 @@
             .ticket-completion__review
               - if @ticket.reviewed?
                 .review-title
-                  h4 Ticket author reviewed this completion:
+                  h4
+                    i.icon-feather-eye
+                    | Ticket author reviewed this completion:
                 .review-description
                   = render 'company/shared/reviewable_content', review: @ticket.review
                   .mt-2

@@ -63,11 +63,18 @@ $border-color: #E0E0E0;
     .review-title {
       padding-top: 20px;
       border-top: 1px solid $border-color;
+
+      .icon-feather-eye {
+        padding-right: 5px;
+        color: #2a41e8;
+      }
     }
 
     .review-description{
-      margin-top: 20px;
-      margin-left: 15px;
+      margin: {
+        top: 20px;
+        left: 25px;
+      }
 
       .detail-material-outline-date-range {
         margin-left: 10px;
