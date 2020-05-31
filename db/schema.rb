@@ -200,6 +200,4 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
-  add_foreign_key 'watchers_relationships', 'tickets'
-  add_foreign_key 'watchers_relationships', 'users'
 end
