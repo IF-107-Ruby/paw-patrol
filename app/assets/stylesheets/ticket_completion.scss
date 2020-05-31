@@ -1,6 +1,7 @@
 // Place all the styles related to the TicketSolutions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+$border-color: #E0E0E0;
 
 .dashboard-headline {
   display: flex !important;
@@ -53,4 +54,26 @@
 
 .nowrap-text {
   white-space: nowrap;
+}
+
+.ticket-completion {
+  &__review {
+    margin-top: 30px;
+
+    .review-title {
+      padding-top: 20px;
+      border-top: 1px solid $border-color;
+    }
+
+    .review-description{
+      margin-top: 20px;
+      margin-left: 15px;
+
+      .detail-material-outline-date-range {
+        margin-left: 10px;
+        display: inline-block;
+        position: absolute;
+      }
+    }
+  }
 }
