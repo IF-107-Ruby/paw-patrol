@@ -60,6 +60,10 @@ class Ticket < ApplicationRecord
     resolution&.body&.attachments
   end
 
+  def participants
+    [user, unit.responsible_user]
+  end
+
   def belongs_to?(current_user)
     user == current_user
   end

@@ -15,11 +15,8 @@ class TicketMailer < ApplicationMailer
 
   def ticket_resolved_email(ticket)
     @ticket = ticket
-    @users_emails = @ticket.commentators
-                           .pluck(:email)
-                           .unshift(@ticket.user.email)
-                           .uniq
+    @participant_emails = @ticket.participants.pluck(:email)
 
-    mail(to: @users_emails, subject: "Ticket: #{@ticket.name}")
+    mail(to: @participant_emails, subject: "Ticket: #{@ticket.name}")
   end
 end

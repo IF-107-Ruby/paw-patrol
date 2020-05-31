@@ -7,7 +7,6 @@ RSpec.describe Ticket, type: :model do
     it { expect(ticket).to belong_to(:user) }
     it { expect(ticket).to belong_to(:unit) }
     it { expect(ticket).to have_one(:review).dependent(:destroy) }
-    it { is_expected.to have_many(:commentators).through(:comments) }
   end
 
   describe 'validations' do
@@ -97,6 +96,12 @@ RSpec.describe Ticket, type: :model do
 
         expect(SendTicketResolvedEmailJob).not_to have_received(:perform_later)
       end
+    end
+  end
+
+  describe 'ticket participants' do
+    it 'contains creator of the ticket and responsible for the unit' do
+      expect(ticket.participants).to eq([employee, unit.responsible_user])
     end
   end
 end
