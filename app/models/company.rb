@@ -18,5 +18,7 @@ class Company < ApplicationRecord
   has_many :users, through: :users_companies_relationships
   has_many :staff, -> { staff_members },
            source: :user, through: :users_companies_relationships
+  has_many :employees, -> { employee },
+           source: :user, through: :users_companies_relationships
   has_many :tickets, through: :units
 end
