@@ -10,3 +10,20 @@
         .content.with-padding
           .col-12
             == @ticket.resolution
+          .col-12
+            .ticket-completion__review
+              - if @ticket.reviewed?
+                .review-title
+                  h4
+                    i.icon-feather-eye
+                    | Ticket author reviewed this completion:
+                .review-description
+                  = render 'company/shared/reviewable_content', review: @ticket.review
+                  .mt-2
+                    = link_to 'Show more ...', company_ticket_review_path(@ticket)
+              - else
+                - if @ticket.belongs_to?(current_user)
+                  = link_to new_company_ticket_review_path(@ticket),
+                          class: 'button ripple-effect button-sliding-icon' do
+                    | Leave a review
+                    i.icon-material-outline-thumb-up

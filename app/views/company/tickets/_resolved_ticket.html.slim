@@ -1,7 +1,7 @@
 li
   .boxed-list-item
     .item-content
-      h4 = resolved_ticket.name
+      h4 = link_to resolved_ticket.name, company_ticket_path(resolved_ticket)
       = ticket_reviewable_status(resolved_ticket)
   - if resolved_ticket.reviewed?
     = link_to edit_company_ticket_review_path(resolved_ticket),
