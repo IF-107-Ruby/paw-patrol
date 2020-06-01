@@ -70,7 +70,7 @@ RSpec.describe TicketMailer, type: :mailer do
     end
     let!(:ticket) { unit.tickets.take }
 
-    context 'ticket has new comment' do
+    context 'Ticket has new comment' do
       let!(:mail) { described_class.ticket_has_comment_email(ticket) }
 
       it 'renders the subject' do

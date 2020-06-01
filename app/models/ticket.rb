@@ -26,7 +26,7 @@ class Ticket < ApplicationRecord
   has_many :comments,
            as: :commentable,
            dependent: :destroy,
-           after_add: :send_new_comment_email
+           after_add: :send_email_about_new_comment
   has_many :watchers_relationship, dependent: :destroy
   has_many :watchers, through: :watchers_relationship, source: :user
   accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
@@ -120,7 +120,7 @@ class Ticket < ApplicationRecord
     SendTicketResolvedEmailJob.perform_later(id)
   end
 
-  def send_new_comment_email(_)
-    SendTicketHasCommentEmailJob.perform_later(id)
+  def send_email_about_new_comment(_)
+    SendEmailAboutNewCommentJob.perform_later(id)
   end
 end

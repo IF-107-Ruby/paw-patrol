@@ -1,4 +1,4 @@
-class SendTicketHasCommentEmailJob < ApplicationJob
+class SendEmailAboutNewCommentJob < ApplicationJob
   queue_as :default
 
   def perform(ticket_id)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SendTicketHasCommentEmailJob, type: :job do
+RSpec.describe SendEmailAboutNewCommentJob, type: :job do
   include_context 'employee with ticket'
 
   describe '#perform' do

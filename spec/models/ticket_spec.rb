@@ -108,16 +108,16 @@ RSpec.describe Ticket, type: :model do
 
   describe 'ticket comments' do
     before do
-      allow(SendTicketHasCommentEmailJob).to receive(:perform_later)
+      allow(SendEmailAboutNewCommentJob).to receive(:perform_later)
     end
 
     it 'ticket has new comment' do
       ticket.comments.create(FactoryBot.attributes_for(:comment))
-      expect(SendTicketHasCommentEmailJob).to have_received(:perform_later)
+      expect(SendEmailAboutNewCommentJob).to have_received(:perform_later)
     end
 
     it 'ticket has no new comments' do
-      expect(SendTicketHasCommentEmailJob).not_to have_received(:perform_later)
+      expect(SendEmailAboutNewCommentJob).not_to have_received(:perform_later)
     end
   end
 end
