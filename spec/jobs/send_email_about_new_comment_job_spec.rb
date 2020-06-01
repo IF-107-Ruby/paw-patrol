@@ -15,7 +15,7 @@ RSpec.describe SendEmailAboutNewCommentJob, type: :job do
       expect(TicketMailer).to have_received(:ticket_has_comment_email).with(ticket)
     end
 
-    it 'not calls TicketMailer it ticket id not exist' do
+    it 'not calls TicketMailer if ticket id not exist' do
       described_class.new.perform(ticket.id + 100)
 
       expect(TicketMailer).not_to have_received(:ticket_has_comment_email).with(ticket)

@@ -61,7 +61,7 @@ RSpec.describe TicketMailer, type: :mailer do
     end
   end
 
-  describe 'inform participants about ticket' do
+  describe 'Inform participants about ticket' do
     let!(:unit) do
       create(:unit,
              :with_employee_and_ticket,
