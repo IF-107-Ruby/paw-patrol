@@ -1,1 +1,3 @@
 - provide(:headline, "Howdy, #{current_user.first_name}!")
+
+= render "#{current_user.role}_dashboard"

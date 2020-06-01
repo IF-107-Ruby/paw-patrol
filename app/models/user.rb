@@ -68,6 +68,18 @@ class User < ApplicationRecord
     tickets.resolved.any?
   end
 
+  def available_units
+    AvailableUserUnitsQuery.new(user: self).to_units_array
+  end
+
+  def current_tickets
+    Ticket.where(unit_id: available_units).open
+  end
+
+  def resolved_tickets
+    Ticket.where(unit_id: available_units).resolved
+  end
+
   def completion_performer?(completion)
     ticket_completions.include?(completion)
   end

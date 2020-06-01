@@ -1,0 +1,26 @@
+.row  
+  - if @current_tickets.present?
+    .col-xl-12
+      .dashboard-box.margin-top-0
+        .headline
+          .d-flex.justify-content-between
+            h3
+              i.icon-material-outline-library-books
+              | Current tickets
+        .content.padding-bottom-20
+          ul.dashboard-box-list
+            = render @current_tickets
+          = render partial: 'shared/pagination', locals: { pagy: @current_pagy }
+.row  
+  - if @resolved_tickets.present?
+    .col-xl-12
+      .dashboard-box
+        .headline
+          .d-flex.justify-content-between
+            h3
+              i.icon-material-outline-history
+              | Tickets history
+        .content.padding-bottom-20
+          ul.dashboard-box-list
+            = render @resolved_tickets
+          = render partial: 'shared/pagination', locals: { pagy: @resolved_pagy }
