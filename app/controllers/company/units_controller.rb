@@ -68,7 +68,7 @@ class Company
     end
 
     def available_responsible_users
-      @available_responsible_users ||= current_company.staff
+      @available_responsible_users ||= current_company.staff.decorate
     end
 
     def units_base_relation

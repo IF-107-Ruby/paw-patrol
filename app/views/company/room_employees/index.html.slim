@@ -4,11 +4,7 @@
   .col-xl-12
     .dashboard-box.margin-top-0
       .headline
-        .d-flex.justify-content-between
           h3 Room Employees
-          .icon-links
-            = link_to edit_company_unit_room_employees_path(@unit)
-              i.icon-feather-plus
       .content.with-padding.overflow-hidden
         = render partial: 'company/shared/users_table', locals: { users: @room_employees }
         = render partial: 'shared/pagination', locals: { pagy: @pagy }

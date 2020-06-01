@@ -23,8 +23,8 @@ class Unit < ApplicationRecord
   has_many :users, through: :users_units_relationships
   has_many :employees, -> { employees },
            source: :user, through: :users_units_relationships
-  accepts_nested_attributes_for :users_units_relationships, allow_destroy: true
-
+  belongs_to :responsible_user, class_name: 'User', foreign_key: :responsible_user_id,
+                                optional: true, inverse_of: :units
   validates :name, presence: true
   validates :company, presence: true
 

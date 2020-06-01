@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#show'
     resources :users
     resources :units do
-      resource :room_employees, only: %i[show edit update]
+      resources :room_employees, only: :index
       resources :children, controller: :units_children, only: :index
     end
     resources :tickets, only: %i[show new create edit update] do
