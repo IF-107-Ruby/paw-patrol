@@ -55,6 +55,6 @@ class UnitsController < ApplicationController
   end
 
   def available_responsible_users
-    @available_responsible_users ||= current_company.staff.decorate
+    @available_responsible_users ||= current_company.staff
   end
 end
