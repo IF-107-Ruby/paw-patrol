@@ -121,6 +121,6 @@ class Ticket < ApplicationRecord
   end
 
   def send_new_comment_email(_)
-    SendNewCommentInTicketEmailJob.perform_later(id)
+    SendTicketHasCommentEmailJob.perform_later(id)
   end
 end
