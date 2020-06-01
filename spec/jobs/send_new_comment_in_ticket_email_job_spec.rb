@@ -5,7 +5,8 @@ RSpec.describe SendNewCommentInTicketEmailJob, type: :job do
 
   describe '#perform' do
     before do
-      allow(TicketMailer).to receive_message_chain(:ticket_has_comment_email, :deliver_now)
+      allow(TicketMailer).to receive_message_chain(:ticket_has_comment_email,
+                                                   :deliver_now)
     end
 
     it 'calls TicketMailer' do

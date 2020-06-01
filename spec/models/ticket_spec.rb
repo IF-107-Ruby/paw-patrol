@@ -105,4 +105,19 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.participants).to eq(ticket.watchers + [unit.responsible_user])
     end
   end
+
+  describe 'ticket comments' do
+    before do
+      allow(SendNewCommentInTicketEmailJob).to receive(:perform_later)
+    end
+
+    it 'ticket has new comment' do
+      ticket.comments.create(FactoryBot.attributes_for(:comment))
+      expect(SendNewCommentInTicketEmailJob).to have_received(:perform_later)
+    end
+
+    it 'ticket has no new comments' do
+      expect(SendNewCommentInTicketEmailJob).not_to have_received(:perform_later)
+    end
+  end
 end
