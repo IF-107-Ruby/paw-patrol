@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_531_160_130) do
+ActiveRecord::Schema.define(version: 20_200_531_160_131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -200,4 +200,6 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
+  add_foreign_key 'watchers_relationships', 'tickets'
+  add_foreign_key 'watchers_relationships', 'users'
 end
