@@ -14,7 +14,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['roompassport@example.com'])
+      expect(mail.from).to eql(['no_reply@roompassport.pp.ua'])
     end
 
     it 'assigns company name' do
