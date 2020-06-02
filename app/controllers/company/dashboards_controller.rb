@@ -5,6 +5,18 @@ class Company
     end
 
     def load_employee_dashboard_data
+      load_worker_dashboard_data
+    end
+
+    def load_staff_member_dashboard_data
+      load_worker_dashboard_data
+    end
+
+    def load_company_owner_dashboard_data; end
+
+    private
+
+    def load_worker_dashboard_data
       @current_pagy, @current_tickets = pagy_decorated(
         current_user.current_tickets.most_recent,
         items: 5,
@@ -17,9 +29,5 @@ class Company
         page_param: :page_resolved_tickets
       )
     end
-
-    def load_staff_member_dashboard_data; end
-
-    def load_company_owner_dashboard_data; end
   end
 end

@@ -73,11 +73,11 @@ class User < ApplicationRecord
   end
 
   def current_tickets
-    Ticket.where(unit_id: available_units).open
+    tickets_scope(available_units).open
   end
 
   def resolved_tickets
-    Ticket.where(unit_id: available_units).resolved
+    tickets_scope(available_units).resolved
   end
 
   def completion_performer?(completion)
@@ -88,5 +88,9 @@ class User < ApplicationRecord
 
   def send_invitation
     SendInvitationEmailJob.perform_later(id, password)
+  end
+
+  def tickets_scope(units)
+    Ticket.for_units(units)
   end
 end
