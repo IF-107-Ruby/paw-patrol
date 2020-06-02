@@ -40,7 +40,7 @@ RSpec.describe 'Company::Users', type: :request do
       expect(response).to redirect_to(company_user_path(User.last))
     end
 
-    it 'doest\'t creates user with invalid params' do
+    it 'doest\'t create user with invalid params' do
       user_params[:email] = 'invalid email'
       post company_users_path, params: { user: user_params }
 
@@ -67,7 +67,7 @@ RSpec.describe 'Company::Users', type: :request do
       expect(response).to redirect_to(company_user_path(employee))
     end
 
-    it 'doest\'t updates user if data is invalid' do
+    it 'doest\'t update user if data is invalid' do
       user_params[:email] = 'invalid email'
       patch company_user_path(employee), params: { user: user_params }
 

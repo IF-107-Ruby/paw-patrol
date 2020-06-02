@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     resources :units do
       resource :room_employees, only: %i[show edit update]
       resources :children, controller: :units_children, only: :index
+      resources :events, except: %i[new edit] do
+        get 'avaible_tickets', on: :collection
+      end
     end
     resources :tickets, only: %i[show new create edit update] do
       post '/resolution', to: 'tickets#resolution', as: :resolution

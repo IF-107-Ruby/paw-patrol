@@ -1,12 +1,19 @@
 class Company
   class UnitsController < Company::BaseController
     before_action :obtain_unit, only: %i[show edit update destroy]
+    after_action :add_pagy_headers, only: :index
+
     helper_method :available_responsible_users
     decorates_assigned :unit
 
     def index
       authorize([:company, Unit])
-      @pagy, @units = pagy_decorated(units_base_relation.roots, items: 10)
+      respond_to do |format|
+        format.html
+        format.json do
+          @pagy, @units = pagy_decorated(units_base_relation.roots, items: 10)
+        end
+      end
     end
 
     def show
@@ -48,7 +55,7 @@ class Company
     def destroy
       @unit.destroy
       respond_to do |format|
-        format.js
+        format.json { render @unit }
         format.html do
           redirect_back(fallback_location: company_units_path,
                         success: 'Unit deleted successfully.')

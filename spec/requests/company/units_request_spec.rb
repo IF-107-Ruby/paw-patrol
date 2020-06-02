@@ -8,10 +8,21 @@ RSpec.describe 'Company::Units', type: :request do
   before { login_as user }
 
   describe 'GET /company/units' do
-    it 'returns http success' do
-      get company_units_path
-      expect(response).to have_http_status(:success)
-      expect(response).to render_template(:index)
+    context 'html' do
+      it 'returns http success' do
+        get company_units_path
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:index)
+      end
+    end
+
+    context 'json' do
+      it 'returns http success' do
+        get company_units_path(format: :json)
+
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template(:index)
+      end
     end
   end
 
@@ -42,7 +53,7 @@ RSpec.describe 'Company::Units', type: :request do
       expect(response).to redirect_to(company_unit_path(Unit.last))
     end
 
-    it 'doest\'t creates unit with invalid params' do
+    it 'does not create unit with invalid params' do
       unit_params[:name] = ''
       post company_units_path, params: { unit: unit_params }
 
@@ -68,7 +79,7 @@ RSpec.describe 'Company::Units', type: :request do
       expect(response).to redirect_to(company_unit_path(unit))
     end
 
-    it 'doest\'t updates unit if data is invalid' do
+    it 'does not update unit with invalid params' do
       unit_params[:name] = ''
       patch company_unit_path(unit), params: { unit: unit_params }
 
@@ -78,9 +89,8 @@ RSpec.describe 'Company::Units', type: :request do
 
   describe 'DELETE /company/units/:id' do
     it 'deletes unit and redirects to units page' do
-      delete company_unit_path(unit)
-
-      expect(response).to redirect_to(company_units_path)
+      expect { delete company_unit_path(unit, format: :json) }
+        .to change(Unit, :count).by(-1)
     end
   end
 end

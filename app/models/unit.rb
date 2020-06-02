@@ -23,6 +23,8 @@ class Unit < ApplicationRecord
   has_many :users, through: :users_units_relationships
   has_many :employees, -> { employees },
            source: :user, through: :users_units_relationships
+  has_many :events, dependent: :destroy
+
   accepts_nested_attributes_for :users_units_relationships, allow_destroy: true
 
   validates :name, presence: true

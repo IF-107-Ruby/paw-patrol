@@ -71,6 +71,19 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 
+  create_table 'events', force: :cascade do |t|
+    t.string 'title', null: false
+    t.datetime 'anchor', null: false
+    t.integer 'duration', default: 1440, null: false
+    t.integer 'frequency', default: 0, null: false
+    t.string 'color', limit: 9, default: '#0000ff', null: false
+    t.integer 'ticket_id'
+    t.integer 'user_id'
+    t.integer 'unit_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   create_table 'feedbacks', force: :cascade do |t|
     t.string 'user_full_name'
     t.string 'email'
@@ -173,6 +186,9 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'comments', 'users'
+  add_foreign_key 'events', 'tickets'
+  add_foreign_key 'events', 'units'
+  add_foreign_key 'events', 'users'
   add_foreign_key 'notifications', 'users'
   add_foreign_key 'notifications', 'users', column: 'notified_by_id'
   add_foreign_key 'reviews', 'tickets'
@@ -184,6 +200,4 @@ ActiveRecord::Schema.define(version: 20_200_531_160_130) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
-  add_foreign_key 'watchers_relationships', 'tickets'
-  add_foreign_key 'watchers_relationships', 'users'
 end

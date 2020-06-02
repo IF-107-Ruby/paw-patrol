@@ -2,6 +2,10 @@
   display: none;
 }
 
+.margin-top-n-30 {
+  margin-top: -30px;
+}
+
 .footer-brand {
   position: relative;
   top: 100%;
@@ -10,4 +14,28 @@
 
 .icon-links i {
   font-size: 22px;
+}
+
+.react-datepicker__input-time-container
+  .react-datepicker-time__input-container
+  .react-datepicker-time__input
+  input {
+  width: auto !important;
+}
+
+.select {
+  &__input input {
+    height: auto !important;
+    line-height: initial !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    &:active {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.basic-single {
+  margin-bottom: 16px;
 }

@@ -17,8 +17,8 @@ feature 'unit crud' do
     expect(page).to have_text('Company units')
 
     expect(page).not_to have_text(unit_with_children.children.first.name)
-    find_link(href: company_unit_children_path(unit_with_children.id)).click
-    wait_for_ajax
+    find("#unit_#{unit_with_children.id}_children").click
+
     expect(page).to have_text(unit_with_children.children.first.name)
   end
 
@@ -52,13 +52,13 @@ feature 'unit crud' do
 
     expect(page).to have_content(child.name)
 
-    find("#unit_#{child.id}").hover
+    find('li', text: child.name, match: :first).hover
     within('.buttons-to-right') do
       accept_confirm do
-        find('a[data-method="delete"]').click
+        find('a.button.red.ripple-effect.ico').click
       end
     end
-    wait_for_ajax
-    expect(page).not_to have_content(child.name)
+
+    expect(page).not_to have_content(child.name, wait: 5)
   end
 end
