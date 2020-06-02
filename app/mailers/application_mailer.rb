@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'roompassport@example.com'
+  default from: 'no_reply@roompassport.pp.ua'
   layout 'mailer'
 end
