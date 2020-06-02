@@ -10,7 +10,13 @@ class TicketMailerPreview < ActionMailer::Preview
     TicketMailer.assign_responsible_user_email(ticket)
   end
 
+  def ticket_has_comment_email
+    ticket = Ticket.all.detect { |t| t.comments.any? }
+    TicketMailer.ticket_has_comment_email(ticket)
+  end
+
   def ticket_resolved_email
-    TicketMailer.ticket_resolved_email(Ticket.first)
+    ticket = Ticket.all.detect(&:resolved?)
+    TicketMailer.ticket_resolved_email(ticket)
   end
 end

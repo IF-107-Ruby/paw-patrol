@@ -12,7 +12,6 @@
 #  updated_at       :datetime         not null
 #
 class Comment < ApplicationRecord
-  after_create :send_comment_notification
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 
@@ -38,11 +37,5 @@ class Comment < ApplicationRecord
                           notified_by: self.user,
                           noticeable: self)
     end
-  end
-
-  private
-
-  def send_comment_notification
-    SendNewCommentEmailJob.perform_later(id, commentable)
   end
 end

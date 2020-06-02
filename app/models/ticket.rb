@@ -23,7 +23,10 @@ class Ticket < ApplicationRecord
   has_one :ticket_completion, dependent: :destroy
   has_many :employees, through: :unit, class_name: 'User'
   has_many :events, dependent: :nullify
-  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :comments,
+           as: :commentable,
+           dependent: :destroy,
+           after_add: :send_email_about_new_comment
   has_many :watchers_relationship, dependent: :destroy
   has_many :watchers, through: :watchers_relationship, source: :user
   accepts_nested_attributes_for :watchers_relationship, allow_destroy: true
@@ -115,5 +118,9 @@ class Ticket < ApplicationRecord
     return unless status_previously_changed? && resolved?
 
     SendTicketResolvedEmailJob.perform_later(id)
+  end
+
+  def send_email_about_new_comment(_)
+    SendEmailAboutNewCommentJob.perform_later(id)
   end
 end
