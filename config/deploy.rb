@@ -22,4 +22,4 @@ set :sidekiq_env, 'production'
 set :init_system, :systemd
 set :service_unit_name, 'sidekiq'
 
-# append :linked_files, 'config/database.yml', 'config/secrets.yml'
+append :linked_files, 'config/database.yml'

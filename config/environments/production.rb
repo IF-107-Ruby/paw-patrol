@@ -110,6 +110,7 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.action_mailer.default_url_options = { host: ENV['RAILS_HOST'] }
   config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: ENV['RAILS_HOST'] }
 end
