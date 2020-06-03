@@ -17,7 +17,10 @@ class Company
                                         .take(5)
 
       when COMPANY_OWNER
-
+        @company_statistics = [ { subtitle: 'Workers',
+                                  value: current_company.employees.count },
+                                { subtitle: 'Responsible users',
+                                  value: current_company.staff.count } ]
       end
     end
   end
