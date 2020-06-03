@@ -11,7 +11,8 @@ append :linked_dirs, 'log',
        'vendor/bundle',
        '.bundle',
        'public/system',
-       'public/uploads'
+       'public/uploads',
+       'storage'
 
 set :keep_releases, 5
 
