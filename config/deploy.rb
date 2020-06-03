@@ -2,7 +2,7 @@ set :application, 'roompassport'
 set :repo_url, 'git@github.com:IF-107-Ruby/paw-patrol.git'
 
 set :deploy_to, "/home/deploy/#{fetch :application}"
-set :branch, 'capistrano-setup'
+set :branch, 'master'
 
 append :linked_dirs, 'log',
        'tmp/pids',
