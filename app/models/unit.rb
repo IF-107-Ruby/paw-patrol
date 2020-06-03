@@ -17,7 +17,7 @@ class Unit < ApplicationRecord
 
   belongs_to :company
   belongs_to :responsible_user, class_name: 'User', foreign_key: :responsible_user_id,
-                                optional: true, inverse_of: :units
+                                optional: true, inverse_of: :assigned_units
 
   has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy

@@ -29,6 +29,9 @@ class User < ApplicationRecord
   has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
+  has_many :assigned_units, foreign_key: :responsible_user_id,
+                            class_name: 'Unit', dependent: :nullify,
+                            inverse_of: :responsible_user
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify
@@ -69,12 +72,12 @@ class User < ApplicationRecord
   end
 
   def responsible?
-    company.units.pluck(:responsible_user_id).include?(id)
+    assigned_units.any?
   end
 
   def available_units
     if responsible?
-      company.units.with_responsible(self)
+      assigned_units
     else
       AvailableUserUnitsQuery.new(user: self).to_units_array
     end
