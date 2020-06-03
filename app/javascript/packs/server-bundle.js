@@ -7,9 +7,9 @@ import Units from "../bundles/app/shared/components/Units";
 import QrCode from "qrcode.react";
 
 ReactOnRails.register({
+  CompanyStatistics,
   WatchersBlock,
   Calendar,
   QrCode,
   Units,
-  CompanyStatistics,
 });
