@@ -22,7 +22,7 @@ class Company < ApplicationRecord
            source: :user, through: :users_companies_relationships
   has_many :tickets, through: :units
 
-  def responsible_user_ids
+  def responsible_users
     User.where(id: units.select(:responsible_user_id).distinct)
   end
 end

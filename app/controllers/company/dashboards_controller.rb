@@ -7,7 +7,7 @@ class Company
         @company_statistics = [{ subtitle: 'Workers',
                                  value: current_company.employees.count },
                                { subtitle: 'Responsible users',
-                                 value: current_company.responsible_user_ids.count }]
+                                 value: current_company.responsible_users.count }]
       end
     end
 
