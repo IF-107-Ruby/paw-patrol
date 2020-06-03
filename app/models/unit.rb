@@ -13,6 +13,7 @@
 #
 class Unit < ApplicationRecord
   scope :roots, -> { where(ancestry: nil) }
+  scope :with_responsible, ->(user) { where(responsible_user_id: user.id) }
 
   belongs_to :company
   belongs_to :responsible_user, class_name: 'User', foreign_key: :responsible_user_id,

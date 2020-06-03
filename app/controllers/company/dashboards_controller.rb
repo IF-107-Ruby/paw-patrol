@@ -1,14 +1,10 @@
 class Company
   class DashboardsController < Company::BaseController
-    EMPLOYEE = 'employee'.freeze
-    STAFF_MEMBER = 'staff_member'.freeze
-    COMPANY_OWNER = 'company_owner'.freeze
-
     def show
       case current_user.role
-      when EMPLOYEE, STAFF_MEMBER
+      when 'employee', 'staff_member'
         load_worker_data
-      when COMPANY_OWNER
+      when 'company_owner'
         @company_statistics = [{ subtitle: 'Workers',
                                  value: current_company.employees.count },
                                { subtitle: 'Responsible users',
