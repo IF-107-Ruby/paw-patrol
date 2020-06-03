@@ -1,27 +1,24 @@
 class Company
   class DashboardsController < Company::BaseController
+    EMPLOYEE = 'employee'
+    STAFF_MEMBER = 'staff_member'
+    COMPANY_OWNER = 'company_owner'
+
     def show
-      send("load_#{current_user.role}_dashboard_data")
+      case current_user.role
+      when EMPLOYEE, STAFF_MEMBER
+        @current_tickets = current_user.current_tickets
+                                       .most_recent
+                                       .decorate
+                                       .take(5)
+        @resolved_tickets = current_user.resolved_tickets
+                                        .most_recent
+                                        .decorate
+                                        .take(5)
+
+      when COMPANY_OWNER
+
+      end
     end
-
-    def load_worker_dashboard_data
-      @current_pagy, @current_tickets = pagy_decorated(
-        current_user.current_tickets.most_recent,
-        items: 5,
-        page_param: :page_current_tickets
-      )
-
-      @resolved_pagy, @resolved_tickets = pagy_decorated(
-        current_user.resolved_tickets.most_recent,
-        items: 5,
-        page_param: :page_resolved_tickets
-      )
-    end
-
-    alias load_employee_dashboard_data load_worker_dashboard_data
-
-    alias load_staff_member_dashboard_data load_worker_dashboard_data
-
-    def load_company_owner_dashboard_data; end
   end
 end

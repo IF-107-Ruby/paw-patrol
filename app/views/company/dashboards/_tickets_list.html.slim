@@ -10,7 +10,6 @@
         .content.padding-bottom-20
           ul.dashboard-box-list
             = render @current_tickets
-          = render partial: 'shared/pagination', locals: { pagy: @current_pagy }
 .row  
   - if @resolved_tickets.present?
     .col-xl-12
@@ -23,4 +22,3 @@
         .content.padding-bottom-20
           ul.dashboard-box-list
             = render @resolved_tickets
-          = render partial: 'shared/pagination', locals: { pagy: @resolved_pagy }
