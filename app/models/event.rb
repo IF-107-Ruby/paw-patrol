@@ -32,6 +32,8 @@ class Event < ApplicationRecord
     message: 'must be valid hexa color'
   }
 
+  after_create :send_event_notification
+
   def all_day_event?
     anchor == anchor.midnight &&
       (anchor + duration.minutes) == (anchor + duration.minutes).midnight
@@ -63,5 +65,9 @@ class Event < ApplicationRecord
     elsif annually?
       IceCube::Rule.yearly(1)
     end
+  end
+
+  def send_event_notification
+    SendNewEventEmailJob.perform_later(id)
   end
 end
