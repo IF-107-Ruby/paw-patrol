@@ -1,6 +1,5 @@
 class UserDecorator < Draper::Decorator
   delegate_all
-  decorates_association :ticket
 
   def full_name
     [first_name, last_name].join(' ').strip

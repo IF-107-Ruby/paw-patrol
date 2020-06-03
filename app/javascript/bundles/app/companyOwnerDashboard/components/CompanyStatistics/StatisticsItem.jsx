@@ -9,17 +9,17 @@ const StatisticsItem = props => {
     <div className="fun-fact col-xl-4">
       <div className="fun-fact-text">
         <span>{ subtitle }</span>
-          <Spring config={{ duration: 2000 }}
-            from={{ number: 0 }}
-            to={{ number: number }}>
-            {props => <h4>{Number(props.number.toFixed(0)).toLocaleString()}</h4> }
-          </Spring> 
+        <Spring config={{ duration: 2000 }}
+          from={{ number: 0 }}
+          to={{ number: number }}>
+          {props => <h4>{ Number(props.number.toFixed(0)).toLocaleString()}</h4> }
+        </Spring> 
       </div>
       <div className="fun-fact-icon">
         <i className="icon-material-outline-group"></i>
       </div>
     </div>
-    );
+  );
 }
 
 export default StatisticsItem;

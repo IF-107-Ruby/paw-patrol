@@ -22,4 +22,7 @@ class Company < ApplicationRecord
            source: :user, through: :users_companies_relationships
   has_many :tickets, through: :units
 
+  def responsible_users
+    units.pluck(:responsible_user_id).uniq.compact
+  end
 end

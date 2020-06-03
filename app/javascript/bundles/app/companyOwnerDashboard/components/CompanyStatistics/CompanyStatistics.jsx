@@ -1,4 +1,4 @@
-import React from 'react';
+import React from './node_modules/react';
 import StatisticsItem from './StatisticsItem';
 
 const CompanyStatistics = props => {
@@ -7,10 +7,10 @@ const CompanyStatistics = props => {
   return (
     <section className='company-statistics'>
       <div className="fun-facts-container">
-          {data.map(item => {
-            return <StatisticsItem number={item.value} subtitle={item.subtitle} key={item.value} />
-          })}
-        </div>
+        {data.map(item => {
+          return <StatisticsItem number={item.value} subtitle={item.subtitle} key={item.value} />
+        })}
+      </div>
     </section>
   );
 }
