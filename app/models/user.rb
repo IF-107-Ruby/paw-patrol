@@ -21,8 +21,6 @@ class User < ApplicationRecord
   scope :employees, -> { where(role: :employee) }
   scope :staff_members, -> { where(role: :staff_member) }
 
-  STAFF_MEMBER = 'staff_member'.freeze
-
   enum role: { company_owner: 0, employee: 1, staff_member: 2 }
 
   has_one :users_companies_relationship, dependent: :destroy
@@ -70,12 +68,12 @@ class User < ApplicationRecord
     tickets.resolved.any?
   end
 
-  def responsible?(_units)
+  def responsible?
     company.units.pluck(:responsible_user_id).include?(id)
   end
 
   def available_units
-    if role == STAFF_MEMBER && responsible?(company.units)
+    if responsible?
       company.units.with_responsible(self)
     else
       AvailableUserUnitsQuery.new(user: self).to_units_array
