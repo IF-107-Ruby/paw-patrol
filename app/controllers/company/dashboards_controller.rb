@@ -44,7 +44,7 @@ class Company
     def get_amount_of_satisfaction_by_rating(rating)
       ticket_ids = current_company.tickets.split(',')
       {
-        name: rating,
+        name: "Rated #{rating}",
         amount: Review.where(rating: rating, ticket: ticket_ids).count
       }
     end
