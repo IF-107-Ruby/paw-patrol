@@ -1,1 +1,12 @@
 - provide(:headline, "Howdy, #{current_user.first_name}!")
+
+- if current_user.company_owner?
+  .row
+    .col-md-7
+      .dashboard-box.mt-0
+        .headline
+          h3
+            i.icon-feather-bar-chart-2
+            | Rewiew satisfaction
+        .content
+          = react_component("RewiewSatisfaction")
