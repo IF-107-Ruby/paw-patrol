@@ -20,10 +20,7 @@ class User < ApplicationRecord
   scope :company_owners, -> { where(role: :company_owner) }
   scope :employees, -> { where(role: :employee) }
   scope :staff_members, -> { where(role: :staff_member) }
-  scope :responsible_users, lambda {
-                              joins(:units)
-                                .where('units.responsible_user_id = users.id')
-                            }
+  scope :responsible_users, -> { joins(:assigned_units).distinct }
 
   enum role: { company_owner: 0, employee: 1, staff_member: 2 }
 

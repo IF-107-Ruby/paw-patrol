@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'employee visit dashboard' do
+feature 'company owner visit dashboard' do
   include_context 'company with users'
 
   before { login_as company_owner }
