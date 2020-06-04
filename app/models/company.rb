@@ -20,9 +20,7 @@ class Company < ApplicationRecord
            source: :user, through: :users_companies_relationships
   has_many :employees, -> { employee },
            source: :user, through: :users_companies_relationships
+  has_many :responsible_users, -> { responsible_users },
+           source: :user, through: :users_companies_relationships
   has_many :tickets, through: :units
-
-  def responsible_users
-    User.where(id: units.select(:responsible_user_id).distinct)
-  end
 end
