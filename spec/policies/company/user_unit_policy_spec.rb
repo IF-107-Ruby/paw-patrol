@@ -24,4 +24,12 @@ RSpec.describe Company::UserUnitPolicy, type: :policy do
       expect(subject).to permit(employee, unit)
     end
   end
+
+  permissions :events? do
+    it 'grant access' do
+      expect(subject).not_to permit(company_owner, unit)
+      expect(subject).not_to permit(staff_member, unit)
+      expect(subject).not_to permit(employee, unit)
+    end
+  end
 end

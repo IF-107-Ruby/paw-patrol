@@ -19,18 +19,26 @@
                 = unit.name
                 - if unit.responsible_user.present?
                   span = link_to unit.responsible_user_text, [:company, unit.responsible_user]
-                span = link_to unit.employees_count, [:company, unit, :room_employees]          
-  - if @unit_tickets.present?
-    .col-xl-12
-      .dashboard-box
-        .headline
-          .d-flex.justify-content-between
-            h3
-              i.icon-material-outline-library-books
-              | Tickets
-            .icon-links
-              = link_to new_company_ticket_path(unit_id: unit.id)
-                i.icon-feather-plus
+                span = link_to unit.employees_count, [:company, unit, :room_employees]
+  .col-xl-12
+    .dashboard-box
+      .headline
+        h3 
+          i.icon-line-awesome-calendar-o
+          | Planed events
+      .content.with-padding#fullcalendar
+        = react_component("Calendar", props: { unit_id: unit.id, editable: policy(%i[company user_unit]).events? })                        
+  .col-xl-12
+    .dashboard-box
+      .headline
+        .d-flex.justify-content-between
+          h3
+            i.icon-material-outline-library-books
+            | Tickets
+          .icon-links
+            = link_to new_company_ticket_path(unit_id: unit.id)
+              i.icon-feather-plus
+      - if @unit_tickets.present?        
         .content.padding-bottom-20
           ul.dashboard-box-list
             = render @unit_tickets
