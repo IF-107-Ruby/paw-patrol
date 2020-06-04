@@ -5,5 +5,4 @@
     - if yield(:status).present?
       i.icon-feather-check-square.margin-top-5 value="#{yield(:status)}"
 
-
-    = render Breadcrumbs.new(request)
+    = render 'breadcrumbs'

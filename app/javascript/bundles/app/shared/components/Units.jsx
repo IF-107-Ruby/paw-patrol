@@ -93,6 +93,14 @@ class Units extends Component {
       </div>
     );
 
+    let iconLinks = editable && (
+      <div className="icon-links">
+        <a href={newUnitPath}>
+          <i className="icon-feather-plus"></i>
+        </a>
+      </div>
+    );
+
     return (
       <div className="dashboard-box">
         <div className="headline">
@@ -101,11 +109,7 @@ class Units extends Component {
               <i className="icon-material-outline-business"></i>
               {headline}
             </h3>
-            <div className="icon-links">
-              <a href={newUnitPath}>
-                <i className="icon-feather-plus"></i>
-              </a>
-            </div>
+            {iconLinks}
           </div>
         </div>
         {content}

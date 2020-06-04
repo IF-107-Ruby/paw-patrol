@@ -12,10 +12,19 @@ RSpec.describe Company::UnitsController, type: :controller do
       before { sign_in company_owner }
 
       describe 'GET#index' do
-        it 'assigns units and renders template' do
-          get :index, params: { company_id: company.id }
-          expect(assigns(:units)).to eq([unit])
-          expect(response).to render_template(:index)
+        context 'html' do
+          it 'assigns renders template' do
+            get :index, params: { company_id: company.id }
+            expect(response).to render_template(:index)
+          end
+        end
+
+        context 'json' do
+          it 'assigns units and renders template' do
+            get :index, params: { company_id: company.id, format: :json }
+            expect(assigns(:units)).to eq([unit])
+            expect(response).to render_template(:index)
+          end
         end
       end
 
