@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'edit', to: 'companies#edit'
     patch 'edit', to: 'companies#update'
     get 'dashboard', to: 'dashboards#show'
+    get '/satisfaction', to: 'dashboards#satisfaction'
     resources :users
     resources :units do
       resource :room_employees, only: %i[show edit update]
