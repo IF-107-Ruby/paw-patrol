@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
+    / = stylesheet_link_tag "hireo", :media => "all"
+  body
+    .container
+      .row
+        .col-xl-6
+          .section-headline.centered.margin-bottom-30.margin-top-15.email-header-background
+            h1.email-main-color.padding-bottom-30.padding-top-30
+              | ROOM PASSPORT
+          .col-xl-10
+            div
+              h4.mail-text
+                | The new event
+                '
+                strong.email-main-color = @event.title
+                '
+                | was planned for
+                '
+                strong.email-main-color = @event.unit.name
+                |.
+            br
+            div
+              h4.mail-text
+                | Click
+                '
+                = link_to 'here', company_unit_url(@event.unit)
+                '
+                | to find more about all events planned for
+                '
+                strong.email-main-color = @event.unit.name
+                |.
+            br
+            br
+            h4.mail-text
+              | Cheers,
+            h4.mail-text
+              | The team at ROOM PASSPORT
+          .section-headline.gray.centered.margin-bottom-15.margin-top-30.email-footer-background
+            h6.padding-bottom-30.padding-top-30
+              | Made by
+              '
+              = link_to 'ROOM PASSPORT', root_url
+
+

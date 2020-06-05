@@ -7,5 +7,9 @@ class Company
     def show?
       user.employee?
     end
+
+    def events?
+      false
+    end
   end
 end
