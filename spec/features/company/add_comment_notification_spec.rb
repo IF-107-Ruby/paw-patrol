@@ -13,7 +13,7 @@ feature 'AddCommentNotification' do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
   let!(:comment) { ticket.comments.first }
 
-  xscenario 'watchers successfully see comments notification', js: true do
+  scenario 'watchers successfully see comments notification', js: true do
     login_as responsible_user
     visit company_ticket_path(ticket)
 

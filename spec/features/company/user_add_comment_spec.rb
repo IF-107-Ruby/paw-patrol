@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xfeature 'EmployeeAddComment' do
+feature 'EmployeeAddComment' do
   let!(:company) { create(:company) }
   let!(:responsible_user) { create(:staff_member, :with_company, company: company) }
   let!(:unit) do
@@ -13,7 +13,7 @@ xfeature 'EmployeeAddComment' do
   let!(:ticket) { create(:ticket, :with_comments, user: employee, unit: unit) }
   let!(:comment) { ticket.comments.first }
 
-  xscenario 'ticket author successfully see comments and add new one', js: true do
+  scenario 'ticket author successfully see comments and add new one', js: true do
     login_as employee
     visit company_ticket_path(ticket)
 
@@ -23,7 +23,7 @@ xfeature 'EmployeeAddComment' do
       fill_in id: 'comment_body', with: 'Test comment from employee'
     end
 
-    click_on 'Add comment'
+    find('button', text: 'Add comment', visible: false).click
     wait_for_ajax
 
     expect(page).to have_text('Comment has been saved')
