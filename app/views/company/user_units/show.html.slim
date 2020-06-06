@@ -28,7 +28,7 @@
           i.icon-line-awesome-calendar-o
           | Planed events
       .content.with-padding#fullcalendar
-        = react_component("Calendar", props: { unit_id: unit.id, editable: policy([:company, unit]).events? })
+        = react_component("Calendar", props: { unit_id: unit.id, editable: policy(%i[company user_unit].events? })
         
   .col-xl-12
     .dashboard-box
