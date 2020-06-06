@@ -49,7 +49,6 @@ class Ticket < ApplicationRecord
                      ticket.resolution_attachments.any?
                  }
 
-  after_create :add_author_to_watchers
   after_create :send_ticket_notification
   after_update :send_ticket_resolved_email
 
@@ -64,7 +63,7 @@ class Ticket < ApplicationRecord
   end
 
   def participants
-    watchers + [unit.responsible_user]
+    watchers + [user, unit.responsible_user]
   end
 
   def belongs_to?(current_user)
@@ -110,10 +109,6 @@ class Ticket < ApplicationRecord
     attributes
       .except('id', 'status')
       .merge(description: description, parent: self)
-  end
-
-  def add_author_to_watchers
-    watchers << user
   end
 
   def send_ticket_resolved_email
