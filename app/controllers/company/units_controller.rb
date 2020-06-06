@@ -23,9 +23,6 @@ class Company
     end
 
     def show
-      @children_pagy, @unit_children = pagy_decorated(@unit.children,
-                                                      items: 5,
-                                                      page_param: :page_children)
       @tickets_pagy, @unit_tickets = pagy_decorated(@unit.tickets.most_recent,
                                                     items: 5,
                                                     page_param: :page_tickets)

@@ -1,6 +1,6 @@
 class Company
   class UnitsChildrenController < Company::BaseController
-    before_action :obtain_unit, only: [:index]
+    before_action :obtain_unit, only: :index
     after_action :add_pagy_headers, only: :index
     decorates_assigned :unit
 
