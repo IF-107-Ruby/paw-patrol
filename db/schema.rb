@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20_200_611_104_502) do
     t.string 'phone'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'access_token'
+    t.boolean 'enable_access_token', default: false
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 

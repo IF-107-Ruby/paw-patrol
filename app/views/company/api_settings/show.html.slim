@@ -1,0 +1,11 @@
+- provide(:headline, "API Settings for #{current_company.name} company")
+
+= render 'form'
+
+- if current_company.enable_access_token
+  h3.margin-top-20 Access token
+  .margin-top-10
+    = current_company.access_token
+    - if policy([:company, current_company]).regenerate_api_token?
+      = link_to company_regenerate_api_token_path, method: :patch, class: 'padding-left-15', title: "Regenerate token", "data-tippy-placement" => "right"
+        i.icon-material-outline-autorenew

@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     patch 'edit', to: 'companies#update'
     get 'dashboard', to: 'dashboards#show'
     get '/satisfaction', to: 'dashboards#satisfaction'
+    get 'api_settings', to: 'api_settings#show'
+    patch 'api_settings', to: 'api_settings#update'
+    patch 'regenerate_api_token', to: 'api_settings#regenerate_api_token'
     resources :users
     resources :units do
       resource :room_employees, only: %i[show edit update]
@@ -42,8 +45,13 @@ Rails.application.routes.draw do
   devise_for :users, path: '', only: %i[sessions confirmations], controllers: {
     sessions: 'users/sessions',
     confirmations: 'users/confirmations'
-
   }
+
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :tickets, only: %i[index]
+    end
+  end
 
   root 'home#index'
   get  '/contact', to: 'feedbacks#new'

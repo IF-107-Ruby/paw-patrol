@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
     [pagy_obj, members.decorate]
   end
 
+  def add_pagy_headers
+    pagy_headers_merge(@pagy) if @pagy
+  end
+
   def user_not_authorized
     respond_to do |format|
       format.html do

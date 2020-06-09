@@ -49,6 +49,10 @@
               a href="#" 
                 i.icon-material-outline-settings
                 | Settings
+            li class="#{active_path(company_api_settings_path)}"
+              = link_to company_api_settings_path
+                i.icon-material-outline-settings-input-component
+                | API
             li
               = link_to destroy_user_session_path, method: :delete
                 i.icon-material-outline-power-settings-new
