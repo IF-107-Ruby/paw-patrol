@@ -1,6 +1,6 @@
 - provide(:headline, "Howdy, #{current_user.first_name}!")
 
-- if current_user.company_owner?
+- if policy([:company, Company]).update?
   .row
     .col-md-7
       .dashboard-box.mt-0
