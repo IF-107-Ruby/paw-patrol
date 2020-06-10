@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'settings', to: 'settings#show'
 
     resource :access_token, only: %i[create update destroy]
+    resources :telegram_accounts, only: %i[create destroy]
     resources :users
     resources :units do
       resource :room_employees, only: %i[show edit update]

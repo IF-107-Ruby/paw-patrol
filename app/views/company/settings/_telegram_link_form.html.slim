@@ -1,0 +1,12 @@
+= form_for(:telegram, url: company_telegram_accounts_path, method: :post) do |f|
+  .row
+    .col-xl-8
+      .submit-field
+        h5
+          | Link token
+        = f.text_field :link_token, class: 'with-border'
+    .col-xl-4.d-flex.align-items-end
+      .submit-field
+        = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do
+          | Link account 
+          i.icon-feather-check

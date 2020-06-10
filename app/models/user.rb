@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
+  has_one :telegram_user, dependent: :nullify
 
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
