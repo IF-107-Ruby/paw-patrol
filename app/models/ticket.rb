@@ -104,7 +104,12 @@ class Ticket < ApplicationRecord
   end
 
   def send_ticket_notification
-    SendNewTicketEmailJob.perform_later(id, unit.responsible_user.present?)
+    responsible_user = unit.responsible_user
+    SendNewTicketEmailJob.perform_later(id, responsible_user.present?)
+
+    return if responsible_user.blank? || responsible_user.telegram_user.blank?
+
+    NotifyTelegramNewTicketJob.perform_later(id, responsible_user.id)
   end
 
   def follow_up_params

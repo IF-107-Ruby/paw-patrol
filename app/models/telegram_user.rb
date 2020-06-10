@@ -11,13 +11,11 @@ class TelegramUser < ApplicationRecord
   end
 
   def connect_user(user)
-    return unless update({
-                           user: user,
-                           link_token: nil,
-                           linked_at: Time.zone.now
-                         })
-
-    NotifyTelegramConnectJob.perform_later(id)
+    update({
+             user: user,
+             link_token: nil,
+             linked_at: Time.zone.now
+           })
   end
 
   def disconnect_user

@@ -6,13 +6,23 @@ class Company
         flash[:error] = 'Invalid link token'
       else
         telegram_user.connect_user(current_user)
+        NotifyTelegramConnectJob.perform_later(telegram_user.id)
         flash[:success] = 'Account connected successfully!'
       end
       redirect_back(fallback_location: company_units_path)
     end
 
     def destroy
-      current_user.telegram_user.disconect_user
+      telegram_user = current_user.telegram_user
+      if telegram_user.disconnect_user
+        flash[:success] = 'Account disconnected successfully!'
+
+        NotifyTelegramDisconnectJob.perform_later(telegram_user.id)
+      else
+        flash[:error] = 'Unable to disconnect telegram account'
+      end
+
+      redirect_back(fallback_location: company_units_path)
     end
 
     private
