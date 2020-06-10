@@ -48,11 +48,11 @@ export default class RewiewSatisfaction extends PureComponent {
   render() {
     return (
       <BarChart
-        width={500}
-        height={300}
+        width={450}
+        height={275}
         data={this.state.satisfactionData}
         margin={{
-          top: 30, right: 30, left: 20, bottom: 20,
+          top: 30, right: 30, left: 0, bottom: 20,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />

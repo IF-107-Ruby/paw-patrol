@@ -1,6 +1,5 @@
 class Company
   class DashboardsController < Company::BaseController
-
     def show
       if current_user.staff_member? || current_user.employee?
         load_worker_data
@@ -9,6 +8,7 @@ class Company
                                  value: current_company.employees.count },
                                { subtitle: 'Responsible users',
                                  value: current_company.responsible_users.count }]
+      end
     end
 
     def satisfaction
