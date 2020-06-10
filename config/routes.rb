@@ -44,8 +44,6 @@ Rails.application.routes.draw do
   }
 
   root 'home#index'
-  get  '/about', to: 'static_pages#about'
-  get  '/services', to: 'static_pages#services'
   get  '/contact', to: 'feedbacks#new'
 
   unauthenticated do
@@ -53,10 +51,7 @@ Rails.application.routes.draw do
     post '/sign_up', to: 'companies#create'
   end
 
-  resources :companies
-  resources :units
   resources :feedbacks, only: :create
-  resources :users
 
   # Using :match so that error pages work for all types of requests, not just GET.
   match '/404', to: 'errors#not_found', via: :all

@@ -2,6 +2,11 @@ module Admin
   class UsersController < Admin::BaseController
     before_action :obtain_user, only: %i[show edit update destroy impersonate]
 
+    breadcrumb 'Users', %i[admin users], match: :exclusive
+    breadcrumb -> { @user.full_name }, -> { [:admin, @user] },
+               match: :exclusive, only: %i[show edit update]
+    breadcrumb 'Edit', [:edit, :admin, :user, @user], only: %i[edit update]
+
     def index
       authorize([:admin, User])
       @pagy, @users = pagy_decorated(User.all, items: 10)

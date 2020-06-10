@@ -13,7 +13,7 @@
     json.color event.color
     json.allDay event.all_day_event?
 
-    json.event_url company_unit_event_path(event.unit, event, format: :json)
+    json.event_url company_unit_event_path(event.unit, event)
 
     json.user event.user, as: :user, partial: 'company/events/user'
     json.unit @unit, as: :unit, partial: 'company/events/unit'

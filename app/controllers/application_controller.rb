@@ -2,10 +2,14 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Pundit
 
+  layout 'hireo'
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   helper_method :current_company
+
+  breadcrumb 'Home', :root_path
 
   def current_user
     (super || Guest.new).decorate
@@ -27,12 +31,22 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:warning] = 'You are not authorized to perform this action.'
-    redirect_to(request.referer || root_path)
+    respond_to do |format|
+      format.html do
+        flash[:warning] = 'You are not authorized to perform this action.'
+        redirect_to(request.referer || root_path)
+      end
+      format.json { render json: 'Unauthorized action', status: :unauthorized }
+    end
   end
 
   def record_not_found
-    render 'errors/not_found'
+    respond_to do |format|
+      format.html do
+        render 'errors/not_found'
+      end
+      format.json { render json: 'Not found', status: :not_found }
+    end
   end
 
   def current_company

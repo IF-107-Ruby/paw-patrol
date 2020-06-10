@@ -25,10 +25,9 @@
         - if policy([:company, @ticket]).show? || @ticket.watchers.include?(current_user)
           .row
             .col-xl-9.mx-auto.col-lg-9.col-md-12
-              = render template: 'company/comments/index', locals: { commentable: @ticket }
+              = render partial: 'company/comments/index', locals: { commentable: @ticket }
     - if @ticket.resolved? && @ticket.resolution
       = render 'company/tickets/show_ticket_resolution', ticket: @ticket
     - if @ticket.open? && policy([:company, @ticket]).resolution?
       - unless @ticket.resolved?
         = render 'company/tickets/ticket_resolution_form', ticket: @ticket
-

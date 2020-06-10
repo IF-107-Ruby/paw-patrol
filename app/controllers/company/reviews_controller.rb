@@ -3,6 +3,25 @@ class Company
     before_action :find_reviewable_ticket_by_id
     before_action :find_review_by_ticket, only: %i[show edit update]
 
+    breadcrumb 'Add review',
+               -> { [:new, :company, @ticket, :review] },
+               only: %i[new create]
+    breadcrumb -> { @ticket.unit_name },
+               -> { [:company, @ticket.unit] },
+               match: :exclusive,
+               only: %i[show edit update]
+    breadcrumb -> { @ticket.name },
+               -> { [:company, @ticket] },
+               match: :exclusive,
+               only: %i[show edit update]
+    breadcrumb 'Review',
+               -> { [:company, @ticket, :review] },
+               match: :exclusive,
+               only: %i[show edit update]
+    breadcrumb 'Edit',
+               -> { [:edit, :company, @ticket, :review] },
+               only: %i[edit update]
+
     def show; end
 
     def new
@@ -37,7 +56,7 @@ class Company
     private
 
     def find_reviewable_ticket_by_id
-      @ticket = current_company.tickets.resolved.find(params[:ticket_id])
+      @ticket = current_company.tickets.resolved.find(params[:ticket_id]).decorate
     end
 
     def find_review_by_ticket

@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
+import timeGridPlugin from "@fullcalendar/timegrid";
 
 import moment from "moment";
 
@@ -16,6 +18,8 @@ import { showSnackbarError, showSnackbarSuccess } from "../../../../snackbars";
 
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/list/main.css";
+import "@fullcalendar/timegrid/main.css";
 
 export default class Calendar extends Component {
   calendarRef = React.createRef();
@@ -32,6 +36,7 @@ export default class Calendar extends Component {
     this.fetchEvents = this.fetchEvents.bind(this);
     this.handleDateRender = this.handleDateRender.bind(this);
     this.handleEventDrop = this.handleEventDrop.bind(this);
+    this.handleEventResize = this.handleEventResize.bind(this);
     this.handleEventCreated = this.handleEventCreated.bind(this);
     this.handleEventEdited = this.handleEventEdited.bind(this);
     this.handleEventDelete = this.handleEventDelete.bind(this);
@@ -83,7 +88,24 @@ export default class Calendar extends Component {
         await this.fetchEvents(this.state.start, this.state.end);
       }
     } catch (error) {
-      if (error.response) showSnackbarError("Event was not updated");
+      if (error.response) showSnackbarError("Event was not moved");
+    }
+  }
+
+  async handleEventResize({ event }) {
+    try {
+      let duration = moment(event.end).diff(event.start, "minutes");
+
+      let res = await axios.patch(event.extendedProps.event_url, {
+        event: { duration },
+      });
+
+      if (res.status == 200) {
+        showSnackbarSuccess("Event resized successfully");
+        await this.fetchEvents(this.state.start, this.state.end);
+      }
+    } catch (error) {
+      if (error.response) showSnackbarError("Event was not resized");
     }
   }
 
@@ -233,17 +255,24 @@ export default class Calendar extends Component {
       <div>
         <Fullcalendar
           defaultView="dayGridMonth"
-          plugins={[dayGridPlugin, interactionPlugin]}
+          plugins={[
+            dayGridPlugin,
+            listPlugin,
+            interactionPlugin,
+            timeGridPlugin,
+          ]}
           header={{
             left: "prev,next today",
             center: "title",
-            right: "dayGridMonth,dayGridWeek,dayGridDay",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
           }}
           events={events}
           firstDay={1}
           eventTextColor="#ffffff"
           selectable={editable}
           navLinks
+          nowIndicator
+          eventResize={this.handleEventResize}
           editable={editable}
           eventLimit
           selectMirror

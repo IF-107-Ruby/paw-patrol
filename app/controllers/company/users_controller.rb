@@ -2,6 +2,12 @@ class Company
   class UsersController < Company::BaseController
     before_action :obtain_user, only: %i[show edit update destroy]
 
+    breadcrumb 'Users', %i[company users], match: :exclusive
+    breadcrumb -> { @user.full_name }, -> { [:company, @user] },
+               match: :exclusive, only: %i[show edit update]
+    breadcrumb 'New', %i[new company user], only: %i[new create]
+    breadcrumb 'Edit', -> { [:edit, :company, @user] }, only: %i[edit update]
+
     def index
       authorize([:company, User])
       @pagy, @users = pagy_decorated(users_base_relation, items: 10)

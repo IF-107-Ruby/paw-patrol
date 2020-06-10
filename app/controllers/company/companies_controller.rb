@@ -2,6 +2,8 @@ class Company
   class CompaniesController < Company::BaseController
     before_action -> { authorize([:company, Company]) }
 
+    breadcrumb 'Edit', :company_edit_path, only: %i[edit update]
+
     def update
       if current_company.update(company_params)
         flash[:success] = 'Company profile has been updated.'

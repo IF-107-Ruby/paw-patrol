@@ -1,10 +1,25 @@
 class Company
   class TicketsController < Company::BaseController
     before_action :read_user_units, only: %i[new]
-    before_action :read_ticket, only: %i[edit update]
+    before_action :read_ticket, only: %i[show edit update]
+
+    breadcrumb 'Units', %i[company units], match: :exclusive, only: %i[show edit update]
+    breadcrumb 'Add Ticket', %i[new company ticket], only: %i[new create]
+    breadcrumb 'Resolved tickets', %i[resolved company tickets], only: %i[resolved]
+
+    breadcrumb -> { @ticket.unit_name },
+               -> { [:company, @ticket.unit] },
+               match: :exclusive,
+               only: %i[show edit update]
+    breadcrumb -> { @ticket.name },
+               -> { [:company, @ticket] },
+               match: :exclusive,
+               only: %i[show edit update]
+    breadcrumb 'Edit',
+               -> { [:edit, :company, @ticket] },
+               only: %i[edit update]
 
     def show
-      @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
       Notification.mark_comments_as_read(@ticket, current_user)
     end
 
@@ -84,7 +99,7 @@ class Company
     end
 
     def read_ticket
-      @ticket = policy_scope([:company, Ticket]).find(params[:id])
+      @ticket = policy_scope([:company, Ticket]).find(params[:id]).decorate
     end
   end
 end

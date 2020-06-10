@@ -9,7 +9,6 @@ Bundler.require(*Rails.groups)
 module PawPatrol
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.autoload_paths << "#{Rails.root}/app/view_models"
     config.load_defaults 6.0
     config.generators.template_engine :slim
     # Settings in config/environments/* take precedence over those specified here.

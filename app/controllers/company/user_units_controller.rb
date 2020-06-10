@@ -3,6 +3,12 @@ class Company
     before_action :obtain_unit, only: :show
     decorates_assigned :unit
 
+    breadcrumb 'My units', %i[company user_units], match: :exclusive
+    breadcrumb -> { @unit.name },
+               -> { [:company, :user, @unit] },
+               match: :exclusive,
+               only: %i[show]
+
     def index
       authorize(%i[company user_unit])
       @pagy, @units = pagy_decorated(current_user.units, items: 10)
