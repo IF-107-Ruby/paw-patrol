@@ -11,7 +11,7 @@
 #
 FactoryBot.define do
   factory :review do
-    rating { 1 }
+    rating { rand(1..5) }
     comment { Faker::Lorem.paragraph }
     ticket
   end

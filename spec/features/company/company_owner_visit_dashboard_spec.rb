@@ -10,5 +10,6 @@ feature 'company owner visit dashboard' do
 
     expect(page).to have_text('Workers')
     expect(page).to have_text('Responsible users')
+    expect(page).to have_text('Rewiew satisfaction')
   end
 end

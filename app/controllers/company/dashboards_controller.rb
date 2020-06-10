@@ -11,6 +11,11 @@ class Company
       end
     end
 
+    def satisfaction
+      @satisfaction = ReadSatisfaction.call(current_company)
+      render json: @satisfaction
+    end
+
     private
 
     def load_worker_data
