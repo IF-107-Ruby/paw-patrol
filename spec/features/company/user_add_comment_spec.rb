@@ -23,7 +23,7 @@ feature 'EmployeeAddComment' do
       fill_in id: 'comment_body', with: 'Test comment from employee'
     end
 
-    click_on 'Add comment'
+    find('button', text: 'Add comment', visible: false).click
     wait_for_ajax
 
     expect(page).to have_text('Comment has been saved')

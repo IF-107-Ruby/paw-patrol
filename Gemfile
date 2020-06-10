@@ -28,11 +28,19 @@ gem 'simple_form'
 gem 'slim'
 gem 'webpacker', '~> 4.0'
 
+gem 'factory_bot_rails'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+
 group :development, :test do
   gem 'byebug'
-  gem 'factory_bot_rails'
-  gem 'faker',       git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
   gem 'rspec-rails', '~> 4.0'
+
+  gem 'capistrano', '~> 3.11'
+  gem 'capistrano-passenger', '~> 0.2.0'
+  gem 'capistrano-rails', '~> 1.4'
+  gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-yarn'
 end
 
 group :development do
