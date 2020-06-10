@@ -8,17 +8,7 @@ import axios from "../../shared/AxiosHelper";
 
 import { showSnackbarError } from "../../../../snackbars";
 
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active) {
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`${label} : ${payload[0].value}`}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
+import CustomTooltip from './CustomTooltip'
 
 export default class RewiewSatisfaction extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/vxq4ep63/';
