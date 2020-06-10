@@ -5,7 +5,7 @@ module Api
       def index
         respond_to do |format|
           format.json do
-            @tickets = Company.last.tickets.most_recent.open
+            @tickets = @company.tickets.with_rich_text_description.most_recent.open
             @pagy, @tickets = pagy_decorated(@tickets, items: 10)
           end
         end
