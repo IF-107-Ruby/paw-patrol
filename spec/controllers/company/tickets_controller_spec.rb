@@ -98,10 +98,11 @@ describe Company::TicketsController, type: :controller do
             expect(flash[:success]).to be_present
             expect(flash[:warning]).not_to be_present
             expect(response).to redirect_to(company_ticket_path(ticket.id))
+            expect(ticket.resolution).to be_present
           end
         end
 
-        context 'with valid params' do
+        context 'with invalid params' do
           before do
             post :resolution, params: { ticket_id: ticket.id, ticket: {
               resolution: ''
@@ -113,6 +114,7 @@ describe Company::TicketsController, type: :controller do
             expect(flash[:warning]).to be_present
             expect(flash[:success]).not_to be_present
             expect(response).to render_template('show')
+            expect(ticket.resolution).not_to be_present
           end
         end
       end
@@ -177,10 +179,13 @@ describe Company::TicketsController, type: :controller do
     before do
       ticket.resolved!
       sign_in ticket.user
-      get :followed_up, params: { ticket_id: ticket.id }
     end
 
     it 'create ticket and redirect' do
+      expect do
+        get :followed_up, params: { ticket_id: ticket.id }
+      end.to change(Ticket, :count).by(1)
+
       expect(response).to have_http_status(:redirect)
       expect(ticket.children).not_to be_empty
     end
