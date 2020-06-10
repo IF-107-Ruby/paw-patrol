@@ -9,7 +9,7 @@ class Company
         NotifyTelegramConnectJob.perform_later(telegram_user.id)
         flash[:success] = 'Account connected successfully!'
       end
-      redirect_back(fallback_location: company_units_path)
+      redirect_back(fallback_location: company_settings_path)
     end
 
     def destroy
@@ -22,7 +22,7 @@ class Company
         flash[:error] = 'Unable to disconnect telegram account'
       end
 
-      redirect_back(fallback_location: company_units_path)
+      redirect_back(fallback_location: company_settings_path)
     end
 
     private

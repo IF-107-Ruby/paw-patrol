@@ -7,7 +7,7 @@ module Handlers
       else
         respond_text = 'Account is not connected'
       end
-      api.send_message(chat_id: current_telegram_user.id, text: respond_text)
+      reply_with(text: respond_text)
     end
   end
 end
