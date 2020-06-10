@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe FeedbacksController, type: :controller do
   render_views
-  
+
   let(:feedback_valid_params) { FactoryBot.attributes_for :feedback }
   let(:feedback_invalid_params) { { user_full_name: '', email: '', message: '' } }
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Company::DashboardsController, type: :controller do
   render_views
-  
+
   let!(:company) { create(:company) }
   let!(:employee) { create(:employee, company: company) }
   let!(:company_owner) { create(:company_owner, company: company) }

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Company::ReviewsController, type: :controller do
   render_views
-  
+
   include_context 'employee with ticket'
   let!(:staff_member) { create(:staff_member, company: company) }
   let(:review_params) { FactoryBot.attributes_for :review }
