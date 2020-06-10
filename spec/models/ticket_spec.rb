@@ -102,7 +102,8 @@ RSpec.describe Ticket, type: :model do
 
   describe 'ticket participants' do
     it 'contains creator of the ticket and responsible for the unit' do
-      expect(ticket.participants).to eq(ticket.watchers + [unit.responsible_user])
+      expect(ticket.participants).to eq(ticket.watchers + [ticket.user,
+                                                           unit.responsible_user])
     end
   end
 

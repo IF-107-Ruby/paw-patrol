@@ -8,6 +8,6 @@ li
           li
             i.icon-feather-user
             = ticket.created_by
-  .buttons-to-right.single-right-button
-    = link_to "#", class: "button red ripple-effect ico"
-      i.icon-feather-trash-2
+            span.pl-3
+              i.icon-material-outline-access-time
+              span #{time_ago_in_words(ticket.created_at)} ago

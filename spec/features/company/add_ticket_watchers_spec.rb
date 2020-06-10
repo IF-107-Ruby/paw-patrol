@@ -13,7 +13,6 @@ feature 'Employee set ticket watchers', js: true do
   end
 
   scenario 'successfully set ticket watchers' do
-    expect(ticket.watchers).to include(employee)
     expect(page).to have_text('Add watchers')
 
     click_on 'Add watchers'

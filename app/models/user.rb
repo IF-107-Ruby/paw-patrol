@@ -20,6 +20,7 @@ class User < ApplicationRecord
   scope :company_owners, -> { where(role: :company_owner) }
   scope :employees, -> { where(role: :employee) }
   scope :staff_members, -> { where(role: :staff_member) }
+  scope :responsible_users, -> { joins(:assigned_units).distinct }
 
   enum role: { company_owner: 0, employee: 1, staff_member: 2 }
 
@@ -29,6 +30,9 @@ class User < ApplicationRecord
   has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
+  has_many :assigned_units, foreign_key: :responsible_user_id,
+                            class_name: 'Unit', dependent: :nullify,
+                            inverse_of: :responsible_user
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify
@@ -68,6 +72,26 @@ class User < ApplicationRecord
     tickets.resolved.any?
   end
 
+  def responsible?
+    assigned_units.any?
+  end
+
+  def available_units
+    if responsible?
+      assigned_units
+    else
+      AvailableUserUnitsQuery.new(user: self).to_units_array
+    end
+  end
+
+  def current_tickets
+    tickets_scope(available_units).open
+  end
+
+  def resolved_tickets
+    tickets_scope(available_units).resolved
+  end
+
   def completion_performer?(completion)
     ticket_completions.include?(completion)
   end
@@ -76,5 +100,9 @@ class User < ApplicationRecord
 
   def send_invitation
     SendInvitationEmailJob.perform_later(id, password)
+  end
+
+  def tickets_scope(units)
+    Ticket.for_units(units)
   end
 end

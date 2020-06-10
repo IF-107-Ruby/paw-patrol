@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xfeature 'EmployeeAddComment' do
+feature 'EmployeeAddComment' do
   let!(:company) { create(:company) }
   let!(:responsible_user) { create(:staff_member, :with_company, company: company) }
   let!(:unit) do
