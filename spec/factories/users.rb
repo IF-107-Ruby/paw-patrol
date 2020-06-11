@@ -23,6 +23,7 @@ FactoryBot.define do
     email { Faker::Internet.unique.safe_email }
     sequence(:password) { |n| "testpassword#{n}" }
     sequence(:password_confirmation) { |n| "testpassword#{n}" }
+    confirmed_at { Time.now }
   end
 
   trait :with_company do

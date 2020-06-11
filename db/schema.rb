@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_531_160_131) do
+ActiveRecord::Schema.define(version: 2020_05_31_160130) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,87 +68,89 @@ ActiveRecord::Schema.define(version: 20_200_531_160_131) do
     t.index ["email"], name: "index_companies_on_email", unique: true
   end
 
-  create_table 'events', force: :cascade do |t|
-    t.string 'title', null: false
-    t.datetime 'anchor', null: false
-    t.integer 'duration', default: 1440, null: false
-    t.integer 'frequency', default: 0, null: false
-    t.string 'color', limit: 9, default: '#0000ff', null: false
-    t.integer 'ticket_id'
-    t.integer 'user_id'
-    t.integer 'unit_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "events", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "anchor", null: false
+    t.integer "duration", default: 1440, null: false
+    t.integer "frequency", default: 0, null: false
+    t.string "color", limit: 9, default: "#0000ff", null: false
+    t.integer "ticket_id"
+    t.integer "user_id"
+    t.integer "unit_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'feedbacks', force: :cascade do |t|
-    t.string 'user_full_name'
-    t.string 'email'
-    t.text 'message'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "feedbacks", force: :cascade do |t|
+    t.string "user_full_name"
+    t.string "email"
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'notifications', force: :cascade do |t|
-    t.integer 'noticeable_id', null: false
-    t.string 'noticeable_type', null: false
-    t.bigint 'user_id', null: false
-    t.integer 'notified_by_id', null: false
-    t.boolean 'read', default: false, null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['user_id'], name: 'index_notifications_on_user_id'
+  create_table "notifications", force: :cascade do |t|
+    t.integer "noticeable_id", null: false
+    t.string "noticeable_type", null: false
+    t.bigint "user_id", null: false
+    t.integer "notified_by_id", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
-  create_table 'reviews', force: :cascade do |t|
-    t.integer 'rating', null: false
-    t.text 'comment', null: false
-    t.bigint 'ticket_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['ticket_id'], name: 'index_reviews_on_ticket_id', unique: true
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating", null: false
+    t.text "comment", null: false
+    t.bigint "ticket_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ticket_id"], name: "index_reviews_on_ticket_id", unique: true
   end
 
-  create_table 'tickets', force: :cascade do |t|
-    t.string 'name', null: false
-    t.bigint 'user_id', null: false
-    t.bigint 'unit_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.integer 'status', default: 0, null: false
-    t.string 'ancestry'
-    t.index ['ancestry'], name: 'index_tickets_on_ancestry'
-    t.index ['unit_id'], name: 'index_tickets_on_unit_id'
-    t.index ['user_id'], name: 'index_tickets_on_user_id'
+  create_table "tickets", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.bigint "unit_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0, null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_tickets_on_ancestry"
+    t.index ["unit_id"], name: "index_tickets_on_unit_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
-  create_table 'units', force: :cascade do |t|
-    t.string 'name', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'company_id'
-    t.string 'ancestry'
-    t.integer 'responsible_user_id'
-    t.index ['ancestry'], name: 'index_units_on_ancestry'
-    t.index ['company_id'], name: 'index_units_on_company_id'
+  create_table "units", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "company_id"
+    t.string "ancestry"
+    t.integer "responsible_user_id"
+    t.index ["ancestry"], name: "index_units_on_ancestry"
+    t.index ["company_id"], name: "index_units_on_company_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'first_name'
-    t.string 'last_name'
-    t.string 'email'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.boolean 'admin', default: false, null: false
-    t.string 'encrypted_password', default: '', null: false
-    t.string 'reset_password_token'
-    t.datetime 'reset_password_sent_at'
-    t.datetime 'remember_created_at'
-    t.integer 'role', default: 0, null: false
-    t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['reset_password_token'],
-            name: 'index_users_on_reset_password_token',
-            unique: true
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "admin", default: false, null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "role", default: 0, null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "users_companies_relationships", force: :cascade do |t|
@@ -170,31 +173,29 @@ ActiveRecord::Schema.define(version: 20_200_531_160_131) do
     t.index ["user_id"], name: "index_users_units_relationships_on_user_id"
   end
 
-  create_table 'watchers_relationships', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'ticket_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['ticket_id'], name: 'index_watchers_relationships_on_ticket_id'
-    t.index ['user_id'], name: 'index_watchers_relationships_on_user_id'
+  create_table "watchers_relationships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "ticket_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ticket_id"], name: "index_watchers_relationships_on_ticket_id"
+    t.index ["user_id"], name: "index_watchers_relationships_on_user_id"
   end
 
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'comments', 'users'
-  add_foreign_key 'events', 'tickets'
-  add_foreign_key 'events', 'units'
-  add_foreign_key 'events', 'users'
-  add_foreign_key 'notifications', 'users'
-  add_foreign_key 'notifications', 'users', column: 'notified_by_id'
-  add_foreign_key 'reviews', 'tickets'
-  add_foreign_key 'tickets', 'units'
-  add_foreign_key 'tickets', 'users'
-  add_foreign_key 'units', 'companies'
-  add_foreign_key 'units', 'users', column: 'responsible_user_id'
-  add_foreign_key 'users_companies_relationships', 'companies'
-  add_foreign_key 'users_companies_relationships', 'users'
-  add_foreign_key 'users_units_relationships', 'units'
-  add_foreign_key 'users_units_relationships', 'users'
-  add_foreign_key 'watchers_relationships', 'tickets'
-  add_foreign_key 'watchers_relationships', 'users'
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "events", "tickets"
+  add_foreign_key "events", "units"
+  add_foreign_key "events", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "notified_by_id"
+  add_foreign_key "reviews", "tickets"
+  add_foreign_key "tickets", "units"
+  add_foreign_key "tickets", "users"
+  add_foreign_key "units", "companies"
+  add_foreign_key "units", "users", column: "responsible_user_id"
+  add_foreign_key "users_companies_relationships", "companies"
+  add_foreign_key "users_companies_relationships", "users"
+  add_foreign_key "users_units_relationships", "units"
+  add_foreign_key "users_units_relationships", "users"
 end
