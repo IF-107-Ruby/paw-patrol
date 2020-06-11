@@ -32,15 +32,6 @@ feature 'company registration' do
     fill_in id: 'user_password', with: company_registration.password
     find('button', class: 'button full-width button-sliding-icon ripple-effect').click
 
-    expect(page).to have_text('Signed in successfully.')
-    expect(page).to have_text('Profile')
-    expect(page).to have_text('Sign out')
-
-    expect(page).to have_text("Howdy, #{company_registration.first_name}!")
-
-    click_on 'Logout'
-
-    expect(page).to have_text('Signed out successfully.')
-    expect(page).to have_text('Sign in')
+    expect(page).to have_text('You have to confirm your email address before continuing.')
   end
 end
