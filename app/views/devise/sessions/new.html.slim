@@ -13,8 +13,8 @@
         .welcome-text
           h3
             | We're glad to see you again!
-          span 
-            | Don't have an account? 
+          span
+            | Don't have an account?
             = link_to "Sign up!", sign_up_path
 
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
