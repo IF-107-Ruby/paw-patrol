@@ -21,9 +21,9 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#show'
     get '/satisfaction', to: 'dashboards#satisfaction'
     get 'settings', to: 'settings#show'
-    get 'telegram_account', to: 'telegram_accounts#create'
-    post 'telegram_account', to: 'telegram_accounts#create'
-    delete 'telegram_account', to: 'telegram_accounts#destroy'
+    get 'telegram_account', to: 'telegram_profiles#create'
+    post 'telegram_account', to: 'telegram_profiles#create'
+    delete 'telegram_account', to: 'telegram_profiles#destroy'
 
     resource :access_token, only: %i[create update destroy]
     resources :users

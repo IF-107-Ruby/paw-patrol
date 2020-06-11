@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :telegram_user do
+  factory :telegram_profile do
     first_name { 'MyString' }
     last_name { 'MyString' }
     username { 'MyString' }

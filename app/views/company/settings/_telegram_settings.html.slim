@@ -4,7 +4,7 @@
 
       i.icon-brand-telegram-plane
       | Telegram account
-  - if current_user.telegram_user.present?
-    = render 'telegram_profile'
+  - if current_user.telegram_profile.present?
+    = render current_user.telegram_profile
   - else
     = render 'telegram_link_form'

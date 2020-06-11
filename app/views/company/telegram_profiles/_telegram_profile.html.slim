@@ -5,12 +5,12 @@
         .job-listing-details
           .job-listing-description
             h3.job-listing-title
-              = current_user.telegram_user.full_name
+              = telegram_profile.full_name
             .job-listing-footer
               ul
                 li
-                  a href="https://t.me/#{current_user.telegram_user.username}" target='_blank'
-                    = "@#{current_user.telegram_user.username}"
+                  a href="https://t.me/#{telegram_profile.username}" target='_blank'
+                    = "@#{telegram_profile.username}"
         .buttons-to-right.single-right-button
           = link_to company_telegram_account_path, method: :delete, class: 'button red ripple-effect ico', data: {confirm: "You sure?"}, title:"Remove", "data-tippy-placement" => "right"
             i.icon-feather-trash-2

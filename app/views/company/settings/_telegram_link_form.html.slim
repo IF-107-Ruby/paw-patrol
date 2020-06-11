@@ -5,7 +5,7 @@
         .submit-field
           h5
             | Link token
-          = f.text_field :link_token, class: 'with-border'
+          = f.text_field :link_token, class: 'with-border', required: true  
       .col-xl-4.d-flex.align-items-end
         .submit-field
           = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do

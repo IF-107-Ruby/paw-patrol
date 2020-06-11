@@ -1,6 +1,6 @@
 class UserDecorator < Draper::Decorator
   delegate_all
-  decorates_association :telegram_user
+  decorates_association :telegram_profile
 
   def full_name
     [first_name, last_name].join(' ').strip

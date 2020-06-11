@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 20_200_614_201_900) do
     t.index ['ticket_id'], name: 'index_reviews_on_ticket_id', unique: true
   end
 
-  create_table 'telegram_users', force: :cascade do |t|
+  create_table 'telegram_profiles', force: :cascade do |t|
     t.string 'first_name'
     t.string 'last_name'
     t.string 'username'
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20_200_614_201_900) do
     t.datetime 'linked_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['user_id'], name: 'index_telegram_users_on_user_id'
+    t.index ['user_id'], name: 'index_telegram_profiles_on_user_id'
   end
 
   create_table 'tickets', force: :cascade do |t|
@@ -213,7 +213,7 @@ ActiveRecord::Schema.define(version: 20_200_614_201_900) do
   add_foreign_key 'notifications', 'users'
   add_foreign_key 'notifications', 'users', column: 'notified_by_id'
   add_foreign_key 'reviews', 'tickets'
-  add_foreign_key 'telegram_users', 'users'
+  add_foreign_key 'telegram_profiles', 'users'
   add_foreign_key 'tickets', 'units'
   add_foreign_key 'tickets', 'users'
   add_foreign_key 'units', 'companies'

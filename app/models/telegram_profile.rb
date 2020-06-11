@@ -1,10 +1,10 @@
-class TelegramUser < ApplicationRecord
+class TelegramProfile < ApplicationRecord
   belongs_to :user, optional: true
 
   def start_linking
     token = loop do
       random_token = SecureRandom.random_number(100_000...1_000_000)
-      break random_token unless TelegramUser.exists?(link_token: random_token)
+      break random_token unless TelegramProfile.exists?(link_token: random_token)
     end
     update!(link_token: token)
     token

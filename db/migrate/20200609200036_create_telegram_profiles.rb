@@ -1,6 +1,6 @@
-class CreateTelegramUsers < ActiveRecord::Migration[6.0]
+class CreateTelegramProfiles < ActiveRecord::Migration[6.0]
   def change
-    create_table :telegram_users do |t|
+    create_table :telegram_profiles do |t|
       t.string :first_name
       t.string :last_name
       t.string :username
@@ -12,7 +12,7 @@ class CreateTelegramUsers < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :telegram_users, :user_id
-    add_foreign_key :telegram_users, :users, column: :user_id
+    add_index :telegram_profiles, :user_id
+    add_foreign_key :telegram_profiles, :users, column: :user_id
   end
 end

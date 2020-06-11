@@ -3,10 +3,10 @@ module Handlers
     attr_accessor :link_token
 
     def execute!
-      if current_telegram_user.user.present?
+      if current_telegram_profile.user.present?
         respond_text = 'Already connected'
       else
-        @link_token = current_telegram_user.start_linking
+        @link_token = current_telegram_profile.start_linking
         respond_text = success_text
         reply_markup = reply_keyboard
       end
