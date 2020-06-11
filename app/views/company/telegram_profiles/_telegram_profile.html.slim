@@ -12,5 +12,5 @@
                   a href="https://t.me/#{telegram_profile.username}" target='_blank'
                     = "@#{telegram_profile.username}"
         .buttons-to-right.single-right-button
-          = link_to company_telegram_account_path, method: :delete, class: 'button red ripple-effect ico', data: {confirm: "You sure?"}, title:"Remove", "data-tippy-placement" => "right"
+          = link_to company_telegram_profile_path, method: :delete, class: 'button red ripple-effect ico', data: {confirm: "You sure?"}, title:"Remove", "data-tippy-placement" => "right"
             i.icon-feather-trash-2

@@ -100,6 +100,12 @@ class User < ApplicationRecord
     ticket_completions.include?(completion)
   end
 
+  def disconnect_telegram_profile
+    return false if telegram_profile.blank?
+
+    telegram_profile.disconnect_user
+  end
+
   private
 
   def send_invitation

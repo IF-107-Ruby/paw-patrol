@@ -20,7 +20,7 @@ module Handlers
     def reply_keyboard
       kb = [
         InlineKeyboardButton.new(text: 'Link account',
-                                 url: company_telegram_account_url(
+                                 url: company_telegram_profile_url(
                                    telegram: { link_token: link_token }
                                  ))
       ]

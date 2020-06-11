@@ -1,6 +1,8 @@
 class TelegramProfile < ApplicationRecord
   belongs_to :user, optional: true
 
+  after_update :notify_user, if: :saved_change_to_user_id?
+
   def start_linking
     token = loop do
       random_token = SecureRandom.random_number(100_000...1_000_000)
@@ -11,6 +13,8 @@ class TelegramProfile < ApplicationRecord
   end
 
   def connect_user(user)
+    return false if self.user.present?
+
     update({
              user: user,
              link_token: nil,
@@ -30,5 +34,15 @@ class TelegramProfile < ApplicationRecord
         username: context.username,
         language_code: context.language_code }
     )
+  end
+
+  private
+
+  def notify_user
+    if user.present?
+      NotifyTelegramConnectJob.perform_later(id)
+    else
+      NotifyTelegramDisconnectJob.perform_later(id)
+    end
   end
 end
