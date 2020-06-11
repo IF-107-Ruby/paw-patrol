@@ -3,7 +3,11 @@ class TelegramProfile < ApplicationRecord
 
   after_update :notify_user, if: :saved_change_to_user_id?
 
+  validates :first_name, presence: true
+
   def start_linking
+    return false if user.present?
+
     token = generate_token
     update!(link_token: token)
     token

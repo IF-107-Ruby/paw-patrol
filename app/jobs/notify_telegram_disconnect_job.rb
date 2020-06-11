@@ -2,7 +2,9 @@ class NotifyTelegramDisconnectJob < ApplicationJob
   queue_as :default
 
   def perform(id)
-    Rails.configuration.telegram_bot.api
-         .send_message(chat_id: id, text: 'Account was disconnected successfully')
+    telegram_profile = TelegramProfile.find(id).decorate
+
+    TelegramMessanger.new(telegram_profile)
+                     .send_message(text: 'Account was disconnected successfully')
   end
 end

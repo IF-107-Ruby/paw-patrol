@@ -1,17 +1,19 @@
 class NotifyTelegramNewTicketJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
-  attr_accessor :ticket, :user
+  attr_accessor :ticket, :telegram_profile
 
   queue_as :default
 
-  def perform(ticket_id, user_id)
+  def perform(ticket_id, telegram_profile_id)
     @ticket = Ticket.find_by({ id: ticket_id }).decorate
-    @user = User.find_by({ id: user_id })
-    Rails.configuration.telegram_bot.api
-         .send_message(chat_id: user.telegram_profile.id,
+    @telegram_profile = TelegramProfile.find(telegram_profile_id).decorate
+
+    TelegramMessanger.new(telegram_profile)
+                     .send_message(
                        text: notification_text,
-                       reply_markup: notification_kayboard)
+                       reply_markup: notification_kayboard
+                     )
   end
 
   private

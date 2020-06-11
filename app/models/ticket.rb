@@ -108,7 +108,7 @@ class Ticket < ApplicationRecord
 
     return if responsible_user.blank? || responsible_user.telegram_profile.blank?
 
-    NotifyTelegramNewTicketJob.perform_later(id, responsible_user.id)
+    NotifyTelegramNewTicketJob.perform_later(id, responsible_user.telegram_profile.id)
   end
 
   def follow_up_params

@@ -2,10 +2,9 @@ class NotifyTelegramConnectJob < ApplicationJob
   queue_as :default
 
   def perform(id)
-    telegram_profile = TelegramProfile.find_by({ id: id }).decorate
+    telegram_profile = TelegramProfile.find(id).decorate
+    notification_text = "Connected to account: #{telegram_profile.user.full_name}"
 
-    Rails.configuration.telegram_bot.api
-         .send_message(chat_id: telegram_profile.id,
-                       text: "Connected to account: #{telegram_profile.user.full_name}")
+    TelegramMessanger.new(telegram_profile).send_message(text: notification_text)
   end
 end
