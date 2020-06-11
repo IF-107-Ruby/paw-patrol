@@ -19,7 +19,7 @@ class NotifyTelegramNewTicketJob < ApplicationJob
   def notification_text
     "#{ticket.user.full_name} created new ticket " \
       "for #{ticket.unit_name}\n" \
-      "#{ticket.name}"
+      "Title: #{ticket.name}"
   end
 
   def notification_kayboard

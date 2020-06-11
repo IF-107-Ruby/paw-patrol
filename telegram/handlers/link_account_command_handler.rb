@@ -28,7 +28,7 @@ module Handlers
     end
 
     def success_text
-      "Just follow link bellow\n" \
+      "Just follow link below\n" \
       "Or enter link token manually\n" \
       "*Link token: #{link_token}*"
     end

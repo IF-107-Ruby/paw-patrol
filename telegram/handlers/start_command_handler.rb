@@ -7,10 +7,10 @@ module Handlers
     private
 
     def reply_text
-      "Hello, #{current_telegram_profile.first_name}\n" \
-        "I am RoomPassport bot \n" \
-        "With my purpose is to improve your UX\n" \
-        "I can create tickets, send notiification and many more\n" \
+      "Hello, #{current_telegram_profile.first_name}. " \
+        "I'm RoomPassport bot\n" \
+        "My purpose is to improve your UX\n" \
+        "I can create tickets, send notification and many more\n" \
         "But first you need to connect your RoomPassport account\n"
     end
 
