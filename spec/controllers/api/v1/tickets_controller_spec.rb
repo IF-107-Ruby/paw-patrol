@@ -15,7 +15,7 @@ RSpec.describe Api::V1::TicketsController, type: :controller do
       it 'returns http success and renders index template' do
         expect(response).to render_template(:index)
         expect(response).to have_http_status(:success)
-        
+
         json_response = JSON.parse(response.body)
         expect(json_response.size).to eq(1)
         expect(json_response.first.keys)
