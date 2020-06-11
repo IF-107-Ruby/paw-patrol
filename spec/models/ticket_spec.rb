@@ -7,6 +7,7 @@ RSpec.describe Ticket, type: :model do
     it { expect(ticket).to belong_to(:user) }
     it { expect(ticket).to belong_to(:unit) }
     it { expect(ticket).to have_one(:review).dependent(:destroy) }
+    it { expect(ticket).to have_one(:responsible_user) }
     it { is_expected.to have_many(:events).dependent(:nullify) }
   end
 

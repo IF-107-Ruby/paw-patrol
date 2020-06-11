@@ -4,10 +4,7 @@ class TelegramProfile < ApplicationRecord
   after_update :notify_user, if: :saved_change_to_user_id?
 
   def start_linking
-    token = loop do
-      random_token = SecureRandom.random_number(100_000...1_000_000)
-      break random_token unless TelegramProfile.exists?(link_token: random_token)
-    end
+    token = generate_token
     update!(link_token: token)
     token
   end
@@ -45,6 +42,13 @@ class TelegramProfile < ApplicationRecord
       NotifyTelegramConnectJob.perform_later(id)
     else
       NotifyTelegramDisconnectJob.perform_later(id)
+    end
+  end
+
+  def generate_token
+    loop do
+      random_token = SecureRandom.random_number(100_000...1_000_000)
+      return random_token unless TelegramProfile.exists?(link_token: random_token)
     end
   end
 end

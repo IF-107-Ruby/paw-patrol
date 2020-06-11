@@ -33,6 +33,9 @@ class User < ApplicationRecord
   has_many :assigned_units, foreign_key: :responsible_user_id,
                             class_name: 'Unit', dependent: :nullify,
                             inverse_of: :responsible_user
+  has_many :tickets, dependent: :destroy
+  has_many :assigned_tickets, through: :assigned_units,
+                              source: :tickets
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify

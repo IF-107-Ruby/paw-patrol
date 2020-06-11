@@ -65,7 +65,7 @@ class Ticket < ApplicationRecord
   end
 
   def participants
-    watchers + [user, unit.responsible_user]
+    watchers + [user, responsible_user]
   end
 
   def belongs_to?(current_user)
@@ -104,7 +104,6 @@ class Ticket < ApplicationRecord
   end
 
   def send_ticket_notification
-    responsible_user = unit.responsible_user
     SendNewTicketEmailJob.perform_later(id, responsible_user.present?)
 
     return if responsible_user.blank? || responsible_user.telegram_profile.blank?
