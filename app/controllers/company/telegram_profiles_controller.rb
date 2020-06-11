@@ -1,5 +1,7 @@
 class Company
   class TelegramProfilesController < Company::BaseController
+    before_action -> { authorize(%i[company telegram_profile]) }
+
     def create
       telegram_profile = TelegramProfile.find_by(telegram_params)
 

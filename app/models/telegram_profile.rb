@@ -23,6 +23,8 @@ class TelegramProfile < ApplicationRecord
   end
 
   def disconnect_user
+    return false if user.blank?
+
     update({ user: nil, linked_at: nil })
   end
 
