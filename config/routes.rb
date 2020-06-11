@@ -39,8 +39,10 @@ Rails.application.routes.draw do
     resources :user_units, only: %i[index show]
   end
 
-  devise_for :users, path: '', only: :sessions, controllers: {
-    sessions: 'users/sessions'
+  devise_for :users, path: '', only: %i[sessions confirmations], controllers: {
+    sessions: 'users/sessions',
+    confirmations: 'users/confirmations'
+
   }
 
   root 'home#index'
