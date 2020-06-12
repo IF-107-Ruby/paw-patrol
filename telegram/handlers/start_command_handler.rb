@@ -1,13 +1,15 @@
 module Handlers
-  class StartCommandHandler < Handlers::BaseHandler
+  class StartCommandHandler < BaseHandler
     def execute!
-      reply_with(text: reply_text, reply_markup: reply_keyboard)
+      bot.api.send_message(chat_id: telegram_profile.id,
+                           text: reply_text,
+                           reply_markup: reply_keyboard)
     end
 
     private
 
     def reply_text
-      "Hello, #{current_telegram_profile.first_name}. " \
+      "Hello, #{telegram_profile.first_name}. " \
         "I'm RoomPassport bot\n" \
         "My purpose is to improve your UX\n" \
         "I can create tickets, send notification and many more\n" \

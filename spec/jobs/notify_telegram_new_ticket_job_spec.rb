@@ -7,10 +7,14 @@ RSpec.describe NotifyTelegramNewTicketJob, type: :job do
   let!(:ticket) { create(:ticket, user: employee, unit: unit) }
 
   describe '#perform' do
-    it 'calls TelegramMessanger' do
-      telegram_messanger = double('telegram_messanger')
-      TelegramMessanger.stub(:new).and_return(telegram_messanger)
-      expect(telegram_messanger).to receive(:send_message)
+    subject { Handlers::NewTicketNotificationHandler }
+
+    it 'calls Handlers::NewTicketNotificationHandler' do
+      handler = double('handler')
+      allow(subject).to receive(:new).and_return(handler)
+
+      expect(subject).to receive(:new).with(telegram_profile, ticket)
+      expect(handler).to receive(:execute!)
 
       described_class.new.perform(ticket.id, telegram_profile.id)
     end

@@ -1,18 +1,17 @@
 module Handlers
-  class LinkAccountCommandHandler < Handlers::BaseHandler
-    attr_accessor :link_token
-
+  class ConnectAccountCommandHandler < BaseHandler
     def execute!
-      if current_telegram_profile.user.present?
+      if telegram_profile.user.present?
         respond_text = 'Already connected'
       else
-        @link_token = current_telegram_profile.start_linking
+        @link_token = telegram_profile.start_linking
         respond_text = success_text
         reply_markup = reply_keyboard
       end
-      reply_with(text: respond_text,
-                 reply_markup: reply_markup,
-                 parse_mode: 'MarkdownV2')
+
+      bot.api.send_message(chat_id: telegram_profile.id, text: respond_text,
+                           reply_markup: reply_markup,
+                           parse_mode: 'MarkdownV2')
     end
 
     private
@@ -21,7 +20,7 @@ module Handlers
       kb = [
         InlineKeyboardButton.new(text: 'Link account',
                                  url: company_telegram_profile_url(
-                                   telegram: { link_token: link_token }
+                                   telegram: { link_token: @link_token }
                                  ))
       ]
       InlineKeyboardMarkup.new(inline_keyboard: kb)
@@ -30,7 +29,7 @@ module Handlers
     def success_text
       "Just follow link below\n" \
       "Or enter link token manually\n" \
-      "*Link token: #{link_token}*"
+      "*Link token: #{@link_token}*"
     end
   end
 end
