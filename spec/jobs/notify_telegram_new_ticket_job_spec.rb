@@ -7,9 +7,9 @@ RSpec.describe NotifyTelegramNewTicketJob, type: :job do
   let!(:ticket) { create(:ticket, user: employee, unit: unit) }
 
   describe '#perform' do
-    subject { Handlers::NewTicketNotificationHandler }
+    subject { NewTicketNotificationHandler }
 
-    it 'calls Handlers::NewTicketNotificationHandler' do
+    it 'calls NewTicketNotificationHandler' do
       handler = double('handler')
       allow(subject).to receive(:new).and_return(handler)
 

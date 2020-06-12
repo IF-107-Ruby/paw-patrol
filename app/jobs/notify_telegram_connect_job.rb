@@ -4,6 +4,6 @@ class NotifyTelegramConnectJob < ApplicationJob
   def perform(id)
     telegram_profile = TelegramProfile.find(id).decorate
 
-    Handlers::AccountConnectedNotificationHandler.new(telegram_profile).execute!
+    AccountConnectedNotificationHandler.new(telegram_profile).execute!
   end
 end

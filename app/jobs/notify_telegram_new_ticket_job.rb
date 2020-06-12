@@ -9,6 +9,6 @@ class NotifyTelegramNewTicketJob < ApplicationJob
     @ticket = Ticket.find_by({ id: ticket_id }).decorate
     @telegram_profile = TelegramProfile.find(telegram_profile_id).decorate
 
-    Handlers::NewTicketNotificationHandler.new(telegram_profile, ticket).execute!
+    NewTicketNotificationHandler.new(telegram_profile, ticket).execute!
   end
 end

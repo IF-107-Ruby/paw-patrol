@@ -1,4 +1,5 @@
 require File.expand_path('../config/environment', __dir__)
+require File.expand_path('handlers', __dir__)
 
 Rails.configuration.telegram_bot.run do |bot|
   bot.listen do |message|

@@ -4,9 +4,9 @@ RSpec.describe NotifyTelegramConnectJob, type: :job do
   let!(:telegram_profile) { create(:telegram_profile, :with_user) }
 
   describe '#perform' do
-    subject { Handlers::AccountConnectedNotificationHandler }
+    subject { AccountConnectedNotificationHandler }
 
-    it 'calls Handlers::AccountConnectedNotificationHandler' do
+    it 'calls AccountConnectedNotificationHandler' do
       handler = double('handler')
       allow(subject)
         .to receive(:new).and_return(handler)

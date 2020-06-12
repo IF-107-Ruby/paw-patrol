@@ -4,9 +4,9 @@ RSpec.describe NotifyTelegramDisconnectJob, type: :job do
   let!(:telegram_profile) { create(:telegram_profile, :with_user) }
 
   describe '#perform' do
-    subject { Handlers::AccountDisconnectedNotificationHandler }
+    subject { AccountDisconnectedNotificationHandler }
 
-    it 'calls Handlers::AccountDisconnectedNotificationHandler' do
+    it 'calls AccountDisconnectedNotificationHandler' do
       handler = double('handler')
       allow(subject).to receive(:new).and_return(handler)
 
