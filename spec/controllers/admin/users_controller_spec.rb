@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
+  render_views
+
   let!(:admin) { create(:admin) }
   let!(:user) { create(:user) }
   let!(:valid_params) { FactoryBot.attributes_for :user }

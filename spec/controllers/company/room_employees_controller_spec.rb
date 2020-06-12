@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Company::RoomEmployeesController, type: :controller do
+  render_views
+
   let!(:company) { create(:company) }
   let!(:company_owner) { create(:company_owner, company: company) }
   let!(:staff_member) { create(:staff_member, company: company) }

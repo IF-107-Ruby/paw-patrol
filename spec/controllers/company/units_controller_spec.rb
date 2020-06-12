@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Company::UnitsController, type: :controller do
+  render_views
+
   let!(:company) { create(:company) }
   let!(:company_owner) { create(:company_owner, company: company) }
   let!(:unit) { create(:unit, company: company) }
