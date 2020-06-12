@@ -6,7 +6,7 @@ class Company
       telegram_profile = TelegramProfile.find_by(telegram_params)
 
       if telegram_profile.blank?
-        flash[:error] = 'Invalid connection token'
+        flash[:error] = 'Invalid connection token!'
       else
         telegram_profile.connect_user(current_user)
         flash[:success] = 'Account connected successfully!'
@@ -19,7 +19,7 @@ class Company
       if current_user.disconnect_telegram_profile
         flash[:success] = 'Account disconnected successfully!'
       else
-        flash[:error] = 'Unable to disconnect telegram account'
+        flash[:error] = 'Unable to disconnect telegram account!'
       end
 
       redirect_back(fallback_location: company_settings_path)
