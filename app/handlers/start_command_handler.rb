@@ -18,7 +18,7 @@ class StartCommandHandler < BaseHandler
   def reply_keyboard
     kb = [
       InlineKeyboardButton.new(text: 'Start account connection',
-                               callback_data: '/link_account')
+                               callback_data: '/connect_account')
     ]
     InlineKeyboardMarkup.new(inline_keyboard: kb)
   end

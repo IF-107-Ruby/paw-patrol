@@ -6,7 +6,7 @@ class Company
       telegram_profile = TelegramProfile.find_by(telegram_params)
 
       if telegram_profile.blank?
-        flash[:error] = 'Invalid link token'
+        flash[:error] = 'Invalid connection token'
       else
         telegram_profile.connect_user(current_user)
         flash[:success] = 'Account connected successfully!'
@@ -28,7 +28,7 @@ class Company
     private
 
     def telegram_params
-      params.require(:telegram).permit(:link_token)
+      params.require(:telegram).permit(:connection_token)
     end
   end
 end

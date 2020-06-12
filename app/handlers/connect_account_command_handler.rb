@@ -3,7 +3,7 @@ class ConnectAccountCommandHandler < BaseHandler
     if telegram_profile.user.present?
       respond_text = 'Already connected'
     else
-      @link_token = telegram_profile.start_linking
+      @connection_token = telegram_profile.start_user_connection
       respond_text = success_text
       reply_markup = reply_keyboard
     end
@@ -17,9 +17,9 @@ class ConnectAccountCommandHandler < BaseHandler
 
   def reply_keyboard
     kb = [
-      InlineKeyboardButton.new(text: 'Link account',
+      InlineKeyboardButton.new(text: 'Connect account',
                                url: company_telegram_profile_url(
-                                 telegram: { link_token: @link_token }
+                                 telegram: { connection_token: @connection_token }
                                ))
     ]
     InlineKeyboardMarkup.new(inline_keyboard: kb)
@@ -27,7 +27,7 @@ class ConnectAccountCommandHandler < BaseHandler
 
   def success_text
     "Just follow link below\n" \
-    "Or enter link token manually\n" \
-    "*Link token: #{@link_token}*"
+    "Or enter connection token manually\n" \
+    "*Connection token: #{@connection_token}*"
   end
 end

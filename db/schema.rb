@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(version: 20_200_614_201_900) do
     t.string 'username'
     t.string 'language_code'
     t.integer 'user_id'
-    t.string 'link_token'
-    t.datetime 'linked_at'
+    t.string 'connection_token'
+    t.datetime 'connected_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['user_id'], name: 'index_telegram_profiles_on_user_id'

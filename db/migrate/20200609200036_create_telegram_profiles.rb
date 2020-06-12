@@ -6,8 +6,8 @@ class CreateTelegramProfiles < ActiveRecord::Migration[6.0]
       t.string :username
       t.string :language_code
       t.integer :user_id
-      t.string :link_token
-      t.datetime :linked_at
+      t.string :connection_token
+      t.datetime :connected_at
 
       t.timestamps
     end

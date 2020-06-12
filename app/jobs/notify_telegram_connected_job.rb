@@ -1,4 +1,4 @@
-class NotifyTelegramConnectJob < ApplicationJob
+class NotifyTelegramConnectedJob < ApplicationJob
   queue_as :default
 
   def perform(id)

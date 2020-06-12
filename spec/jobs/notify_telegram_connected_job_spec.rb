@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NotifyTelegramConnectJob, type: :job do
+RSpec.describe NotifyTelegramConnectedJob, type: :job do
   let!(:telegram_profile) { create(:telegram_profile, :with_user) }
 
   describe '#perform' do

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: telegram_profiles
+#
+#  id               :bigint           not null, primary key
+#  first_name       :string
+#  last_name        :string
+#  username         :string
+#  language_code    :string
+#  user_id          :integer
+#  connection_token :string
+#  connected_at     :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 FactoryBot.define do
   factory :telegram_profile do
     first_name { Faker::Name.first_name }
@@ -7,11 +22,11 @@ FactoryBot.define do
 
     trait :with_user do
       user
-      linked_at { Faker::Date.between(from: 2.days.ago, to: Time.zone.now) }
+      connected_at { Faker::Date.between(from: 2.days.ago, to: Time.zone.now) }
     end
 
     trait :with_connection_token do
-      link_token { Faker::Number.unique.number(digits: 6) }
+      connection_token { Faker::Number.unique.number(digits: 6) }
     end
   end
 end

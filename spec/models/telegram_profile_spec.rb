@@ -17,23 +17,23 @@ RSpec.describe TelegramProfile, type: :model do
     it { should validate_presence_of(:first_name) }
   end
 
-  describe 'start_linking' do
-    it 'sets and returns link_token if user not present' do
-      expect(telegram_profile.link_token).to be_nil
-      telegram_profile.start_linking
+  describe 'start_user_connection' do
+    it 'sets and returns connection_token if user not present' do
+      expect(telegram_profile.connection_token).to be_nil
+      telegram_profile.start_user_connection
 
       telegram_profile.reload
 
-      expect(telegram_profile.link_token).not_to be_nil
+      expect(telegram_profile.connection_token).not_to be_nil
     end
 
-    it 'doesn\' set link_token and returns false if user present' do
-      expect(telegram_profile_with_user.link_token).to be_nil
-      expect(telegram_profile_with_user.start_linking).to be false
+    it 'doesn\' set connection_token and returns false if user present' do
+      expect(telegram_profile_with_user.connection_token).to be_nil
+      expect(telegram_profile_with_user.start_user_connection).to be false
 
       telegram_profile_with_user.reload
 
-      expect(telegram_profile_with_user.link_token).to be_nil
+      expect(telegram_profile_with_user.connection_token).to be_nil
     end
   end
 

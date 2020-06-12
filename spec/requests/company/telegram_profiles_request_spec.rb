@@ -6,13 +6,13 @@ RSpec.describe 'Company::TelegramProfiles', type: :request do
 
   before { login_as company_owner }
 
-  describe 'GET /company/telegram_profile?telegram[link_token]=:token' do
-    context 'valid link_token' do
+  describe 'GET /company/telegram_profile?telegram[connection_token]=:token' do
+    context 'valid connection_token' do
       it 'sets user\'s telegram profile and redirects to settings' do
         expect(company_owner.telegram_profile).to be_nil
 
         get company_telegram_profile_path(
-          telegram: { link_token: telegram_profile.link_token }
+          telegram: { connection_token: telegram_profile.connection_token }
         )
 
         expect(response).to redirect_to(company_settings_path)
@@ -23,11 +23,11 @@ RSpec.describe 'Company::TelegramProfiles', type: :request do
       end
     end
 
-    context 'invalid link_token' do
+    context 'invalid connection_token' do
       it 'doesn\'t set user\'s telegram profile and redirects to settings' do
         expect(company_owner.telegram_profile).to be_nil
 
-        get company_telegram_profile_path(telegram: { link_token: 'invalid' })
+        get company_telegram_profile_path(telegram: { connection_token: 'invalid' })
 
         expect(response).to redirect_to(company_settings_path)
 
@@ -38,12 +38,12 @@ RSpec.describe 'Company::TelegramProfiles', type: :request do
   end
 
   describe 'POST /company/telegram_profile' do
-    context 'valid link_token' do
+    context 'valid connection_token' do
       it 'sets user\'s telegram profile and redirects to settings' do
         expect(company_owner.telegram_profile).to be_nil
 
         post company_telegram_profile_path, params: {
-          telegram: { link_token: telegram_profile.link_token }
+          telegram: { connection_token: telegram_profile.connection_token }
         }
 
         expect(response).to redirect_to(company_settings_path)
@@ -54,12 +54,12 @@ RSpec.describe 'Company::TelegramProfiles', type: :request do
       end
     end
 
-    context 'invalid link_token' do
+    context 'invalid connection_token' do
       it 'doesn\'t set user\'s telegram profile and redirects to settings' do
         expect(company_owner.telegram_profile).to be_nil
 
         post company_telegram_profile_path,
-             params: { telegram: { link_token: 'invalid' } }
+             params: { telegram: { connection_token: 'invalid' } }
 
         expect(response).to redirect_to(company_settings_path)
 
@@ -72,7 +72,7 @@ RSpec.describe 'Company::TelegramProfiles', type: :request do
   describe 'DELETE /company/telegram_profile' do
     before do
       post company_telegram_profile_path, params: {
-        telegram: { link_token: telegram_profile.link_token }
+        telegram: { connection_token: telegram_profile.connection_token }
       }
       company_owner.reload
     end

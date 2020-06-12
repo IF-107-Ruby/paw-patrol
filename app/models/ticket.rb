@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  status     :integer          default("open"), not null
+#  ancestry   :string
 #
 class Ticket < ApplicationRecord
   scope :most_recent, -> { order(created_at: :desc) }
@@ -105,7 +106,6 @@ class Ticket < ApplicationRecord
 
   def send_ticket_notification
     SendNewTicketEmailJob.perform_later(id, responsible_user.present?)
-
     return if responsible_user.blank? || responsible_user.telegram_profile.blank?
 
     NotifyTelegramNewTicketJob.perform_later(id, responsible_user.telegram_profile.id)
