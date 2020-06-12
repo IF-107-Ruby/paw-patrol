@@ -4,6 +4,6 @@ class UserMailer < ApplicationMailer
     @login_url = new_user_session_url
     @root_url = root_url
     @password = password
-    mail(to: user.email)
+    mail(to: user.email, subject: 'Invitation email')
   end
 end

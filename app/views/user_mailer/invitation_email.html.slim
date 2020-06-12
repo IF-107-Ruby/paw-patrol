@@ -28,7 +28,7 @@ html
             h4.mail-text
               | To login to the site, just follow this
               '
-              a href="#{@login_url}" link
+              = link_to 'link', confirmation_url(@user, confirmation_token: @user.confirmation_token)
 
             h4.mail-text.margin-top-15
               | Here is your credentials for log in:
