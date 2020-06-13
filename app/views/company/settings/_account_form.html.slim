@@ -11,7 +11,9 @@
           .row
             .col-auto
               .avatar-wrapper data-tippy-placement="bottom" data-tippy="true" data-original-title="Change Avatar"
-                = image_tag "user-avatar-placeholder", class: "profile-pic", alt: true
+                = image_tag user_avatar(user), class: "profile-pic", alt: true
+                .upload-button
+                = f.file_field :avatar, class: "file-upload", accept: "image/*"
             .col
               .row
                 .col-xl-6
