@@ -28,12 +28,12 @@ header#header-container.fullwidth.position-fixed
               .header-notifications-trigger
                 a href="#"
                   .user-avatar.status-online
-                    = image_tag "user-avatar-placeholder"
+                    = image_tag user_avatar(current_user)
               .header-notifications-dropdown
                 .user-status
                   .user-details
                     .user-avatar.status-online
-                      = image_tag "user-avatar-placeholder"
+                      = image_tag user_avatar(current_user)
                     .user-name
                       = current_user.full_name
                       span = current_user.display_role

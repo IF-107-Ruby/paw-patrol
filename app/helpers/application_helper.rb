@@ -17,4 +17,8 @@ module ApplicationHelper
     "&copy; #{Time.zone.now.strftime('%Y')}" \
       ' <b>Room Passport.SoftServe</b>. All Rights Reserved.'
   end
+
+  def user_avatar(user)
+    user.avatar.attached? ? user.avatar : 'user-avatar-placeholder'
+  end
 end
