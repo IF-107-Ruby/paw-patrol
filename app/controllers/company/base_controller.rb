@@ -11,9 +11,5 @@ class Company
     def check_user_company
       redirect_to root_path unless current_user.company?
     end
-
-    def add_pagy_headers
-      pagy_headers_merge(@pagy) if @pagy
-    end
   end
 end

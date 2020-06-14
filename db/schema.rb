@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_611_104_502) do
+ActiveRecord::Schema.define(version: 20_200_614_105_238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -68,8 +68,6 @@ ActiveRecord::Schema.define(version: 20_200_611_104_502) do
     t.string 'phone'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.string 'access_token'
-    t.boolean 'enable_access_token', default: false
     t.index ['email'], name: 'index_companies_on_email', unique: true
   end
 
@@ -156,6 +154,9 @@ ActiveRecord::Schema.define(version: 20_200_611_104_502) do
     t.index ['confirmation_token'],
             name: 'index_users_on_confirmation_token',
             unique: true
+    t.string 'access_token'
+    t.boolean 'access_token_enabled'
+    t.index ['access_token'], name: 'index_users_on_access_token'
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'],
             name: 'index_users_on_reset_password_token',

@@ -1,8 +1,0 @@
-= form_for(current_company, url: company_api_settings_path) do |f|
-  .switch-container
-    label.switch.padding-left-50
-      = f.check_box :enable_access_token, class: "form-check-input", onchange: 'this.form.submit();'
-      span.switch-button
-      | Enable API token
-
-

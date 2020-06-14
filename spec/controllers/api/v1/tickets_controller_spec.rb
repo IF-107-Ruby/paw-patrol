@@ -7,7 +7,7 @@ RSpec.describe Api::V1::TicketsController, type: :controller do
 
   describe 'GET#index' do
     before do
-      request.headers['Authorization'] = "Bearer #{access_token}"
+      request.headers['Authorization'] = "Bearer #{employee.access_token}"
       get :index, format: :json
     end
 
@@ -19,7 +19,9 @@ RSpec.describe Api::V1::TicketsController, type: :controller do
         json_response = JSON.parse(response.body)
         expect(json_response.size).to eq(1)
         expect(json_response.first.keys)
-          .to match_array(%w[id name unit_id description user_id])
+          .to match_array(
+            %w[id name unit_id description user_id updated_at created_at html_url]
+          )
       end
     end
   end

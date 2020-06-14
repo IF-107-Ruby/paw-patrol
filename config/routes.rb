@@ -20,9 +20,9 @@ Rails.application.routes.draw do
     patch 'edit', to: 'companies#update'
     get 'dashboard', to: 'dashboards#show'
     get '/satisfaction', to: 'dashboards#satisfaction'
-    get 'api_settings', to: 'api_settings#show'
-    patch 'api_settings', to: 'api_settings#update'
-    patch 'regenerate_api_token', to: 'api_settings#regenerate_api_token'
+    get 'settings', to: 'settings#show'
+
+    resource :access_token, only: %i[create update destroy]
     resources :users
     resources :units do
       resource :room_employees, only: %i[show edit update]

@@ -1,8 +1,5 @@
 RSpec.shared_context 'employee with ticket' do
-  let!(:access_token) { SecureRandom.hex }
-  let!(:company) do
-    create(:company, enable_access_token: true, access_token: access_token)
-  end
+  let!(:company) { create(:company) }
   let!(:unit) do
     create(:unit,
            :with_employee_and_ticket,

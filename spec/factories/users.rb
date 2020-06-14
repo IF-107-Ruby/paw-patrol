@@ -30,6 +30,11 @@ FactoryBot.define do
     company
   end
 
+  trait :with_access_token do
+    access_token { SecureRandom.base64 }
+    access_token_enabled { true }
+  end
+
   factory :admin, parent: :user do
     admin { true }
   end
