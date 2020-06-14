@@ -18,6 +18,21 @@ RSpec.describe 'Company::AccessTokens', type: :request do
     end
   end
 
+  describe 'PATCH /company/access_token' do
+    before { login_as user_with_token }
+
+    it 'returns http success' do
+      expect(user_with_token.access_token_enabled).to be true
+
+      patch '/company/access_token',
+            params: { user: { access_token_enabled: false } }
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(company_settings_path)
+      user_with_token.reload
+      expect(user_with_token.access_token).not_to be true
+    end
+  end
+
   describe 'DELETE /company/access_token' do
     before { login_as user_with_token }
 

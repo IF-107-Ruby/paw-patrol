@@ -12,10 +12,6 @@ class Company
       user.company_owner?
     end
 
-    def regenerate_api_token?
-      user.company_owner?
-    end
-
     class Scope < Scope
       def resolve
         user.company

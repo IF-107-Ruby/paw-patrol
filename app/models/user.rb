@@ -27,7 +27,6 @@ class User < ApplicationRecord
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
 
-  has_many :tickets, dependent: :destroy
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
   has_many :assigned_units, foreign_key: :responsible_user_id,
@@ -36,6 +35,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify
+  has_many :tickets, dependent: :destroy
+  has_many :assigned_tickets, through: :assigned_units,
+                              source: :tickets
 
   validates :first_name, :last_name,
             presence: true,

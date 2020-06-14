@@ -1,7 +1,7 @@
 class Company
-  class AccessTokensController < ApplicationController
+  class AccessTokensController < Company::BaseController
     def create
-      if current_user.update(access_token: SecureRandom.urlsafe_base64,
+      if current_user.update(access_token: generate_access_token,
                              access_token_enabled: true)
         flash[:success] = 'New API access token added successfully.'
       else
@@ -36,6 +36,13 @@ class Company
 
     def user_params
       params.require(:user).permit(:access_token_enabled)
+    end
+
+    def generate_access_token
+      loop do
+        token = SecureRandom.urlsafe_base64
+        break token unless User.exists?({ access_token: token })
+      end
     end
   end
 end
