@@ -49,7 +49,7 @@ header#header-container.fullwidth.position-fixed
                         i.icon-material-outline-dashboard
                         | Dashboard
                   li
-                    = link_to (current_user.admin ? admin_user_path(current_user) : company_user_path(current_user))
+                    = link_to (current_user.admin ? admin_user_path(current_user) : company_profile_path)
                       i.icon-feather-user
                       | Profile
                   - if current_user != true_user
