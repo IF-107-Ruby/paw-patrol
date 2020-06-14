@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User changes settings' do
-  let!(:user_password) { '123456' }
+  let(:user_password) { '123456' }
   let!(:company) { create(:company) }
   let!(:employee) do
     create(:employee,
@@ -21,6 +21,7 @@ feature 'User changes settings' do
 
   scenario 'successfully changes profile settings' do
     expect(page).to have_css('h3', text: 'Settings')
+    attach_file 'user_settings_avatar', "#{Rails.root}/spec/files/avatars/0.jpg"
     fill_in 'user_settings_first_name', with: user_valid_params[:first_name]
     fill_in 'user_settings_last_name', with: user_valid_params[:last_name]
     fill_in 'user_settings_email', with: user_valid_params[:email]
