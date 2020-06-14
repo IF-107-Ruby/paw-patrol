@@ -12,6 +12,7 @@ class CreateTelegramProfiles < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
+    add_index :telegram_profiles, :connection_token, unique: true
     add_index :telegram_profiles, :user_id
     add_foreign_key :telegram_profiles, :users, column: :user_id
   end

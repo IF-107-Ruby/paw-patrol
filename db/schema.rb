@@ -122,6 +122,9 @@ ActiveRecord::Schema.define(version: 20_200_614_201_900) do
     t.datetime 'connected_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['connection_token'],
+            name: 'index_telegram_profiles_on_connection_token',
+            unique: true
     t.index ['user_id'], name: 'index_telegram_profiles_on_user_id'
   end
 
