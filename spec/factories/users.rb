@@ -24,10 +24,17 @@ FactoryBot.define do
     sequence(:password) { |n| "testpassword#{n}" }
     sequence(:password_confirmation) { |n| "testpassword#{n}" }
     confirmed_at { Time.zone.now }
-  end
 
-  trait :with_company do
-    company
+    trait :with_avatar do
+      avatar do
+        Rack::Test::UploadedFile.new("#{Rails.root}/spec/files/avatars/#{rand(0..4)}.jpg",
+                                     'image/jpeg')
+      end
+    end
+
+    trait :with_company do
+      company
+    end
   end
 
   trait :with_access_token do
