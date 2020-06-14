@@ -8,7 +8,7 @@ class BaseHandler
     @telegram_profile = telegram_profile
   end
 
-  def bot
-    Rails.configuration.telegram_bot
+  def telegram_api
+    Rails.configuration.telegram_bot.api
   end
 end

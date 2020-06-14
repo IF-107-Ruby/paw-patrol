@@ -8,9 +8,9 @@ class ConnectAccountCommandHandler < BaseHandler
       reply_markup = reply_keyboard
     end
 
-    bot.api.send_message(chat_id: telegram_profile.id, text: respond_text,
-                         reply_markup: reply_markup,
-                         parse_mode: 'MarkdownV2')
+    telegram_api.send_message(chat_id: telegram_profile.id, text: respond_text,
+                              reply_markup: reply_markup,
+                              parse_mode: 'MarkdownV2')
   end
 
   private

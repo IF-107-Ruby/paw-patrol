@@ -7,9 +7,9 @@ class NewTicketNotificationHandler < BaseHandler
   end
 
   def execute!
-    bot.api.send_message(chat_id: telegram_profile.id,
-                         text: notification_text,
-                         reply_markup: notification_kayboard)
+    telegram_api.send_message(chat_id: telegram_profile.id,
+                              text: notification_text,
+                              reply_markup: notification_kayboard)
   end
 
   private

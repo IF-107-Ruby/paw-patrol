@@ -1,8 +1,8 @@
 class StartCommandHandler < BaseHandler
   def execute!
-    bot.api.send_message(chat_id: telegram_profile.id,
-                         text: reply_text,
-                         reply_markup: reply_keyboard)
+    telegram_api.send_message(chat_id: telegram_profile.id,
+                              text: reply_text,
+                              reply_markup: reply_keyboard)
   end
 
   private

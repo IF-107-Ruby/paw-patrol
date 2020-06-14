@@ -1,8 +1,12 @@
 class AccountConnectedNotificationHandler < BaseHandler
   def execute!
-    notification_text = "Connected to account: #{telegram_profile.user.full_name}"
+    telegram_api.send_message(chat_id: telegram_profile.id,
+                              text: notification_text)
+  end
 
-    bot.api.send_message(chat_id: telegram_profile.id,
-                         text: notification_text)
+  private
+
+  def notification_text
+    "Connected to account: #{telegram_profile.user.full_name}"
   end
 end
