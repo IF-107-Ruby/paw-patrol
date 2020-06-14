@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Company::SettingsController, type: :controller do
+RSpec.describe Company::ProfilesController, type: :controller do
   render_views
 
   let(:user_password) { '123456' }
@@ -26,16 +26,16 @@ RSpec.describe Company::SettingsController, type: :controller do
   describe 'Patch#Update' do
     context 'With valid params' do
       before do
-        put :update, params: { user_settings: FactoryBot.attributes_for(:user) }
+        put :update, params: { user: FactoryBot.attributes_for(:user) }
       end
 
       it { is_expected.to set_flash[:success] }
-      it { is_expected.to redirect_to(company_settings_path) }
+      it { is_expected.to redirect_to(company_profile_path) }
     end
 
     context 'With invalid params' do
       before do
-        put :update, params: { user_settings: { first_name: '', last_name: '' } }
+        put :update, params: { user: { first_name: '', last_name: '' } }
       end
 
       it { is_expected.not_to set_flash[:success] }
@@ -48,22 +48,22 @@ RSpec.describe Company::SettingsController, type: :controller do
     context 'With valid params' do
       before do
         put :update_password, params: {
-          user_password_settings: { current_password: user_password,
-                                    password: user_password.reverse,
-                                    password_confirmation: user_password.reverse }
+          user: { current_password: user_password,
+                  password: user_password.reverse,
+                  password_confirmation: user_password.reverse }
         }
       end
 
       it { is_expected.to set_flash[:success] }
-      it { is_expected.to redirect_to(company_settings_path) }
+      it { is_expected.to redirect_to(company_profile_path) }
     end
 
     context 'With incorrect current password' do
       before do
         put :update_password, params: {
-          user_password_settings: { current_password: 'asdasdasd',
-                                    password: user_password.reverse,
-                                    password_confirmation: user_password.reverse }
+          user: { current_password: 'asdasdasd',
+                  password: user_password.reverse,
+                  password_confirmation: user_password.reverse }
         }
       end
 
@@ -75,9 +75,9 @@ RSpec.describe Company::SettingsController, type: :controller do
     context 'With invalid params' do
       before do
         put :update_password, params: {
-          user_password_settings: { current_password: user_password,
-                                    password: '1',
-                                    password_confirmation: '2' }
+          user: { current_password: user_password,
+                  password: '1',
+                  password_confirmation: '2' }
         }
       end
 

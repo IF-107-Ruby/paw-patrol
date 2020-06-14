@@ -1,11 +1,11 @@
-= form_for user, as: :user_settings, url: company_settings_path do |f|
+= form_for user, url: company_profile_path do |f|
   .row
     .col-xl-12
       .dashboard-box.margin-top-0
         .headline
           h3
             i.icon-material-outline-account-circle
-            | My account
+            | My profile
         = render 'shared/error_messages', object: f.object
         .content.with-padding.padding-bottom-0
           .row
