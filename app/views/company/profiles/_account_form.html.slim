@@ -1,0 +1,32 @@
+= form_for user, url: company_profile_path do |f|
+  .row
+    .col-xl-12
+      .dashboard-box.margin-top-0
+        .headline
+          h3
+            i.icon-material-outline-account-circle
+            | My profile
+        = render 'shared/error_messages', object: f.object
+        .content.with-padding.padding-bottom-0
+          .row
+            .col-auto
+              .avatar-wrapper data-tippy-placement="bottom" data-tippy="true" data-original-title="Change Avatar"
+                = image_tag user_avatar(user), class: "profile-pic", alt: true
+                .upload-button
+                = f.file_field :avatar, class: "file-upload", accept: "image/*"
+            .col
+              .row
+                .col-xl-6
+                  .submit-field
+                    h5 First Name
+                    = f.text_field :first_name, class: "with-border", required: true
+                .col-xl-6
+                  .submit-field
+                    h5 Last Name
+                    = f.text_field :last_name, class: "with-border", required: true
+                .col-xl-6
+                  .submit-field
+                    h5 Email
+                    = f.text_field :email, class: "with-border", required: true
+    .col-xl-12
+      = f.submit "Save Changes", class: "button ripple-effect big margin-top-30"

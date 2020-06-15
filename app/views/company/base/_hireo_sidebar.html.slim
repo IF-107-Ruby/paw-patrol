@@ -41,8 +41,8 @@
                     i.icon-material-outline-rate-review
                     | Rate resolved tickets
           ul data-submenu-title="Account" 
-            li class="#{active_path(company_user_path(current_user))}"
-              = link_to company_user_path(current_user)
+            li class="#{active_path(company_profile_path)}"
+              = link_to company_profile_path
                 i.icon-feather-user
                 | Profile
             li class="#{active_path(company_settings_path)}"

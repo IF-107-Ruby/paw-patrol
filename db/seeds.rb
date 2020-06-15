@@ -1,9 +1,12 @@
 FactoryBot.create(:admin,
+                  :with_avatar,
                   email: 'patrol.admin@gmail.com',
                   password: '123456',
                   password_confirmation: '123456')
 
-FactoryBot.create(:company_owner, :with_company,
+FactoryBot.create(:company_owner,
+                  :with_avatar,
+                  :with_company,
                   email: 'patrol.user@gmail.com',
                   password: '123456',
                   password_confirmation: '123456')

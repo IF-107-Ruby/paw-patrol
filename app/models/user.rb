@@ -43,6 +43,11 @@ class User < ApplicationRecord
   has_many :assigned_tickets, through: :assigned_units,
                               source: :tickets
 
+  has_one_attached :avatar
+
+  validates :avatar, content_type: %w[image/png image/jpg image/jpeg],
+                     size: { less_than: 1.megabytes,
+                             message: 'is not given between size' }
   validates :first_name, :last_name,
             presence: true,
             length: { minimum: 2,

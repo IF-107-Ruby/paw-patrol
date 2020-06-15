@@ -18,11 +18,9 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    it { should validate_presence_of(:last_name) }
-
-    it { should validate_presence_of(:first_name) }
-
-    it { should validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:last_name) }
+    it { is_expected.to validate_presence_of(:first_name) }
+    it { is_expected.to validate_presence_of(:email) }
   end
 
   it 'User has role' do
@@ -58,5 +56,14 @@ RSpec.describe User, type: :model do
   it 'sends an invitation email' do
     expect { UserMailer.invitation_email(user, user.password).deliver_now }
       .to change { ActionMailer::Base.deliveries.count }.by(1)
+  end
+
+  describe 'avatar validation' do
+    it do
+      is_expected.to validate_content_type_of(:avatar).allowing('image/png',
+                                                                'image/jpg',
+                                                                'image/jpeg')
+    end
+    it { is_expected.to validate_size_of(:avatar).less_than(1.megabytes) }
   end
 end
