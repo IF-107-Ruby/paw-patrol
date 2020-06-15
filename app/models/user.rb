@@ -26,12 +26,16 @@ class User < ApplicationRecord
 
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
+  has_one :telegram_profile, dependent: :nullify
 
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
   has_many :assigned_units, foreign_key: :responsible_user_id,
                             class_name: 'Unit', dependent: :nullify,
                             inverse_of: :responsible_user
+  has_many :tickets, dependent: :destroy
+  has_many :assigned_tickets, through: :assigned_units,
+                              source: :tickets
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify
@@ -97,6 +101,12 @@ class User < ApplicationRecord
 
   def completion_performer?(completion)
     ticket_completions.include?(completion)
+  end
+
+  def disconnect_telegram_profile
+    return false if telegram_profile.blank?
+
+    telegram_profile.disconnect_user
   end
 
   private

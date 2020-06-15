@@ -1,0 +1,13 @@
+.content.with-padding
+  = form_for(:telegram, url: company_telegram_profile_path, method: :post) do |f|
+    .row
+      .col-xl-8
+        .submit-field
+          h5
+            | Connection token
+          = f.text_field :connection_token, class: 'with-border', required: true  
+      .col-xl-4.d-flex.align-items-end
+        .submit-field
+          = f.button(:submit, class: "button button-sliding-icon ripple-effect big") do
+            | Connect account 
+            i.icon-feather-check

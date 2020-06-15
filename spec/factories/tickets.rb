@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  status     :integer          default("open"), not null
+#  ancestry   :string
 #
 FactoryBot.define do
   factory :ticket do

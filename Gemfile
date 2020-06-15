@@ -27,6 +27,7 @@ gem 'sass-rails', '>= 6'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'slim'
+gem 'telegram-bot-ruby'
 gem 'webpacker', '~> 4.0'
 
 gem 'factory_bot_rails'

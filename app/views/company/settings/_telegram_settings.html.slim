@@ -1,0 +1,10 @@
+#telegram.dashboard-box
+  .headline
+    h3
+
+      i.icon-brand-telegram-plane
+      | Telegram account
+  - if current_user.telegram_profile.present?
+    = render current_user.telegram_profile
+  - else
+    = render 'telegram_connection_form'
