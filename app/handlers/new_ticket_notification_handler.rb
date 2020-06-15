@@ -9,7 +9,7 @@ class NewTicketNotificationHandler < BaseHandler
   def execute!
     telegram_api.send_message(chat_id: telegram_profile.id,
                               text: notification_text,
-                              reply_markup: notification_kayboard)
+                              reply_markup: notification_keyboard)
   end
 
   private
@@ -20,7 +20,7 @@ class NewTicketNotificationHandler < BaseHandler
     "Title: #{ticket.name}"
   end
 
-  def notification_kayboard
+  def notification_keyboard
     kb = [
       Telegram::Bot::Types::InlineKeyboardButton
         .new(text: 'View on RoomPassport', url: company_ticket_url(ticket))
