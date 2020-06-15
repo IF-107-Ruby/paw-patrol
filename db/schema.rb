@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_611_104_502) do
+ActiveRecord::Schema.define(version: 20_200_614_201_900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -151,6 +151,9 @@ ActiveRecord::Schema.define(version: 20_200_611_104_502) do
     t.string 'confirmation_token'
     t.datetime 'confirmed_at'
     t.datetime 'confirmation_sent_at'
+    t.string 'access_token'
+    t.boolean 'access_token_enabled', default: false
+    t.index ['access_token'], name: 'index_users_on_access_token', unique: true
     t.index ['confirmation_token'],
             name: 'index_users_on_confirmation_token',
             unique: true
@@ -205,4 +208,6 @@ ActiveRecord::Schema.define(version: 20_200_611_104_502) do
   add_foreign_key 'users_companies_relationships', 'users'
   add_foreign_key 'users_units_relationships', 'units'
   add_foreign_key 'users_units_relationships', 'users'
+  add_foreign_key 'watchers_relationships', 'tickets'
+  add_foreign_key 'watchers_relationships', 'users'
 end

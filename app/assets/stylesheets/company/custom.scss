@@ -174,3 +174,10 @@ button[type="submit"].disabled {
     }
   }
 }
+
+.switch-button-centered {
+  position: relative;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+}

@@ -1,0 +1,5 @@
+= form_for(current_user, url: company_access_token_path) do |f|
+  .switch-container
+    label.switch.padding-left-20
+      = f.check_box :access_token_enabled, class: "form-check-input", onchange: 'this.form.submit();'
+      span.switch-button.switch-button-centered

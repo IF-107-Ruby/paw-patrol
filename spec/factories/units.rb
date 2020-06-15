@@ -37,7 +37,7 @@ FactoryBot.define do
 
     trait :with_employee do
       after(:build) do |unit|
-        unit.users << build(:employee, company: unit.company)
+        unit.users << build(:employee, :with_access_token, company: unit.company)
       end
     end
 

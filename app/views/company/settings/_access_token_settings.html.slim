@@ -1,0 +1,26 @@
+.dashboard-box
+  .headline
+    .d-flex.justify-content-between
+      h3
+        i.icon-material-outline-settings-input-component
+        | API access token
+      .icon-links
+        - if current_user.access_token?
+          = render 'access_token_form'
+        - else
+          = link_to company_access_token_path, method: :post
+            i.icon-feather-plus
+  - if current_user.access_token?
+    .content
+      ul.dashboard-box-list
+        li
+          .job-listing
+            .job-listing-details
+              .job-listing-description
+                h3.job-listing-title
+                  = current_user.access_token
+            .buttons-to-right.single-right-button
+              = link_to company_access_token_path, method: :post, class: 'popup-with-zoom-anim button dark ripple-effect ico', title: "Regenerate token", "data-tippy-placement" => "left"
+                i.icon-material-outline-autorenew
+              = link_to company_access_token_path, method: :delete, class: 'button red ripple-effect ico', data: {confirm: "You sure?"}, title:"Remove", "data-tippy-placement" => "right"
+                i.icon-feather-trash-2
