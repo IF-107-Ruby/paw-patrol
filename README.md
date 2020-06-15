@@ -1,24 +1,33 @@
-# README
+# Room Passport
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.com/IF-107-Ruby/paw-patrol.svg?branch=master)](https://travis-ci.com/github/IF-107-Ruby/paw-patrol)
 
-Things you may want to cover:
+__Room passport__ is a project for monitoring and reporting problems that arise in the office. 
+Since we live in a digital world, we need to digitalize these processes so that we can track 
+trends and improve the comfort of office work.
 
-* Ruby version
+## Prerequisites
 
-* System dependencies
+To run the project you need:
 
-* Configuration
+* Ruby `v.2.7.1`
+* Node.js
+* Yarn
+* PostgreSQL 
+* Redis server
 
-* Database creation
+## Installation
 
-* Database initialization
+To installation the project you need to run following commands:
 
-* How to run the test suite
+* Run `bundle`
+* Run `rails db:migrate`
+* Run `rails db:seed`
+* Start `redis-server`
+* In project folder run `bundle exec sidekiq`
+* Run `gem install mailcatcher` then `mailcatcher` to get started
+* Run `rails s`
 
-* Services (job queues, cache servers, search engines, etc.)
+Running server should appear at `localhost:3000`
 
-* Deployment instructions
-
-* ...
+To run tests use `bundle exec rspec`
