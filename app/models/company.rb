@@ -23,6 +23,4 @@ class Company < ApplicationRecord
   has_many :responsible_users, -> { responsible_users },
            source: :user, through: :users_companies_relationships
   has_many :tickets, through: :units
-  has_many :recent_tickets, -> { most_recent.open.limit(10) },
-           source: :tickets, through: :units
 end
