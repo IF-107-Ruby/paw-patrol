@@ -114,7 +114,11 @@ class Ticket < ApplicationRecord
   end
 
   def send_ticket_notification
-    NotificateNewTicketJob.perform_later(id)
+    SendNewTicketEmailJob.perform_later(self)
+    NotifyWebsocketsNewTicketJob.perform_later(self)
+    return if responsible_user.blank? || responsible_user.telegram_profile.blank?
+
+    NotifyTelegramNewTicketJob.perform_later(responsible_user.telegram_profile, self)
   end
 
   def follow_up_params

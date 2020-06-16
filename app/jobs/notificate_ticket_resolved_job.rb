@@ -12,7 +12,7 @@ class NotificateTicketResolvedJob < ApplicationJob
 
   def broadcast_to_websocket
     ActionCable.server.broadcast(
-      "dashboards_#{ticket.company.id}_channel",
+      "company_dashboard:#{ticket.company.id}",
       { event: '@ticketResolved',
         data: ticket.as_json }
     )
