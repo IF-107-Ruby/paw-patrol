@@ -77,26 +77,26 @@ RSpec.describe Ticket, type: :model do
   describe 'Ticket resolving' do
     context 'sending emails about ticket resolving' do
       before do
-        allow(SendTicketResolvedEmailJob).to receive(:perform_later)
+        allow(NotificateTicketResolvedJob).to receive(:perform_later)
       end
 
       it 'ticket resolved' do
         ticket.resolved!
 
-        expect(SendTicketResolvedEmailJob).to have_received(:perform_later)
+        expect(NotificateTicketResolvedJob).to have_received(:perform_later)
       end
 
       it 'ticket open' do
         ticket.open!
 
-        expect(SendTicketResolvedEmailJob).not_to have_received(:perform_later)
+        expect(NotificateTicketResolvedJob).not_to have_received(:perform_later)
       end
 
       it 'ticket name changed' do
         ticket.name = 'another ticket name'
         ticket.save
 
-        expect(SendTicketResolvedEmailJob).not_to have_received(:perform_later)
+        expect(NotificateTicketResolvedJob).not_to have_received(:perform_later)
       end
     end
   end

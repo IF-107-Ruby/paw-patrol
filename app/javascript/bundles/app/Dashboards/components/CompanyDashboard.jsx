@@ -34,9 +34,30 @@ class CompanyDashboard extends Component {
 
                 return {
                   ...state,
+                  fun_facts: {
+                    ...state.fun_facts,
+                    open_tickets_count: state.fun_facts.open_tickets_count + 1,
+                    last_week_tickets_count:
+                      state.fun_facts.last_week_tickets_count + 1,
+                  },
                   tickets: _.slice(tickets, 0, 11),
                 };
               });
+              break;
+            case "@ticketResolved":
+              this.setState((state) => {
+                return {
+                  ...state,
+                  fun_facts: {
+                    ...state.fun_facts,
+                    open_tickets_count: state.fun_facts.open_tickets_count - 1,
+                  },
+                  tickets: _.remove(state.tickets, ({ id }) => id != data.id),
+                };
+              });
+              break;
+            case "@tickets":
+              this.setState({ tickets: data });
               break;
             default:
               break;
@@ -45,6 +66,10 @@ class CompanyDashboard extends Component {
 
         dashboard_stats: function () {
           this.perform("dashboard_stats");
+        },
+
+        tickets: function () {
+          this.perform("tickets");
         },
       }
     );

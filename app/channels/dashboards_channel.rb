@@ -8,13 +8,33 @@ class DashboardsChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
+  def tickets
+    ActionCable.server.broadcast(
+      "dashboards_#{current_company.id}_channel",
+      {
+        event: '@tickets',
+        data: recent_tickets
+      }
+    )
+  end
+
+  def fun_facts
+    ActionCable.server.broadcast(
+      "dashboards_#{current_company.id}_channel",
+      {
+        event: '@fun_facts',
+        data: fun_facts_data
+      }
+    )
+  end
+
   def dashboard_stats
     ActionCable.server.broadcast(
       "dashboards_#{current_company.id}_channel",
       {
         event: '@dashboardStats',
         data: { tickets: recent_tickets,
-                fun_facts: fun_facts }
+                fun_facts: fun_facts_data }
       }
     )
   end
@@ -30,7 +50,7 @@ class DashboardsChannel < ApplicationCable::Channel
                    .where('tickets.created_at >= ?', 1.week.ago).count
   end
 
-  def fun_facts
+  def fun_facts_data
     {
       employees_count: current_company.employees.count,
       responsible_users_count: current_company.responsible_users.count,

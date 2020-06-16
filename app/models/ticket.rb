@@ -126,7 +126,7 @@ class Ticket < ApplicationRecord
   def send_ticket_resolved_email
     return unless status_previously_changed? && resolved?
 
-    SendTicketResolvedEmailJob.perform_later(id)
+    NotificateTicketResolvedJob.perform_later(id)
   end
 
   def send_email_about_new_comment(_)
