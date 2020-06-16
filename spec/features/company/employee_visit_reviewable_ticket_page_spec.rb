@@ -11,7 +11,7 @@ feature 'EmployeeVisitReviewableTicketPage' do
     expect(page).to have_selector('h3', text: 'Ticket Completion')
     expect(page).to have_selector('.ticket-completion__review')
     expect(page).to have_selector(".star-rating[data-rating=\"#{review.rating}\"]")
-    expect(page).to have_selector('.icon-material-outline-date-range',
+    expect(page).to have_selector('.detail-material-outline-date-range',
                                   text: review.created_at.strftime('%B %Y'))
 
     click_on 'Show more ...'

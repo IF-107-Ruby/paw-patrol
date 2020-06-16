@@ -17,8 +17,6 @@ feature 'EmployeeAddComment' do
     login_as employee
     visit company_ticket_path(ticket)
 
-    expect(page).to have_text('Comments')
-
     within '#new-comment' do
       fill_in id: 'comment_body', with: 'Test comment from employee'
     end
@@ -26,6 +24,7 @@ feature 'EmployeeAddComment' do
     find('button', text: 'Add comment', visible: false).click
     wait_for_ajax
 
+    expect(page).to have_text('Comments')
     expect(page).to have_text('Comment has been saved')
     expect(page).to have_text('Test comment from employee')
 
@@ -39,8 +38,6 @@ feature 'EmployeeAddComment' do
     login_as responsible_user
     visit company_ticket_path(ticket)
 
-    expect(page).to have_text('Comments')
-
     using_wait_time 3 do
       within '#new-comment' do
         first('#comment_body', visible: false).set('Test comment from responsible user')
@@ -49,6 +46,7 @@ feature 'EmployeeAddComment' do
     click_on 'Add comment'
     wait_for_ajax
 
+    expect(page).to have_text('Comments')
     expect(page).to have_text('Test comment from responsible user')
   end
 
