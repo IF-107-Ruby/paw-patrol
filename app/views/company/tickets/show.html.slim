@@ -2,7 +2,9 @@
 - provide(:status, @ticket.status)
 .row
   .col-xl-12
-    .dashboard-box.margin-top-0
+    = render 'ticket_author', ticket_author: @ticket.user
+
+    .dashboard-box
       .headline
         .d-flex.justify-content-between
           h3
