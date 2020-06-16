@@ -34,7 +34,8 @@ class DashboardsChannel < ApplicationCable::Channel
       {
         event: '@dashboardStats',
         data: { tickets: recent_tickets,
-                fun_facts: fun_facts_data }
+                fun_facts: fun_facts_data,
+                review_rates: review_rates_data }
       }
     )
   end
@@ -57,5 +58,9 @@ class DashboardsChannel < ApplicationCable::Channel
       last_week_tickets_count: last_week_tickets_count,
       open_tickets_count: current_company.tickets.open.count
     }
+  end
+
+  def review_rates_data
+    ReadSatisfaction.call(current_company).as_json
   end
 end

@@ -74,7 +74,7 @@ class CompanyDashboard extends Component {
       }
     );
 
-    this.state = { tickets: [], fun_facts: [] };
+    this.state = { tickets: [], fun_facts: [], review_rates: [] };
   }
 
   componentDidMount() {}
@@ -145,7 +145,9 @@ class CompanyDashboard extends Component {
                 </h3>
               </div>
               <div className="content">
-                <ReviewSatisfaction />
+                <ReviewSatisfaction
+                  satisfactionData={this.state.review_rates}
+                />
               </div>
             </div>
           </div>

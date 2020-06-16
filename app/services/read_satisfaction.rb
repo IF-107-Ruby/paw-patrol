@@ -19,7 +19,7 @@ class ReadSatisfaction
 
   def get_amount_of_satisfaction_by_rating(rating)
     {
-      name: "Rated #{rating}",
+      name: rating.to_s,
       amount: Review.where(rating: rating, ticket: @current_company.tickets).count
     }
   end
