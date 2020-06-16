@@ -25,6 +25,7 @@ class Ticket < ApplicationRecord
   has_one :review, dependent: :destroy
   has_one :ticket_completion, dependent: :destroy
   has_one :responsible_user, through: :unit
+  has_one :company, through: :unit
 
   has_many :employees, through: :unit, class_name: 'User'
   has_many :events, dependent: :nullify
@@ -95,6 +96,14 @@ class Ticket < ApplicationRecord
     Ticket.create(follow_up_params)
   end
 
+  def as_json(options = {})
+    super(include:
+      { user: { only: %i[id first_name last_name] },
+        responsible_user: { only: %i[id first_name last_name] },
+        unit: { only: %i[id name] } }
+        .merge(options))
+  end
+
   private
 
   def unit_permission
@@ -105,10 +114,7 @@ class Ticket < ApplicationRecord
   end
 
   def send_ticket_notification
-    SendNewTicketEmailJob.perform_later(id, responsible_user.present?)
-    return if responsible_user.blank? || responsible_user.telegram_profile.blank?
-
-    NotifyTelegramNewTicketJob.perform_later(responsible_user.telegram_profile.id, id)
+    NotificateNewTicketJob.perform_later(id)
   end
 
   def follow_up_params
