@@ -1,25 +1,29 @@
-import React from 'react';
-import { Spring } from 'react-spring/renderprops';
-import './company-statistics.scss';
+import React from "react";
+import { Spring } from "react-spring/renderprops";
+import "./company-statistics.scss";
 
-const StatisticsItem = props => {
-  const { number, subtitle } = props;
+const StatisticsItem = (props) => {
+  const { number, subtitle, iconClass, color } = props;
 
   return (
-    <div className="fun-fact col-xl-4">
+    <div className="fun-fact" data-fun-fact-color={color}>
       <div className="fun-fact-text">
-        <span>{ subtitle }</span>
-        <Spring config={{ duration: 2000 }}
+        <span>{subtitle}</span>
+        <Spring
+          config={{ duration: 2000 }}
           from={{ number: 0 }}
-          to={{ number: number }}>
-          {props => <h4>{ Number(props.number.toFixed(0)).toLocaleString()}</h4> }
-        </Spring> 
+          to={{ number: number }}
+        >
+          {(props) => (
+            <h4>{Number(props.number.toFixed(0)).toLocaleString()}</h4>
+          )}
+        </Spring>
       </div>
       <div className="fun-fact-icon">
-        <i className="icon-material-outline-group"></i>
+        <i className={iconClass}></i>
       </div>
     </div>
   );
-}
+};
 
 export default StatisticsItem;

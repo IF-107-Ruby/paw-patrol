@@ -1,5 +1,6 @@
 class DashboardsChannel < ApplicationCable::Channel
   def subscribed
+    reject unless current_user.company_owner?
     stream_from "dashboards_#{current_company.id}_channel"
   end
 
@@ -13,7 +14,6 @@ class DashboardsChannel < ApplicationCable::Channel
       {
         event: '@dashboardStats',
         data: { tickets: recent_tickets,
-                last_week_tickets_count: last_week_tickets_count,
                 fun_facts: fun_facts }
       }
     )
@@ -31,11 +31,11 @@ class DashboardsChannel < ApplicationCable::Channel
   end
 
   def fun_facts
-    [
-      { subtitle: 'Workers',
-        value: current_company.employees.count },
-      { subtitle: 'Responsible users',
-        value: current_company.responsible_users.count }
-    ]
+    {
+      employees_count: current_company.employees.count,
+      responsible_users_count: current_company.responsible_users.count,
+      last_week_tickets_count: last_week_tickets_count,
+      open_tickets_count: current_company.tickets.open.count
+    }
   end
 end
