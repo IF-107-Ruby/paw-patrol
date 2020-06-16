@@ -23,7 +23,6 @@ class CompanyDashboard extends Component {
           console.log("disconnected!");
         },
         received: ({ event, data }) => {
-          console.log(event, data);
           switch (event) {
             case "@dashboardStats":
               this.setState((state) => ({ ...state, ...data }));
@@ -59,7 +58,11 @@ class CompanyDashboard extends Component {
             case "@tickets":
               this.setState({ tickets: data });
               break;
+            case "@review_rates":
+              this.setState({ review_rates: data });
+              break;
             default:
+              console.log(event, data);
               break;
           }
         },
