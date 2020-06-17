@@ -1,1 +1,14 @@
 - provide(:headline, "Howdy, #{current_user.first_name}!")
+
+.col-xl-12
+    .dashboard-box
+      .headline
+        .d-flex.justify-content-between
+          h3
+            i.icon-material-outline-business-center
+            | Registered companies
+      - if @companies.present?
+        .content.padding-bottom-20
+          ul.dashboard-box-list
+            = render partial: 'companies_table', locals: { companies: @companies }
+          = render partial: 'shared/pagination', locals: { pagy: @pagy }

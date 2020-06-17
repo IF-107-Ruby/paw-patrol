@@ -1,0 +1,8 @@
+tr
+  td = company.name
+  td = mail_to company.email
+  td
+    = link_to "tel:#{company.phone}"
+      = company.phone
+  td = company.users_count
+  td = company.registration_date

@@ -1,0 +1,10 @@
+table.basic-table
+  thead
+    tr
+      th Company name
+      th Email
+      th Phone
+      th Number of members
+      th Registration date
+  tbody
+    = render partial: 'company_row', collection: companies, as: :company
