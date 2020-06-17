@@ -8,6 +8,13 @@ class DashboardsChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
+  def dashboard_stats
+    broadcast_to_current_company(
+      event: '@dashboardStats',
+      data: current_company_dashboard.stats
+    )
+  end
+
   def recent_tickets
     broadcast_to_current_company(
       event: '@recent_tickets',
@@ -26,13 +33,6 @@ class DashboardsChannel < ApplicationCable::Channel
     broadcast_to_current_company(
       event: '@review_rates',
       data: current_company_dashboard.review_rates
-    )
-  end
-
-  def dashboard_stats
-    broadcast_to_current_company(
-      event: '@dashboardStats',
-      data: current_company_dashboard.stats
     )
   end
 

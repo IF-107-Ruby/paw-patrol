@@ -5,7 +5,7 @@ class NotificateReviewChangedJob < ApplicationJob
     ActionCable.server.broadcast(
       "company_dashboard:#{review.ticket.company.id}",
       { event: '@review_rates',
-        data: ReadSatisfaction.call(review.ticket.company).as_json }
+        data: CompanyDashboard.new(review.ticket.company).review_rates }
     )
   end
 end
