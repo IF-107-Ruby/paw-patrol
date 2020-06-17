@@ -59,9 +59,9 @@ class TelegramProfile < ApplicationRecord
 
   def notify_user
     if user.present?
-      NotifyTelegramConnectedJob.perform_later(id)
+      NotifyTelegramConnectedJob.perform_later(self)
     else
-      NotifyTelegramDisconnectedJob.perform_later(id)
+      NotifyTelegramDisconnectedJob.perform_later(self)
     end
   end
 

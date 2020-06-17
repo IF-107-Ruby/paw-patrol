@@ -30,6 +30,6 @@ class Review < ApplicationRecord
   end
 
   def notify_review_changed
-    NotificateReviewChangedJob.perform_later(id)
+    NotificateReviewChangedJob.perform_later(self)
   end
 end

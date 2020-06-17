@@ -4,12 +4,12 @@ import WatchersBlock from "../bundles/app/ticketShowPage/components/WatchersBloc
 import Calendar from "../bundles/app/Units/components/Calendar";
 import Units from "../bundles/app/shared/components/Units";
 import QrCode from "qrcode.react";
-import CompanyDashboard from "../bundles/app/Dashboards/components/CompanyDashboard";
+import CompanyOwnerDashboard from "../bundles/app/Dashboards/components/CompanyOwnerDashboard";
 
 ReactOnRails.register({
   WatchersBlock,
   Calendar,
   QrCode,
   Units,
-  CompanyDashboard,
+  CompanyOwnerDashboard,
 });

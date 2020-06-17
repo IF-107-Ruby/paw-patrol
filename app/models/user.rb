@@ -123,7 +123,7 @@ class User < ApplicationRecord
 
   def send_confirmation
     skip_confirmation_notification!
-    SendConfirmationInstructionsJob.perform_later(id)
+    SendConfirmationInstructionsJob.perform_later(self)
   end
 
   def tickets_scope(units)

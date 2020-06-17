@@ -7,7 +7,7 @@ RSpec.describe SendTicketResolvedEmailJob, type: :job do
     it 'calls TicketMailer' do
       allow(TicketMailer).to receive_message_chain(:ticket_resolved_email, :deliver_now)
 
-      described_class.new.perform(ticket.id)
+      described_class.new.perform(ticket)
 
       expect(TicketMailer).to have_received(:ticket_resolved_email).with(ticket)
     end
@@ -15,7 +15,7 @@ RSpec.describe SendTicketResolvedEmailJob, type: :job do
 
   describe '#perform later' do
     it 'adds the job to the queue' do
-      described_class.perform_later(ticket.id)
+      described_class.perform_later(ticket)
 
       expect(enqueued_jobs.last[:job]).to eq described_class
     end

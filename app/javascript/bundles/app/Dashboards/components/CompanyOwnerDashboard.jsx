@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import _ from "lodash";
 
 import cable from "../../../../channels/consumer";
-import ReviewSatisfaction from "../../ReviewSatisfaction/components/ReviewSatisfaction";
-import CompanyStatistics from "../../companyOwnerDashboard/components/CompanyStatistics";
+import ReviewSatisfaction from "./ReviewSatisfaction";
+import CompanyStatistics from "./CompanyStatistics";
 
-class CompanyDashboard extends Component {
+class CompanyOwnerDashboard extends Component {
   constructor(props) {
     super(props);
-    this.cable = cable;
-    this.dashboardCable = this.cable.subscriptions.create(
+
+    this.dashboardCable = cable.subscriptions.create(
       {
         channel: `DashboardsChannel`,
       },
@@ -29,7 +29,7 @@ class CompanyDashboard extends Component {
               break;
             case "@newTicket":
               this.setState((state) => {
-                let tickets = _.concat(data, state.tickets);
+                let recent_tickets = _.concat(data, state.recent_tickets);
 
                 return {
                   ...state,
@@ -39,7 +39,7 @@ class CompanyDashboard extends Component {
                     last_week_tickets_count:
                       state.fun_facts.last_week_tickets_count + 1,
                   },
-                  tickets: _.slice(tickets, 0, 11),
+                  recent_tickets: _.slice(recent_tickets, 0, 11),
                 };
               });
               break;
@@ -51,12 +51,15 @@ class CompanyDashboard extends Component {
                     ...state.fun_facts,
                     open_tickets_count: state.fun_facts.open_tickets_count - 1,
                   },
-                  tickets: _.remove(state.tickets, ({ id }) => id != data.id),
+                  recent_tickets: _.remove(
+                    state.recent_tickets,
+                    ({ id }) => id != data.id
+                  ),
                 };
               });
               break;
-            case "@tickets":
-              this.setState({ tickets: data });
+            case "@recent_tickets":
+              this.setState({ recent_tickets: data });
               break;
             case "@review_rates":
               this.setState({ review_rates: data });
@@ -71,19 +74,23 @@ class CompanyDashboard extends Component {
           this.perform("dashboard_stats");
         },
 
-        tickets: function () {
-          this.perform("tickets");
+        recent_tickets: function () {
+          this.perform("recent_tickets");
         },
       }
     );
 
-    this.state = { tickets: [], fun_facts: [], review_rates: [] };
+    const { data } = props;
+
+    this.state = {
+      recent_tickets: _.get(data, "recent_tickets", []),
+      fun_facts: _.get(data, "fun_facts", []),
+      review_rates: _.get(data, "review_rates", []),
+    };
   }
 
-  componentDidMount() {}
-
   render() {
-    let recentTickets = this.state.tickets.map(
+    let recentTickets = this.state.recent_tickets.map(
       ({ id, name, user, responsible_user, unit }) => (
         <tr key={id}>
           <td>
@@ -160,4 +167,4 @@ class CompanyDashboard extends Component {
   }
 }
 
-export default CompanyDashboard;
+export default CompanyOwnerDashboard;
