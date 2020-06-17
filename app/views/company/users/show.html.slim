@@ -19,6 +19,17 @@
                   = mail_to @user.email
                     i.icon-material-outline-email
                     = @user.email
+                - if @user.employee?
+                  li
+                    i.icon-line-awesome-ticket.mr-1
+                    span.mr-1 Create
+                    = @user.created_tickets_count
+                - elsif @user.staff_member?
+                  li
+                    i.icon-line-awesome-ticket.mr-1
+                    span.mr-1 Resolved
+                    = @user.resolved_tickets_count
+
       - if current_user.company_owner? && current_user != @user
         .col-auto.icon-links.align-self-start
           = link_to [:edit, :company, @user]
