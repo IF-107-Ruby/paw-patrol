@@ -24,12 +24,12 @@ class CompanyDashboard
   end
 
   def review_rates
-    reviews_by_reting = Review.where(ticket: Company.first.tickets).group_by(&:rating)
+    reviews = Review.where(ticket: company.tickets)
 
-    reviews_by_reting.sort.map do |k, v|
+    (1..5).map do |rating|
       {
-        name: "Rated #{k}",
-        amount: v.count
+        name: "Rated #{rating}",
+        amount: reviews.where(rating: rating).count
       }
     end
   end
