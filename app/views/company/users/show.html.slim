@@ -1,38 +1,54 @@
 - provide(:headline, "View copmany member")
 
-.dashboard-box
-  .content.with-padding.padding-bottom-0
-    .row.margin-bottom-60.justify-content-between
-      .col-auto
-        .row.align-items-start
+.row
+  .col-xl-12
+    .dashboard-box.margin-top-0
+      .content.with-padding.padding-bottom-0
+        .row.justify-content-between
           .col-auto
-            .avatar-wrapper
-              = image_tag user_avatar(@user), class: "profile-pic"
-          .col-auto
-            .company-details
-              h3.margin-bottom-0
-                = @user.full_name
-                span
-                  = @user.display_role
-              ul
-                li
-                  = mail_to @user.email
-                    i.icon-material-outline-email
-                    = @user.email
-                - if @user.employee?
-                  li
-                    i.icon-line-awesome-ticket.mr-1
-                    span.mr-1 Create
-                    = @user.created_tickets_count
-                - elsif @user.staff_member?
-                  li
-                    i.icon-line-awesome-ticket.mr-1
-                    span.mr-1 Resolved
-                    = @user.resolved_tickets_count
+            .row.align-items-start
+              .col-auto
+                .avatar-wrapper
+                  = image_tag user_avatar(@user), class: "profile-pic"
+              .col-auto
+                .company-details
+                  h3.margin-bottom-0
+                    = @user.full_name
+                    span
+                      = @user.display_role
+                  ul.mt-3
+                    li
+                      = mail_to @user.email
+                        i.icon-material-outline-email.mr-1
+                        = @user.email
+                    li
+                      a href='#user_tickets'
+                        - if @user.company_owner? || @user.employee?
+                          i.icon-material-outline-library-books.mr-1
+                          span.mr-1 Create
+                          = @user.created_tickets_count
+                          - tickets_title = 'Tickets created by the user'
+                        - else
+                          i.icon-material-outline-library-books.mr-1
+                          span.mr-1 Resolved
+                          = @user.resolved_tickets_count
+                          - tickets_title = 'Tickets that have been resolved by the user'
 
-      - if current_user.company_owner? && current_user != @user
-        .col-auto.icon-links.align-self-start
-          = link_to [:edit, :company, @user]
-            i.icon-feather-edit
-          = link_to [:company, @user], method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
-            i.icon-feather-trash-2
+          - if current_user.company_owner? && current_user != @user
+            .col-auto.icon-links.align-self-start
+              = link_to [:edit, :company, @user]
+                i.icon-feather-edit
+              = link_to [:company, @user], method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2"
+                i.icon-feather-trash-2
+
+  - if @user_tickets.any?
+    .col-xl-12
+      .dashboard-box#user_tickets
+        .headline
+          h3
+            i.icon-material-outline-library-books
+            = tickets_title
+        .content.padding-bottom-10
+          ul.dashboard-box-list
+            = render @user_tickets
+          = render partial: 'shared/pagination', locals: { pagy: @tickets_pagy }

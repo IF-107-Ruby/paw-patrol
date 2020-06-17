@@ -1,6 +1,7 @@
 class Company
   class UsersController < Company::BaseController
-    before_action :obtain_user, only: %i[show edit update destroy]
+    before_action :obtain_user,       only: %i[show edit update destroy]
+    before_action :load_user_tickets, only: :show
 
     breadcrumb 'Users', %i[company users], match: :exclusive
     breadcrumb -> { @user.full_name }, -> { [:company, @user] },
@@ -67,6 +68,20 @@ class Company
 
     def users_base_relation
       current_company.users
+    end
+
+    def paginate_user_tickets(tickets)
+      @tickets_pagy, @user_tickets = pagy_decorated(tickets,
+                                                    items: 5,
+                                                    page_param: :page_tickets)
+    end
+
+    def load_user_tickets
+      if @user.company_owner? || @user.employee?
+        paginate_user_tickets(@user.tickets.most_recent)
+      else
+        paginate_user_tickets(@user.resolved_tickets.most_recent)
+      end
     end
   end
 end
