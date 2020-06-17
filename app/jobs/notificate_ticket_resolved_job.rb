@@ -5,7 +5,7 @@ class NotificateTicketResolvedJob < ApplicationJob
     ActionCable.server.broadcast(
       "company_dashboard:#{ticket.company.id}",
       { event: '@ticketResolved',
-        data: ticket.as_json }
+        data: ticket }
     )
   end
 end

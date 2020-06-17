@@ -5,7 +5,7 @@ class NotifyWebsocketsNewTicketJob < ApplicationJob
     ActionCable.server.broadcast(
       "company_dashboard:#{ticket.company.id}",
       { event: '@newTicket',
-        data: ticket.as_json }
+        data: ticket }
     )
   end
 end

@@ -16,7 +16,9 @@ export default class CompanyOwnerDashboard extends Component {
         channel: `DashboardsChannel`,
       },
       {
-        connected: () => this.dashboardCable.dashboard_stats,
+        connected: () => {
+          this.dashboardCable.dashboard_stats();
+        },
         disconnected: () => {},
         received: this.onDashboardCableReceive.bind(this),
 
@@ -58,10 +60,13 @@ export default class CompanyOwnerDashboard extends Component {
       case "@ticketResolved":
         this.onTicketResolved(data);
         break;
-      case "@recent_tickets":
+      case "@recentTickets":
         this.setState({ recent_tickets: data });
         break;
-      case "@review_rates":
+      case "@funFacts":
+        this.setState({ recent_tickets: data });
+        break;
+      case "@reviewRates":
         this.setState({ review_rates: data });
         break;
     }
