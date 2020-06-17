@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   BarChart,
   Bar,
@@ -8,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-
 import _ from "lodash";
 
 import CustomTooltip from "./CustomTooltip";

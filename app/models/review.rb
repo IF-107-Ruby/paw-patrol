@@ -19,7 +19,7 @@ class Review < ApplicationRecord
   validates :comment, presence: true, length: { maximum: 255 }
   validate :ticket_decision_status
 
-  after_commit :notify_review_changed, if: :saved_change_to_rating?
+  after_update_commit :notify_review_changed, if: :saved_change_to_rating?
 
   private
 

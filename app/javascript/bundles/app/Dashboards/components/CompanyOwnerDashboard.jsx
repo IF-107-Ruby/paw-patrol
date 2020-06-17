@@ -21,19 +21,15 @@ export default class CompanyOwnerDashboard extends Component {
         },
         disconnected: () => {},
         received: this.onDashboardCableReceive.bind(this),
-
         dashboard_stats: function () {
           this.perform("dashboard_stats");
         },
-
         recent_tickets: function () {
           this.perform("recent_tickets");
         },
-
         fun_facts: function () {
           this.perform("fun_facts");
         },
-
         review_rates: function () {
           this.perform("review_rates");
         },
@@ -111,7 +107,7 @@ export default class CompanyOwnerDashboard extends Component {
       <div>
         <CompanyStatistics data={fun_facts} />
         <div className="row margin-top-20">
-          <TicketsTable tickets={recent_tickets} hedline="Recent tickets" />
+          <TicketsTable tickets={recent_tickets} headline="Recent tickets" />
         </div>
         <div className="row margin-top-20">
           <ReviewSatisfaction satisfactionData={review_rates} />

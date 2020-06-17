@@ -24,7 +24,14 @@ class CompanyDashboard
   end
 
   def review_rates
-    ReadSatisfaction.call(company)
+    reviews_by_reting = Review.where(ticket: Company.first.tickets).group_by(&:rating)
+
+    reviews_by_reting.sort.map do |k, v|
+      {
+        name: "Rated #{k}",
+        amount: v.count
+      }
+    end
   end
 
   def stats

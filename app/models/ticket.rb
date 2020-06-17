@@ -53,8 +53,8 @@ class Ticket < ApplicationRecord
                      ticket.resolution_attachments.any?
                  }
 
-  after_commit :send_ticket_notification, on: :create
-  after_commit :send_ticket_resolved_email, on: :update
+  after_create_commit :send_ticket_notification
+  after_update_commit :send_ticket_resolved_email
 
   has_ancestry
 

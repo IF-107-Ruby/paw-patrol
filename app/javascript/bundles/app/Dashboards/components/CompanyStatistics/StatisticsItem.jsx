@@ -1,8 +1,9 @@
 import React from "react";
+
 import { Spring } from "react-spring/renderprops";
 import "./company-statistics.scss";
 
-const StatisticsItem = (props) => {
+export default function StatisticsItem(props) {
   const { number, subtitle, iconClass, color } = props;
 
   return (
@@ -24,6 +25,4 @@ const StatisticsItem = (props) => {
       </div>
     </div>
   );
-};
-
-export default StatisticsItem;
+}

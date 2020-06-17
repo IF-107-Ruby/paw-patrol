@@ -16,9 +16,9 @@
 class TelegramProfile < ApplicationRecord
   belongs_to :user, optional: true
 
-  after_commit :notify_user, if: :saved_change_to_user_id?
-
   validates :first_name, presence: true
+
+  after_update_commit :notify_user, if: :saved_change_to_user_id?
 
   def start_user_connection
     return false if user.present?
