@@ -1,42 +1,44 @@
-$ticket-border-color: #58595c;
+$author-role-color: #808080;
 
 .ticket-form {
   margin-bottom: 15px;
+
+  ul.dropdown-menu li:first-child {
+    display: none;
+  }
 }
 
 .ticket-icons {
   padding-left: 15px;
 }
 
-.ticket_show {
-  &-title {
-    margin-bottom: 10px;
+.ticket-author {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
 
-    &__span {
-      padding-right: 2px;
-      font-weight: bolder;
+  &__image {
+    height: 95px;
+    flex: 0 0 95px;
+
+    img {
+      border-radius: 50%;
     }
   }
 
-  &-place {
-    margin-bottom: 25px;
-    font-size: 16pt;
-  }
+  &__details {
+    margin-left: 25px;
 
-  &-description {
-    &__title {
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid $ticket-border-color;
-      font-weight: bolder;
-    }
+    h3 {
+      font-size: 1.5em;
+      line-height: 1.5;
 
-    &__body {
-      margin: {
-        left: 30px;
-        bottom: 15px;
+      .role {
+        margin-bottom: 15px;
+        display: block;
+        color: $author-role-color;
+        font-size: 0.7em;
       }
-      font-size: 16pt;
     }
   }
 }

@@ -29,4 +29,12 @@ class UserDecorator < Draper::Decorator
   def company_name
     company.name if company.present?
   end
+
+  def created_tickets_count
+    h.pluralize(tickets.count, 'ticket')
+  end
+
+  def resolved_tickets_count
+    h.pluralize(resolved_tickets.count, 'ticket')
+  end
 end

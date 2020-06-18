@@ -1,0 +1,15 @@
+.dashboard-box.margin-top-0#ticket-author
+  .headline
+    h3
+      i.icon-feather-user
+      | Author
+  .content.with-padding
+    .ticket-author
+      .ticket-author__image
+        = image_tag user_avatar(ticket_author)
+      .ticket-author__details
+        h3
+          = ticket_author.full_name
+          span.role
+            = ticket_author.display_role
+        = link_to 'Show more ', company_user_path(ticket_author)
