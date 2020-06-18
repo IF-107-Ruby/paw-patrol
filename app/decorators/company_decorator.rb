@@ -6,4 +6,8 @@ class CompanyDecorator < Draper::Decorator
   def users_count
     h.pluralize(users.count, 'member')
   end
+
+  def registration_date
+    created_at.strftime('%F')
+  end
 end
