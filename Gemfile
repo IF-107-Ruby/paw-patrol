@@ -21,7 +21,7 @@ gem 'premailer-rails'
 gem 'pretender'
 gem 'puma', '~> 4.3'
 gem 'pundit'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'react_on_rails', '11.3.0'
 gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
