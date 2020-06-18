@@ -20,7 +20,7 @@ class CompanyDashboard
   end
 
   def recent_tickets
-    company.tickets.most_recent.open.limit(10)
+    company.tickets.most_recent.open.limit(10).includes(:user, :responsible_user, :unit)
   end
 
   def review_rates
