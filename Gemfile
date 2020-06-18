@@ -26,7 +26,6 @@ gem 'react_on_rails', '11.3.0'
 gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
-gem 'simple_form'
 gem 'slim'
 gem 'telegram-bot-ruby'
 gem 'webpacker', '~> 4.0'
