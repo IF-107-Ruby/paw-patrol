@@ -2,13 +2,13 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
-    / = stylesheet_link_tag "hireo", :media => "all"
+    = stylesheet_link_tag "mails", media: "all"
   body
     .container
       .row
         .col-xl-6
-          .section-headline.centered.margin-bottom-30.margin-top-15.email-header-background
-            h1.email-main-color.padding-bottom-30.padding-top-30
+          .email-header.email-header-background
+            h1.email-headline.email-main-color
               | ROOM PASSPORT
           .col-xl-10
             h2.email-black-color.bold.margin-bottom-10
@@ -17,15 +17,15 @@ html
               = @email
               | !
             h4.mail-text
-              | You can confirm your account email through the link below:  
+              | You can confirm your account email through the link below:
             = link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
             br
             h4.mail-text
               | Cheers,
             h4.mail-text
               | The team at ROOM PASSPORT
-          .section-headline.gray.centered.margin-bottom-15.margin-top-30.email-footer-background
-            h6.padding-bottom-30.padding-top-30
+          .email-footer.email-footer-background.mb-2.mt-4
+            h6.pb-4.pt-4
               | Made by
               '
               a href="#{@root_url}" ROOM PASSPORT

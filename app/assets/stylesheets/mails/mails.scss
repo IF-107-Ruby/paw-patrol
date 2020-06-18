@@ -1,0 +1,49 @@
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&subset=latin-ext");
+
+.email {
+  &-main-color {
+    color: #2a41e8 !important;
+  }
+
+  &-black-color {
+    color: #343a40 !important;
+  }
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.bolder {
+  font-weight: bolder !important;
+}
+
+span.normal {
+  font-weight: normal !important;
+}
+
+
+.email-footer,
+.email-header {
+  text-align: center;
+  padding: 0;
+  margin-bottom: 30px;
+  margin-top: 15px;
+
+  font-family: 'Nunito', sans-serif;
+
+  &-background {
+    background-color: #f9f9f9 !important;
+  }
+}
+
+h4 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.email-headline {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
