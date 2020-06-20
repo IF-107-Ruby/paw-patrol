@@ -3,9 +3,11 @@ class BaseHandler
   include Telegram::Bot::Types
 
   attr_accessor :telegram_profile
+  attr_accessor :message
 
-  def initialize(telegram_profile)
+  def initialize(telegram_profile, message)
     @telegram_profile = telegram_profile
+    @message = message
   end
 
   def telegram_api
