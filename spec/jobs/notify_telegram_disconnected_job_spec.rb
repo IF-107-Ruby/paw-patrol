@@ -10,7 +10,7 @@ RSpec.describe NotifyTelegramDisconnectedJob, type: :job do
       handler = double('handler')
       allow(subject).to receive(:new).and_return(handler)
 
-      expect(subject).to receive(:new).with(telegram_profile)
+      expect(subject).to receive(:new).with(telegram_profile, '')
       expect(handler).to receive(:execute!)
 
       described_class.new.perform(telegram_profile)
