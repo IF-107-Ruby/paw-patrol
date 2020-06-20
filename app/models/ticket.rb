@@ -17,7 +17,7 @@ class Ticket < ApplicationRecord
   scope :open, -> { where(status: :open) }
   scope :for_units, ->(units) { where(unit: units) }
 
-  enum status: { open: 0, resolved: 1 }
+  enum status: { open: 0, resolved: 1, draft: 2 }
 
   belongs_to :user
   belongs_to :unit
