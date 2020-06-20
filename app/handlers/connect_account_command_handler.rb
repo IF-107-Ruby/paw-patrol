@@ -1,7 +1,6 @@
 class ConnectAccountCommandHandler < BaseHandler
   def execute!
     if telegram_profile.user.present?
-      telegram_profile.ready!
       send_notification_for_connected_user
     else
       send_notification_for_disconnected_user
