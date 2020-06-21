@@ -1,49 +1,93 @@
-@import "bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&subset=latin-ext");
 
-.email {
-  &-main-color {
-    color: #2a41e8 !important;
-  }
+$email-main-color: #2a41e8;
+$email-background-color: #f9f9f9;
 
-  &-black-color {
-    color: #343a40 !important;
-  }
-}
-
-.bold {
-  font-weight: bold !important;
-}
-
-.bolder {
-  font-weight: bolder !important;
-}
-
-span.normal {
-  font-weight: normal !important;
-}
-
-
-.email-footer,
-.email-header {
-  text-align: center;
+body {
+  margin: 0;
   padding: 0;
-  margin-bottom: 30px;
-  margin-top: 15px;
+}
 
-  font-family: 'Nunito', sans-serif;
+.email {
+    margin: auto;
+    width:600px;
 
-  &-background {
-    background-color: #f9f9f9 !important;
+  &-header {
+    background-color: $email-background-color;
+
+    td {
+      margin: 30px 0 30px 0;
+      display: block;
+      text-align: center;
+      font: {
+        family: 'Nunito', sans-serif;
+        size: 26pt;
+        weight: normal;
+      }
+      color: $email-main-color;
+    }
+  }
+
+  &-content {
+    td {
+      padding: 50px 30px 0 30px;
+      font: {
+        family: 'Montserrat', sans-serif;
+        size: 14pt;
+      }
+    }
+
+    &__message {
+      &:after {
+        content: '';
+        width: 100%;
+        height: 1em;
+        display: inline-block;
+      }
+    }
+
+    &__more-about {
+      &:after {
+        content: '';
+        width: 100%;
+        height: 1.5em;
+        display: inline-block;
+      }
+    }
+
+    &__team{
+      padding-bottom: 50px;
+      line-height: 1.5em;
+
+      .cheers {
+        display: block;
+      }
+    }
+  }
+
+  &-footer {
+    background-color: $email-background-color;
+    margin: 10px 0 10px 0;
+    text-align: center;
+
+    td {
+      h6 {
+        font: {
+          size: 16pt;
+          weight: normal;
+          family: 'Nunito', sans-serif;
+        }
+      }
+    }
   }
 }
 
-h4 {
-  font-family: 'Montserrat', sans-serif;
+.email-main-color {
+  color: $email-main-color;
 }
 
-.email-headline {
-  padding-top: 30px;
-  padding-bottom: 30px;
+.email-link {
+  color: $email-main-color;
+  text-decoration: none;
 }
