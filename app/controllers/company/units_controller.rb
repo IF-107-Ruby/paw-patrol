@@ -23,7 +23,10 @@ class Company
     end
 
     def show
-      @tickets_pagy, @unit_tickets = pagy_decorated(@unit.tickets.most_recent,
+      @tickets_pagy, @unit_tickets = pagy_decorated(@unit
+                                                      .tickets
+                                                      .most_recent
+                                                      .not_draft,
                                                     items: 5,
                                                     page_param: :page_tickets)
     end

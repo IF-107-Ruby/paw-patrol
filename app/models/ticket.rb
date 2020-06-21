@@ -15,6 +15,7 @@ class Ticket < ApplicationRecord
   scope :most_recent, -> { order(created_at: :desc) }
   scope :resolved, -> { where(status: :resolved) }
   scope :open, -> { where(status: :open) }
+  scope :not_draft, -> { where(status: :resolved || :open) }
   scope :for_units, ->(units) { where(unit: units) }
 
   enum status: { open: 0, resolved: 1, draft: 2 }
