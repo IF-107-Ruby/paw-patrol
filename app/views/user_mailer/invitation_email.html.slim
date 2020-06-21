@@ -2,8 +2,7 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
-    = stylesheet_link_tag "mail_credentials", media: "all"
-    = stylesheet_link_tag "mails",            media: "all"
+    = stylesheet_link_tag "mail_invitation", media: "all"
   body
     table.email
       tr.email-header
@@ -29,18 +28,18 @@ html
               | To login to the site, just follow this
               '
               = link_to 'link', confirmation_url(@user, confirmation_token: @user.confirmation_token)
-            .email-content__credentials
+            .email-content__invitation
               | Here is your credentials for log in:
-              span.credentials-email
+              span.invitation-email
                 | Email:
                 '
                 strong = @user.email
               br
-              span.credentials-password
+              span.invitation-password
                 | Password:
                 '
                 strong = @password
-              span.credentials-mistake
+              span.invitation-mistake
                 | If you have been invited by mistake, please contact a Company Owner.
 
           .email-content__team
