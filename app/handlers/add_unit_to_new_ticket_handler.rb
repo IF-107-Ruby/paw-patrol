@@ -1,12 +1,12 @@
 class AddUnitToNewTicketHandler < BaseHandler
   def execute!
-    @unit = Unit.find_by(id: message.data)
+    @unit = Unit.find_by(id: message.data, company: telegram_profile.user.company)
 
     Ticket.create(name: 'Telegram Bot Ticket',
                   description: 'Some Ticket Bot Description',
                   user: telegram_profile.user,
                   unit: @unit,
-                  status: 2)
+                  status: :draft)
 
     telegram_profile.awaiting_ticket_name!
 

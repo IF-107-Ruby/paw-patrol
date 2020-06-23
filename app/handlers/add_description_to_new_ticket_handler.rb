@@ -1,6 +1,6 @@
 class AddDescriptionToNewTicketHandler < BaseHandler
   def execute!
-    @ticket = telegram_profile.user.tickets.last.decorate
+    @ticket = telegram_profile.user.draft_ticket.decorate
     @ticket.update(ticket_description)
 
     telegram_profile.ready!

@@ -27,6 +27,8 @@ class User < ApplicationRecord
   has_one :users_companies_relationship, dependent: :destroy
   has_one :company, through: :users_companies_relationship
   has_one :telegram_profile, dependent: :nullify
+  has_one :draft_ticket, -> { where(status: :draft) },
+          class_name: 'Ticket', inverse_of: :user
 
   has_many :users_units_relationships, dependent: :destroy
   has_many :units, through: :users_units_relationships
