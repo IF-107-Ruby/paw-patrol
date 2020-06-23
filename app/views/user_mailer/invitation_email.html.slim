@@ -2,54 +2,51 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
-    = stylesheet_link_tag "mails", media: "all"
+    = stylesheet_link_tag "invitation_email", media: "all"
   body
-    .container
-      .row
-        .col-xl-6
-          .email-header.email-header-background
-            h1.email-headline.email-main-color
-              | ROOM PASSPORT
-          .col-xl-10
-            h2.email-black-color.bold.mb-4
+    table.email
+      tr.email-header
+        td
+          | ROOM PASSPORT
+      tr.email-content
+        td
+          .email-content__message
+            p
               | Hi
               '
               = @user.first_name
               | ,
-            h4
-              | You have been invited to join
-              '
-              strong.email-main-color = @user.company_name
-              '
-              |  company on ROOM PASSPORT as
-              '
-              = @user.display_role
-            br
-            h4
+            | You have been invited to join
+            '
+            strong.email-main-color = @user.company_name
+            '
+            |  company on ROOM PASSPORT as
+            '
+            = @user.display_role
+          .email-content__more-about
+            p
               | To login to the site, just follow this
               '
               = link_to 'link', confirmation_url(@user, confirmation_token: @user.confirmation_token)
-
-            h4.mt-3
+            .email-content__invitation
               | Here is your credentials for log in:
-            h4.mt-1.bolder
-              | Email:
-              '
-              span.normal = @user.email
-            h4.bolder
-              | Password:
-              '
-              span.normal = @password
-            br
-            h4
-              | If you have been invited by mistake, please contact a Company Owner.
-            br
-            h4
-              | Cheers,
-            h4
-              | The team at ROOM PASSPORT
-          .email-footer.email-footer-background.mb-2.mt-4
-            h6.pb-4.pt-4
-              | Made by
-              '
-              a href="#{@root_url}" ROOM PASSPORT
+              span.invitation-email
+                | Email:
+                '
+                strong = @user.email
+              br
+              span.invitation-password
+                | Password:
+                '
+                strong = @password
+              span.invitation-mistake
+                | If you have been invited by mistake, please contact a Company Owner.
+          .email-content__team
+            span.cheers Cheers,
+            | The team at ROOM PASSPORT
+      tr.email-footer
+        td
+          h6
+            | Made by
+            '
+            = link_to 'ROOM PASSPORT', root_url, class: 'email-link'

@@ -1,4 +1,5 @@
 /*
   *= require_self
   *= require mails/mails
+  *= require mails/invitation_email
 */

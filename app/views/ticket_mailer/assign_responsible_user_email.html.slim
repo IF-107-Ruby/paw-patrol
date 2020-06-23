@@ -4,45 +4,39 @@ html
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
     = stylesheet_link_tag "mails", media: "all"
   body
-    .container
-      .row
-        .col-xl-6
-          .email-header.email-header-background
-            h1.email-headline.email-main-color
-              | ROOM PASSPORT
-          .col-xl-10
-            h2.email-black-color.bold.margin-bottom-10
+    table.email
+      tr.email-header
+        td
+          | ROOM PASSPORT
+      tr.email-content
+        td
+          .email-content__message
+            p
               | Hi
               '
               = @company_owner.first_name
               | ,
-            br
-            div
-              h4
-                | The new ticket
-                '
-                strong.email-main-color
-                  = link_to @ticket.name, company_ticket_url(@ticket)
-                '
-                | has been created at
-                '
-                strong.email-main-color = @ticket.unit.name
-                |.
-            br
-            div
-              h4
-                | Please assign responsible user for
-                '
-                = link_to @ticket.unit.name, company_unit_url(@ticket.unit)
-                |.
-            br
-            br
-            h4
-              | Cheers,
-            h4
-              | The team at ROOM PASSPORT
-          .email-footer.email-footer-background.mb-2.mt-4
-            h6.pb-4.pt-4
-              | Made by
+            | The new ticket
+            '
+            strong.email-main-color
+              = link_to @ticket.name, company_ticket_url(@ticket), class: 'email-link'
+            '
+            | has been created at
+            '
+            strong.email-main-color = @ticket.unit.name
+            |.
+          .email-content__more-about
+            p
+              | Please assign responsible user for
               '
-              = link_to 'ROOM PASSPORT', root_url
+              = link_to @ticket.unit.name, company_unit_url(@ticket.unit), class: 'email-link'
+              |.
+          .email-content__team
+            span.cheers Cheers,
+            | The team at ROOM PASSPORT
+      tr.email-footer
+        td
+          h6
+            | Made by
+            '
+            = link_to 'ROOM PASSPORT', root_url, class: 'email-link'
