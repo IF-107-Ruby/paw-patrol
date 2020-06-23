@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe Company::TicketsController, type: :controller do
-  render_views
-
   include_context 'employee with ticket'
   let!(:user) { create(:staff_member, company: company) }
   let!(:ticket_valid_params) { FactoryBot.attributes_for :ticket }

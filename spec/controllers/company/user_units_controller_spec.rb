@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Company::UserUnitsController, type: :controller do
-  render_views
-
   let!(:company) { create(:company) }
   let!(:unit) { create(:unit, :with_employee_and_ticket, company: company) }
   let!(:employee) { unit.users.first }

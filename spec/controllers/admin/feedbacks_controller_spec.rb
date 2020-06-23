@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Admin::FeedbacksController, type: :controller do
-  render_views
-
   let(:admin) { create(:admin) }
   let(:feedback) { create(:feedback) }
 

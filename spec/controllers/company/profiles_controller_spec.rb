@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Company::ProfilesController, type: :controller do
-  render_views
-
   let(:user_password) { '123456' }
   let!(:company) { create(:company) }
   let!(:employee) do
