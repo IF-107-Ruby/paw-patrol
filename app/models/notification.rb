@@ -12,7 +12,7 @@
 #  updated_at      :datetime         not null
 #
 class Notification < ApplicationRecord
-  scope :unread, -> { where(read: false).order('created_at DESC') }
+  scope :unread, -> { where(read: false).order(created_at: :desc) }
   scope :read, -> { where(read: true) }
 
   belongs_to :user
@@ -24,5 +24,13 @@ class Notification < ApplicationRecord
 
   def self.mark_comments_as_read(noticeable, user)
     Notification.where(noticeable: noticeable.comments, user: user).update read: true
+  end
+
+  def as_json(options = {})
+    super(include:
+      { user: { only: %i[id first_name last_name] },
+        notified_by: { only: %i[id first_name last_name] },
+        noticeable: {} }
+        .merge(options))
   end
 end
