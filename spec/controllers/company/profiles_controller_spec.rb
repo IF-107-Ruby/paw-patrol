@@ -17,10 +17,16 @@ RSpec.describe Company::ProfilesController, type: :controller do
   end
 
   describe 'Get#Edit' do
-    subject { get :edit }
+    before { get :edit }
 
-    it { is_expected.to have_http_status(:success) }
-    it { is_expected.to render_template('edit') }
+    it 'return current user' do
+      expect(assigns(:user)).to eq(employee)
+    end
+
+    it 'render edit template' do
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template('edit')
+    end
   end
 
   describe 'Patch#Update' do
