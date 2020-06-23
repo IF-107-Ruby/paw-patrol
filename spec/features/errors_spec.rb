@@ -11,7 +11,7 @@ end
 feature 'escape from 404 page to Home page' do
   scenario 'Move to home page' do
     visit root_path
-    page.should have_content('ROOM PASSPORT')
+    expect(page).to have_content('ROOM PASSPORT')
   end
 end
 
@@ -26,6 +26,6 @@ end
 feature 'escape from 500 page to Home page' do
   scenario 'Move to home page' do
     visit root_path
-    page.should have_content('ROOM PASSPORT')
+    expect(page).to have_content('ROOM PASSPORT')
   end
 end

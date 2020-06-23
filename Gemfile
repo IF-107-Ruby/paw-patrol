@@ -26,7 +26,6 @@ gem 'react_on_rails', '11.3.0'
 gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
-gem 'simple_form'
 gem 'slim'
 gem 'telegram-bot-ruby'
 gem 'webpacker', '~> 4.0'
@@ -57,7 +56,6 @@ end
 group :test do
   gem 'capybara', '~> 3.32', '>= 3.32.1'
   gem 'capybara-screenshot'
-  gem 'chromedriver-helper'
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'

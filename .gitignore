@@ -33,8 +33,6 @@
 # Ignore database.yml
 /config/database.yml
 
-/spec/support/personal_settings.rb
-
 /public/packs
 /public/packs-test
 /node_modules
