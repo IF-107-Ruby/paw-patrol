@@ -19,7 +19,7 @@ RSpec.describe Company::ProfilesController, type: :controller do
   describe 'Get#Edit' do
     before { get :edit }
 
-    it 'return current user' do
+    it 'return user object' do
       expect(assigns(:user)).to eq(employee)
     end
 
