@@ -5,7 +5,7 @@ class BaseHandler
   attr_accessor :telegram_profile
   attr_accessor :message
 
-  def initialize(telegram_profile, message)
+  def initialize(telegram_profile:, message: '')
     @telegram_profile = telegram_profile
     @message = message
   end

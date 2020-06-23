@@ -18,7 +18,7 @@ class StartTicketCreationHandler < BaseHandler
 
       telegram_api.send_message(chat_id: telegram_profile.id,
                                 text: ticket_creation_completion_text)
-      true
+      return true
     end
 
     false

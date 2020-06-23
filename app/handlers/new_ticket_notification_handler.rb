@@ -1,8 +1,8 @@
 class NewTicketNotificationHandler < BaseHandler
   attr_accessor :ticket
 
-  def initialize(telegram_profile, message, ticket)
-    super(telegram_profile, message)
+  def initialize(telegram_profile, ticket)
+    super(telegram_profile: telegram_profile)
     @ticket = ticket
   end
 

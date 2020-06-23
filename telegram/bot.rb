@@ -6,7 +6,7 @@ Rails.configuration.telegram_bot.run do |bot|
     telegram_profile = TelegramProfile.from_message_context(message.from)
     Handlers
       .from_message(message, telegram_profile)
-      .new(telegram_profile, message)
+      .new(telegram_profile: telegram_profile, message: message)
       .execute!
   rescue StandardError => e
     bot.logger.error(message)
