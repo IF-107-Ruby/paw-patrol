@@ -224,9 +224,9 @@ $(document).ready(function () {
 
     // Open Street Map
     // -----------------------//
-    L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
-        '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> Contributors',
+        '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> Contributors',
       maxZoom: 18,
     }).addTo(map);
 
@@ -370,9 +370,9 @@ $(document).ready(function () {
 
     // Open Street Map
     // -----------------------//
-    L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
-        '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> Contributors',
+        '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> Contributors',
       maxZoom: 18,
     }).addTo(map_single);
 
