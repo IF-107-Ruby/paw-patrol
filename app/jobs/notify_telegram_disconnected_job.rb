@@ -5,6 +5,5 @@ class NotifyTelegramDisconnectedJob < ApplicationJob
     AccountDisconnectedNotificationHandler
       .new(telegram_profile: telegram_profile.decorate)
       .execute!
-
   end
 end
