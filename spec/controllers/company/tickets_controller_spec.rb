@@ -11,12 +11,17 @@ describe Company::TicketsController, type: :controller do
   describe 'GET #show' do
     before do
       sign_in employee
+      get :show, params: { id: ticket.id }
     end
 
-    subject { get :show, params: { id: ticket.id } }
+    it 'return ticket object' do
+      expect(assigns(:ticket)).to eq(ticket)
+    end
 
-    it { is_expected.to have_http_status(:success) }
-    it { is_expected.to render_template('show') }
+    it 'render show template' do
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template('show')
+    end
   end
 
   describe 'Authentication and authorization tests' do
