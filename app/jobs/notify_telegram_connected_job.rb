@@ -1,9 +1,7 @@
 class NotifyTelegramConnectedJob < ApplicationJob
   queue_as :default
 
-  def perform(id)
-    telegram_profile = TelegramProfile.find(id).decorate
-
-    AccountConnectedNotificationHandler.new(telegram_profile).execute!
+  def perform(telegram_profile)
+    AccountConnectedNotificationHandler.new(telegram_profile.decorate).execute!
   end
 end

@@ -37,4 +37,8 @@ class UserDecorator < Draper::Decorator
   def resolved_tickets_count
     h.pluralize(resolved_tickets.count, 'ticket')
   end
+
+  def unread_notifications
+    notifications.unread.includes(:user, :notified_by, noticeable: [:commentable])
+  end
 end

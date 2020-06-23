@@ -3,19 +3,7 @@ class Company
     breadcrumb 'Dashboard', :company_dashboard_path
 
     def show
-      if current_user.staff_member? || current_user.employee?
-        load_worker_data
-      elsif current_user.company_owner?
-        @company_statistics = [{ subtitle: 'Workers',
-                                 value: current_company.employees.count },
-                               { subtitle: 'Responsible users',
-                                 value: current_company.responsible_users.count }]
-      end
-    end
-
-    def satisfaction
-      @satisfaction = ReadSatisfaction.call(current_company)
-      render json: @satisfaction
+      load_worker_data if current_user.staff_member? || current_user.employee?
     end
 
     private

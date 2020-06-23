@@ -25,6 +25,7 @@ class Ticket < ApplicationRecord
   has_one :review, dependent: :destroy
   has_one :ticket_completion, dependent: :destroy
   has_one :responsible_user, through: :unit
+  has_one :company, through: :unit
 
   has_many :employees, through: :unit, class_name: 'User'
   has_many :events, dependent: :nullify
@@ -52,8 +53,8 @@ class Ticket < ApplicationRecord
                      ticket.resolution_attachments.any?
                  }
 
-  after_create :send_ticket_notification
-  after_update :send_ticket_resolved_email
+  after_create_commit :send_ticket_notification
+  after_update_commit :send_ticket_resolved_email
 
   has_ancestry
 
@@ -95,6 +96,14 @@ class Ticket < ApplicationRecord
     Ticket.create(follow_up_params)
   end
 
+  def as_json(options = {})
+    super(include:
+      { user: { only: %i[id first_name last_name] },
+        responsible_user: { only: %i[id first_name last_name] },
+        unit: { only: %i[id name] } }
+        .merge(options))
+  end
+
   private
 
   def unit_permission
@@ -105,10 +114,11 @@ class Ticket < ApplicationRecord
   end
 
   def send_ticket_notification
-    SendNewTicketEmailJob.perform_later(id, responsible_user.present?)
+    SendNewTicketEmailJob.perform_later(self)
+    NotifyWebsocketsNewTicketJob.perform_later(self)
     return if responsible_user.blank? || responsible_user.telegram_profile.blank?
 
-    NotifyTelegramNewTicketJob.perform_later(responsible_user.telegram_profile.id, id)
+    NotifyTelegramNewTicketJob.perform_later(responsible_user.telegram_profile, self)
   end
 
   def follow_up_params
@@ -120,7 +130,8 @@ class Ticket < ApplicationRecord
   def send_ticket_resolved_email
     return unless status_previously_changed? && resolved?
 
-    SendTicketResolvedEmailJob.perform_later(id)
+    NotificateTicketResolvedJob.perform_later(self)
+    SendTicketResolvedEmailJob.perform_later(self)
   end
 
   def send_email_about_new_comment(_)

@@ -14,7 +14,7 @@ RSpec.describe NotifyTelegramConnectedJob, type: :job do
       expect(subject).to receive(:new).with(telegram_profile)
       expect(handler).to receive(:execute!)
 
-      described_class.new.perform(telegram_profile.id)
+      described_class.new.perform(telegram_profile)
     end
   end
 end

@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -22,7 +24,6 @@ Rails.application.routes.draw do
     get 'profile', to: 'profiles#edit'
     patch 'profile', to: 'profiles#update'
     patch 'profile_password', to: 'profiles#update_password'
-    get '/satisfaction', to: 'dashboards#satisfaction'
     get 'settings', to: 'settings#show'
     get 'telegram_profile', to: 'telegram_profiles#create'
     post 'telegram_profile', to: 'telegram_profiles#create'

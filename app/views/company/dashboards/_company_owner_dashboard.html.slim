@@ -1,11 +1,1 @@
-= react_component("CompanyStatistics", props: { data: @company_statistics })
-
-.row.margin-top-20
-  .col-md-6
-    .dashboard-box
-      .headline
-        h3
-          i.icon-feather-bar-chart-2
-          | Rewiew satisfaction
-      .content
-        = react_component("RewiewSatisfaction")
+= react_component("CompanyOwnerDashboard", props: { data: CompanyDashboard.new(current_company).stats })

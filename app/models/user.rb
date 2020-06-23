@@ -55,8 +55,8 @@ class User < ApplicationRecord
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
 
-  after_create :send_invitation, unless: :company_owner?
-  after_create :send_confirmation, if: :company_owner?
+  after_create_commit :send_invitation, unless: :company_owner?
+  after_create_commit :send_confirmation, if: :company_owner?
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable, :registerable
@@ -123,7 +123,7 @@ class User < ApplicationRecord
 
   def send_confirmation
     skip_confirmation_notification!
-    SendConfirmationInstructionsJob.perform_later(id)
+    SendConfirmationInstructionsJob.perform_later(self)
   end
 
   def tickets_scope(units)

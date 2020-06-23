@@ -16,9 +16,9 @@
 class TelegramProfile < ApplicationRecord
   belongs_to :user, optional: true
 
-  after_commit :notify_user, if: :saved_change_to_user_id?
-
   validates :first_name, presence: true
+
+  after_update_commit :notify_user, if: :saved_change_to_user_id?
 
   def start_user_connection
     return false if user.present?
@@ -59,9 +59,9 @@ class TelegramProfile < ApplicationRecord
 
   def notify_user
     if user.present?
-      NotifyTelegramConnectedJob.perform_later(id)
+      NotifyTelegramConnectedJob.perform_later(self)
     else
-      NotifyTelegramDisconnectedJob.perform_later(id)
+      NotifyTelegramDisconnectedJob.perform_later(self)
     end
   end
 
