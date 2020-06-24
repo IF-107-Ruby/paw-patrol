@@ -22,6 +22,8 @@ class Notification < ApplicationRecord
 
   validates :user, :notified_by, :noticeable, presence: true
 
+  after_create_commit :send_notification
+
   def self.mark_comments_as_read(noticeable, user)
     Notification.where(noticeable: noticeable.comments, user: user).update read: true
   end
@@ -32,5 +34,11 @@ class Notification < ApplicationRecord
         notified_by: { only: %i[id first_name last_name] },
         noticeable: {} }
         .merge(options))
+  end
+
+  private
+
+  def send_notification
+    NotifyWebsocketsNewNotificationJob.perform_later(self)
   end
 end

@@ -58,6 +58,14 @@ export default class HeaderNotifications extends Component {
         });
         this.forceUpdate();
         break;
+      case "@newNotification":
+        this.setState((state) => {
+          return {
+            ...state,
+            notifications: _.concat(data, state.notifications),
+          };
+        });
+        break;
     }
   }
 
