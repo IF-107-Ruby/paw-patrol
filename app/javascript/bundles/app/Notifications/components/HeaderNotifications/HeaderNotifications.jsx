@@ -25,8 +25,8 @@ export default class HeaderNotifications extends Component {
         notifications: function () {
           this.perform("notifications");
         },
-        notificationsReaded: function (notifications) {
-          this.perform("notifications_readed", {
+        notificationsRead: function (notifications) {
+          this.perform("notifications_read", {
             notification_ids: notifications.map(({ id }) => id),
           });
         },
@@ -40,8 +40,8 @@ export default class HeaderNotifications extends Component {
 
     this.openNotifications = this.openNotifications.bind(this);
     this.closeNotifications = this.closeNotifications.bind(this);
-    this.handleNotificationsReaded = this.handleNotificationsReaded.bind(this);
-    this.handleNotificationReaded = this.handleNotificationReaded.bind(this);
+    this.handleNotificationsRead = this.handleNotificationsRead.bind(this);
+    this.handleNotificationRead = this.handleNotificationRead.bind(this);
   }
 
   onNotificationsChannelReceive({ event, data }) {
@@ -49,8 +49,8 @@ export default class HeaderNotifications extends Component {
       case "@notifications":
         this.setState({ notifications: data });
         break;
-      case "@notificationsReaded":
-        this.hanldeNotificationsReadedEvent(data);
+      case "@notificationsRead":
+        this.hanldeNotificationsReadEvent(data);
 
         break;
       case "@newNotification":
@@ -64,7 +64,7 @@ export default class HeaderNotifications extends Component {
     }
   }
 
-  hanldeNotificationsReadedEvent(notifications) {
+  hanldeNotificationsReadEvent(notifications) {
     _.each(notifications, (notification) => {
       let notificationIndex = _.findIndex(
         this.state.notifications,
@@ -87,16 +87,20 @@ export default class HeaderNotifications extends Component {
     this.setState({ isOpen: false });
   }
 
-  handleNotificationsReaded() {
-    let unreadNotifications = _.filter(notifications, ({ read }) => !read);
+  handleNotificationsRead() {
+    let unreadNotifications = _.filter(
+      this.state.notifications,
+      ({ read }) => !read
+    );
+
     if (unreadNotifications.length < 1) return;
 
-    this.notificationsCable.notificationsReaded(unreadNotifications);
+    this.notificationsCable.notificationsRead(unreadNotifications);
   }
-  handleNotificationReaded(notification) {
+  handleNotificationRead(notification) {
     if (notification.read) return;
 
-    this.notificationsCable.notificationsReaded([notification]);
+    this.notificationsCable.notificationsRead([notification]);
   }
 
   render() {
@@ -114,7 +118,7 @@ export default class HeaderNotifications extends Component {
       <Notification
         key={notification.id}
         notification={notification}
-        onNotificationRead={this.handleNotificationReaded}
+        onNotificationRead={this.handleNotificationRead}
       />
     ));
 
@@ -144,7 +148,7 @@ export default class HeaderNotifications extends Component {
               className="mark-as-read ripple-effect-dark"
               data-tippy-placement="left"
               title="Mark all as read"
-              onClick={this.handleNotificationsReaded}
+              onClick={this.handleNotificationsRead}
             >
               <i className="icon-feather-check-square"></i>
             </button>

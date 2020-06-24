@@ -26,7 +26,7 @@ export default function Notification(props) {
   }
 
   let notificationClass = classNames("notifications__notification", {
-    "notifications__notification--readed": notification.read,
+    "notifications__notification--read": notification.read,
   });
 
   return (

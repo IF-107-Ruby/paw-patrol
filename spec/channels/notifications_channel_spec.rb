@@ -37,19 +37,19 @@ RSpec.describe NotificationsChannel, type: :channel do
     end
   end
 
-  describe '#notifications_readed' do
+  describe '#notifications_read' do
     before do
       stub_connection current_user: staff_member
       subscribe
     end
 
     it 'broadcasts to current company' do
-      perform :notifications_readed,
+      perform :notifications_read,
               notification_ids: staff_member.notification_ids
 
       expect(transmissions.last)
         .to eq({
-          event: '@notificationsReaded',
+          event: '@notificationsRead',
           data: staff_member.notifications
         }.deep_stringify_keys)
     end

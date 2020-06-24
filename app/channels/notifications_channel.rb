@@ -12,10 +12,10 @@ class NotificationsChannel < ApplicationCable::Channel
              data: current_user.decorate.unread_notifications)
   end
 
-  def notifications_readed(data)
+  def notifications_read(data)
     notifications = current_user.notifications.where(id: data['notification_ids'])
     return unless notifications.update(read: true)
 
-    transmit(event: '@notificationsReaded', data: notifications)
+    transmit(event: '@notificationsRead', data: notifications)
   end
 end
