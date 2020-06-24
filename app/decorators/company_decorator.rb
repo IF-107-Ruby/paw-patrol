@@ -12,6 +12,6 @@ class CompanyDecorator < Draper::Decorator
   end
 
   def owner_name
-    owner.decorate.full_name if owner.present?
+    owner.decorate.full_name
   end
 end
