@@ -13,7 +13,7 @@ class ConnectAccountCommandHandler < BaseHandler
     respond_text = 'Already connected'
 
     if telegram_profile.ready? &&
-       (telegram_profile.user.employee? || telegram_profile.user.company_owner?) &&
+       policy(%i[company ticket]).create? &&
        telegram_profile.user.units.any?
       reply_markup = ticket_creation_keyboard
     end

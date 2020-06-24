@@ -1,7 +1,7 @@
 class AccountConnectedNotificationHandler < BaseHandler
   def execute!
     if telegram_profile.ready? &&
-       (telegram_profile.user.employee? || telegram_profile.user.company_owner?) &&
+       policy(%i[company ticket]).create? &&
        telegram_profile.user.units.any?
 
       send_conection_notification_with_buttons
