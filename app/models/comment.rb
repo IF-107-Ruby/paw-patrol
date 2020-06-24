@@ -27,17 +27,21 @@ class Comment < ApplicationRecord
     user == current_user
   end
 
-  def create_notification
-    users_to_notify = [commentable.watchers,
-                       commentable.user,
-                       commentable.unit.responsible_user].flatten.uniq
+  private
 
+  def users_to_notify
+    users = []
+    users += commentable.participants if commentable.is_a?(Ticket)
+    users
+  end
+
+  def create_notification
+    notification_type = depth.zero? ? :new_comment : :comment_reply
     users_to_notify.each do |user|
       next if user == self.user
 
-      Notification.create(user: user,
-                          notified_by: self.user,
-                          noticeable: self)
+      Notification.create(user: user, notified_by: self.user,
+                          noticeable: self, exemplar: notification_type)
     end
   end
 end

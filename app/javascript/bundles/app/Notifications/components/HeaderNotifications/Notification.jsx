@@ -16,11 +16,8 @@ export default function Notification(props) {
   let notificationUrl;
 
   if (
-    _.isEqual(_.get(notification, "noticeable_type", false), "Comment") &&
-    _.isEqual(
-      _.get(notification, "noticeable.commentable_type", false),
-      "Ticket"
-    )
+    _.includes(["new_comment", "comment_reply"], notification.exemplar) &&
+    _.has(notification, "noticeable.commentable_id")
   ) {
     notificationUrl = `/company/tickets/${notification.noticeable.commentable_id}`;
   }
@@ -28,6 +25,17 @@ export default function Notification(props) {
   let notificationClass = classNames("notifications__notification", {
     "notifications__notification--read": notification.read,
   });
+
+  let getMessage = (notificationType) => {
+    switch (notificationType) {
+      case "new_comment":
+        return "Added new comment";
+      case "comment_reply":
+        return "Replied to comment";
+      default:
+        return "Made some action";
+    }
+  };
 
   return (
     <li className={notificationClass} onMouseEnter={handleMouseEnter}>
@@ -41,7 +49,7 @@ export default function Notification(props) {
               " " +
               notification.notified_by.last_name}{" "}
           </strong>
-          added new {notification.noticeable_type}{" "}
+          {getMessage(notification.exemplar)}{" "}
           <span className="color">
             {moment(notification.created_at).fromNow()}
           </span>

@@ -15,6 +15,10 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(read: false).order(created_at: :desc) }
   scope :read, -> { where(read: true) }
 
+  enum exemplar: { unspecified: 0,
+                   new_comment: 1,
+                   comment_reply: 2 }
+
   belongs_to :user
   belongs_to :noticeable, polymorphic: true
   belongs_to :notified_by, class_name: 'User', foreign_key: :notified_by_id,
@@ -23,10 +27,6 @@ class Notification < ApplicationRecord
   validates :user, :notified_by, :noticeable, presence: true
 
   after_create_commit :send_notification
-
-  def self.mark_comments_as_read(noticeable, user)
-    Notification.where(noticeable: noticeable.comments, user: user).update read: true
-  end
 
   def as_json(options = {})
     super(include:
