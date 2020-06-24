@@ -7,6 +7,14 @@
     right: 0;
     z-index: 99;
   }
+  &__notification {
+    & .notification-icon {
+      color: #2a41e8;
+    }
+    &--readed .notification-icon {
+      color: #a0a0a0;
+    }
+  }
 }
 
 .hireo-header-notifications {

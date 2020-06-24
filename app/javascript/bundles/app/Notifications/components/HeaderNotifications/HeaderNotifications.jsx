@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import moment from "moment";
 import classNames from "classnames";
 import _ from "lodash";
 
 import cable from "../../../../../channels/consumer";
+import Notification from "./Notification";
 
 import "./header-notifications.scss";
 
@@ -40,7 +40,8 @@ export default class HeaderNotifications extends Component {
 
     this.openNotifications = this.openNotifications.bind(this);
     this.closeNotifications = this.closeNotifications.bind(this);
-    this.handleNotificationsRead = this.handleNotificationsRead.bind(this);
+    this.handleNotificationsReaded = this.handleNotificationsReaded.bind(this);
+    this.handleNotificationReaded = this.handleNotificationReaded.bind(this);
   }
 
   onNotificationsChannelReceive({ event, data }) {
@@ -49,14 +50,8 @@ export default class HeaderNotifications extends Component {
         this.setState({ notifications: data });
         break;
       case "@notificationsReaded":
-        _.each(data, (notification) => {
-          let notificationIndex = _.findIndex(
-            this.state.notifications,
-            ({ id }) => id == notification.id
-          );
-          this.state.notifications[notificationIndex].read = notification.read;
-        });
-        this.forceUpdate();
+        this.hanldeNotificationsReadedEvent(data);
+
         break;
       case "@newNotification":
         this.setState((state) => {
@@ -69,16 +64,39 @@ export default class HeaderNotifications extends Component {
     }
   }
 
+  hanldeNotificationsReadedEvent(notifications) {
+    _.each(notifications, (notification) => {
+      let notificationIndex = _.findIndex(
+        this.state.notifications,
+        ({ id }) => id == notification.id
+      );
+      this.state.notifications[notificationIndex].read = notification.read;
+    });
+    this.forceUpdate();
+  }
+
   openNotifications(e) {
+    e.preventDefault();
+
     this.setState({ isOpen: true });
   }
 
   closeNotifications(e) {
+    e.preventDefault();
+
     this.setState({ isOpen: false });
   }
 
-  handleNotificationsRead(notifications) {
-    this.notificationsCable.notificationsReaded(notifications);
+  handleNotificationsReaded() {
+    let unreadNotifications = _.filter(notifications, ({ read }) => !read);
+    if (unreadNotifications.length < 1) return;
+
+    this.notificationsCable.notificationsReaded(unreadNotifications);
+  }
+  handleNotificationReaded(notification) {
+    if (notification.read) return;
+
+    this.notificationsCable.notificationsReaded([notification]);
   }
 
   render() {
@@ -88,33 +106,16 @@ export default class HeaderNotifications extends Component {
       active: isOpen,
     });
 
-    let unreadNotifications = _.filter(notifications, ({ read }) => !read);
+    let unreadNotificationsLength = _.size(
+      _.filter(notifications, ({ read }) => !read)
+    );
 
     let notificationsList = notifications.map((notification) => (
-      <li
+      <Notification
         key={notification.id}
-        className="notifications-not-read"
-        onMouseEnter={() => {
-          if (!notification.read) this.handleNotificationsRead([notification]);
-        }}
-      >
-        <a>
-          <span className="notification-icon">
-            <i className="icon-material-outline-email"></i>
-          </span>
-          <span className="notification-text">
-            <strong>
-              {notification.notified_by.first_name +
-                " " +
-                notification.notified_by.last_name}{" "}
-            </strong>
-            added new {notification.noticeable_type}{" "}
-            <span className="color">
-              {moment(notification.created_at).fromNow()}
-            </span>
-          </span>
-        </a>
-      </li>
+        notification={notification}
+        onNotificationRead={this.handleNotificationReaded}
+      />
     ));
 
     return (
@@ -125,8 +126,8 @@ export default class HeaderNotifications extends Component {
         >
           <a>
             <i className="icon-feather-bell"></i>
-            {unreadNotifications.length > 0 && (
-              <span>{unreadNotifications.length}</span>
+            {unreadNotificationsLength > 0 && (
+              <span>{unreadNotificationsLength}</span>
             )}
           </a>
         </div>
@@ -143,10 +144,7 @@ export default class HeaderNotifications extends Component {
               className="mark-as-read ripple-effect-dark"
               data-tippy-placement="left"
               title="Mark all as read"
-              onClick={() => {
-                if (unreadNotifications.length > 0)
-                  this.handleNotificationsRead(unreadNotifications);
-              }}
+              onClick={this.handleNotificationsReaded}
             >
               <i className="icon-feather-check-square"></i>
             </button>
