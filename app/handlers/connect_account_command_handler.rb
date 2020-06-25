@@ -1,19 +1,40 @@
 class ConnectAccountCommandHandler < BaseHandler
   def execute!
     if telegram_profile.user.present?
-      respond_text = 'Already connected'
+      send_notification_for_connected_user
     else
-      @connection_token = telegram_profile.start_user_connection
-      respond_text = success_text
-      reply_markup = reply_keyboard
+      send_notification_for_disconnected_user
     end
-
-    telegram_api.send_message(chat_id: telegram_profile.id, text: respond_text,
-                              reply_markup: reply_markup,
-                              parse_mode: 'MarkdownV2')
   end
 
   private
+
+  def send_notification_for_connected_user
+    respond_text = 'Already connected'
+
+    if telegram_profile.ready? &&
+       policy(%i[company ticket]).create? &&
+       telegram_profile.user.units.any?
+      reply_markup = ticket_creation_keyboard
+    end
+
+    send_message_with_buttons(respond_text, reply_markup)
+  end
+
+  def send_notification_for_disconnected_user
+    @connection_token = telegram_profile.start_user_connection
+    respond_text = success_text
+    reply_markup = reply_keyboard
+
+    send_message_with_buttons(respond_text, reply_markup)
+  end
+
+  def send_message_with_buttons(respond_text, reply_markup)
+    telegram_api.send_message(chat_id: telegram_profile.id,
+                              text: respond_text,
+                              reply_markup: reply_markup,
+                              parse_mode: 'MarkdownV2')
+  end
 
   def reply_keyboard
     kb = [
@@ -23,6 +44,13 @@ class ConnectAccountCommandHandler < BaseHandler
                                ))
     ]
     InlineKeyboardMarkup.new(inline_keyboard: kb)
+  end
+
+  def ticket_creation_keyboard
+    kb = [
+      KeyboardButton.new(text: 'Create new ticket')
+    ]
+    ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
   end
 
   def success_text

@@ -14,6 +14,11 @@
 #  updated_at       :datetime         not null
 #
 class TelegramProfile < ApplicationRecord
+  enum state: { ready: 0,
+                awaiting_unit: 1,
+                awaiting_ticket_name: 2,
+                awaiting_ticket_description: 3 }
+
   belongs_to :user, optional: true
 
   validates :first_name, presence: true
