@@ -33,9 +33,6 @@ class User < ApplicationRecord
   has_many :assigned_units, foreign_key: :responsible_user_id,
                             class_name: 'Unit', dependent: :nullify,
                             inverse_of: :responsible_user
-  has_many :tickets, dependent: :destroy
-  has_many :assigned_tickets, through: :assigned_units,
-                              source: :tickets
   has_many :comments, dependent: :nullify
   has_many :notifications, dependent: :destroy
   has_many :events, dependent: :nullify
@@ -55,8 +52,8 @@ class User < ApplicationRecord
                       too_short: 'must have at least %<count>s characters',
                       too_long: 'must have at most %<count>s characters' }
 
-  after_create_commit :send_invitation, unless: :company_owner?
-  after_create_commit :send_confirmation, if: :company_owner?
+  after_create :send_invitation, unless: :company_owner?
+  after_create :send_confirmation, if: :company_owner?
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable, :registerable

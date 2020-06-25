@@ -20,7 +20,9 @@ class Company
                only: %i[edit update]
 
     def show
-      Notification.mark_comments_as_read(@ticket, current_user)
+      notifications = Notification.where(noticeable: @ticket.comments,
+                                         user: current_user)
+      notifications.update(read: true)
     end
 
     def new

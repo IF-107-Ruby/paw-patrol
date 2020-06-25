@@ -1,0 +1,32 @@
+.notifications {
+  &__wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+  &__notification {
+    & .notification-icon {
+      color: #2a41e8;
+    }
+    &--read .notification-icon {
+      color: #a0a0a0;
+    }
+  }
+}
+
+.hireo-header-notifications {
+  height: 100%;
+  display: inline-block;
+  padding-right: 15px;
+  position: relative;
+
+  &.active .header-notifications-dropdown {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+}
