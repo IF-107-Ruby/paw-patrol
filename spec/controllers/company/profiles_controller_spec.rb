@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Company::ProfilesController, type: :controller do
-  render_views
-
   let(:user_password) { '123456' }
   let!(:company) { create(:company) }
   let!(:employee) do
@@ -17,10 +15,16 @@ RSpec.describe Company::ProfilesController, type: :controller do
   end
 
   describe 'Get#Edit' do
-    subject { get :edit }
+    before { get :edit }
 
-    it { is_expected.to have_http_status(:success) }
-    it { is_expected.to render_template('edit') }
+    it 'return user object' do
+      expect(assigns(:user)).to eq(employee)
+    end
+
+    it 'render edit template' do
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template('edit')
+    end
   end
 
   describe 'Patch#Update' do

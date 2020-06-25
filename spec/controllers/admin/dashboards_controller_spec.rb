@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Admin::DashboardsController, type: :controller do
-  render_views
-
   let(:admin) { create(:admin) }
 
   describe 'GET#index' do

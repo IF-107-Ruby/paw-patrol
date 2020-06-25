@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Company::ReviewsController, type: :controller do
-  render_views
-
   include_context 'employee with ticket'
   let!(:staff_member) { create(:staff_member, company: company) }
   let(:review_params) { FactoryBot.attributes_for :review }
@@ -13,24 +11,38 @@ RSpec.describe Company::ReviewsController, type: :controller do
   end
 
   describe 'GET #show' do
-    before { sign_in employee }
-
     let!(:review) { create(:review, ticket: ticket) }
 
-    subject { get :show, params: { ticket_id: ticket.id } }
+    before do
+      sign_in employee
+      get :show, params: { ticket_id: ticket.id }
+    end
 
-    it { is_expected.to have_http_status(:success) }
-    it { is_expected.to render_template('show') }
+    it 'return review object' do
+      expect(assigns(:review)).to eq(review)
+    end
+
+    it 'render show template' do
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template('show')
+    end
   end
 
   describe 'GET #new' do
     context 'Employee create review' do
-      before { sign_in employee }
+      before do
+        sign_in employee
+        get :new, params: { ticket_id: ticket.id }
+      end
 
-      subject { get :new, params: { ticket_id: ticket.id } }
+      it 'initiates empty review object' do
+        expect(assigns(:review)).to be_a_new(Review)
+      end
 
-      it { is_expected.to have_http_status(:success) }
-      it { is_expected.to render_template('new') }
+      it 'render new template' do
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template('new')
+      end
     end
 
     context 'Staff member create review' do

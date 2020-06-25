@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TicketsController, type: :controller do
-  render_views
-
   include_context 'employee with ticket'
 
   describe 'GET#index' do

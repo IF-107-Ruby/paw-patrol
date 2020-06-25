@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe CompaniesController, type: :controller do
-  render_views
-
   let(:company_registrations_form_valid_params) do
     attributes_for(:company_registrations_form_params)
   end
