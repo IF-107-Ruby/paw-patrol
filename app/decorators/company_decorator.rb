@@ -8,6 +8,10 @@ class CompanyDecorator < Draper::Decorator
   end
 
   def registration_date
-    created_at.strftime('%F')
+    created_at.strftime('%F %T')
+  end
+
+  def owner_name
+    owner.decorate.full_name
   end
 end

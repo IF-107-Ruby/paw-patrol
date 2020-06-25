@@ -4,5 +4,7 @@ tr
   td
     = link_to "tel:#{company.phone}"
       = company.phone
+  td
+    = link_to company.owner_name, admin_user_path(company.owner)
   td = company.users_count
   td = company.registration_date

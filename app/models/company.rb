@@ -23,4 +23,8 @@ class Company < ApplicationRecord
   has_many :responsible_users, -> { responsible_users },
            source: :user, through: :users_companies_relationships
   has_many :tickets, through: :units
+
+  def owner
+    users.find_by(role: 'company_owner')
+  end
 end
