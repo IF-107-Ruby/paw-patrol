@@ -7,20 +7,20 @@
             i.icon-line-awesome-user
             .counter-inner
               h3
-                | 836
+                = User.count
               span.counter-title
-                | Satisfied customers
+                | Users
           .single-counter
             i.icon-line-awesome-building
             .counter-inner
               h3
-                | 177
+                = Company.count
               span.counter-title
                 | Companies registered
           .single-counter
             i.icon-line-awesome-tasks
             .counter-inner
               h3
-                | 12,077
+                = Ticket.resolved.count
               span.counter-title
                 | Problems solved
