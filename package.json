@@ -17,7 +17,7 @@
     "axios": "^0.19.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
     "expose-loader": "^0.7.5",
